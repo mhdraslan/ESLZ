@@ -5,7 +5,7 @@
     "functions": [],
     "variables": {
         "environmentName":"cnxg-aen-talabat",
-        "templatesBaseUri":"https://cnxgaenbuildsg5.blob.core.windows.net/cloudnxg-templates-20221122195943",
+        "templatesBaseUri":"https://raw.githubusercontent.com/mhdraslan/ESLZ/main/Working/",
         "location":"eastus",
         "resourceGroupName":"[tolower(concat(variables('EnvironmentName'),'-rg'))]",
         "resourceGroupDeploymentName":"[concat('2-Create-ResourceGroup-',variables('resourceGroupName'))]",

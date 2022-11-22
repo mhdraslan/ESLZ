@@ -137,6 +137,7 @@ ForEach ($Template in $Templates){
 $Now = Get-Date
 #>
 
+<#
 Write-Host "Initiating deployment..." -ForegroundColor Yellow -BackgroundColor Black
 $DeploymentName = $environmentName + " -Environment-Deployment-" + $Now.ToString("yyyyMMddHHmmss")
 $MainTemplateUri = $TemplateBaseUri + "/main.json"
@@ -149,4 +150,4 @@ $rgDeployment.Outputs.rgName.Value
 Write-Host "Operation completed at $Now" -ForegroundColor Yellow -BackgroundColor Black
 $Total = $Finish - $Start
 $Total
-
+#>
