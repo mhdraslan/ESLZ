@@ -11,11 +11,11 @@
     },
     "functions": [],
     "variables": {
-        //"environmentName":"cnxg-aen-avd",
+        //"environmentName":"isys-ae0-avd",
         "subscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71",
         "templatesBaseUri":"https://raw.githubusercontent.com/mhdraslan/ESLZ/main/Working",
         "location":"eastus",
-        "resourceGroupName":"cnxg-aen-avd-rg",
+        "resourceGroupName":"isys-ae0-avd-rg",
         "resourceGroupDeploymentName":"[concat('3-Create-ResourceGroup-',variables('resourceGroupName'))]",
         "udrDeploymentName":"[concat('3-Create-UDR-AVD')]",
         "templates":[
@@ -31,12 +31,12 @@
         "resourceGroups":{
                 "rgSettings":[
                     {
-                        "rgName":"cnxg-aen-avd-rg",
-                        "rgLocation":"uaenorth"
+                        "rgName":"isys-ae0-avd-rg",
+                        "rgLocation":"eastus"
                     },
                     {
-                        "rgName":"cnxg-aen-avd2-rg",
-                        "rgLocation":"uaenorth"
+                        "rgName":"isys-ae0-avd2-rg",
+                        "rgLocation":"eastus"
                     }
 
                 ]
@@ -44,14 +44,16 @@
         "vnets":{
                 "vnetSettings":[
                     {
-                        "vNetName":"cnxg-aen-avd-vnet",
-                        "vNetAddressSpace":"192.168.5.0/24",
-                        "vNetDnsServers":["192.168.0.4","192.168.0.5"]
+                        "vNetName":"isys-ae0-avd-vnet",
+                        "vNetAddressSpace":"172.16.3.0/24",
+                        "vNetDnsServers":["172.16.2.4","172.16.2.5"],
+                        "rgName":"isys-ae0-avd-rg"
                     },
                     {
-                        "vNetName":"cnxg-aen-avd2-vnet",
+                        "vNetName":"isys-ae0-avd2-vnet",
                         "vNetAddressSpace":"192.168.50.0/24",
-                        "vNetDnsServers":["192.168.0.4","192.168.0.5"]
+                        "vNetDnsServers":["192.168.0.4","192.168.0.5"],
+                        "rgName":"isys-ae0-avd2-rg"
                     }
                 ]
         },
@@ -59,49 +61,49 @@
             "subnetSettings":[
                 {
                     "subnetName":"PrivEndpointSubnet",
-                    "vNetName":"cnxg-aen-avd-vnet",
-                    "subnetAddress":"192.168.5.0/28"
+                    "vNetName":"isys-ae0-avd-vnet",
+                    "subnetAddress":"172.16.3.0/28"
+                },
+                {
+                    "subnetName":"isysDefaultPoolSubnet",
+                    "vNetName":"isys-ae0-avd-vnet",
+                    "subnetAddress":"172.16.3.16/28"
                 },
                 {
                     "subnetName":"FrontendSubnet",
-                    "vNetName":"cnxg-aen-avd-vnet",
-                    "subnetAddress":"192.168.5.16/28"
-                },
-                {
-                    "subnetName":"BackendSubnet",
-                    "vNetName":"cnxg-aen-avd-vnet",
-                    "subnetAddress":"192.168.5.32/28"
-                },
-                {
-                    "subnetName":"BackendSubnet",
-                    "vNetName":"cnxg-aen-avd2-vnet",
+                    "vNetName":"isys-ae0-avd2-vnet",
                     "subnetAddress":"192.168.50.32/28"
+                },
+                {
+                    "subnetName":"BackendSubnet",
+                    "vNetName":"isys-ae0-avd2-vnet",
+                    "subnetAddress":"192.168.50.48/28"
                 }
             ]
         },
         "routes":{
             "udrTables":[
                 {
-                    "routeTableName":"cnxg-aen-avd-rt"
+                    "routeTableName":"isys-ae0-avd-rt"
                 },
                 {
-                    "routeTableName":"cnxg-aen-avd2-rt"
+                    "routeTableName":"isys-ae0-avd2-rt"
                 }
             ],
             "udrLinks":[
                 {
-                    "routeTableName":"cnxg-aen-avd-rt",
-                    "vNetName":"cnxg-aen-avd-vnet",
+                    "routeTableName":"isys-ae0-avd-rt",
+                    "vNetName":"isys-ae0-avd-vnet",
+                    "subnetName":"isysDefaultPoolSubnet"
+                },
+                {
+                    "routeTableName":"isys-ae0-avd2-rt",
+                    "vNetName":"isys-ae0-avd2-vnet",
                     "subnetName":"FrontendSubnet"
                 },
                 {
-                    "routeTableName":"cnxg-aen-avd-rt",
-                    "vNetName":"cnxg-aen-avd-vnet",
-                    "subnetName":"BackendSubnet"
-                },
-                {
-                    "routeTableName":"cnxg-aen-avd2-rt",
-                    "vNetName":"cnxg-aen-avd-vnet",
+                    "routeTableName":"isys-ae0-avd2-rt",
+                    "vNetName":"isys-ae0-avd2-vnet",
                     "subnetName":"BackendSubnet"
                 }
             ],
@@ -111,28 +113,28 @@
                     "routeEntryAddressPrefix":"0.0.0.0/0",
                     "routeEntryType":"Internet",
                     "routeEntryNextHopIPAddress":"",
-                    "routeTableName":"cnxg-aen-avd-rt"
+                    "routeTableName":"isys-ae0-avd-rt"
                 },
                 {
                     "routeEntryName":"onprem-route",
                     "routeEntryAddressPrefix":"172.31.0.0/16",
                     "routeEntryType":"None",
                     "routeEntryNextHopIPAddress":"",
-                    "routeTableName":"cnxg-aen-avd-rt"
+                    "routeTableName":"isys-ae0-avd-rt"
                 },
                 {
                     "routeEntryName":"default-route",
                     "routeEntryAddressPrefix":"0.0.0.0/0",
                     "routeEntryType":"Internet",
                     "routeEntryNextHopIPAddress":"",
-                    "routeTableName":"cnxg-aen-avd2-rt"
+                    "routeTableName":"isys-ae0-avd2-rt"
                 },
                 {
                     "routeEntryName":"onprem-route",
                     "routeEntryAddressPrefix":"172.31.0.0/16",
                     "routeEntryType":"None",
                     "routeEntryNextHopIPAddress":"",
-                    "routeTableName":"cnxg-aen-avd2-rt"
+                    "routeTableName":"isys-ae0-avd2-rt"
                 }
             ]
         },
@@ -140,7 +142,7 @@
             "vmSettings":[
                 {
                     "vmName":"aentalabatbe01",
-                    "vNetName":"cnxg-aen-talabat-vnet",
+                    "vNetName":"isys-ae0-talabat-vnet",
                     "subnetName":"BackendSubnet",
                     "osDiskType":"StandardSSD_LRS",
                     "osVersionNumber":"2019",
@@ -150,7 +152,7 @@
                 },
                 {
                     "vmName":"aentalabatbe02",
-                    "vNetName":"cnxg-aen-talabat-vnet",
+                    "vNetName":"isys-ae0-talabat-vnet",
                     "subnetName":"BackendSubnet",
                     "osDiskType":"StandardSSD_LRS",
                     "osVersionNumber":"2019",
@@ -160,7 +162,7 @@
                 },
                 {
                     "vmName":"aentalabatfe01",
-                    "vNetName":"cnxg-aen-talabat-vnet",
+                    "vNetName":"isys-ae0-talabat-vnet",
                     "subnetName":"FrontendSubnet",
                     "osDiskType":"StandardSSD_LRS",
                     "osVersionNumber":"2019",
@@ -170,7 +172,7 @@
                 },
                 {
                     "vmName":"aentalabatfe02",
-                    "vNetName":"cnxg-aen-talabat-vnet",
+                    "vNetName":"isys-ae0-talabat-vnet",
                     "subnetName":"FrontendSubnet",
                     "osDiskType":"StandardSSD_LRS",
                     "osVersionNumber":"2019",
