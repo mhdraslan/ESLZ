@@ -28,9 +28,9 @@
         "buildVirtualNetworkTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-network/virtualnetwork.json')]",
         "buildSubnetTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-network/subnet.json')]",
         "nsgTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-network/nsg.json')]",
-        "udrTableTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-network/udr-routetable.json')]",
-        "udrEntryTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-network/udr-routeentry.json')]",
-        "udrLinkTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-network/udr-linksubnet.json')]"
+        "udrTableTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/udr/udr-routetable.json')]",
+        "udrEntryTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/udr/udr-routeentry.json')]",
+        "udrLinkTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/udr/udr-linksubnet.json')]"
     },
     "resources": [
         // Virtual Network
