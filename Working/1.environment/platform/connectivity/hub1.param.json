@@ -1,0 +1,109 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "value":"67236ec4-f453-4086-b4d1-78a6a93fad71"
+        },
+        "templatesBaseUri": {
+            "value": "https://cnxgaenbuildsg5.blob.core.windows.net/cloudnxg-templates-20221122195943"
+        },
+        "location": {
+            "value": "eastus"
+        },        
+        "hubResourceGroupName": {
+            "value": "cnxg-aen-connectivity-rg"
+        },
+        "hubVNetName": {
+            "value": "cnxg-aen-hub-vnet"
+        },
+        "hubVNetAddressSpace":{
+            "value":"172.16.0.0/24"
+        },
+        "hubVNetDnsServers":{
+            "value":["172.16.2.4","172.16.2.5"]
+        },
+        "createGatewaySubnet":{
+            "value": true
+        },
+        "buildVpnGateway":{
+            "value": false
+        },
+        "vpnGatewayName": {
+            "value": "cnxg-aen-vpn-gw"
+        }, 
+        "gatewaySubnetAddressSpace": {
+            "value": "172.16.0.0/28"
+        },
+        "vpnGatewaySku": {
+            "value": "VpnGw1"
+        },
+        "gatewaySubnetRouteTableName":{
+            "value":"cnxg-aen-hub-gatewaysubnet-rt"
+        },
+        "createAzureFirewallSubnet": {
+            "value": true
+        },
+        "buildAzureFirewall": {
+            "value": true
+        },
+        "azFirewallName": {
+            "value": "cnxg-aen-hub-azfw"
+        },
+        "azFirewallTier": {
+            "value":"Standard"
+        },
+        "azureFirewallSubnetAddressSpace":{
+            "value":"172.16.0.128/26"
+        },
+        "createBastionSubnet": {
+            "value": true
+        },
+        "buildAzureBastion": {
+            "value": true
+        },
+        "bastionName": {
+            "value":"cnxg-aen-bastion"
+        },
+        "bastionSku": {
+            "value":"Standard"
+        },
+        "bastionSubnetAddressSpace": {
+            "value": "172.16.0.64/26"
+        },        
+        "createVmSubnet": {
+            "value": true
+        },
+        "vmSubnetName": {
+            "value": "SharedServiceSubnet"
+        },
+        "vmSubnetAddressSpace":{
+            "value":"172.16.0.16/28"
+        },
+        "vmNamePrefix":{
+            "value":"aenjmpsrv"
+        },
+        "vmCount":{
+            "value":1
+        },
+        "vmSize": {
+            "value": "Standard_B2s"
+        },
+        "vmOsDiskType": {
+            "value": "Standard_LRS"
+        },
+        "vmOsVersionNumber": {
+            "value": "2019"
+        },
+        "vmAdminUserName": {
+            "value": "localadmin"
+        },
+        "vmAdminPassword": {
+            "value": "dat23uPhutu*"
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [],
+    "outputs": {}
+}

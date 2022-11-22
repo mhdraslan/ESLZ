@@ -1,0 +1,227 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+         "subscriptionId": {
+            "type": "string"
+        },
+         "resourceGroup": {
+            "type": "string"
+        },
+        "templatesBaseUri": {
+            "type": "string"
+        },
+        "lzName": {
+            "type": "string"
+        },
+        "vNets": {
+            "type": "object"
+        },
+        "subnets": {
+            "type": "object"
+        },
+        "routes":{
+            "type": "object"
+        }
+    },
+    "variables": {
+        "buildVirtualNetworkTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-network/virtualnetwork.json')]",
+        "buildSubnetTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-network/subnet.json')]",
+        "nsgTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-network/nsg.json')]",
+        "udrTableTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-network/udr-routetable.json')]",
+        "udrEntryTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-network/udr-routeentry.json')]",
+        "udrLinkTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-network/udr-linksubnet.json')]"
+    },
+    "resources": [
+        // Virtual Network
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('4-Build-',parameters('lzName'),'-VirtualNetwork-',parameters('vnets').vnetSettings[copyIndex()].vNetName)]",
+            "dependsOn": [],
+            "subscriptionId":"[parameters('subscriptionId')]",
+            "resourceGroup": "[parameters('resourceGroup')]",
+            "copy": {
+                "name": "VirtualNetworksCopy",
+                "count": "[length(parameters('vnets').vnetSettings)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('buildVirtualNetworkTemplateUri')]"
+                },
+                "parameters":{
+                    "vNetName":{
+                        "value":"[parameters('vnets').vnetSettings[copyIndex()].vNetName]"
+                    },
+                    "vNetAddressSpace":{
+                        "value":"[parameters('vnets').vnetSettings[copyIndex()].vNetAddressSpace]"
+                    },
+                    "vNetDNSServers":{
+                        "value":"[parameters('vnets').vnetSettings[copyIndex()].vNetDnsServers]"
+                    }
+                }
+            }
+        },        
+        // Subnets
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('4-Build-',parameters('lzName'),'-Subnet-',parameters('subnets').subnetSettings[copyIndex()].vNetName,parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "resourceGroup": "[parameters('resourceGroup')]",
+            "dependsOn": [
+                "VirtualNetworksCopy"
+            ],
+            "copy": {
+                "name": "SubnetCopy",
+                "count": "[length(parameters('subnets').subnetSettings)]",
+                "mode": "Serial"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('buildSubnetTemplateUri')]"
+                },
+                "parameters": {
+                    "vNetName":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].vNetName]"
+                    },
+                    "subnetName":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetName]"
+                    },
+                    "subnetAddressSpace":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetAddress]"
+                    }
+                }
+            }
+        },
+        // NSGs
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('4-Build-',parameters('lzName'),'-NSG-',parameters('subnets').subnetSettings[copyIndex()].vNetName,parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "resourceGroup": "[parameters('resourceGroup')]",
+            "dependsOn": [
+                "SubnetCopy"
+            ],
+            "copy": {
+                "name": "NsgCopy",
+                "count": "[length(parameters('subnets').subnetSettings)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('nsgTemplateUri')]"
+                },
+                "parameters":{
+                    "vNetName":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].vNetName]"
+                    },
+                    "subnetName":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetName]"
+                    },
+                    "subnetAddressSpace":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetAddress]"
+                    }
+                }
+            }
+        },
+        // UDR Table
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('4-Build-',parameters('lzName'),'-RouteTable-',parameters('routes').udrTables[copyIndex()].routeTableName)]",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "resourceGroup": "[parameters('resourceGroup')]",
+            "dependsOn": [],
+            "copy": {
+                "name": "UdrTablesCopy",
+                "count": "[length(parameters('routes').udrTables)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('udrTableTemplateUri')]"
+                },
+                "parameters":{
+                    "routeTableName":{
+                        "value":"[parameters('routes').udrTables[copyIndex()].routeTableName]"
+                    }
+                }
+            }
+        },
+        // UDR Link
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('4-Link-',parameters('lzName'),'-RouteTable-',parameters('routes').udrLinks[copyIndex()].routeTableName,parameters('routes').udrLinks[copyIndex()].subnetName)]",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "resourceGroup": "[parameters('resourceGroup')]",
+            "dependsOn": [
+                "NsgCopy"
+            ],
+            "copy": {
+                "name": "UdrTableLinkCopy",
+                "count": "[length(parameters('routes').udrLinks)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('udrLinkTemplateUri')]"
+                },
+                "parameters":{
+                    "udrName":{
+                        "value":"[parameters('routes').udrLinks[copyIndex()].routeTableName]"
+                    },
+                    "vNetName":{
+                        "value":"[parameters('routes').udrLinks[copyIndex()].vNetName]"
+                    },
+                    "subnetName":{
+                        "value":"[parameters('routes').udrLinks[copyIndex()].subnetName]"
+                    }
+                }
+            }
+        },
+        // UDR Entries
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('4-Build-',parameters('lzName'),'-UdrEntry-',parameters('routes').udrSettings[copyIndex()].routeTableName,parameters('routes').udrSettings[copyIndex()].routeEntryName)]",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "resourceGroup": "[parameters('resourceGroup')]",
+            "dependsOn": [
+                "UdrTableLinkCopy"
+            ],
+            "copy": {
+                "name": "UdrEntriesCopy",
+                "count": "[length(parameters('routes').udrSettings)]",
+                "mode": "Serial"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('udrEntryTemplateUri')]"
+                },
+                "parameters":{
+                    "routeEntryName":{
+                        "value":"[parameters('routes').udrSettings[copyIndex()].routeEntryName]"
+                    },
+                    "RouteEntryAddressPrefix":{
+                        "value":"[parameters('routes').udrSettings[copyIndex()].RouteEntryAddressPrefix]"
+                    },
+                    "routeEntryType":{
+                        "value":"[parameters('routes').udrSettings[copyIndex()].routeEntryType]"
+                    },
+                    "routeEntryNextHopIPAddress":{
+                        "value":"[parameters('routes').udrSettings[copyIndex()].routeEntryNextHopIPAddress]"
+                    },
+                    "routeTableName":{
+                        "value":"[parameters('routes').udrSettings[copyIndex()].routeTableName]"
+                    }
+                }
+            }
+        }
+    ]
+}

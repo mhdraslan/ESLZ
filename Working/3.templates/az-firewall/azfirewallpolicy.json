@@ -1,0 +1,72 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "firewallPolicyName": {
+            "type": "String"
+        },
+        "firewallPolicySku": {
+            "type": "string",
+            "allowedValues": ["Standard"],
+            "defaultValue": "Standard"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/firewallPolicies",
+            "apiVersion": "2020-11-01",
+            "name": "[parameters('firewallPolicyName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "sku": {
+                    "tier": "[parameters('firewallPolicySku')]"
+                },
+                "threatIntelMode": "Alert",
+                "threatIntelWhitelist": {
+                    "fqdns": [],
+                    "ipAddresses": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Network/firewallPolicies/ruleCollectionGroups",
+            "apiVersion": "2020-11-01",
+            "name": "[concat(parameters('firewallPolicyName'), '/Default-Application-Rule-Collection-Group')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/firewallPolicies', parameters('firewallPolicyName'))]"
+            ],
+            "properties": {
+                "priority": 300,
+                "ruleCollections": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/firewallPolicies/ruleCollectionGroups",
+            "apiVersion": "2020-11-01",
+            "name": "[concat(parameters('firewallPolicyName'), '/Default-DNat-Rule-Collection-Group')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/firewallPolicies', parameters('firewallPolicyName'))]"
+            ],
+            "properties": {
+                "priority": 100,
+                "ruleCollections": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/firewallPolicies/ruleCollectionGroups",
+            "apiVersion": "2020-11-01",
+            "name": "[concat(parameters('firewallPolicyName'), '/Default-Network-Rule-Collection-Group')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/firewallPolicies', parameters('firewallPolicyName'))]"
+            ],
+            "properties": {
+                "priority": 200,
+                "ruleCollections": []
+            }
+        }
+    ]
+}

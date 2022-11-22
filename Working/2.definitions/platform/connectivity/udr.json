@@ -1,0 +1,117 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+         "subscriptionId": {
+            "type": "string"
+        },
+         "resourceGroup": {
+            "type": "string"
+        },
+        "templatesBaseUri": {
+            "type": "string"
+        },
+        "hubVNetName": {
+            "type": "string"
+        },
+        "routeTableName": {
+            "type": "string"
+        },
+        "hubAddressPrefix": {
+            "type": "string"
+        },
+        "routeEntryType": {
+            "type": "string",
+            "allowedValues": ["VirtualNetworkGateway","VnetLocal","Internet","VirtualAppliance","None"]
+        },
+        "routeEntryNextHopIPAddress": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "udrRouteTableTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/udr/udr-routetable.json')]",
+        "udrRouteTableLinkToGwSubnetTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/udr/udr-linksubnet.json')]",
+        "udrRouteEntryTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/udr/udr-routeentry.json')]"
+    },
+    "resources": [
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"4-Build-Platform-Connectivity-UDR-RouteTable",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "resourceGroup": "[parameters('resourceGroup')]",
+            "dependsOn": [],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('udrRouteTableTemplateUri')]"
+                },
+                "parameters": {
+                    "routeTableName":{
+                        "value":"[parameters('routeTableName')]"
+                    }
+                }
+            }
+        },
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"4-Build-Platform-Connectivity-UDR-RouteToSpokes",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "resourceGroup": "[parameters('resourceGroup')]",
+            "dependsOn": [
+                "4-Build-Platform-Connectivity-UDR-RouteTable"
+            ],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('udrRouteEntryTemplateUri')]"
+                },
+                "parameters": {
+                    "routeTableName":{
+                        "value":"[parameters('routeTableName')]"
+                    },
+                    "routeEntryName":{
+                        "value":"[parameters('routeTableName')]"
+                    },
+                    "RouteEntryAddressPrefix":{
+                        "value":"[parameters('hubAddressPrefix')]"
+                    },
+                    "routeEntryType":{
+                        "value":"[parameters('routeEntryType')]"
+                    },
+                    "routeEntryNextHopIPAddress":{
+                        "value":"[parameters('routeEntryNextHopIPAddress')]"
+                    }
+                }
+            }
+        },
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"4-Build-Platform-Connectivity-UDR-Link-Table-To-GatewaySubnet",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "resourceGroup": "[parameters('resourceGroup')]",
+            "dependsOn": [
+                "4-Build-Platform-Connectivity-UDR-RouteToSpokes"
+            ],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('udrRouteTableLinkToGwSubnetTemplateUri')]"
+                },
+                "parameters": {
+                    "vNetName":{
+                        "value":"[parameters('hubVNetName')]"
+                    },
+                    "subnetName":{
+                        "value":"GatewaySubnet"
+                    },
+                    "udrName":{
+                        "value":"[parameters('routeTableName')]"
+                    }
+                }
+            }
+        }
+    ]
+}

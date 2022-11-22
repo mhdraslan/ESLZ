@@ -1,0 +1,69 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+         "subscriptionId": {
+            "type": "string"
+        },
+         "resourceGroup": {
+            "type": "string"
+        },
+        "templatesBaseUri": {
+            "type": "string"
+        },
+        "vNetName": {
+            "type": "string"
+        },
+        "vpnGatewayName": {
+            "type": "string"
+        },
+        "vpnGatewaySku": {
+            "type": "string",
+            "allowedValues": ["Basic","VpnGw1","VpnGw2","VpnGw3"],
+            "defaultValue": "VpnGw1"
+        }
+    },
+    "functions": [],
+    "variables": {
+        "vpnGatewayTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/vpn/vpn-deploygw.json')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-05-01",
+            "name": "4-Build-Platform-Connectivity-VPNGateway",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "resourceGroup": "[parameters('resourceGroup')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('vpnGatewayTemplateUri')]"
+                },
+                "parameters": {
+                    "vpnType": {
+                        "value": "RouteBased"
+                    },
+                    "localGatewayName":{
+                        "value":"NA"
+                    },
+                    "localGatewayIpAddress":{
+                        "value":""
+                    },
+                    "localAddressPrefix":{
+                        "value":[]
+                    },
+                    "virtualNetworkName":{
+                        "value":"[parameters('vNetName')]"
+                    },
+                    "gatewayName":{
+                        "value":"[parameters('vpnGatewayName')]"
+                    },
+                    "gatewaySku":{
+                        "value":"[parameters('vpnGatewaySku')]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}

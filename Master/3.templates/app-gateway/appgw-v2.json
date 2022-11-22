@@ -1,0 +1,185 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "appGwName": {
+            "type": "String"
+        },
+        "appGwTier": {
+            "type": "String",
+            "allowedValues":[
+                "Standard_v2",
+                "WAF_v2"
+            ],
+            "defaultValue":"Standard_v2"
+        },
+        "AppGwVNet": {
+            "type": "String"
+        },        
+        "AppGwSubnetName": {
+            "type": "String"
+        },
+        "appGwPrivateIpAddress": {
+            "type": "String"
+        },
+        "publicIpAddressName": {
+            "type": "String"
+        },
+        "publicIpAddressSku": {
+            "type": "String"
+        },
+        "allocationMethod": {
+            "type": "String",
+            "allowedValues":[
+                "Static",
+                "Dynamic"
+            ],
+            "defaultValue":"Static"
+        },
+        "capacity": {
+            "defaultValue": 1,
+            "type": "Int"
+        },
+        "autoScaleMaxCapacity": {
+            "type": "Int"
+        }
+    },
+    "variables": {
+        "vnetId": "[resourceId('Microsoft.Network/virtualNetworks',parameters('AppGwVNet'))]",
+        "publicIPRef": "[resourceId('Microsoft.Network/publicIPAddresses/', parameters('publicIpAddressName'))]",
+        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('AppGwSubnetName'))]",
+        "applicationGatewayId": "[resourceId('Microsoft.Network/applicationGateways', parameters('appGwName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/applicationGateways",
+            "apiVersion": "2019-09-01",
+            "name": "[parameters('appGwName')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[concat('Microsoft.Network/publicIPAddresses/', parameters('publicIpAddressName'))]"
+            ],
+            "tags": {},
+            "properties": {
+                "sku": {
+                    "name": "[parameters('appGwTier')]",
+                    "tier": "[parameters('appGwTier')]"
+                },
+                "gatewayIPConfigurations": [
+                    {
+                        "name": "appGatewayIpConfig",
+                        "properties": {
+                            "subnet": {
+                                "id": "[variables('subnetRef')]"
+                            }
+                        }
+                    }
+                ],
+                "frontendIPConfigurations": [
+                    {
+                        "name": "appGwPublicFrontendIp",
+                        "properties": {
+                            "PublicIPAddress": {
+                                "id": "[variables('publicIPRef')]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "appGwPrivateFrontendIp",
+                        "properties": {
+                            "subnet": {
+                                "id": "[variables('subnetRef')]"
+                            },
+                            "privateIpAddress": "[parameters('appGwPrivateIpAddress')]",
+                            "privateIPAllocationMethod": "Static"
+                        }
+                    }
+                ],
+                "frontendPorts": [
+                    {
+                        "name": "port_80",
+                        "properties": {
+                            "Port": 80
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "default-backend-pool",
+                        "properties": {
+                            "backendAddresses": []
+                        }
+                    }
+                ],
+                "backendHttpSettingsCollection": [
+                    {
+                        "name": "Default-Backend-HTTP-TCP-80-Settings",
+                        "properties": {
+                            "Port": 80,
+                            "Protocol": "Http",
+                            "cookieBasedAffinity": "Disabled",
+                            "requestTimeout": 20
+                        }
+                    }
+                ],
+                "httpListeners": [
+                    {
+                        "name": "Private-Basic-HTTP-TCP-80",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(variables('applicationGatewayId'), '/frontendIPConfigurations/appGwPrivateFrontendIp')]"
+                            },
+                            "frontendPort": {
+                                "id": "[concat(variables('applicationGatewayId'), '/frontendPorts/port_80')]"
+                            },
+                            "protocol": "Http",
+                            "sslCertificate": null
+                        }
+                    }
+                ],
+                "requestRoutingRules": [
+                    {
+                        "Name": "default-http-routing-rule",
+                        "properties": {
+                            "RuleType": "Basic",
+                            "httpListener": {
+                                "id": "[concat(variables('applicationGatewayId'), '/httpListeners/Private-Basic-HTTP-TCP-80')]"
+                            },
+                            "backendAddressPool": {
+                                "id": "[concat(variables('applicationGatewayId'), '/backendAddressPools/default-backend-pool')]"
+                            },
+                            "backendHttpSettings": {
+                                "id": "[concat(variables('applicationGatewayId'), '/backendHttpSettingsCollection/Default-Backend-HTTP-TCP-80-Settings')]"
+                            }
+                        }
+                    }
+                ],
+                "enableHttp2": false,
+                "sslCertificates": [],
+                "probes": [],
+                "autoscaleConfiguration": {
+                    "minCapacity": "[parameters('capacity')]",
+                    "maxCapacity": "[parameters('autoScaleMaxCapacity')]"
+                },
+                "webApplicationFirewallConfiguration": {
+                    "enabled": true,
+                    "firewallMode": "Detection",
+                    "ruleSetType": "OWASP",
+                    "ruleSetVersion": "3.0"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2020-08-01",
+            "name": "[parameters('publicIpAddressName')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "[parameters('publicIpAddressSku')]"
+            },
+            "properties": {
+                "publicIPAllocationMethod": "[parameters('allocationMethod')]"
+            }
+        }
+    ]
+}
