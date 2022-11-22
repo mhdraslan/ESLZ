@@ -1,0 +1,166 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+         "subscriptionId": {
+            "type": "string"
+        },
+         "resourceGroup": {
+            "type": "string"
+        },
+        "templatesBaseUri": {
+            "type": "string"
+        },
+        "vNetName": {
+            "type": "string"
+        },
+        "vNetAddressSpace":{
+            "type":"string"
+        },
+        "vNetDnsServers":{
+            "type":"array"
+        },
+        "createPrivEndpointSubnet":{
+            "type": "bool"
+        },
+        "PrivEndpointSubnetName": {
+            "type": "string"
+        },
+        "PrivEndpointSubnetAddressSpace": {
+            "type": "string"
+        },
+        "createDefaultMgmtSubnet": {
+            "type": "bool"
+        },
+        "DefaultMgmtSubnetName":{
+            "type":"string"
+        },
+        "DefaultMgmtSubnetAddressSpace":{
+            "type":"string"
+        },
+        "createUpdateMgmtSubnet": {
+            "type": "bool"
+        },
+        "UpdateMgmtSubnetName":{
+            "type":"string"
+        },
+        "UpdateMgmtSubnetAddressSpace":{
+            "type":"string"
+        }
+    },
+    "variables": {
+        "buildVirtualNetworkTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-network/virtualnetwork.json')]",
+        "buildSubnetTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-network/subnet.json')]",
+        "nsgTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-network/nsg.json')]",
+        "managementSubnets":[
+            {
+                "createSubnet":"[parameters('createPrivEndpointSubnet')]",
+                "subnetName":"[parameters('PrivEndpointSubnetName')]",
+                "subnetAddressSpace":"[parameters('PrivEndpointSubnetAddressSpace')]",
+                "createNsg":true
+            },
+            {
+                "createSubnet":"[parameters('createDefaultMgmtSubnet')]",
+                "subnetName":"[parameters('DefaultMgmtSubnetName')]",
+                "subnetAddressSpace":"[parameters('DefaultMgmtSubnetAddressSpace')]",
+                "createNsg":true
+            },
+            {
+                "createSubnet":"[parameters('createUpdateMgmtSubnet')]",
+                "subnetName":"[parameters('UpdateMgmtSubnetName')]",
+                "subnetAddressSpace":"[parameters('UpdateMgmtSubnetAddressSpace')]",
+                "createNsg":true
+            }
+        ]
+    },
+    "resources": [
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"4-Build-Platform-Management-VirtualNetwork-Provision",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "resourceGroup": "[parameters('resourceGroup')]",
+            "dependsOn": [],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('buildVirtualNetworkTemplateUri')]"
+                },
+                "parameters": {
+                    "vNetName":{
+                        "value":"[parameters('vNetName')]"
+                    },
+                    "vNetAddressSpace":{
+                        "value":"[parameters('vNetAddressSpace')]"
+                    },
+                    "vNetDnsServers":{
+                        "value":"[parameters('vNetDnsServers')]"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "[variables('managementSubnets')[copyIndex()].createSubnet]",
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('4-Build-Platform-Management-Subnet-',variables('managementSubnets')[copyIndex()].subnetName)]",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "resourceGroup": "[parameters('resourceGroup')]",
+            "dependsOn": [
+                "4-Build-Platform-Management-VirtualNetwork-Provision"
+            ],
+            "copy": {
+                "name": "SubnetCopy",
+                "count": "[length(variables('managementSubnets'))]",
+                "mode": "Serial"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('buildSubnetTemplateUri')]"
+                },
+                "parameters": {
+                    "vNetName":{
+                        "value":"[parameters('vNetName')]"
+                    },
+                    "subnetName":{
+                        "value":"[variables('managementSubnets')[copyIndex()].subnetName]"
+                    },
+                    "subnetAddressSpace":{
+                        "value":"[variables('managementSubnets')[copyIndex()].subnetAddressSpace]"
+                    }
+                }
+            }
+        },
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('4-Build-Platform-Management-NSG-',variables('managementSubnets')[copyIndex()].subnetName)]",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "resourceGroup": "[parameters('resourceGroup')]",
+            "dependsOn": ["SubnetCopy"],
+            "copy": {
+                "name": "NsgCopy",
+                "count": "[length(variables('managementSubnets'))]"
+            },
+            "condition": "[variables('managementSubnets')[copyIndex()].createNsg]",
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('nsgTemplateUri')]"
+                },
+                "parameters":{
+                    "vNetName":{
+                        "value":"[parameters('vNetName')]"
+                    },
+                    "subnetName":{
+                        "value":"[variables('managementSubnets')[copyIndex()].subnetName]"
+                    },
+                    "subnetAddressSpace":{
+                        "value":"[variables('managementSubnets')[copyIndex()].subnetAddressSpace]"
+                    }
+                }
+            }
+        }
+    ]
+}

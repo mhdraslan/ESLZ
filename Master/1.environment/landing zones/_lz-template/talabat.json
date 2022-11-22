@@ -4,7 +4,7 @@
     "parameters": {},
     "functions": [],
     "variables": {
-        "environmentName":"cnxg-aen-talabat",
+        "environmentName":"cnxg-ae1-talabat",
         "templatesBaseUri":"<<TemplatesBase>>",
         "location":"<<location>>",
         "resourceGroupName":"[tolower(concat(variables('EnvironmentName'),'-rg'))]",
@@ -18,7 +18,7 @@
         "udrTemplateUri":"[concat(variables('templatesBaseUri'),'/rescust-project-udr.json')]",
         "vnets":[
             {
-                "vNetName":"cnxg-aen-talabat-vnet",
+                "vNetName":"cnxg-ae1-talabat-vnet",
                 "vNetAddressSpace":"192.168.5.0/24",
                 "vNetDnsServers":["192.168.0.4","192.168.0.5"]
             }
@@ -26,27 +26,27 @@
         "subnets":[
             {
                 "subnetName":"PrivEndpointSubnet",
-                "vNetName":"cnxg-aen-talabat-vnet",
+                "vNetName":"cnxg-ae1-talabat-vnet",
                 "subnetAddress":"192.168.5.0/28",
                 "createNsg":true
             },
             {
                 "subnetName":"FrontendSubnet",
-                "vNetName":"cnxg-aen-talabat-vnet",
+                "vNetName":"cnxg-ae1-talabat-vnet",
                 "subnetAddress":"192.168.5.16/28",
                 "createNsg":true
             },
             {
                 "subnetName":"BackendSubnet",
-                "vNetName":"cnxg-aen-talabat-vnet",
+                "vNetName":"cnxg-ae1-talabat-vnet",
                 "subnetAddress":"192.168.5.32/28",
                 "createNsg":true
             }
         ],
         "windowsVMs":[
             {
-                "vmName":"aentalabatbe01",
-                "vNetName":"cnxg-aen-talabat-vnet",
+                "vmName":"ae1talabatbe01",
+                "vNetName":"cnxg-ae1-talabat-vnet",
                 "subnetName":"BackendSubnet",
                 "osDiskType":"StandardSSD_LRS",
                 "osVersionNumber":"2019",
@@ -55,8 +55,8 @@
                 "adminPassword":"dat23uPhutu*"
             },
             {
-                "vmName":"aentalabatbe02",
-                "vNetName":"cnxg-aen-talabat-vnet",
+                "vmName":"ae1talabatbe02",
+                "vNetName":"cnxg-ae1-talabat-vnet",
                 "subnetName":"BackendSubnet",
                 "osDiskType":"StandardSSD_LRS",
                 "osVersionNumber":"2019",
@@ -65,8 +65,8 @@
                 "adminPassword":"dat23uPhutu*"
             },
             {
-                "vmName":"aentalabatfe01",
-                "vNetName":"cnxg-aen-talabat-vnet",
+                "vmName":"ae1talabatfe01",
+                "vNetName":"cnxg-ae1-talabat-vnet",
                 "subnetName":"FrontendSubnet",
                 "osDiskType":"StandardSSD_LRS",
                 "osVersionNumber":"2019",
@@ -75,8 +75,8 @@
                 "adminPassword":"dat23uPhutu*"
             },
             {
-                "vmName":"aentalabatfe02",
-                "vNetName":"cnxg-aen-talabat-vnet",
+                "vmName":"ae1talabatfe02",
+                "vNetName":"cnxg-ae1-talabat-vnet",
                 "subnetName":"FrontendSubnet",
                 "osDiskType":"StandardSSD_LRS",
                 "osVersionNumber":"2019",

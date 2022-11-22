@@ -32,103 +32,25 @@
         "hubVNetResourceGroup": {
             "type": "string"
         },
-        "createAddsSubnet": {
+        "createWsusServer": {
             "type": "bool"
         },
-        "addsSubnetName": {
+        "wsusVmNamePrefix": {
+            "type": "string"
+        },
+        "wsusVmSize": {
             "type": "string"
         }, 
-        "addsSubnetAddressSpace": {
+        "wsusVmOsDiskType": {
             "type": "string"
         },        
-        "createAddsServers": {
-            "type": "bool"
-        },
-        "addsVmNamePrefix": {
+        "wsusVmOsVersionNumber": {
             "type": "string"
         },
-        "addsVmCount": {
-            "type": "int"
-        },
-        "addsVmSize": {
-            "type": "string"
-        }, 
-        "addsVmOsDiskType": {
-            "type": "string"
-        },        
-        "addsVmOsVersionNumber": {
+        "wsusVmAdminUserName": {
             "type": "string"
         },
-        "addsVmAdminUserName": {
-            "type": "string"
-        },
-        "addsVmAdminPassword": {
-            "type": "securestring"
-        },
-        "createAdcsSubnet": {
-            "type": "bool"
-        },
-        "adcsSubnetName": {
-            "type": "string"
-        },
-        "adcsSubnetAddressSpace": {
-            "type": "string"
-        },
-        "createAdcsServers": {
-            "type": "bool"
-        },
-        "adcsVmNamePrefix": {
-            "type": "string"
-        },
-        "adcsVmCount": {
-            "type": "int"
-        },
-        "adcsVmSize": {
-            "type": "string"
-        }, 
-        "adcsVmOsDiskType": {
-            "type": "string"
-        },        
-        "adcsVmOsVersionNumber": {
-            "type": "string"
-        },
-        "adcsVmAdminUserName": {
-            "type": "string"
-        },
-        "adcsVmAdminPassword": {
-            "type": "securestring"
-        },
-        "createAadConnectSubnet": {
-            "type": "bool"
-        },
-        "aadConnectSubnetName": {
-            "type": "string"
-        },
-        "aadConnectSubnetAddressSpace": {
-            "type": "string"
-        },
-        "createAadConnectServers": {
-            "type": "bool"
-        },
-        "aadConnectVmNamePrefix": {
-            "type": "string"
-        },
-        "aadConnectVmCount": {
-            "type": "int"
-        },
-        "aadConnectVmSize": {
-            "type": "string"
-        }, 
-        "aadConnectVmOsDiskType": {
-            "type": "string"
-        },        
-        "aadConnectVmOsVersionNumber": {
-            "type": "string"
-        },
-        "aadConnectVmAdminUserName": {
-            "type": "string"
-        },
-        "aadConnectVmAdminPassword": {
+        "wsusVmAdminPassword": {
             "type": "securestring"
         },
         "routeTableName": {

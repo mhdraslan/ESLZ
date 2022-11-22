@@ -12,10 +12,10 @@
             "value": "<<location>>"
         },        
         "hubResourceGroupName": {
-            "value": "isys-ae0-connectivity-rg"
+            "value": "isys-ae1-connectivity-rg"
         },
         "hubVNetName": {
-            "value": "isys-ae0-hub-vnet"
+            "value": "isys-ae1-hub-vnet"
         },
         "hubVNetAddressSpace":{
             "value":"172.16.0.0/24"
@@ -30,7 +30,7 @@
             "value": true
         },
         "vpnGatewayName": {
-            "value": "isys-ae0-vpn-gw"
+            "value": "isys-ae1-vpn-gw"
         }, 
         "gatewaySubnetAddressSpace": {
             "value": "172.16.0.0/28"
@@ -39,7 +39,7 @@
             "value": "VpnGw1"
         },
         "gatewaySubnetRouteTableName":{
-            "value":"isys-ae0-hub-vpngw-rt"
+            "value":"isys-ae1-hub-vpngw-rt"
         },
         "createAzureFirewallSubnet": {
             "value": true
@@ -48,7 +48,7 @@
             "value": true
         },
         "azFirewallName": {
-            "value": "isys-ae0-hub-azfw"
+            "value": "isys-ae1-hub-azfw"
         },
         "azFirewallTier": {
             "value":"Standard"
@@ -63,7 +63,7 @@
             "value": true
         },
         "bastionName": {
-            "value":"isys-ae0-bastion"
+            "value":"isys-ae1-bastion"
         },
         "bastionSku": {
             "value":"Standard"
@@ -81,7 +81,7 @@
             "value":"172.16.0.16/28"
         },
         "vmNamePrefix":{
-            "value":"aenjmpsrv"
+            "value":"azae1jmpsrv"
         },
         "vmCount":{
             "value":1
