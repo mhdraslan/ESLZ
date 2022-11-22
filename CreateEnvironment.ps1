@@ -66,6 +66,7 @@ if(!$WorkingFolderExists){
 Write-Host "Copying master ARM templates to working ditectory..." -ForegroundColor Yellow -BackgroundColor Black
 Copy-Item -Path ".\Master\*" -Destination ".\Working" -Force -Recurse
 
+<#
 # Connect to Azure
 Write-Host "Connecting to Azure..." -ForegroundColor Yellow -BackgroundColor Black
 $AzContext = Get-AzContext
@@ -103,9 +104,11 @@ catch{
    Write-Host $Error 
    exit
 }
+#>
 
 # Update Templates Base URI and setup templates
-$TemplateBaseUri = "https://" + $TemplatesStorageAccount.StorageAccountName + ".blob.core.windows.net/" + $DeploymentContainer.ToLower()
+#$TemplateBaseUri = "https://" + $TemplatesStorageAccount.StorageAccountName + ".blob.core.windows.net/" + $DeploymentContainer.ToLower()
+$TemplateBaseUri = "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/Working/"
 $SubstitutionTable += ,("<<TemplatesBase>>",$TemplateBaseUri)
 
 $Templates = Get-ChildItem -Path ".\Working" -Recurse -File
@@ -116,6 +119,7 @@ ForEach ($Template in $Templates){
 	Replace-Tag $SubstitutionTable $Template.FullName
 }
 
+<#
 # Upload templates to Azure Storage Account
 Write-Host "Uploading ARM templates to storage container..." -ForegroundColor Yellow -BackgroundColor Black
 $currentDir = Get-Item "./"
@@ -131,7 +135,7 @@ ForEach ($Template in $Templates){
 
 # Create Resource Groups
 $Now = Get-Date
-
+#>
 
 Write-Host "Initiating deployment..." -ForegroundColor Yellow -BackgroundColor Black
 $DeploymentName = $environmentName + " -Environment-Deployment-" + $Now.ToString("yyyyMMddHHmmss")
