@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "templatesBaseUri":{
-            "value":"https://raw.githubusercontent.com/mhdraslan/ESLZ/main/Working/"
+            "value":"https://raw.githubusercontent.com/mhdraslan/ESLZ/main/Working"
         },
         "location": {
             "value":"eastus"
