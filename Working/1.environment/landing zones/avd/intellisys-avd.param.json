@@ -9,7 +9,7 @@
             "value":"https://raw.githubusercontent.com/mhdraslan/ESLZ/main/Working"
         },
         "location": {
-            "value":"eastus"
+            "value":"uaenorth"
         },
         "deploymentResourceGroup": {
             "value":"isys-ae1-avd-rg"
@@ -19,11 +19,11 @@
                 "rgSettings":[
                     {
                         "rgName":"isys-ae1-avd-rg",
-                        "rgLocation":"eastus"
+                        "rgLocation":"uaenorth"
                     },
                     {
                         "rgName":"isys-ae1-avd2-rg",
-                        "rgLocation":"eastus"
+                        "rgLocation":"uaenorth"
                     }
 
                 ]

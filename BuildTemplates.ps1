@@ -15,7 +15,7 @@ $DeploymentSubscriptionId = "67236ec4-f453-4086-b4d1-78a6a93fad71"
 $ConnectivitySubscriptionId = "67236ec4-f453-4086-b4d1-78a6a93fad71"
 $IdentitySubscriptionId = "67236ec4-f453-4086-b4d1-78a6a93fad71"
 $ManagementSubscriptionId = "67236ec4-f453-4086-b4d1-78a6a93fad71"
-$Deploymentlocation = "eastus"
+$Deploymentlocation = "uaenorth"
 $TemplateBaseUri = "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/Working"
 
 #endregion

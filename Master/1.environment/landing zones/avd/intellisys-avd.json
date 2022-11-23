@@ -34,12 +34,12 @@
     "variables": {
         "templates":[
             {
-                "resourceGroup":"[concat(variables('templatesBaseUri'),'/2.definitions/landing-zone/resourcegroup.json')]",
-                "vnet":"[concat(variables('templatesBaseUri'),'/2.definitions/landing-zone/virtualnetwork.json')]",
-                "subnet":"[concat(variables('templatesBaseUri'),'/2.definitions/landing-zone/subnet.json')]",
-                "nsg":"[concat(variables('templatesBaseUri'),'/2.definitions/landing-zone/nsg.json')]",
-                "windowsVm":"[concat(variables('templatesBaseUri'),'/2.definitions/landing-zone/vm-provisionwindowsserver.json')]",
-                "udr":"[concat(variables('templatesBaseUri'),'/2.definitions/landing-zone/udr.json')]"
+                "resourceGroup":"[concat(parameters('templatesBaseUri'),'/2.definitions/landing-zone/resourcegroup.json')]",
+                "vnet":"[concat(parameters('templatesBaseUri'),'/2.definitions/landing-zone/virtualnetwork.json')]",
+                "subnet":"[concat(parameters('templatesBaseUri'),'/2.definitions/landing-zone/subnet.json')]",
+                "nsg":"[concat(parameters('templatesBaseUri'),'/2.definitions/landing-zone/nsg.json')]",
+                "windowsVm":"[concat(parameters('templatesBaseUri'),'/2.definitions/landing-zone/vm-provisionwindowsserver.json')]",
+                "udr":"[concat(parameters('templatesBaseUri'),'/2.definitions/landing-zone/udr.json')]"
             }
         ]/*,
         "resourceGroups":{

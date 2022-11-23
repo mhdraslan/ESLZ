@@ -6,7 +6,7 @@
     "variables": {
         "environmentName":"cnxg-ae1-talabat",
         "templatesBaseUri":"https://raw.githubusercontent.com/mhdraslan/ESLZ/main/Working",
-        "location":"eastus",
+        "location":"uaenorth",
         "resourceGroupName":"[tolower(concat(variables('EnvironmentName'),'-rg'))]",
         "resourceGroupDeploymentName":"[concat('2-Create-ResourceGroup-',variables('resourceGroupName'))]",
         "udrDeploymentName":"[concat('2-Init-',variables('environmentName'),'-UDRs')]",
