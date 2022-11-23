@@ -1,0 +1,1 @@
+In Virtual Machines template, build an array of VMs as an input and one loop to create them

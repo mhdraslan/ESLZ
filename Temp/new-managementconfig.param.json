@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines": {
+            "value":{
+                "vmSettings":[
+                    {
+                        "vmName":"ae1talabatbe01",
+                        "vNetName":"isys-ae0-avd-vnet",
+                        "subnetName":"isysDefaultPoolSubnet",
+                        "osDiskType":"StandardSSD_LRS",
+                        "osVersionNumber":"2019",
+                        "vmSize":"Standard_b2s",
+                        "adminUsername":"localadmin",
+                        "adminPassword":"dat23uPhutu*"
+                    },
+                    {
+                        "vmName":"ae1talabatfe02",
+                        "vNetName":"isys-ae0-avd-vnet",
+                        "subnetName":"isysDefaultPoolSubnet",
+                        "osDiskType":"StandardSSD_LRS",
+                        "osVersionNumber":"2019",
+                        "vmSize":"Standard_b2s",
+                        "adminUsername":"localadmin",
+                        "adminPassword":"dat23uPhutu*"
+                    }
+                ]
+            }
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [],
+    "outputs": {}
+}

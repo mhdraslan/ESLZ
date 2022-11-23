@@ -12,136 +12,115 @@
             "value": "eastus"
         },        
         "resourceGroupName": {
-            "value": "isys-ae0-identity-rg"
-        },
-        "vNetName": {
-            "value": "isys-ae0-identity-vnet"
-        },
-        "vNetAddressSpace": {
-            "value": "172.16.2.0/24"
-        },
-        "vNetDnsServers": {
-            "value": ["172.16.2.4","172.16.2.5"]
+            "value": "isys-ae1-management-rg"
         },
         "hubVNetName": {
-            "value":"isys-ae0-hub-vnet"
+            "value": "isys-ae1-hub-vnet"
         },
         "hubVNetSubscriptionId": {
-            "value":"67236ec4-f453-4086-b4d1-78a6a93fad71"
+            "value": "67236ec4-f453-4086-b4d1-78a6a93fad71"
         },
         "hubVNetResourceGroup": {
-            "value":"isys-ae0-connectivity-rg"
+            "value": "isys-ae1-connectivity-rg"
         },
-        "createAddsSubnet": {
-            "value": true
+        "vnets": {
+            "value":{
+                "vnetSettings":[
+                    {
+                        "vnetName":"isys-ae1-mgmt-vnet",
+                        "vNetAddressSpace":"172.16.3.0/24",
+                        "vNetDnsServers":["172.16.2.4","172.16.2.5"],
+                        "rgName":"isys-ae1-management-rg"
+                    }
+                ]
+            }
         },
-        "addsSubnetName": {
-            "value": "AddsSubnet"
-        }, 
-        "addsSubnetAddressSpace": {
-            "value": "172.16.2.0/28"
+        "subnets": {
+            "value":{
+                "subnetSettings":[
+                    {
+                        "subnetName":"PrivEndpointSubnet",
+                        "vnetName":"isys-ae1-mgmt-vnet",
+                        "subnetAddress":"172.16.3.0/28"
+                    },
+                    {
+                        "subnetName":"DefaultManagementSubnet",
+                        "vnetName":"isys-ae1-mgmt-vnet",
+                        "subnetAddress":"172.16.3.16/28"
+                    },
+                    {
+                        "subnetName":"UpdateManagementSubnet",
+                        "vnetName":"isys-ae1-mgmt-vnet",
+                        "subnetAddress":"172.16.3.32/28"
+                    }
+                ]
+            }
+        },
+        "routes":{
+            "udrTables":[
+                {
+                    "routeTableName":"isys-ae1-mgmt-rt"
+                }
+            ],
+            "udrLinks":[
+                {
+                    "routeTableName":"isys-ae1-mgmt-rt",
+                    "vnetName":"isys-ae1-mgmt-vnet",
+                    "subnetName":"PrivEndpointSubnet"
+                },
+                {
+                    "routeTableName":"isys-ae1-mgmt-rt",
+                    "vnetName":"isys-ae1-mgmt-vnet",
+                    "subnetName":"DefaultManagementSubnet"
+                },
+                {
+                    "routeTableName":"isys-ae1-mgmt-rt",
+                    "vnetName":"isys-ae1-mgmt-vnet",
+                    "subnetName":"UpdateManagementSubnet"
+                }
+            ],
+            "udrSettings":[
+                {
+                    "routeEntryName":"default-route",
+                    "routeEntryAddressPrefix":"0.0.0.0/0",
+                    "routeEntryType":"Internet",
+                    "routeEntryNextHopIPAddress":"",
+                    "routeTableName":"isys-ae1-mgmt-rt"
+                },
+                {
+                    "routeEntryName":"onprem-route",
+                    "routeEntryAddressPrefix":"172.31.0.0/16",
+                    "routeEntryType":"None",
+                    "routeEntryNextHopIPAddress":"",
+                    "routeTableName":"isys-ae1-mgmt-rt"
+                }
+            ]
         },        
-        "createAddsServers": {
-            "value": true
-        },
-        "addsVmNamePrefix": {
-            "value": "azae1sddc"
-        },
-        "addsVmCount": {
-            "value": 2
-        },
-        "addsVmSize": {
-            "value": "Standard_B2s"
-        }, 
-        "addsVmOsDiskType": {
-            "value": "Standard_LRS"
-        },        
-        "addsVmOsVersionNumber": {
-            "value": "2019"
-        },
-        "addsVmAdminUserName": {
-            "value": "localadmin"
-        },
-        "addsVmAdminPassword": {
-            "value": "dat23uPhutu*"
-        },
-        "createAdcsSubnet": {
-            "value": true
-        },
-        "adcsSubnetName": {
-            "value": "AdcsSubnet"
-        },
-        "adcsSubnetAddressSpace": {
-            "value": "172.16.2.16/28"
-        },
-        "createAdcsServers": {
-            "value": false
-        },
-        "adcsVmNamePrefix": {
-            "value": "azae1adca"
-        },
-        "adcsVmCount": {
-            "value": 2
-        },
-        "adcsVmSize": {
-            "value": "Standard_B2s"
-        }, 
-        "adcsVmOsDiskType": {
-            "value": "Standard_LRS"
-        },        
-        "adcsVmOsVersionNumber": {
-            "value": "2019"
-        },
-        "adcsVmAdminUserName": {
-            "value": "localadmin"
-        },
-        "adcsVmAdminPassword": {
-            "value": "dat23uPhutu*"
-        },
-        "createAadConnectSubnet": {
-            "value": true
-        },
-        "aadConnectSubnetName": {
-            "value": "AadcSubnet"
-        },
-        "aadConnectSubnetAddressSpace": {
-            "value": "172.16.2.32/28"
-        },
-        "createAadConnectServers": {
-            "value": true
-        },
-        "aadConnectVmNamePrefix": {
-            "value": "azae1aadc"
-        },
-        "aadConnectVmCount": {
-            "value": 2
-        },
-        "aadConnectVmSize": {
-            "value": "Standard_B2s"
-        }, 
-        "aadConnectVmOsDiskType": {
-            "value": "Standard_LRS"
-        },        
-        "aadConnectVmOsVersionNumber": {
-            "value": "2019"
-        },
-        "aadConnectVmAdminUserName": {
-            "value": "localadmin"
-        },
-        "aadConnectVmAdminPassword": {
-            "value": "dat23uPhutu*"
-        },        
-        "routeTableName": {
-            "value": "isys-ae0-identity-rt"
-        },
-        "routeEntryAddressPrefix": {
-            "value": "0.0.0.0/0"
-        },
-        "routeEntryType": {
-            "value": "Internet"
-        },
-        "routeEntryNextHopIPAddress": {
-            "value": ""
+        "virtualMachines": {
+            "value":{
+                "vmSettings":[
+                    {
+                        "vmName":"ae1talabatbe01",
+                        "vnetName":"isys-ae1-talabat-vnet",
+                        "subnetName":"BackendSubnet",
+                        "osDiskType":"StandardSSD_LRS",
+                        "osVersionNumber":"2019",
+                        "vmSize":"Standard_b2s",
+                        "adminUsername":"localadmin",
+                        "adminPassword":"dat23uPhutu*"
+                    },
+                    {
+                        "vmName":"ae1talabatfe02",
+                        "vnetName":"isys-ae1-talabat-vnet",
+                        "subnetName":"FrontendSubnet",
+                        "osDiskType":"StandardSSD_LRS",
+                        "osVersionNumber":"2019",
+                        "vmSize":"Standard_b2s",
+                        "adminUsername":"localadmin",
+                        "adminPassword":"dat23uPhutu*"
+                    }
+                ]
+            }
         }
     },
     "functions": [],

@@ -12,10 +12,10 @@
             "value": "eastus"
         },        
         "resourceGroupName": {
-            "value": "isys-ae0-identity-rg"
+            "value": "isys-ae1-identity-rg"
         },
         "vNetName": {
-            "value": "isys-ae0-identity-vnet"
+            "value": "isys-ae1-identity-vnet"
         },
         "vNetAddressSpace": {
             "value": "172.16.2.0/24"
@@ -24,13 +24,13 @@
             "value": ["172.16.2.4","172.16.2.5"]
         },
         "hubVNetName": {
-            "value":"isys-ae0-hub-vnet"
+            "value":"isys-ae1-hub-vnet"
         },
         "hubVNetSubscriptionId": {
             "value":"67236ec4-f453-4086-b4d1-78a6a93fad71"
         },
         "hubVNetResourceGroup": {
-            "value":"isys-ae0-connectivity-rg"
+            "value":"isys-ae1-connectivity-rg"
         },
         "createAddsSubnet": {
             "value": true
@@ -132,7 +132,7 @@
             "value": "dat23uPhutu*"
         },        
         "routeTableName": {
-            "value": "isys-ae0-identity-rt"
+            "value": "isys-ae1-identity-rt"
         },
         "routeEntryAddressPrefix": {
             "value": "0.0.0.0/0"

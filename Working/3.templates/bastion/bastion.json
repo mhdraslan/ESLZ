@@ -46,6 +46,9 @@
             "type": "Microsoft.Network/bastionHosts",
             "apiVersion": "2022-05-01",
             "name": "[parameters('bastionName')]",
+            "dependsOn":[
+                "[variables('bastionPublicIpResource')]"
+            ],
             "location": "[resourceGroup().location]",
             "sku": {
                 "name": "[parameters('bastionSku')]"

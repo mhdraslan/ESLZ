@@ -21,6 +21,8 @@ Make the VM Series, Local Administrator username and password variables
 
 The vNetName in building VM templates needs to be a variable, as if the structure of the name changes in the VNet creation templates, it will not be reflicted in the VM templates
 
+Create a templates object that is passed down all the way to all sub templates to make it easy for using them in sub templates
+
 
 
 

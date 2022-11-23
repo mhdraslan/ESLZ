@@ -15,4 +15,4 @@ The Template creates the following:
 
 
 TODO
-- 
+- Change the way you deal with networking settings to be as a single object rather than multiple paramters

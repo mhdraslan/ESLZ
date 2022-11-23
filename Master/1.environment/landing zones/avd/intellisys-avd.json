@@ -2,22 +2,36 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "subscriptionId": {
+            "type": "string"
+        },
         "templatesBaseUri": {
             "type": "string"
         },
         "location": {
             "type": "string"
+        },
+        "deploymentResourceGroup": {
+            "type": "string"
+        },
+        "resourceGroups": {
+            "type": "object"
+        },
+        "vnets": {
+            "type": "object"
+        },
+        "subnets": {
+            "type": "object"
+        },
+        "routes": {
+            "type": "object"
+        },
+        "windowsVMs": {
+            "type": "object"
         }
     },
     "functions": [],
     "variables": {
-        //"environmentName":"isys-ae1-avd",
-        "subscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71",
-        "templatesBaseUri":"<<TemplatesBase>>",
-        "location":"<<location>>",
-        "resourceGroupName":"isys-ae1-avd-rg",
-        "resourceGroupDeploymentName":"[concat('3-Create-ResourceGroup-',variables('resourceGroupName'))]",
-        "udrDeploymentName":"[concat('3-Create-UDR-AVD')]",
         "templates":[
             {
                 "resourceGroup":"[concat(variables('templatesBaseUri'),'/2.definitions/landing-zone/resourcegroup.json')]",
@@ -27,7 +41,7 @@
                 "windowsVm":"[concat(variables('templatesBaseUri'),'/2.definitions/landing-zone/vm-provisionwindowsserver.json')]",
                 "udr":"[concat(variables('templatesBaseUri'),'/2.definitions/landing-zone/udr.json')]"
             }
-        ],
+        ]/*,
         "resourceGroups":{
                 "rgSettings":[
                     {
@@ -181,15 +195,14 @@
                     "adminPassword":"dat23uPhutu*"
                 }
             ]
-        }
-
+        }*/
     },
     "resources": [
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"3-Create-AVD-ResourceGroups",
-            "location":"[variables('location')]",
+            "Name":"Create-AVD-ResourceGroups",
+            "location":"[parameters('location')]",
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
@@ -197,7 +210,7 @@
                 },
                 "parameters":{
                     "subscriptionId":{
-                        "value":"[variables('subscriptionId')]"
+                        "value":"[parameters('subscriptionId')]"
                     },
                     "templatesBaseUri":{
                         "value":"[parameters('templatesBaseUri')]"
@@ -209,7 +222,7 @@
                         "value":"AVD"
                     },
                     "resourceGroups":{
-                        "value":"[variables('resourceGroups')]"
+                        "value":"[parameters('resourceGroups')]"
                     }
                 }
             }
@@ -217,9 +230,9 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"['3-Create-AVD-VirtualNetworks']",
+            "Name":"['Create-AVD-VirtualNetworks']",
             "dependsOn": [
-                "3-Create-AVD-ResourceGroups"
+                "Create-AVD-ResourceGroups"
             ],
             "location": "[parameters('location')]",
             "properties":{
@@ -229,10 +242,10 @@
                 },
                 "parameters":{
                     "subscriptionId":{
-                        "value":"[variables('subscriptionId')]"
+                        "value":"[parameters('subscriptionId')]"
                     },
                     "resourceGroup":{
-                        "value":"[variables('resourceGroupName')]"
+                        "value":"[parameters('deploymentResourceGroup')]"
                     },
                     "templatesBaseUri":{
                         "value":"[parameters('templatesBaseUri')]"
@@ -241,13 +254,13 @@
                         "value":"AVD"
                     },
                     "vNets":{
-                        "value":"[variables('vnets')]"
+                        "value":"[parameters('vnets')]"
                     },
                     "subnets":{
-                        "value":"[variables('subnets')]"
+                        "value":"[parameters('subnets')]"
                     },
                     "routes":{
-                        "value":"[variables('routes')]"
+                        "value":"[parameters('routes')]"
                     }
                 }
             }
@@ -255,12 +268,14 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[concat('3-Create-WindowsVM-',variables('windowsVMs')[copyIndex()].vmName)]",
-            "dependsOn": ["SubnetsCopy"],
-            "resourceGroup": "[variables('resourceGroupName')]",
+            "Name":"[concat('3-Create-WindowsVM-',parameters('windowsVMs')[copyIndex()].vmName)]",
+            "dependsOn": [
+                "SubnetsCopy"
+            ],
+            "resourceGroup": "[parameters('deploymentResourceGroup')]",
             "copy": {
                 "name": "WindowsVirtualMachinesCopy",
-                "count": "[length(variables('windowsVMs'))]"
+                "count": "[length(parameters('windowsVMs'))]"
             },
             "properties":{
                 "mode":"Incremental",
@@ -269,28 +284,28 @@
                 },
                 "parameters":{
                     "vmName":{
-                        "value":"[variables('windowsVMs')[copyIndex()].vmName]"
+                        "value":"[parameters('windowsVMs')[copyIndex()].vmName]"
                     },
                     "vNetName":{
-                        "value":"[variables('windowsVMs')[copyIndex()].vNetName]"
+                        "value":"[parameters('windowsVMs')[copyIndex()].vNetName]"
                     },
                     "subnetName":{
-                        "value":"[variables('windowsVMs')[copyIndex()].subnetName]"
+                        "value":"[parameters('windowsVMs')[copyIndex()].subnetName]"
                     },
                     "osDiskType":{
-                        "value":"[variables('windowsVMs')[copyIndex()].osDiskType]"
+                        "value":"[parameters('windowsVMs')[copyIndex()].osDiskType]"
                     },
                     "osVersionNumber":{
-                        "value":"[variables('windowsVMs')[copyIndex()].osVersionNumber]"
+                        "value":"[parameters('windowsVMs')[copyIndex()].osVersionNumber]"
                     },
                     "vmSize":{
-                        "value":"[variables('windowsVMs')[copyIndex()].vmSize]"
+                        "value":"[parameters('windowsVMs')[copyIndex()].vmSize]"
                     },                                        
                     "adminUsername":{
-                        "value":"[variables('windowsVMs')[copyIndex()].adminUsername]"
+                        "value":"[parameters('windowsVMs')[copyIndex()].adminUsername]"
                     },
                     "adminPassword":{
-                        "value":"[variables('windowsVMs')[copyIndex()].adminPassword]"
+                        "value":"[parameters('windowsVMs')[copyIndex()].adminPassword]"
                     }
                 }
             }
@@ -298,9 +313,11 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[variables('udrDeploymentName')]",
-            "dependsOn": ["[variables('resourceGroupDeploymentName')]"],
-            "resourceGroup": "[variables('resourceGroupName')]",
+            "Name":"Create-AVD-UDRs",
+            "dependsOn": [
+                "Create-AVD-ResourceGroups"
+            ],
+            "resourceGroup": "[parameters('deploymentResourceGroup')]",
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{

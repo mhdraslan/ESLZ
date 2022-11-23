@@ -1,0 +1,2 @@
+Todo
+- Move all parameters to a separate folder so that when configuring the environment it is easier to find them in one location

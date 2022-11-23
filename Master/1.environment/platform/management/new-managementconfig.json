@@ -14,15 +14,6 @@
         "resourceGroupName": {
             "type": "string"
         },
-        "vNetName": {
-            "type": "string"
-        },
-        "vNetAddressSpace": {
-            "type": "string"
-        },
-        "vNetDnsServers": {
-            "type": "array"
-        },
         "hubVNetName": {
             "type": "string"
         },
@@ -32,61 +23,32 @@
         "hubVNetResourceGroup": {
             "type": "string"
         },
-        "createWsusServer": {
-            "type": "bool"
+        "vnets": {
+            "type": "object"
         },
-        "wsusVmNamePrefix": {
-            "type": "string"
+        "subnets": {
+            "type": "object"
         },
-        "wsusVmSize": {
-            "type": "string"
-        }, 
-        "wsusVmOsDiskType": {
-            "type": "string"
-        },        
-        "wsusVmOsVersionNumber": {
-            "type": "string"
+        "routes": {
+            "type": "object"
         },
-        "wsusVmAdminUserName": {
-            "type": "string"
-        },
-        "wsusVmAdminPassword": {
-            "type": "securestring"
-        },
-        "routeTableName": {
-            "type": "string"
-        },
-        "routeEntryAddressPrefix": {
-            "type": "String"
-        },
-        "routeEntryType": {
-            "type": "String",
-            "allowedValues": [
-                "VirtualNetworkGateway",
-                "VnetLocal",
-                "Internet",
-                "VirtualAppliance",
-                "None"
-            ],
-            "defaultValue":"VirtualAppliance"
-        },
-        "routeEntryNextHopIPAddress": {
-            "type": "String"
+        "virtualMachines": {
+            "type": "object"
         }
     },
     "functions": [],
     "variables": {
-        "resourceGroupTemplateUri":"[concat(parameters('templatesBaseUri'),'/2.definitions/platform/identity/resourcegroup.json')]",
-        "virtualMachinesTemplateUri":"[concat(parameters('templatesBaseUri'),'/2.definitions/platform/identity/virtualmachine.json')]",
-        "virtualNetworkTemplateUri":"[concat(parameters('templatesBaseUri'),'/2.definitions/platform/identity/virtualnetwork.json')]",
-        "udrTemplateUri":"[concat(parameters('templatesBaseUri'),'/2.definitions/platform/identity/udr.json')]",
-        "hubPeeringTemplateUri":"[concat(parameters('templatesBaseUri'),'/2.definitions/platform/identity/hubpeering.json')]"
+        "resourceGroupTemplateUri":"[concat(parameters('templatesBaseUri'),'/2.definitions/platform/management/resourcegroup.json')]",
+        "virtualMachinesTemplateUri":"[concat(parameters('templatesBaseUri'),'/2.definitions/platform/management/virtualmachine.json')]",
+        "virtualNetworkTemplateUri":"[concat(parameters('templatesBaseUri'),'/2.definitions/platform/management/virtualnetwork.json')]",
+        "udrTemplateUri":"[concat(parameters('templatesBaseUri'),'/2.definitions/platform/management/udr.json')]",
+        "hubPeeringTemplateUri":"[concat(parameters('templatesBaseUri'),'/2.definitions/platform/management/hubpeering.json')]"
     },
     "resources": [
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"3-Build-Platform-Identity-ResourceGroup",
+            "Name":"Build-Platform-Management-ResourceGroup",
             "location":"[parameters('location')]",
             "properties":{
                 "mode":"Incremental",
@@ -112,10 +74,14 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"3-Build-Platform-Identity-VirtualNetwork",
+            "Name":"[concat('Build-Platform-Management-VirtualNetwork',parameters('vnets').vnetSettings[copyIndex()].vnetName)]",
             "location":"[parameters('location')]",
+            "copy": {
+                "name":"vnetCopyLoop",
+                "count": "[length(parameters('vnets').vnetSettings)]"
+            },
             "dependsOn": [
-                "3-Build-Platform-Identity-ResourceGroup"
+                "Build-Platform-Management-ResourceGroup"
             ],
             "properties":{
                 "mode":"Incremental",
@@ -174,10 +140,10 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"3-Build-Platform-Identity-HubPeering",
+            "Name":"3-Build-Platform-Management-HubPeering",
             "location":"[parameters('location')]",
             "dependsOn": [
-                "3-Build-Platform-Identity-VirtualNetwork"
+                "3-Build-Platform-Management-VirtualNetwork"
             ],
             "properties":{
                 "mode":"Incremental",
@@ -212,10 +178,10 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"3-Build-Platform-Identity-VirtualMachine",
+            "Name":"3-Build-Platform-Management-VirtualMachine",
             "location":"[parameters('location')]",
             "dependsOn": [
-                "3-Build-Platform-Identity-VirtualNetwork"
+                "3-Build-Platform-Management-VirtualNetwork"
             ],
             "properties":{
                 "mode":"Incremental",
@@ -322,10 +288,10 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"3-Build-Platform-Identity-UDR",
+            "Name":"3-Build-Platform-Management-UDR",
             "location":"[parameters('location')]",
             "dependsOn": [
-                "3-Build-Platform-Identity-VirtualNetwork"
+                "3-Build-Platform-Management-VirtualNetwork"
             ],
             "properties":{
                 "mode":"Incremental",

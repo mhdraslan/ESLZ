@@ -2,40 +2,30 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-         "subscriptionId": {
-            "type": "string"
-        },
-         "resourceGroup": {
-            "type": "string"
-        },
-        "templatesBaseUri": {
-            "type": "string"
-        },
         "virtualMachines": {
             "type": "object"
         }
     },
     "functions": [],
     "variables": {
-        "windowsServerTemplateUri":"[concat(parameters('templatesBaseUri'),'/3.templates/virtual-machine/windowsserver.json')]"
+        "vmTemplateUri":"https://raw.githubusercontent.com/mhdraslan/ESLZ/main/Working/3.templates/virtual-machine/windowsserver.json"
     },
     "resources": [
         {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-05-01",
-            "name": "[concat('Build-VM-', parameters('virtualMachines').vmSettings[copyIndex()].vmName)]",
-            "subscriptionId": "[parameters('subscriptionId')]",
-            "resourceGroup": "[parameters('resourceGroup')]",
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('Build-VM-',parameters('virtualMachines').vmSettings[copyIndex()].vmName)]",
+            "dependsOn": [],
             "copy": {
-                "name": "VM-CopyLoop",
+                "name": "VMCopy",
                 "count": "[length(parameters('virtualMachines').vmSettings)]"
             },
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('windowsServerTemplateUri')]"
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('vmTemplateUri')]"
                 },
-                "parameters": {
+                "parameters":{
                     "vmName": {
                         "value":"[parameters('virtualMachines').vmSettings[copyIndex()].vmName]"
                     },
@@ -62,7 +52,7 @@
                     }
                 }
             }
-        }        
+        }
     ],
     "outputs": {}
 }

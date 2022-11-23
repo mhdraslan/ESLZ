@@ -104,17 +104,8 @@
                         "provisionVmAgent": true
                     }
                 }
-            },
-            "tags": {
-                "Environment": "Contoso",
-                "CostCenter": "123"
             }
         }
     ],
-    "outputs": {
-        "adminUsername": {
-            "type": "string",
-            "value": "[parameters('adminUsername')]"
-        }
-    }
+    "outputs": {}
 }
