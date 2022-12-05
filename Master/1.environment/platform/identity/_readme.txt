@@ -15,4 +15,4 @@ The Template creates the following:
 
 
 TODO
-- 
+- route tables are not linked to subnets
