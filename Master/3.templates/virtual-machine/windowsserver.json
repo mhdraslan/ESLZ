@@ -18,7 +18,7 @@
         },
         "osVersionNumber": {
             "type": "string",
-            "allowedValues": ["2012","2016","2019"],
+            "allowedValues": ["2012","2016","2019","2022"],
             "defaultValue": "2019"
         },
         "vmSize": {

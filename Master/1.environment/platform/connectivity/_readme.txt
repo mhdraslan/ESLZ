@@ -1,4 +1,5 @@
-This template is for provisioning the base components that makes up a Routing Hub environment.
+This template is for provisioning the base components that makes up the Hub environment.
+
 To use this template, create a paramters file and reference it in the Main.json template
 
 The Template creates the following:

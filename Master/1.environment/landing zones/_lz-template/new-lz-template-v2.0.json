@@ -1,0 +1,277 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "functions": [],
+    "variables": {
+        "environmentName":"cnxg-ae1-talabat",
+        "location":"uaenorth",
+        "deploymentUris": {
+            "resourceGroup": "[uri(deployment().properties.templateLink.uri, '/../../../3.templates/resource-group/resourcegroup.json')]",
+            "virtualNetwork": "[uri(deployment().properties.templateLink.uri, '/../../../3.templates/virtual-network/virtualnetwork.json')]",
+            "subnet": "[uri(deployment().properties.templateLink.uri, '/../../../3.templates/virtual-network/subnet.json')]",
+            "nsg": "[uri(deployment().properties.templateLink.uri, '/../../../3.templates/virtual-network/nsg.json')]",
+            "udr": "[uri(deployment().properties.templateLink.uri, '/../../../3.templates/virtual-network/udr.json')]",
+            "windowsVirtualMachine": "[uri(deployment().properties.templateLink.uri, '/../../../3.templates/virtual-machine/vm-provisionwindowsserver.json')]"
+        },
+        "resourceGroups":[
+            {
+                "resourceGroupName":"connectivity" // Index 0
+            },
+            {
+                "resourceGroupName":"monitor" // Index 1
+            },
+            {
+                "resourceGroupName":"privdnszones" // Index 2
+            },
+            {
+                "resourceGroupName":"vms" // Index 3
+            },
+            {
+                "resourceGroupName":"automation" // Index 4
+            },
+            {
+                "resourceGroupName":"identity" // Index 5
+            },
+            {
+                "resourceGroupName":"app1" // Index 6
+            }
+        ],
+        "vnets":[
+            {
+                "vNetName":"cnxg-ae1-talabat-vnet",
+                "vNetAddressSpace":"192.168.5.0/24",
+                "vNetDnsServers":["192.168.0.4","192.168.0.5"]
+            }
+        ],
+        "subnets":[
+            {
+                "subnetName":"PrivEndpointSubnet",
+                "vNetName":"cnxg-ae1-talabat-vnet",
+                "subnetAddress":"192.168.5.0/28"
+            },
+            {
+                "subnetName":"FrontendSubnet",
+                "vNetName":"cnxg-ae1-talabat-vnet",
+                "subnetAddress":"192.168.5.16/28"
+            },
+            {
+                "subnetName":"BackendSubnet",
+                "vNetName":"cnxg-ae1-talabat-vnet",
+                "subnetAddress":"192.168.5.32/28"
+            }
+        ],
+        "windowsVMs":[
+            {
+                "vmName":"ae1talabatbe01",
+                "resourceGroupIndex":0,
+                "vNetName":"cnxg-ae1-talabat-vnet",
+                "subnetName":"BackendSubnet",
+                "osDiskType":"StandardSSD_LRS",
+                "osVersionNumber":"2019",
+                "vmSize":"Standard_b2s",
+                "adminUsername":"localadmin",
+                "adminPassword":"dat23uPhutu*"
+            },
+            {
+                "vmName":"ae1talabatbe02",
+                "resourceGroupIndex":0,
+                "vNetName":"cnxg-ae1-talabat-vnet",
+                "subnetName":"BackendSubnet",
+                "osDiskType":"StandardSSD_LRS",
+                "osVersionNumber":"2019",
+                "vmSize":"Standard_b2s",
+                "adminUsername":"localadmin",
+                "adminPassword":"dat23uPhutu*"
+            },
+            {
+                "vmName":"ae1talabatfe01",
+                "resourceGroupIndex":0,
+                "vNetName":"cnxg-ae1-talabat-vnet",
+                "subnetName":"FrontendSubnet",
+                "osDiskType":"StandardSSD_LRS",
+                "osVersionNumber":"2019",
+                "vmSize":"Standard_b2s",
+                "adminUsername":"localadmin",
+                "adminPassword":"dat23uPhutu*"
+            },
+            {
+                "vmName":"ae1talabatfe02",
+                "resourceGroupIndex":0,
+                "vNetName":"cnxg-ae1-talabat-vnet",
+                "subnetName":"FrontendSubnet",
+                "osDiskType":"StandardSSD_LRS",
+                "osVersionNumber":"2019",
+                "vmSize":"Standard_b2s",
+                "adminUsername":"localadmin",
+                "adminPassword":"dat23uPhutu*"
+            }
+        ]
+
+    },
+    "resources": [
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('Create-ResourceGroup-',variables('resourceGroups')[copyIndex()].resourceGroupName)]",
+            "dependsOn": [],
+            "location":"[variables('location')]",
+            "copy": {
+                "name": "ResourceGroupCopy",
+                "count": "[length(variables('resourceGroups'))]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('deploymentUris').resourceGroup]"
+                },
+                "parameters":{
+                    "name":{
+                        "value":"[concat(variables('environmentName'),'-',variables('resourceGroups')[copyIndex()].resourceGroupName,'-rg')]"
+                    },
+                    "location":{
+                        "value":"[variables('location')]"
+                    }
+                }
+            }
+        },
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('Create-VirtualNetwork-',variables('vnets')[copyIndex()].vNetName)]",
+            "dependsOn": [
+                "ResourceGroupCopy"
+            ],
+            "resourceGroup": "[concat(variables('environmentName'),'-',variables('resourceGroups')[0].resourceGroupName,'-rg')]",
+            "copy": {
+                "name": "VirtualNetworksCopy",
+                "count": "[length(variables('vnets'))]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('deploymentUris').virtualNetwork]"
+                },
+                "parameters":{
+                    "vNetName":{
+                        "value":"[variables('vnets')[copyIndex()].vNetName]"
+                    },
+                    "vNetAddressSpace":{
+                        "value":"[variables('vnets')[copyIndex()].vNetAddressSpace]"
+                    },
+                    "vNetDNSServers":{
+                        "value":"[variables('vnets')[copyIndex()].vNetDnsServers]"
+                    }
+                }
+            }
+        },
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('Create-Subnet-',variables('subnets')[copyIndex()].subnetName)]",
+            "dependsOn": [
+                "VirtualNetworksCopy"
+            ],
+            "resourceGroup": "[concat(variables('environmentName'),'-',variables('resourceGroups')[0].resourceGroupName,'-rg')]",
+            "copy": {
+                "name": "SubnetsCopy",
+                "count": "[length(variables('subnets'))]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('deploymentUris').subnet]"
+                },
+                "parameters":{
+                    "vNetName":{
+                        "value":"[variables('subnets')[copyIndex()].vNetName]"
+                    },
+                    "subnetName":{
+                        "value":"[variables('subnets')[copyIndex()].subnetName]"
+                    },
+                    "subnetAddressSpace":{
+                        "value":"[variables('subnets')[copyIndex()].subnetAddress]"
+                    }
+                }
+            }
+        },
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('Create-WindowsVM-',variables('windowsVMs')[copyIndex()].vmName)]",
+            "dependsOn": [
+                "SubnetsCopy"
+            ],
+            "resourceGroup": "[concat(variables('environmentName'),'-',variables('resourceGroups')[variables('windowsVMs')[copyIndex()].resourceGroupIndex].resourceGroupName,'-rg')]",
+            "copy": {
+                "name": "WindowsVirtualMachinesCopy",
+                "count": "[length(variables('windowsVMs'))]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('deploymentUris').windowsVirtualMachine]"
+                },
+                "parameters":{
+                    "vmName":{
+                        "value":"[variables('windowsVMs')[copyIndex()].vmName]"
+                    },
+                    "vNetName":{
+                        "value":"[variables('windowsVMs')[copyIndex()].vNetName]"
+                    },
+                    "subnetName":{
+                        "value":"[variables('windowsVMs')[copyIndex()].subnetName]"
+                    },
+                    "osDiskType":{
+                        "value":"[variables('windowsVMs')[copyIndex()].osDiskType]"
+                    },
+                    "osVersionNumber":{
+                        "value":"[variables('windowsVMs')[copyIndex()].osVersionNumber]"
+                    },
+                    "vmSize":{
+                        "value":"[variables('windowsVMs')[copyIndex()].vmSize]"
+                    },                                        
+                    "adminUsername":{
+                        "value":"[variables('windowsVMs')[copyIndex()].adminUsername]"
+                    },
+                    "adminPassword":{
+                        "value":"[variables('windowsVMs')[copyIndex()].adminPassword]"
+                    }
+                }
+            }
+        }/*,
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('Create-UDR')]",
+            "dependsOn": [
+                "SubnetsCopy"
+            ],
+            "resourceGroup": "[variables('resourceGroupName')]",
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('udrTemplateUri')]"
+                },
+                "parameters":{
+                    "environmentName":{
+                        "value":"[parameters('environmentName')]"
+                    },
+                    "templatesBaseUri":{
+                        "value":"[parameters('templatesBaseUri')]"
+                    },
+                    "RouteEntryAddressPrefix":{
+                        "value":"[parameters('appGwTier')]"
+                    },
+                    "routeEntryType":{
+                        "value":"[parameters('appGwPrivateIpAddress')]"
+                    },
+                    "routeEntryNextHopIPAddress":{
+                        "value":"[parameters('publicIpAddressSku')]"
+                    }
+                }
+            }
+        }*/
+    ],
+    "outputs": {}
+}
