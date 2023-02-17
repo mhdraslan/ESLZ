@@ -16,7 +16,7 @@
         },
         "resourceGroups":[
             {
-                "resourceGroupName":"connectivity" // Index 0
+                "resourceGroupName":"connectivity" // Index 00
             },
             {
                 "resourceGroupName":"monitor" // Index 01
