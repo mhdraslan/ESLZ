@@ -12,7 +12,7 @@
             "subnet": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/virtual-network/subnet.json')]",
             "nsg": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/virtual-network/nsg.json')]",
             "udr": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/virtual-network/udr.json')]",
-            "windowsVirtualMachine": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/virtual-machine/vm-provisionwindowsserver.json')]"
+            "windowsVirtualMachine": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/virtual-machine/windowsserver.json')]"
         },
         "resourceGroups":[
             {
