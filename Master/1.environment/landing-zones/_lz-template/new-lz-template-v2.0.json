@@ -203,13 +203,13 @@
                 },
                 "parameters":{
                     "vNetName":{
-                        "value":"[parameters('vnets').subnetSettings[copyIndex()].vNetName]"
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].vNetName]"
                     },
                     "subnetName":{
-                        "value":"[parameters('vnets').subnetSettings[copyIndex()].subnetName]"
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetName]"
                     },
                     "subnetAddressSpace":{
-                        "value":"[parameters('vnets').subnetSettings[copyIndex()].subnetAddress]"
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetAddress]"
                     }
                 }
             }
@@ -220,6 +220,7 @@
             "apiVersion":"2019-05-01",
             "Name":"[concat('Link_UDR_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
             "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
+            "condition": "[not(equals(parameters('subnets').subnetSettings[copyIndex()].udr,''))]",
             "dependsOn": [
                 "NsgsCopy",
                 "UdrEntriesCopy"
@@ -236,6 +237,9 @@
                 "parameters":{
                     "udrName":{
                         "value":"[parameters('subnets').subnetSettings[copyIndex()].udr]"
+                    },
+                    "udrResourceGroup":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].udrRg]"
                     },
                     "vNetName":{
                         "value":"[parameters('subnets').subnetSettings[copyIndex()].vNetName]"

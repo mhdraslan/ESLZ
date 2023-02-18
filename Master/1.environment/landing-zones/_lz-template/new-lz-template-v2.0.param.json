@@ -115,63 +115,72 @@
                         "vNetName":"cnxg-ae1-hub-vnet",
                         "subnetAddress":"192.168.100.0/26",
                         "rgName":"cnxg-ae1-hub-rg",
-                        "udr":""
+                        "udr":"",
+                        "udrRg":""
                     },
                     {
                         "subnetName":"GatewaySubnet",
                         "vNetName":"cnxg-ae1-hub-vnet",
                         "subnetAddress":"192.168.100.64/26",
                         "rgName":"cnxg-ae1-hub-rg",
-                        "udr":"cnxg-ae1-hub-gateway-rt"
+                        "udr":"cnxg-ae1-hub-gateway-rt",
+                        "udrRg":"cnxg-ae1-hub-rg"
                     },
                     {
                         "subnetName":"AzureBastionSubnet",
                         "vNetName":"cnxg-ae1-hub-vnet",
                         "subnetAddress":"192.168.100.128/26",
                         "rgName":"cnxg-ae1-hub-rg",
-                        "udr":""
+                        "udr":"",
+                        "udrRg":""
                     },
                     {
                         "subnetName":"PrivateEndpointSubnet",
                         "vNetName":"cnxg-ae1-hub-vnet",
                         "subnetAddress":"192.168.100.192/26",
                         "rgName":"cnxg-ae1-hub-rg",
-                        "udr":""
+                        "udr":"",
+                        "udrRg":""
                     },
                     {
                         "subnetName":"ActiveDirectorySubnet",
                         "vNetName":"cnxg-ae1-identity-vnet",
                         "subnetAddress":"192.168.101.0/26",
                         "rgName":"cnxg-ae1-identity-rg",
-                        "udr":"cnxg-ae1-spoke-rt"
+                        "udr":"cnxg-ae1-spoke-rt",
+                        "udrRg":"cnxg-ae1-hub-rg"
                     },
                     {
                         "subnetName":"PrivateEndpointSubnet",
                         "vNetName":"cnxg-ae1-identity-vnet",
                         "subnetAddress":"192.168.101.192/26",
                         "rgName":"cnxg-ae1-identity-rg",
-                        "udr":"cnxg-ae1-spoke-rt"
+                        "udr":"cnxg-ae1-spoke-rt",
+                        "udrRg":"cnxg-ae1-hub-rg"
                     },
                     {
                         "subnetName":"FrontendSubnet",
                         "vNetName":"cnxg-ae1-app1-vnet",
                         "subnetAddress":"192.168.102.0/26",
                         "rgName":"cnxg-ae1-app1-rg",
-                        "udr":"cnxg-ae1-spoke-rt"
+                        "udr":"cnxg-ae1-spoke-rt",
+                        "udrRg":"cnxg-ae1-hub-rg"
                     },
                     {
                         "subnetName":"BackendSubnet",
                         "vNetName":"cnxg-ae1-app1-vnet",
                         "subnetAddress":"192.168.102.64/26",
                         "rgName":"cnxg-ae1-app1-rg",
-                        "udr":"cnxg-ae1-spoke-rt"
+                        "udr":"cnxg-ae1-spoke-rt",
+                        "udrRg":"cnxg-ae1-hub-rg"
                     },
                     {
                         "subnetName":"PrivateEndpointSubnet",
                         "vNetName":"cnxg-ae1-app1-vnet",
                         "subnetAddress":"192.168.102.192/26",
                         "rgName":"cnxg-ae1-app1-rg",
-                        "udr":"cnxg-ae1-spoke-rt"
+                        "udr":"cnxg-ae1-spoke-rt",
+                        "udrRg":"cnxg-ae1-hub-rg"
                     }
                 ]
             }

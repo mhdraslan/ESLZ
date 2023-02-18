@@ -10,17 +10,21 @@
         },
         "udrName": {
             "type": "string"
+        },
+        "udrResourceGroup": {
+            "type": "string",
+            "defaultValue": ""
         }
     },
     "variables": {
-        "UdrLinkDeploymentName":"[concat('Associate-',parameters('udrName'),'-',parameters('subnetName'))]",
-        "UdrId":"[resourceId('Microsoft.Network/routeTables',parameters('udrName'))]"
+        "udrLinkDeploymentName":"[concat('Associate-',parameters('udrName'),'-',parameters('subnetName'))]",
+        "udrId":"[if(equals(parameters('udrResourceGroup'),''), resourceId('Microsoft.Network/routeTables',parameters('udrName')),resourceId(parameters('udrResourceGroup'),'Microsoft.Network/routeTables',parameters('udrName')))]"
     },
     "resources": [
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-09-01",
-            "name":"[variables('UdrLinkDeploymentName')]",
+            "name":"[variables('udrLinkDeploymentName')]",
             "properties":{
                 "mode":"Incremental",
                 "template":{
@@ -34,7 +38,7 @@
                             "properties": {
                                 "addressPrefix": "[reference(resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks/subnets',parameters('vNetName'),parameters('subnetName')), '2018-03-01').addressPrefix]",
                                 "routeTable": {
-                                    "id": "[variables('UdrId')]"
+                                    "id": "[variables('udrId')]"
                                 }
                             }
                         }
