@@ -163,7 +163,8 @@
             "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
             "copy": {
                 "name": "SubnetsCopy",
-                "count": "[length(parameters('subnets').subnetSettings)]"
+                "count": "[length(parameters('subnets').subnetSettings)]",
+                "mode": "Serial"
             },
             "properties":{
                 "mode":"Incremental",
@@ -189,6 +190,7 @@
             "apiVersion":"2019-05-01",
             "Name":"[concat('Create_NSG_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
             "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
+            "condition": "[parameters('subnets').subnetSettings[copyIndex()].createNsg]",
             "dependsOn": [
                 "SubnetsCopy"
             ],
