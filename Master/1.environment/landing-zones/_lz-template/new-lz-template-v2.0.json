@@ -160,7 +160,7 @@
             "dependsOn": [
                 "VirtualNetworksCopy"
             ],
-            "resourceGroup": "[parameters('subnets').rgSettings[copyIndex()].rgName]",
+            "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
             "copy": {
                 "name": "SubnetsCopy",
                 "count": "[length(parameters('subnets').subnetSettings)]"
