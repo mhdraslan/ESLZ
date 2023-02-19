@@ -28,6 +28,7 @@
             "udrTable": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/udr/routetable.json')]",
             "udrEntry": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/udr/routeentry.json')]",
             "udrLink": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/udr/linksubnet.json')]",
+            "udrLinkwithNsg": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/udr/linksubnetnsg.json')]",
             "windowsVm": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/virtual-machine/windowsserver.json')]"
         }
     },
@@ -234,7 +235,7 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[variables('deploymentUris').udrLink]"
+                    "uri":"[if(parameters('subnets').subnetSettings[copyIndex()].createNsg, variables('deploymentUris').udrLinkwithNsg, variables('deploymentUris').udrLink)]"
                 },
                 "parameters":{
                     "udrName":{
