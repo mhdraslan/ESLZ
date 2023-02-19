@@ -2,13 +2,13 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "azFwName": {
+        "azFirewallName": {
             "type": "String"
         },
-        "azFwVNet":{
+        "azFirewallVnetName":{
             "type":"string"
         },
-        "azFwTier": {
+        "azFirewallTier": {
             "type": "string",
             "defaultValue": "Standard",
             "allowedValues": [
@@ -18,13 +18,13 @@
         }
     },
     "variables": {
-        "AzFWPublicIPResource":"[concat(parameters('azFwName'), '-pubip')]"
+        "AzFWPublicIPResource":"[concat(parameters('azFirewallName'), '-pubip')]"
     },
     "resources": [
         {
             "type": "Microsoft.Network/azureFirewalls",
             "apiVersion": "2022-05-01",
-            "name": "[parameters('azFwName')]",
+            "name": "[parameters('azFirewallName')]",
             "location": "[resourceGroup().location]",
             "dependsOn":[
                 "[resourceId('Microsoft.Network/publicIPAddresses',variables('AzFWPublicIPResource'))]"
@@ -32,7 +32,7 @@
             "properties": {
                 "sku": {
                     "name": "AZFW_VNet",
-                    "tier": "[parameters('azFwTier')]"
+                    "tier": "[parameters('azFirewallTier')]"
                 },
                 "threatIntelMode": "Alert",
                 "additionalProperties": {},
@@ -44,7 +44,7 @@
                                 "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('AzFWPublicIPResource'))]"
                             },
                             "subnet": {
-                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('azFwVNet'),'AzureFirewallSubnet')]"
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('azFirewallVnetName'),'AzureFirewallSubnet')]"
                             }
                         }
                     }

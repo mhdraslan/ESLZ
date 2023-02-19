@@ -265,6 +265,22 @@
                     }
                 ]
             }
+        },
+        "azFirewall": {
+            "value":{
+                "buildAzFirewall":true,
+                "azFirewallName":"cnxg-ae1-azfw-01",
+                "azFirewallVnetName":"cnxg-ae1-hub-vnet",
+                "azFirewallTier":"Standard"
+            }
+        },
+        "azVpnGateway": {
+            "value":{
+                "buildAzVpnGateway":true,
+                "vpnGatewayName":"cnxg-ae1-azfw-01",
+                "vpnGatewayVnetName":"cnxg-ae1-hub-vnet",
+                "vpnGatewayTier":"Standard"
+            }
         }
     },
     "variables": {},

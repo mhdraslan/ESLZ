@@ -16,6 +16,12 @@
         },
         "windowsVMs": {
             "type": "object"
+        },
+        "azFirewall": {
+            "type": "object"
+        },
+        "azVpnGateway": {
+            "type": "object"
         }
     },
     "functions": [],
@@ -29,7 +35,9 @@
             "udrEntry": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/udr/routeentry.json')]",
             "udrLink": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/udr/linksubnet.json')]",
             "udrLinkwithNsg": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/udr/linksubnetnsg.json')]",
-            "windowsVm": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/virtual-machine/windowsserver.json')]"
+            "windowsVm": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/virtual-machine/windowsvm.json')]",
+            "azFirewall": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/az-firewall/azfirewall.json')]",
+            "vpnGateway": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/network-gateway/vpngw.json')]"
         }
     },
     "resources": [
@@ -295,6 +303,60 @@
                     },
                     "adminPassword":{
                         "value":"[parameters('windowsVMs').vmSettings[copyIndex()].adminPassword]"
+                    }
+                }
+            }
+        },
+        // AZURE FIREWALL
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"Create_Azure_Firewall",
+            "dependsOn": [
+                "UdrLinksCopy"
+            ],
+            "condition": "[parameters('azFirewall').buildAzFirewall]",
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('deploymentUris').azFirewall]"
+                },
+                "parameters":{
+                    "azFirewallName":{
+                        "value":"[parameters('azFirewall').azFirewallName]"
+                    },
+                    "azFirewallVnetName":{
+                        "value":"[parameters('azFirewall').azFirewallVnetName]"
+                    },
+                    "azFirewallTier":{
+                        "value":"[parameters('azFirewall').azFirewallTier]"
+                    }
+                }
+            }
+        },
+        // AZURE VPN GATEWAY
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"Create_Azure_VPN_Gateway",
+            "dependsOn": [
+                "UdrLinksCopy"
+            ],
+            "condition": "[parameters('azVpnGateway').buildAzVpnGateway]",
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('deploymentUris').vpnGateway]"
+                },
+                "parameters":{
+                    "vpnGatewayName":{
+                        "value":"[parameters('azVpnGateway').vpnGatewayName]"
+                    },
+                    "vNetName":{
+                        "value":"[parameters('azVpnGateway').vpnGatewayVnetName]"
+                    },
+                    "vpnGatewaySku":{
+                        "value":"[parameters('azVpnGateway').vpnGatewayTier]"
                     }
                 }
             }
