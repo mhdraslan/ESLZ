@@ -269,17 +269,23 @@
         "azFirewall": {
             "value":{
                 "buildAzFirewall":true,
-                "azFirewallName":"cnxg-ae1-azfw-01",
-                "azFirewallVnetName":"cnxg-ae1-hub-vnet",
-                "azFirewallTier":"Standard"
+                "name":"cnxg-ae1-azfw-01",
+                "rgName":"cnxg-ae1-hub-rg",
+                "vnetName":"cnxg-ae1-hub-vnet",
+                "tier":"Standard"
             }
         },
         "azVpnGateway": {
             "value":{
-                "buildAzVpnGateway":true,
-                "vpnGatewayName":"cnxg-ae1-azfw-01",
-                "vpnGatewayVnetName":"cnxg-ae1-hub-vnet",
-                "vpnGatewayTier":"Standard"
+                "buildVpnGateway":true,
+                "name":"cnxg-ae1-vpngw-01",
+                "rgName":"cnxg-ae1-hub-rg",
+                "vpnType":"RouteBased",
+                "vnetName":"cnxg-ae1-hub-vnet",
+                "gatewaySku":"VpnGw1",
+                "localGatewayName":"cnxg-ae1-localgw-01",
+                "localGatewayIpAddress":"56.41.32.65",
+                "localAddressPrefix":["10.100.10.0/24"]
             }
         }
     },

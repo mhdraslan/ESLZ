@@ -312,6 +312,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "Name":"Create_Azure_Firewall",
+            "resourceGroup": "[parameters('azFirewall').rgName]",
             "dependsOn": [
                 "UdrLinksCopy"
             ],
@@ -323,13 +324,13 @@
                 },
                 "parameters":{
                     "azFirewallName":{
-                        "value":"[parameters('azFirewall').azFirewallName]"
+                        "value":"[parameters('azFirewall').name]"
                     },
                     "azFirewallVnetName":{
-                        "value":"[parameters('azFirewall').azFirewallVnetName]"
+                        "value":"[parameters('azFirewall').vnetName]"
                     },
                     "azFirewallTier":{
-                        "value":"[parameters('azFirewall').azFirewallTier]"
+                        "value":"[parameters('azFirewall').tier]"
                     }
                 }
             }
@@ -339,24 +340,37 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "Name":"Create_Azure_VPN_Gateway",
+            "resourceGroup": "[parameters('azVpnGateway').rgName]",
             "dependsOn": [
                 "UdrLinksCopy"
             ],
-            "condition": "[parameters('azVpnGateway').buildAzVpnGateway]",
+            "condition": "[parameters('azVpnGateway').buildVpnGateway]",
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
                     "uri":"[variables('deploymentUris').vpnGateway]"
                 },
                 "parameters":{
-                    "vpnGatewayName":{
-                        "value":"[parameters('azVpnGateway').vpnGatewayName]"
+                    "gatewayName":{
+                        "value":"[parameters('azVpnGateway').name]"
                     },
-                    "vNetName":{
-                        "value":"[parameters('azVpnGateway').vpnGatewayVnetName]"
+                    "vpnType":{
+                        "value":"[parameters('azVpnGateway').vpnType]"
                     },
-                    "vpnGatewaySku":{
-                        "value":"[parameters('azVpnGateway').vpnGatewayTier]"
+                    "localGatewayName":{
+                        "value":"[parameters('azVpnGateway').localGatewayName]"
+                    },
+                    "localGatewayIpAddress":{
+                        "value":"[parameters('azVpnGateway').localGatewayIpAddress]"
+                    },
+                    "localAddressPrefix":{
+                        "value":"[parameters('azVpnGateway').localAddressPrefix]"
+                    },
+                    "virtualNetworkName":{
+                        "value":"[parameters('azVpnGateway').vnetName]"
+                    },
+                    "gatewaySku":{
+                        "value":"[parameters('azVpnGateway').gatewaySku]"
                     }
                 }
             }
