@@ -92,7 +92,7 @@
                     },
                     {
                         "routeEntryName":"default-route",
-                        "routeEntryAddressPrefix":"0.0.0.0/0",
+                        "routeEntryAddressPrefix":"192.168.0.0/16",
                         "routeEntryType":"VirtualAppliance",
                         "routeEntryNextHopIPAddress":"192.168.100.4",
                         "routeTableName":"cnxg-ae1-hub-gateway-rt"

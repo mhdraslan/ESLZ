@@ -39,6 +39,9 @@
                                 "addressPrefix": "[reference(resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks/subnets',parameters('vNetName'),parameters('subnetName')), '2018-03-01').addressPrefix]",
                                 "routeTable": {
                                     "id": "[variables('udrId')]"
+                                },
+                                "networkSecurityGroup":{
+                                    "id":"[reference(resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks/subnets',parameters('vNetName'),parameters('subnetName')), '2018-03-01').networkSecurityGroup.id]"
                                 }
                             }
                         }
