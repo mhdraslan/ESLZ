@@ -166,6 +166,38 @@
                 }
             }
         },
+        // VIRTUAL NETWORK PEERINGS
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('Create_Subnet_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
+            "dependsOn": [
+                "VirtualNetworksCopy"
+            ],
+            "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
+            "copy": {
+                "name": "SubnetsCopy",
+                "count": "[length(parameters('subnets').subnetSettings)]",
+                "mode": "Serial"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('deploymentUris').subnet]"
+                },
+                "parameters":{
+                    "vNetName":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].vNetName]"
+                    },
+                    "subnetName":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetName]"
+                    },
+                    "subnetAddressSpace":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetAddress]"
+                    }
+                }
+            }
+        },
         // SUBNETS
         {
             "type":"Microsoft.Resources/deployments",
