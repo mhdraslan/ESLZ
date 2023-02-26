@@ -7,35 +7,38 @@
                 "rgSettings":[
                     // DO NOT DELETE FIRST (DEPLOYMENT) RESOURCE GROUP. DELETE AFTER SUCCESSFUL DEPLOYMENT
                     {
-                        "rgName":"cnxg-ae1-deployment-rg",
+                        "rgName":"DM-IT-SMP-Dev-Deployment-rg",
                         "rgLocation":"UAENorth"
                     },
                     // ADD RESOURCE GROUP SECTIONS BELOW
                     {
-                        "rgName":"cnxg-ae1-hub-rg",
+                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"cnxg-ae1-monitor-rg",
+                        "rgName":"DM-IT-SMP-Dev-Monitor-RG",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"cnxg-ae1-bcdr-rg",
+                        "rgName":"DM-IT-SMP-Dev-Recovery-RG",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"cnxg-ae1-privdnszones-rg",
+                        "rgName":"DM-IT-SMP-Dev-PrivDnsZones-R",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"cnxg-ae1-identity-rg",
+                        "rgName":"DM-IT-SMP-Dev-SnApp-RG",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"cnxg-ae1-app1-rg",
+                        "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
+                        "rgLocation":"UAENorth"
+                    },
+                    {
+                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
                         "rgLocation":"UAENorth"
                     }
-
                 ]
             }
         },
@@ -43,22 +46,96 @@
             "value":{
                 "vnetSettings":[
                     {
-                        "vNetName":"cnxg-ae1-hub-vnet",
-                        "vNetAddressSpace":"192.168.100.0/24",
-                        "vNetDnsServers":["192.168.101.4","192.168.101.5"],
-                        "rgName":"cnxg-ae1-hub-rg"
+                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "vNetAddressSpace":"10.172.5.0/24",
+                        "vNetDnsServers":["10.172.5.196","10.172.5.197"],
+                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG"
                     },
                     {
-                        "vNetName":"cnxg-ae1-identity-vnet",
-                        "vNetAddressSpace":"192.168.101.0/24",
-                        "vNetDnsServers":["192.168.101.4","192.168.101.5"],
-                        "rgName":"cnxg-ae1-identity-rg"
+                        "vNetName":"DM-IT-SMP-Dev-SnApp-VNET",
+                        "vNetAddressSpace":"10.172.6.0/24",
+                        "vNetDnsServers":["10.172.5.196","10.172.5.197"],
+                        "rgName":"DM-IT-SMP-Dev-SnApp-RG"
                     },
                     {
-                        "vNetName":"cnxg-ae1-app1-vnet",
-                        "vNetAddressSpace":"192.168.102.0/24",
-                        "vNetDnsServers":["192.168.101.4","192.168.101.5"],
-                        "rgName":"cnxg-ae1-app1-rg"
+                        "vNetName":"DM-IT-SMP-Dev-CustomerPortal-VNET",
+                        "vNetAddressSpace":"10.172.7.0/24",
+                        "vNetDnsServers":["10.172.5.196","10.172.5.197"],
+                        "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG"
+                    },
+                    {
+                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
+                        "vNetAddressSpace":"10.172.8.0/24",
+                        "vNetDnsServers":["10.172.5.196","10.172.5.197"],
+                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG"
+                    }
+                ],
+                "peeringSettings":[
+                    {
+                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "remoteVnetName":"DM-IT-SMP-Dev-SnApp-VNET",
+                        "remoteVNetSubscriptionId":"[subscription().subscriptionId]",
+                        "remoteVNetResourceGroup":"DM-IT-SMP-Dev-SnApp-RG",
+                        "peeringName":"VNet-Peering-Hub-SnApp",
+                        "allowForwardedTraffic":false,
+                        "allowGatewayTransit":false,
+                        "useRemoteGateways":false
+                    },
+                    {
+                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "remoteVnetName":"DM-IT-SMP-Dev-CustomerPortal-VNET",
+                        "remoteVNetSubscriptionId":"[subscription().subscriptionId]",
+                        "remoteVNetResourceGroup":"DM-IT-SMP-Dev-CustomerPortal-RG",
+                        "peeringName":"VNet-Peering-Hub-CustomerPortal",
+                        "allowForwardedTraffic":false,
+                        "allowGatewayTransit":false,
+                        "useRemoteGateways":false
+                    },
+                    {
+                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "remoteVnetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
+                        "remoteVNetSubscriptionId":"[subscription().subscriptionId]",
+                        "remoteVNetResourceGroup":"DM-IT-SMP-Dev-ParkingEnv-RG",
+                        "peeringName":"VNet-Peering-Hub-ParkingEnv",
+                        "allowForwardedTraffic":false,
+                        "allowGatewayTransit":false,
+                        "useRemoteGateways":false
+                    },
+                    {
+                        "vNetName":"DM-IT-SMP-Dev-SnApp-VNET",
+                        "rgName":"DM-IT-SMP-Dev-SnApp-RG",
+                        "remoteVnetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "remoteVNetSubscriptionId":"[subscription().subscriptionId]",
+                        "remoteVNetResourceGroup":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "peeringName":"VNet-Peering-SnApp-Hub",
+                        "allowForwardedTraffic":true,
+                        "allowGatewayTransit":false,
+                        "useRemoteGateways":false
+                    },
+                    {
+                        "vNetName":"DM-IT-SMP-Dev-CustomerPortal-VNET",
+                        "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
+                        "remoteVnetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "remoteVNetSubscriptionId":"[subscription().subscriptionId]",
+                        "remoteVNetResourceGroup":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "peeringName":"VNet-Peering-CustomerPortal-Hub",
+                        "allowForwardedTraffic":true,
+                        "allowGatewayTransit":false,
+                        "useRemoteGateways":false
+                    },
+                    {
+                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
+                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
+                        "remoteVnetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "remoteVNetSubscriptionId":"[subscription().subscriptionId]",
+                        "remoteVNetResourceGroup":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "peeringName":"VNet-Peering-CustomerPortal-Hub",
+                        "allowForwardedTraffic":true,
+                        "allowGatewayTransit":false,
+                        "useRemoteGateways":false
                     }
                 ]
             }
@@ -67,12 +144,12 @@
             "value":{
                 "udrTables":[
                     {
-                        "routeTableName":"cnxg-ae1-hub-gateway-rt",
-                        "rgName":"cnxg-ae1-hub-rg"
+                        "routeTableName":"DM-IT-SMP-Dev-GatewaySubnet-RT",
+                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG"
                     },
                     {
-                        "routeTableName":"cnxg-ae1-spoke-rt",
-                        "rgName":"cnxg-ae1-hub-rg"
+                        "routeTableName":"DM-IT-SMP-Dev-Spokes-RT",
+                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG"
                     }
                 ],
                 "udrSettings":[
@@ -80,29 +157,22 @@
                         "routeEntryName":"default-route",
                         "routeEntryAddressPrefix":"0.0.0.0/0",
                         "routeEntryType":"VirtualAppliance",
-                        "routeEntryNextHopIPAddress":"192.168.100.4",
-                        "routeTableName":"cnxg-ae1-spoke-rt"
+                        "routeEntryNextHopIPAddress":"10.172.5.4",
+                        "routeTableName":"DM-IT-SMP-Dev-Spokes-RT"
                     },
                     {
                         "routeEntryName":"onprem-route",
-                        "routeEntryAddressPrefix":"172.31.0.0/16",
+                        "routeEntryAddressPrefix":"10.100.0.0/16",
                         "routeEntryType":"None",
                         "routeEntryNextHopIPAddress":"",
-                        "routeTableName":"cnxg-ae1-spoke-rt"
+                        "routeTableName":"DM-IT-SMP-Dev-Spokes-RT"
                     },
                     {
-                        "routeEntryName":"default-route",
-                        "routeEntryAddressPrefix":"192.168.0.0/16",
+                        "routeEntryName":"To-Spokes",
+                        "routeEntryAddressPrefix":"10.172.0.0/16",
                         "routeEntryType":"VirtualAppliance",
-                        "routeEntryNextHopIPAddress":"192.168.100.4",
-                        "routeTableName":"cnxg-ae1-hub-gateway-rt"
-                    },
-                    {
-                        "routeEntryName":"onprem-route",
-                        "routeEntryAddressPrefix":"172.31.0.0/16",
-                        "routeEntryType":"None",
-                        "routeEntryNextHopIPAddress":"",
-                        "routeTableName":"cnxg-ae1-hub-gateway-rt"
+                        "routeEntryNextHopIPAddress":"10.172.5.4",
+                        "routeTableName":"DM-IT-SMP-Dev-GatewaySubnet-RT"
                     }
                 ]
             }
@@ -112,83 +182,146 @@
                 "subnetSettings":[
                     {
                         "subnetName":"AzureFirewallSubnet",
-                        "vNetName":"cnxg-ae1-hub-vnet",
-                        "subnetAddress":"192.168.100.0/26",
-                        "rgName":"cnxg-ae1-hub-rg",
+                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "subnetAddress":"10.172.5.0/26",
+                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
                         "udr":"",
                         "udrRg":"",
                         "createNsg":false
                     },
                     {
                         "subnetName":"GatewaySubnet",
-                        "vNetName":"cnxg-ae1-hub-vnet",
-                        "subnetAddress":"192.168.100.64/26",
-                        "rgName":"cnxg-ae1-hub-rg",
-                        "udr":"cnxg-ae1-hub-gateway-rt",
-                        "udrRg":"cnxg-ae1-hub-rg",
+                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "subnetAddress":"10.172.5.64/26",
+                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "udr":"DM-IT-SMP-Dev-GatewaySubnet-RT",
+                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
                         "createNsg":false
                     },
                     {
                         "subnetName":"AzureBastionSubnet",
-                        "vNetName":"cnxg-ae1-hub-vnet",
-                        "subnetAddress":"192.168.100.128/26",
-                        "rgName":"cnxg-ae1-hub-rg",
+                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "subnetAddress":"10.172.5.128/26",
+                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
                         "udr":"",
                         "udrRg":"",
                         "createNsg":false
                     },
                     {
-                        "subnetName":"PrivateEndpointSubnet",
-                        "vNetName":"cnxg-ae1-hub-vnet",
-                        "subnetAddress":"192.168.100.192/26",
-                        "rgName":"cnxg-ae1-hub-rg",
+                        "subnetName":"SharedServiceSubnet",
+                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "subnetAddress":"10.172.5.192/26",
+                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
                         "udr":"",
                         "udrRg":"",
                         "createNsg":true
                     },
                     {
-                        "subnetName":"ActiveDirectorySubnet",
-                        "vNetName":"cnxg-ae1-identity-vnet",
-                        "subnetAddress":"192.168.101.0/26",
-                        "rgName":"cnxg-ae1-identity-rg",
-                        "udr":"cnxg-ae1-spoke-rt",
-                        "udrRg":"cnxg-ae1-hub-rg",
+                        "subnetName":"SnAppSubnet1",
+                        "vNetName":"DM-IT-SMP-Dev-SnApp-VNET",
+                        "subnetAddress":"10.172.6.0/26",
+                        "rgName":"DM-IT-SMP-Dev-SnApp-RG",
+                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
+                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
                         "createNsg":true
                     },
                     {
-                        "subnetName":"PrivateEndpointSubnet",
-                        "vNetName":"cnxg-ae1-identity-vnet",
-                        "subnetAddress":"192.168.101.192/26",
-                        "rgName":"cnxg-ae1-identity-rg",
-                        "udr":"cnxg-ae1-spoke-rt",
-                        "udrRg":"cnxg-ae1-hub-rg",
+                        "subnetName":"SnAppSubnet2",
+                        "vNetName":"DM-IT-SMP-Dev-SnApp-VNET",
+                        "subnetAddress":"10.172.6.64/26",
+                        "rgName":"DM-IT-SMP-Dev-SnApp-RG",
+                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
+                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
                         "createNsg":true
                     },
                     {
-                        "subnetName":"FrontendSubnet",
-                        "vNetName":"cnxg-ae1-app1-vnet",
-                        "subnetAddress":"192.168.102.0/26",
-                        "rgName":"cnxg-ae1-app1-rg",
-                        "udr":"cnxg-ae1-spoke-rt",
-                        "udrRg":"cnxg-ae1-hub-rg",
+                        "subnetName":"SnAppSubnet3",
+                        "vNetName":"DM-IT-SMP-Dev-SnApp-VNET",
+                        "subnetAddress":"10.172.6.128/26",
+                        "rgName":"DM-IT-SMP-Dev-SnApp-RG",
+                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
+                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
                         "createNsg":true
                     },
                     {
-                        "subnetName":"BackendSubnet",
-                        "vNetName":"cnxg-ae1-app1-vnet",
-                        "subnetAddress":"192.168.102.64/26",
-                        "rgName":"cnxg-ae1-app1-rg",
-                        "udr":"cnxg-ae1-spoke-rt",
-                        "udrRg":"cnxg-ae1-hub-rg",
+                        "subnetName":"SnAppSubnet4",
+                        "vNetName":"DM-IT-SMP-Dev-SnApp-VNET",
+                        "subnetAddress":"10.172.6.192/26",
+                        "rgName":"DM-IT-SMP-Dev-SnApp-RG",
+                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
+                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
                         "createNsg":true
                     },
                     {
-                        "subnetName":"PrivateEndpointSubnet",
-                        "vNetName":"cnxg-ae1-app1-vnet",
-                        "subnetAddress":"192.168.102.192/26",
-                        "rgName":"cnxg-ae1-app1-rg",
-                        "udr":"cnxg-ae1-spoke-rt",
-                        "udrRg":"cnxg-ae1-hub-rg",
+                        "subnetName":"CPSubnet1",
+                        "vNetName":"DM-IT-SMP-Dev-CustomerPortal-VNET",
+                        "subnetAddress":"10.172.7.0/26",
+                        "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
+                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
+                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "createNsg":true
+                    },
+                    {
+                        "subnetName":"CPSubnet2",
+                        "vNetName":"DM-IT-SMP-Dev-CustomerPortal-VNET",
+                        "subnetAddress":"10.172.7.64/26",
+                        "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
+                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
+                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "createNsg":true
+                    },
+                    {
+                        "subnetName":"CPSubnet3",
+                        "vNetName":"DM-IT-SMP-Dev-CustomerPortal-VNET",
+                        "subnetAddress":"10.172.7.128/26",
+                        "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
+                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
+                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "createNsg":true
+                    },
+                    {
+                        "subnetName":"CPSubnet4",
+                        "vNetName":"DM-IT-SMP-Dev-CustomerPortal-VNET",
+                        "subnetAddress":"10.172.7.192/26",
+                        "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
+                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
+                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "createNsg":true
+                    },
+                    {
+                        "subnetName":"PeApiSubnet",
+                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
+                        "subnetAddress":"10.172.8.0/26",
+                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
+                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
+                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "createNsg":true
+                    },
+                    {
+                        "subnetName":"PeDbSubnet",
+                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
+                        "subnetAddress":"10.172.8.64/26",
+                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
+                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
+                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "createNsg":true
+                    },
+                    {
+                        "subnetName":"PSysSubnet3",
+                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
+                        "subnetAddress":"10.172.8.128/26",
+                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
+                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
+                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "createNsg":true
+                    },
+                    {
+                        "subnetName":"PSysSubnet4",
+                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
+                        "subnetAddress":"10.172.8.192/26",
+                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
+                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
+                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
                         "createNsg":true
                     }
                 ]
@@ -198,70 +331,30 @@
             "value":{
                 "vmSettings":[
                     {
-                        "vmName":"ae1talabatbe01",
-                        "vNetName":"cnxg-ae1-app1-vnet",
-                        "rgName":"cnxg-ae1-app1-rg",
-                        "subnetName":"BackendSubnet",
+                        "vmName":"smpdevdns01",
+                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "subnetName":"SharedServiceSubnet",
                         "osDiskType":"StandardSSD_LRS",
-                        "osVersionNumber":"2019",
+                        "osPublisher":"microsoftwindowsserver",
+                        "osOffer":"windowsserver",
+                        "osSku":"2022-datacenter-g2",
                         "vmSize":"Standard_b2s",
                         "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
+                        "adminPassword":"Pa$$w0rdDmSmP*"
                     },
                     {
-                        "vmName":"ae1talabatbe02",
-                        "vNetName":"cnxg-ae1-app1-vnet",
-                        "rgName":"cnxg-ae1-app1-rg",
-                        "subnetName":"BackendSubnet",
+                        "vmName":"smpdevdns02",
+                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "subnetName":"SharedServiceSubnet",
                         "osDiskType":"StandardSSD_LRS",
-                        "osVersionNumber":"2019",
+                        "osPublisher":"microsoftwindowsserver",
+                        "osOffer":"windowsserver",
+                        "osSku":"2022-datacenter-g2",
                         "vmSize":"Standard_b2s",
                         "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
-                    },
-                    {
-                        "vmName":"ae1talabatfe01",
-                        "vNetName":"cnxg-ae1-app1-vnet",
-                        "rgName":"cnxg-ae1-app1-rg",
-                        "subnetName":"FrontendSubnet",
-                        "osDiskType":"StandardSSD_LRS",
-                        "osVersionNumber":"2019",
-                        "vmSize":"Standard_b2s",
-                        "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
-                    },
-                    {
-                        "vmName":"ae1talabatfe02",
-                        "vNetName":"cnxg-ae1-app1-vnet",
-                        "rgName":"cnxg-ae1-app1-rg",
-                        "subnetName":"FrontendSubnet",
-                        "osDiskType":"StandardSSD_LRS",
-                        "osVersionNumber":"2019",
-                        "vmSize":"Standard_b2s",
-                        "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
-                    },
-                    {
-                        "vmName":"ae1addc01",
-                        "vNetName":"cnxg-ae1-identity-vnet",
-                        "rgName":"cnxg-ae1-identity-rg",
-                        "subnetName":"ActiveDirectorySubnet",
-                        "osDiskType":"StandardSSD_LRS",
-                        "osVersionNumber":"2016",
-                        "vmSize":"Standard_b2s",
-                        "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
-                    },
-                    {
-                        "vmName":"ae1addc02",
-                        "vNetName":"cnxg-ae1-identity-vnet",
-                        "rgName":"cnxg-ae1-identity-rg",
-                        "subnetName":"ActiveDirectorySubnet",
-                        "osDiskType":"StandardSSD_LRS",
-                        "osVersionNumber":"2016",
-                        "vmSize":"Standard_b2s",
-                        "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
+                        "adminPassword":"Pa$$w0rdDmSmP*"
                     }
                 ]
             }
@@ -270,56 +363,30 @@
             "value":{
                 "vmSettings":[
                     {
-                        "vmName":"ae1talabatbe03",
-                        "vNetName":"cnxg-ae1-app1-vnet",
-                        "rgName":"cnxg-ae1-app1-rg",
-                        "subnetName":"BackendSubnet",
+                        "vmName":"smpdevpeapi01",
+                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
+                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
+                        "subnetName":"PeApiSubnet",
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"Canonical",
                         "osOffer":"0001-com-ubuntu-server-jammy",
                         "osSku":"22_04-lts-gen2",
                         "vmSize":"Standard_b2s",
-                        "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
+                        "adminUsername":"smpadmin",
+                        "adminPassword":"Pa$$w0rdDmSmP*"
                     },
                     {
-                        "vmName":"ae1talabatbe04",
-                        "vNetName":"cnxg-ae1-app1-vnet",
-                        "rgName":"cnxg-ae1-app1-rg",
-                        "subnetName":"BackendSubnet",
+                        "vmName":"smpdevpeapi02",
+                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
+                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
+                        "subnetName":"PeApiSubnet",
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"Canonical",
                         "osOffer":"0001-com-ubuntu-server-jammy",
                         "osSku":"22_04-lts-gen2",
                         "vmSize":"Standard_b2s",
-                        "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
-                    },
-                    {
-                        "vmName":"ae1talabatfe03",
-                        "vNetName":"cnxg-ae1-app1-vnet",
-                        "rgName":"cnxg-ae1-app1-rg",
-                        "subnetName":"FrontendSubnet",
-                        "osDiskType":"StandardSSD_LRS",
-                        "osPublisher":"Canonical",
-                        "osOffer":"0001-com-ubuntu-server-jammy",
-                        "osSku":"22_04-lts-gen2",
-                        "vmSize":"Standard_b2s",
-                        "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
-                    },
-                    {
-                        "vmName":"ae1talabatfe04",
-                        "vNetName":"cnxg-ae1-app1-vnet",
-                        "rgName":"cnxg-ae1-app1-rg",
-                        "subnetName":"FrontendSubnet",
-                        "osDiskType":"StandardSSD_LRS",
-                        "osPublisher":"Canonical",
-                        "osOffer":"0001-com-ubuntu-server-jammy",
-                        "osSku":"22_04-lts-gen2",
-                        "vmSize":"Standard_b2s",
-                        "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
+                        "adminUsername":"smpadmin",
+                        "adminPassword":"Pa$$w0rdDmSmP*"
                     }
                 ]
             }

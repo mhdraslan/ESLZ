@@ -170,30 +170,45 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[concat('Create_Subnet_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
+            "Name":"[concat('Create_Peering_',parameters('vnets').peeringSettings[copyIndex()].peeringName)]",
             "dependsOn": [
                 "VirtualNetworksCopy"
             ],
-            "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
+            "resourceGroup": "[parameters('vnets').peeringSettings[copyIndex()].rgName]",
             "copy": {
-                "name": "SubnetsCopy",
-                "count": "[length(parameters('subnets').subnetSettings)]",
+                "name": "VnetPeeringsCopy",
+                "count": "[length(parameters('vnets').peeringSettings)]",
                 "mode": "Serial"
             },
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[variables('deploymentUris').subnet]"
+                    "uri":"[variables('deploymentUris').peering]"
                 },
                 "parameters":{
                     "vNetName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].vNetName]"
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].vNetName]"
                     },
-                    "subnetName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetName]"
+                    "remoteVNetName":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remoteVNetName]"
                     },
-                    "subnetAddressSpace":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetAddress]"
+                    "remoteVNetSubscriptionId":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remoteVNetSubscriptionId]"
+                    },
+                    "remoteVNetResourceGroup":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remoteVNetResourceGroup]"
+                    },
+                    "peeringName":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].peeringName]"
+                    },
+                    "allowForwardedTraffic":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].allowForwardedTraffic]"
+                    },
+                    "allowGatewayTransit":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].allowGatewayTransit]"
+                    },
+                    "useRemoteGateways":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].useRemoteGateways]"
                     }
                 }
             }
@@ -204,7 +219,7 @@
             "apiVersion":"2019-05-01",
             "Name":"[concat('Create_Subnet_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
             "dependsOn": [
-                "VirtualNetworksCopy"
+                "VnetPeeringsCopy"
             ],
             "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
             "copy": {
@@ -329,8 +344,14 @@
                     "osDiskType":{
                         "value":"[parameters('windowsVMs').vmSettings[copyIndex()].osDiskType]"
                     },
-                    "osVersionNumber":{
-                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].osVersionNumber]"
+                    "osPublisher":{
+                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].osPublisher]"
+                    },
+                    "osOffer":{
+                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].osOffer]"
+                    },
+                    "osSku":{
+                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].osSku]"
                     },
                     "vmSize":{
                         "value":"[parameters('windowsVMs').vmSettings[copyIndex()].vmSize]"

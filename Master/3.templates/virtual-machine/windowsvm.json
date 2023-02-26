@@ -18,8 +18,19 @@
         },
         "osVersionNumber": {
             "type": "string",
-            "allowedValues": ["2012","2016","2019","2022"],
             "defaultValue": "2019"
+        },
+        "osPublisher": {
+            "type": "string",
+            "defaultValue": "MicrosoftWindowsServer"
+        },
+        "osOffer": {
+            "type": "string",
+            "defaultValue": "WindowsServer"
+        },
+        "osSku": {
+            "type": "string",
+            "defaultValue": "2022-datacenter-g2"
         },
         "vmSize": {
             "type": "string"
@@ -79,9 +90,9 @@
                         }
                     },
                     "imageReference": {
-                        "publisher": "MicrosoftWindowsServer",
-                        "offer": "WindowsServer",
-                        "sku": "[concat(parameters('osVersionNumber'),'-Datacenter')]",
+                        "publisher": "[parameters('osPublisher')]",
+                        "offer": "[parameters('osOffer')]",
+                        "sku": "[parameters('osSku')]",
                         "version": "latest"
                     }
                 },
