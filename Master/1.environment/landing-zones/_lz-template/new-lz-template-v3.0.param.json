@@ -24,7 +24,7 @@
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"DM-IT-SMP-Dev-PrivDnsZones-R",
+                        "rgName":"DM-IT-SMP-Dev-PrivDnsZones-RG",
                         "rgLocation":"UAENorth"
                     },
                     {
@@ -58,7 +58,7 @@
                         "rgName":"DM-IT-SMP-Dev-SnApp-RG"
                     },
                     {
-                        "vNetName":"DM-IT-SMP-Dev-CustomerPortal-VNET",
+                        "vNetName":"DM-IT-SMP-Dev-CustPortal-VNET",
                         "vNetAddressSpace":"10.172.7.0/24",
                         "vNetDnsServers":["10.172.5.196","10.172.5.197"],
                         "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG"
@@ -85,7 +85,7 @@
                     {
                         "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
                         "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "remoteVnetName":"DM-IT-SMP-Dev-CustomerPortal-VNET",
+                        "remoteVnetName":"DM-IT-SMP-Dev-CustPortal-VNET",
                         "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                         "remoteVNetResourceGroup":"DM-IT-SMP-Dev-CustomerPortal-RG",
                         "peeringName":"VNet-Peering-Hub-CustomerPortal",
@@ -116,7 +116,7 @@
                         "useRemoteGateways":false
                     },
                     {
-                        "vNetName":"DM-IT-SMP-Dev-CustomerPortal-VNET",
+                        "vNetName":"DM-IT-SMP-Dev-CustPortal-VNET",
                         "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
                         "remoteVnetName":"DM-IT-SMP-Dev-Hub-VNET",
                         "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
@@ -144,11 +144,11 @@
             "value":{
                 "udrTables":[
                     {
-                        "routeTableName":"DM-IT-SMP-Dev-GatewaySubnet-RT",
+                        "routeTableName":"DM-IT-SMP-Dev-Gateway-RT",
                         "rgName":"DM-IT-SMP-Dev-Connectivity-RG"
                     },
                     {
-                        "routeTableName":"DM-IT-SMP-Dev-SharedServiceSubnet-RT",
+                        "routeTableName":"DM-IT-SMP-Dev-SharedSvc-RT",
                         "rgName":"DM-IT-SMP-Dev-Connectivity-RG"
                     },
                     {
@@ -176,14 +176,14 @@
                         "routeEntryAddressPrefix":"0.0.0.0/0",
                         "routeEntryType":"VirtualAppliance",
                         "routeEntryNextHopIPAddress":"10.172.5.4",
-                        "routeTableName":"DM-IT-SMP-Dev-SharedServiceSubnet-RT"
+                        "routeTableName":"DM-IT-SMP-Dev-SharedSvc-RT"
                     },
                     {
                         "routeEntryName":"To-Spokes",
                         "routeEntryAddressPrefix":"10.172.0.0/16",
                         "routeEntryType":"VirtualAppliance",
                         "routeEntryNextHopIPAddress":"10.172.5.4",
-                        "routeTableName":"DM-IT-SMP-Dev-GatewaySubnet-RT"
+                        "routeTableName":"DM-IT-SMP-Dev-Gateway-RT"
                     }
                 ]
             }
@@ -205,7 +205,7 @@
                         "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
                         "subnetAddress":"10.172.5.64/26",
                         "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "udr":"DM-IT-SMP-Dev-GatewaySubnet-RT",
+                        "udr":"DM-IT-SMP-Dev-Gateway-RT",
                         "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
                         "createNsg":false
                     },
@@ -223,7 +223,7 @@
                         "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
                         "subnetAddress":"10.172.5.192/26",
                         "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "udr":"DM-IT-SMP-Dev-SharedServiceSubnet-RT",
+                        "udr":"DM-IT-SMP-Dev-SharedSvc-RT",
                         "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
                         "createNsg":true
                     },
@@ -265,7 +265,7 @@
                     },
                     {
                         "subnetName":"CPSubnet1",
-                        "vNetName":"DM-IT-SMP-Dev-CustomerPortal-VNET",
+                        "vNetName":"DM-IT-SMP-Dev-CustPortal-VNET",
                         "subnetAddress":"10.172.7.0/26",
                         "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
                         "udr":"DM-IT-SMP-Dev-Spokes-RT",
@@ -274,7 +274,7 @@
                     },
                     {
                         "subnetName":"CPSubnet2",
-                        "vNetName":"DM-IT-SMP-Dev-CustomerPortal-VNET",
+                        "vNetName":"DM-IT-SMP-Dev-CustPortal-VNET",
                         "subnetAddress":"10.172.7.64/26",
                         "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
                         "udr":"DM-IT-SMP-Dev-Spokes-RT",
@@ -283,7 +283,7 @@
                     },
                     {
                         "subnetName":"CPSubnet3",
-                        "vNetName":"DM-IT-SMP-Dev-CustomerPortal-VNET",
+                        "vNetName":"DM-IT-SMP-Dev-CustPortal-VNET",
                         "subnetAddress":"10.172.7.128/26",
                         "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
                         "udr":"DM-IT-SMP-Dev-Spokes-RT",
@@ -292,7 +292,7 @@
                     },
                     {
                         "subnetName":"CPSubnet4",
-                        "vNetName":"DM-IT-SMP-Dev-CustomerPortal-VNET",
+                        "vNetName":"DM-IT-SMP-Dev-CustPortal-VNET",
                         "subnetAddress":"10.172.7.192/26",
                         "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
                         "udr":"DM-IT-SMP-Dev-Spokes-RT",
@@ -405,21 +405,21 @@
         "azFirewall": {
             "value":{
                 "buildAzFirewall":true,
-                "name":"cnxg-ae1-azfw-01",
-                "rgName":"cnxg-ae1-hub-rg",
-                "vnetName":"cnxg-ae1-hub-vnet",
+                "name":"DM-IT-SMP-Dev-Hub-AzFW-01",
+                "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
+                "vnetName":"DM-IT-SMP-Dev-Hub-VNET",
                 "tier":"Standard"
             }
         },
         "azVpnGateway": {
             "value":{
                 "buildVpnGateway":true,
-                "name":"cnxg-ae1-vpngw-01",
-                "rgName":"cnxg-ae1-hub-rg",
+                "name":"DM-IT-SMP-Dev-Hub-VpnGw-01",
+                "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
                 "vpnType":"RouteBased",
-                "vnetName":"cnxg-ae1-hub-vnet",
+                "vnetName":"DM-IT-SMP-Dev-Hub-VNET",
                 "gatewaySku":"VpnGw1",
-                "localGatewayName":"cnxg-ae1-localgw-01",
+                "localGatewayName":"DM-IT-SMP-Dev-Hub-LocalGW-01",
                 "localGatewayIpAddress":"56.41.32.65",
                 "localAddressPrefix":["10.100.10.0/24"]
             }
