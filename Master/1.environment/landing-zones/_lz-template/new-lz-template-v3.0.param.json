@@ -148,6 +148,10 @@
                         "rgName":"DM-IT-SMP-Dev-Connectivity-RG"
                     },
                     {
+                        "routeTableName":"DM-IT-SMP-Dev-SharedServiceSubnet-RT",
+                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG"
+                    },
+                    {
                         "routeTableName":"DM-IT-SMP-Dev-Spokes-RT",
                         "rgName":"DM-IT-SMP-Dev-Connectivity-RG"
                     }
@@ -166,6 +170,13 @@
                         "routeEntryType":"None",
                         "routeEntryNextHopIPAddress":"",
                         "routeTableName":"DM-IT-SMP-Dev-Spokes-RT"
+                    },
+                    {
+                        "routeEntryName":"default-route",
+                        "routeEntryAddressPrefix":"0.0.0.0/0",
+                        "routeEntryType":"VirtualAppliance",
+                        "routeEntryNextHopIPAddress":"10.172.5.4",
+                        "routeTableName":"DM-IT-SMP-Dev-SharedServiceSubnet-RT"
                     },
                     {
                         "routeEntryName":"To-Spokes",
@@ -212,8 +223,8 @@
                         "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
                         "subnetAddress":"10.172.5.192/26",
                         "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "udr":"",
-                        "udrRg":"",
+                        "udr":"DM-IT-SMP-Dev-SharedServiceSubnet-RT",
+                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
                         "createNsg":true
                     },
                     {
