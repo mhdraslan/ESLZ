@@ -444,7 +444,7 @@
                     }
                 }
             }
-        },
+        }/*,
         // AZURE VPN GATEWAY
         {
             "type":"Microsoft.Resources/deployments",
@@ -484,7 +484,7 @@
                     }
                 }
             }
-        }
+        }*/
     ],
     "outputs": {}
 }
