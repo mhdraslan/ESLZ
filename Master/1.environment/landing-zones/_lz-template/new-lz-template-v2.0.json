@@ -298,13 +298,13 @@
                         "value":"[parameters('windowsVMs').vmSettings[copyIndex()].osDiskType]"
                     },
                     "osPublisher":{
-                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].osPublisher]"
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].osPublisher]"
                     },
                     "osOffer":{
-                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].osOffer]"
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].osOffer]"
                     },
                     "osSku":{
-                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].osSku]"
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].osSku]"
                     },
                     "vmSize":{
                         "value":"[parameters('windowsVMs').vmSettings[copyIndex()].vmSize]"
