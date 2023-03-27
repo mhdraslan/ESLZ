@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "templatesBaseUri":{
-            "value":"<<TemplatesBase>>"
+            "value":"https://raw.githubusercontent.com/mhdraslan/ESLZ/main/Master"
         },
         "location": {
-            "value":"<<location>>"
+            "value":"eastus"
         }
     },
     "variables": {},
