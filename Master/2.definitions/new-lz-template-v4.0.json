@@ -175,7 +175,7 @@
         // VIRTUAL NETWORK PEERINGS
         {
             "type":"Microsoft.Resources/deployments",
-            "apiVersion":"2019-05-01",
+            "apiVersion":"2019-05-10",
             "Name":"[concat('Create_Peering_',parameters('vnets').peeringSettings[copyIndex()].peeringName)]",
             "dependsOn": [
                 "VirtualNetworksCopy"
