@@ -3,12 +3,14 @@
     "contentVersion": "1.0.0.0",
     "parameters": {},
     "functions": [],
-    "variables": {},
+    "variables": {
+        "templatesBase":"../3.templates/"
+    },
     "resources": [],
     "outputs": {
         "test": {
             "type": "string",
-            "value": "[deployment().properties.templateLink.uri]"
+            "value": "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'network-gateway/vpngw.json'))]"
         }
     }
 }
