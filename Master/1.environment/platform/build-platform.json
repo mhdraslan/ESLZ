@@ -11,10 +11,10 @@
     },
     "variables": {
         "baseUri"           : "../../",
-        "lzTemplateUri"     : "[concat(variables('baseUri'),'2.definitions/new-lz-template-v4.0.json')]",
-        "lzConnectivityUri" : "[concat(variables('baseUri'),'1.environment/platform/connectivity/connectivity-lz.param.json')]",
-        "lzIdentityUri"     : "[concat(variables('baseUri'),'1.environment/platform/identity/new-identityconfig.json')]",
-        "lzManagementUri"   : "[concat(variables('baseUri'),'1.environment/platform/identity/new-identityconfig.param.json')]"
+        "lzTemplateUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'2.definitions/new-lz-template-v4.0.json'))]",
+        "lzConnectivityUri" : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/connectivity/connectivity-lz.param.json'))]",
+        "lzIdentityUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/identity/new-identityconfig.json'))]",
+        "lzManagementUri"   : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/identity/new-identityconfig.param.json'))]"
     },
     "resources": [
        {
