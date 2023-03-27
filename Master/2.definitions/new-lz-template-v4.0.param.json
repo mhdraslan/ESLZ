@@ -9,43 +9,43 @@
                     {
                         "rgName":"Contoso-Deployment-rg",
                         "rgLocation":"UAENorth",
-                        "subscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71"
+                        "subscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
                     },
                     // ADD RESOURCE GROUP SECTIONS BELOW
                     {
                         "rgName":"Contoso-Connectivity-RG",
                         "rgLocation":"UAENorth",
-                        "subscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71"
+                        "subscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
                     },
                     {
                         "rgName":"Contoso-Monitor-RG",
                         "rgLocation":"UAENorth",
-                        "subscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71"
+                        "subscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
                     },
                     {
                         "rgName":"Contoso-Recovery-RG",
                         "rgLocation":"UAENorth",
-                        "subscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71"
+                        "subscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
                     },
                     {
                         "rgName":"Contoso-PrivDnsZones-RG",
                         "rgLocation":"UAENorth",
-                        "subscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71"
+                        "subscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
                     },
                     {
                         "rgName":"Contoso-SnApp-RG",
                         "rgLocation":"UAENorth",
-                        "subscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71"
+                        "subscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
                     },
                     {
                         "rgName":"Contoso-CustomerPortal-RG",
                         "rgLocation":"UAENorth",
-                        "subscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71"
+                        "subscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
                     },
                     {
                         "rgName":"Contoso-ParkingEnv-RG",
                         "rgLocation":"UAENorth",
-                        "subscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71"
+                        "subscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
                     }
                 ]
             }
@@ -83,7 +83,7 @@
                         "vNetName":"Contoso-Hub-VNET",
                         "rgName":"Contoso-Connectivity-RG",
                         "remoteVnetName":"Contoso-SnApp-VNET",
-                        "remoteVNetSubscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71",
+                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                         "remoteVNetResourceGroup":"Contoso-SnApp-RG",
                         "peeringName":"VNet-Peering-Hub-SnApp",
                         "allowForwardedTraffic":false,
@@ -94,7 +94,7 @@
                         "vNetName":"Contoso-Hub-VNET",
                         "rgName":"Contoso-Connectivity-RG",
                         "remoteVnetName":"Contoso-CustPortal-VNET",
-                        "remoteVNetSubscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71",
+                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                         "remoteVNetResourceGroup":"Contoso-CustomerPortal-RG",
                         "peeringName":"VNet-Peering-Hub-CustomerPortal",
                         "allowForwardedTraffic":false,
@@ -105,7 +105,7 @@
                         "vNetName":"Contoso-Hub-VNET",
                         "rgName":"Contoso-Connectivity-RG",
                         "remoteVnetName":"Contoso-ParkingEnv-VNET",
-                        "remoteVNetSubscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71",
+                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                         "remoteVNetResourceGroup":"Contoso-ParkingEnv-RG",
                         "peeringName":"VNet-Peering-Hub-ParkingEnv",
                         "allowForwardedTraffic":false,
@@ -116,7 +116,7 @@
                         "vNetName":"Contoso-SnApp-VNET",
                         "rgName":"Contoso-SnApp-RG",
                         "remoteVnetName":"Contoso-Hub-VNET",
-                        "remoteVNetSubscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71",
+                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                         "remoteVNetResourceGroup":"Contoso-Connectivity-RG",
                         "peeringName":"VNet-Peering-SnApp-Hub",
                         "allowForwardedTraffic":true,
@@ -127,7 +127,7 @@
                         "vNetName":"Contoso-CustPortal-VNET",
                         "rgName":"Contoso-CustomerPortal-RG",
                         "remoteVnetName":"Contoso-Hub-VNET",
-                        "remoteVNetSubscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71",
+                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                         "remoteVNetResourceGroup":"Contoso-Connectivity-RG",
                         "peeringName":"VNet-Peering-CustomerPortal-Hub",
                         "allowForwardedTraffic":true,
@@ -138,7 +138,7 @@
                         "vNetName":"Contoso-ParkingEnv-VNET",
                         "rgName":"Contoso-ParkingEnv-RG",
                         "remoteVnetName":"Contoso-Hub-VNET",
-                        "remoteVNetSubscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71",
+                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                         "remoteVNetResourceGroup":"Contoso-Connectivity-RG",
                         "peeringName":"VNet-Peering-ParkingEnv-Hub",
                         "allowForwardedTraffic":true,
