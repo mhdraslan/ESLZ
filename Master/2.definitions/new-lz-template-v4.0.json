@@ -2,6 +2,9 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "subscriptionId": {
+            "type": "string"
+        },
         "resourceGroups": {
             "type": "object"
         },
@@ -55,7 +58,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "subscriptionId":"[parameters('resourceGroups').rgSettings[copyIndex()].subscriptionId]",
+            "subscriptionId":"[parameters('subscriptionId')]",
             "Name":"[concat('Create_ResourceGroup_',parameters('resourceGroups').rgSettings[copyIndex()].rgName)]",
             "dependsOn": [],
             "location":"[parameters('resourceGroups').rgSettings[copyIndex()].rgLocation]",
@@ -145,6 +148,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"[concat('Create_VirtualNetwork_',parameters('vnets').vnetSettings[copyIndex()].vNetName)]",
             "dependsOn": [
                 "ResourceGroupsCopy"
