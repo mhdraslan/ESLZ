@@ -32,7 +32,7 @@
     },
     "functions": [],
     "variables": {
-        "templatesBase":"../../../3.templates/",
+        "templatesBase":"../3.templates/",
         "deploymentUris": {
             "resourceGroup" : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'resource-group/resourcegroup.json'))]",
             "virtualNetwork": "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'virtual-network/virtualnetwork.json'))]",
