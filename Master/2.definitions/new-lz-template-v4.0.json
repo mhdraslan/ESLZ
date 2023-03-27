@@ -85,6 +85,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"[concat('Create_UDR_',parameters('routes').udrTables[copyIndex()].routeTableName)]",
             "resourceGroup": "[parameters('routes').udrTables[copyIndex()].rgName]",
             "dependsOn": [
@@ -110,6 +111,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"[concat('Create_UDR_Entries_',parameters('routes').udrSettings[copyIndex()].routeTableName,'_',parameters('routes').udrSettings[copyIndex()].routeEntryName)]",
             "resourceGroup": "[parameters('routes').udrTables[0].rgName]",
             "dependsOn": [
@@ -180,6 +182,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
+            "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"[concat('Create_Peering_',parameters('vnets').peeringSettings[copyIndex()].peeringName)]",
             "dependsOn": [
                 "VirtualNetworksCopy"
@@ -227,6 +230,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"[concat('Create_Subnet_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
             "dependsOn": [
                 "VnetPeeringsCopy"
@@ -259,6 +263,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"[concat('Create_NSG_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
             "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
             "condition": "[parameters('subnets').subnetSettings[copyIndex()].createNsg]",
@@ -291,6 +296,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"[concat('Link_UDR_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
             "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
             "condition": "[not(equals(parameters('subnets').subnetSettings[copyIndex()].udr,''))]",
@@ -327,6 +333,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"[concat('Create_WindowsVM_',parameters('windowsVMs').vmSettings[copyIndex()].vmName)]",
             "dependsOn": [
                 "UdrLinksCopy"
@@ -379,6 +386,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"[concat('Create_LinuxVM_',parameters('linuxVMs').vmSettings[copyIndex()].vmName)]",
             "dependsOn": [
                 "UdrLinksCopy"
@@ -431,6 +439,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"Create_Azure_Firewall",
             "condition": "[parameters('azFirewall').buildAzFirewall]",
             "resourceGroup": "[parameters('azFirewall').rgName]",
@@ -459,6 +468,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"Create_Azure_Bastion",
             "condition": "[parameters('azBastion').buildAzBastion]",
             "resourceGroup": "[parameters('azBastion').rgName]",
@@ -503,6 +513,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"Create_Azure_VPN_Gateway",
             "condition": "[parameters('azVpnGateway').buildVpnGateway]",
             "resourceGroup": "[parameters('azVpnGateway').rgName]",
