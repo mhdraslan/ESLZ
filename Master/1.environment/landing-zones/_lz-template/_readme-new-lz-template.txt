@@ -11,5 +11,4 @@ The Template creates the following:
 
 
 TODO
-- Add to the standalone landing zone template the condition to deploy networking components such as azFirewall
 - 

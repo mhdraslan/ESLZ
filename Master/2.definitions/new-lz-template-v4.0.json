@@ -32,21 +32,22 @@
     },
     "functions": [],
     "variables": {
+        "templatesBase":"../../../3.templates/",
         "deploymentUris": {
-            "resourceGroup": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/resource-group/resourcegroup.json')]",
-            "virtualNetwork": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/virtual-network/virtualnetwork.json')]",
-            "subnet": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/virtual-network/subnet.json')]",
-            "nsg": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/virtual-network/nsg.json')]",
-            "peering": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/virtual-network/peering.json')]",
-            "udrTable": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/udr/routetable.json')]",
-            "udrEntry": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/udr/routeentry.json')]",
-            "udrLink": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/udr/linksubnet.json')]",
-            "udrLinkwithNsg": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/udr/linksubnetnsg.json')]",
-            "windowsVm": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/virtual-machine/windowsvm.json')]",
-            "linuxVm": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/virtual-machine/linuxvm.json')]",
-            "azFirewall": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/az-firewall/azfirewall.json')]",
-            "azBastion": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/bastion/bastion.json')]",
-            "vpnGateway": "[uri(deployment().properties.templateLink.uri, '../../../3.templates/network-gateway/vpngw.json')]"
+            "resourceGroup" : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'resource-group/resourcegroup.json'))]",
+            "virtualNetwork": "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'virtual-network/virtualnetwork.json'))]",
+            "subnet"        : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'virtual-network/subnet.json'))]",
+            "nsg"           : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'virtual-network/nsg.json'))]",
+            "peering"       : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'virtual-network/peering.json'))]",
+            "udrTable"      : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'udr/routetable.json'))]",
+            "udrEntry"      : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'udr/routeentry.json'))]",
+            "udrLink"       : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'udr/linksubnet.json'))]",
+            "udrLinkwithNsg": "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'udr/linksubnetnsg.json'))]",
+            "windowsVm"     : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'virtual-machine/windowsvm.json'))]",
+            "linuxVm"       : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'virtual-machine/linuxvm.json'))]",
+            "azFirewall"    : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'az-firewall/azfirewall.json'))]",
+            "azBastion"     : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'bastion/bastion.json'))]",
+            "vpnGateway"    : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'network-gateway/vpngw.json'))]"
         }
     },
     "resources": [
@@ -54,6 +55,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
+            "subscriptionId":"[parameters('resourceGroups').rgSettings[copyIndex()].subscriptionId]",
             "Name":"[concat('Create_ResourceGroup_',parameters('resourceGroups').rgSettings[copyIndex()].rgName)]",
             "dependsOn": [],
             "location":"[parameters('resourceGroups').rgSettings[copyIndex()].rgLocation]",

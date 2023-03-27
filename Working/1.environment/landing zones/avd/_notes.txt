@@ -1,3 +1,0 @@
-Vnets are not created in the correct resource group
-VMs are not created yet
-NSGs are not attached to the subnets, some of them are attached however !!!

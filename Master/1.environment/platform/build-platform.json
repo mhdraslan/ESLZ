@@ -10,10 +10,11 @@
         }
     },
     "variables": {
-        "BuildHubTemplateUri": "[concat(parameters('templatesBaseUri'),'/1.environment/platform/connectivity/new-hub.json')]",
-        "Hub1ParametersUri": "[concat(parameters('templatesBaseUri'),'/1.environment/platform/connectivity/hub1.param.json')]",
-        "BuildIdentityTemplateUri": "[concat(parameters('templatesBaseUri'),'/1.environment/platform/identity/new-identityconfig.json')]",
-        "IdentityParametersUri": "[concat(parameters('templatesBaseUri'),'/1.environment/platform/identity/new-identityconfig.param.json')]"
+        "baseUri":"../../../",
+        "lzTemplateUri": "[concat(variables('baseUri'),'2.definitions/new-lz-template-v4.0.json')]",
+        "lzConnectivityUri": "[concat(variables('baseUri'),'1.environment/platform/connectivity/connectivity-lz.param.json')]",
+        "lzIdentityUri": "[concat(variables('baseUri'),'1.environment/platform/identity/new-identityconfig.json')]",
+        "lzManagementUri": "[concat(variables('baseUri'),'1.environment/platform/identity/new-identityconfig.param.json')]"
     },
     "resources": [
        {
@@ -25,13 +26,13 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[variables('BuildHubTemplateUri')]"
+                    "uri":"[variables('lzTemplateUri')]"
                 },
                 "parameterslink": {
-                    "uri":"[variables('Hub1ParametersUri')]"
+                    "uri":"[variables('lzConnectivityUri')]"
                 }
             }
-        },
+        }/*,
        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
@@ -49,7 +50,7 @@
                     "uri":"[variables('IdentityParametersUri')]"
                 }
             }
-        }
+        }*/
     ],
     "outputs": {},
     "functions": []
