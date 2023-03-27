@@ -7,37 +7,20 @@
                 "rgSettings":[
                     // DO NOT DELETE FIRST (DEPLOYMENT) RESOURCE GROUP. DELETE AFTER SUCCESSFUL DEPLOYMENT
                     {
-                        "rgName":"DM-IT-SMP-Dev-Deployment-rg",
-                        "rgLocation":"UAENorth"
+                        "rgName":"Contoso-Deployment-rg",
+                        "rgLocation":"UAENorth",
+                        "subscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71"
                     },
                     // ADD RESOURCE GROUP SECTIONS BELOW
                     {
-                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "rgLocation":"UAENorth"
+                        "rgName":"Contoso-Hub-RG",
+                        "rgLocation":"UAENorth",
+                        "subscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71"
                     },
                     {
-                        "rgName":"DM-IT-SMP-Dev-Monitor-RG",
-                        "rgLocation":"UAENorth"
-                    },
-                    {
-                        "rgName":"DM-IT-SMP-Dev-Recovery-RG",
-                        "rgLocation":"UAENorth"
-                    },
-                    {
-                        "rgName":"DM-IT-SMP-Dev-PrivDnsZones-RG",
-                        "rgLocation":"UAENorth"
-                    },
-                    {
-                        "rgName":"DM-IT-SMP-Dev-SnApp-RG",
-                        "rgLocation":"UAENorth"
-                    },
-                    {
-                        "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
-                        "rgLocation":"UAENorth"
-                    },
-                    {
-                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
-                        "rgLocation":"UAENorth"
+                        "rgName":"Contoso-PrivateDnsZones-RG",
+                        "rgLocation":"UAENorth",
+                        "subscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71"
                     }
                 ]
             }
@@ -46,114 +29,25 @@
             "value":{
                 "vnetSettings":[
                     {
-                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "vNetName":"Contoso-Hub-VNET",
                         "vNetAddressSpace":"10.172.5.0/24",
                         "vNetDnsServers":["10.172.5.196","10.172.5.197"],
-                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG"
-                    },
-                    {
-                        "vNetName":"DM-IT-SMP-Dev-SnApp-VNET",
-                        "vNetAddressSpace":"10.172.6.0/24",
-                        "vNetDnsServers":["10.172.5.196","10.172.5.197"],
-                        "rgName":"DM-IT-SMP-Dev-SnApp-RG"
-                    },
-                    {
-                        "vNetName":"DM-IT-SMP-Dev-CustPortal-VNET",
-                        "vNetAddressSpace":"10.172.7.0/24",
-                        "vNetDnsServers":["10.172.5.196","10.172.5.197"],
-                        "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG"
-                    },
-                    {
-                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
-                        "vNetAddressSpace":"10.172.8.0/24",
-                        "vNetDnsServers":["10.172.5.196","10.172.5.197"],
-                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG"
+                        "rgName":"Contoso-Hub-RG"
                     }
                 ],
-                "peeringSettings":[
-                    {
-                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
-                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "remoteVnetName":"DM-IT-SMP-Dev-SnApp-VNET",
-                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                        "remoteVNetResourceGroup":"DM-IT-SMP-Dev-SnApp-RG",
-                        "peeringName":"VNet-Peering-Hub-SnApp",
-                        "allowForwardedTraffic":false,
-                        "allowGatewayTransit":false,
-                        "useRemoteGateways":false
-                    },
-                    {
-                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
-                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "remoteVnetName":"DM-IT-SMP-Dev-CustPortal-VNET",
-                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                        "remoteVNetResourceGroup":"DM-IT-SMP-Dev-CustomerPortal-RG",
-                        "peeringName":"VNet-Peering-Hub-CustomerPortal",
-                        "allowForwardedTraffic":false,
-                        "allowGatewayTransit":false,
-                        "useRemoteGateways":false
-                    },
-                    {
-                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
-                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "remoteVnetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
-                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                        "remoteVNetResourceGroup":"DM-IT-SMP-Dev-ParkingEnv-RG",
-                        "peeringName":"VNet-Peering-Hub-ParkingEnv",
-                        "allowForwardedTraffic":false,
-                        "allowGatewayTransit":false,
-                        "useRemoteGateways":false
-                    },
-                    {
-                        "vNetName":"DM-IT-SMP-Dev-SnApp-VNET",
-                        "rgName":"DM-IT-SMP-Dev-SnApp-RG",
-                        "remoteVnetName":"DM-IT-SMP-Dev-Hub-VNET",
-                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                        "remoteVNetResourceGroup":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "peeringName":"VNet-Peering-SnApp-Hub",
-                        "allowForwardedTraffic":true,
-                        "allowGatewayTransit":false,
-                        "useRemoteGateways":false
-                    },
-                    {
-                        "vNetName":"DM-IT-SMP-Dev-CustPortal-VNET",
-                        "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
-                        "remoteVnetName":"DM-IT-SMP-Dev-Hub-VNET",
-                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                        "remoteVNetResourceGroup":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "peeringName":"VNet-Peering-CustomerPortal-Hub",
-                        "allowForwardedTraffic":true,
-                        "allowGatewayTransit":false,
-                        "useRemoteGateways":false
-                    },
-                    {
-                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
-                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
-                        "remoteVnetName":"DM-IT-SMP-Dev-Hub-VNET",
-                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                        "remoteVNetResourceGroup":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "peeringName":"VNet-Peering-ParkingEnv-Hub",
-                        "allowForwardedTraffic":true,
-                        "allowGatewayTransit":false,
-                        "useRemoteGateways":false
-                    }
-                ]
+                "peeringSettings":[]
             }
         },
         "routes":{
             "value":{
                 "udrTables":[
                     {
-                        "routeTableName":"DM-IT-SMP-Dev-Gateway-RT",
-                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG"
+                        "routeTableName":"Contoso-Gateway-RT",
+                        "rgName":"Contoso-Hub-RG"
                     },
                     {
-                        "routeTableName":"DM-IT-SMP-Dev-SharedSvc-RT",
-                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG"
-                    },
-                    {
-                        "routeTableName":"DM-IT-SMP-Dev-Spokes-RT",
-                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG"
+                        "routeTableName":"Contoso-Spokes-RT",
+                        "rgName":"Contoso-Hub-RG"
                     }
                 ],
                 "udrSettings":[
@@ -162,28 +56,21 @@
                         "routeEntryAddressPrefix":"0.0.0.0/0",
                         "routeEntryType":"VirtualAppliance",
                         "routeEntryNextHopIPAddress":"10.172.5.4",
-                        "routeTableName":"DM-IT-SMP-Dev-Spokes-RT"
+                        "routeTableName":"Contoso-Spokes-RT"
                     },
                     {
                         "routeEntryName":"onprem-route",
                         "routeEntryAddressPrefix":"10.100.0.0/16",
                         "routeEntryType":"None",
                         "routeEntryNextHopIPAddress":"",
-                        "routeTableName":"DM-IT-SMP-Dev-Spokes-RT"
-                    },
-                    {
-                        "routeEntryName":"default-route",
-                        "routeEntryAddressPrefix":"0.0.0.0/0",
-                        "routeEntryType":"VirtualAppliance",
-                        "routeEntryNextHopIPAddress":"10.172.5.4",
-                        "routeTableName":"DM-IT-SMP-Dev-SharedSvc-RT"
+                        "routeTableName":"Contoso-Spokes-RT"
                     },
                     {
                         "routeEntryName":"To-Spokes",
                         "routeEntryAddressPrefix":"10.172.0.0/16",
                         "routeEntryType":"VirtualAppliance",
                         "routeEntryNextHopIPAddress":"10.172.5.4",
-                        "routeTableName":"DM-IT-SMP-Dev-Gateway-RT"
+                        "routeTableName":"Contoso-Gateway-RT"
                     }
                 ]
             }
@@ -193,146 +80,47 @@
                 "subnetSettings":[
                     {
                         "subnetName":"AzureFirewallSubnet",
-                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "vNetName":"Contoso-Hub-VNET",
                         "subnetAddress":"10.172.5.0/26",
-                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "rgName":"Contoso-Hub-RG",
                         "udr":"",
                         "udrRg":"",
                         "createNsg":false
                     },
                     {
                         "subnetName":"GatewaySubnet",
-                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "vNetName":"Contoso-Hub-VNET",
                         "subnetAddress":"10.172.5.64/26",
-                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "udr":"DM-IT-SMP-Dev-Gateway-RT",
-                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "rgName":"Contoso-Hub-RG",
+                        "udr":"Contoso-Gateway-RT",
+                        "udrRg":"Contoso-Hub-RG",
                         "createNsg":false
                     },
                     {
                         "subnetName":"AzureBastionSubnet",
-                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
+                        "vNetName":"Contoso-Hub-VNET",
                         "subnetAddress":"10.172.5.128/26",
-                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "rgName":"Contoso-Hub-RG",
                         "udr":"",
                         "udrRg":"",
                         "createNsg":false
                     },
                     {
                         "subnetName":"SharedServiceSubnet",
-                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
-                        "subnetAddress":"10.172.5.192/26",
-                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "udr":"DM-IT-SMP-Dev-SharedSvc-RT",
-                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "vNetName":"Contoso-Hub-VNET",
+                        "subnetAddress":"10.172.5.192/27",
+                        "rgName":"Contoso-Hub-RG",
+                        "udr":"Contoso-Spokes-RT",
+                        "udrRg":"Contoso-Hub-RG",
                         "createNsg":true
                     },
                     {
-                        "subnetName":"SnAppSubnet1",
-                        "vNetName":"DM-IT-SMP-Dev-SnApp-VNET",
-                        "subnetAddress":"10.172.6.0/26",
-                        "rgName":"DM-IT-SMP-Dev-SnApp-RG",
-                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
-                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "createNsg":true
-                    },
-                    {
-                        "subnetName":"SnAppSubnet2",
-                        "vNetName":"DM-IT-SMP-Dev-SnApp-VNET",
-                        "subnetAddress":"10.172.6.64/26",
-                        "rgName":"DM-IT-SMP-Dev-SnApp-RG",
-                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
-                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "createNsg":true
-                    },
-                    {
-                        "subnetName":"SnAppSubnet3",
-                        "vNetName":"DM-IT-SMP-Dev-SnApp-VNET",
-                        "subnetAddress":"10.172.6.128/26",
-                        "rgName":"DM-IT-SMP-Dev-SnApp-RG",
-                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
-                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "createNsg":true
-                    },
-                    {
-                        "subnetName":"SnAppSubnet4",
-                        "vNetName":"DM-IT-SMP-Dev-SnApp-VNET",
-                        "subnetAddress":"10.172.6.192/26",
-                        "rgName":"DM-IT-SMP-Dev-SnApp-RG",
-                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
-                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "createNsg":true
-                    },
-                    {
-                        "subnetName":"CPSubnet1",
-                        "vNetName":"DM-IT-SMP-Dev-CustPortal-VNET",
-                        "subnetAddress":"10.172.7.0/26",
-                        "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
-                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
-                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "createNsg":true
-                    },
-                    {
-                        "subnetName":"CPSubnet2",
-                        "vNetName":"DM-IT-SMP-Dev-CustPortal-VNET",
-                        "subnetAddress":"10.172.7.64/26",
-                        "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
-                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
-                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "createNsg":true
-                    },
-                    {
-                        "subnetName":"CPSubnet3",
-                        "vNetName":"DM-IT-SMP-Dev-CustPortal-VNET",
-                        "subnetAddress":"10.172.7.128/26",
-                        "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
-                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
-                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "createNsg":true
-                    },
-                    {
-                        "subnetName":"CPSubnet4",
-                        "vNetName":"DM-IT-SMP-Dev-CustPortal-VNET",
-                        "subnetAddress":"10.172.7.192/26",
-                        "rgName":"DM-IT-SMP-Dev-CustomerPortal-RG",
-                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
-                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "createNsg":true
-                    },
-                    {
-                        "subnetName":"PeApiSubnet",
-                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
-                        "subnetAddress":"10.172.8.0/26",
-                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
-                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
-                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "createNsg":true
-                    },
-                    {
-                        "subnetName":"PeDbSubnet",
-                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
-                        "subnetAddress":"10.172.8.64/26",
-                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
-                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
-                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "createNsg":true
-                    },
-                    {
-                        "subnetName":"PSysSubnet3",
-                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
-                        "subnetAddress":"10.172.8.128/26",
-                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
-                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
-                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
-                        "createNsg":true
-                    },
-                    {
-                        "subnetName":"PSysSubnet4",
-                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
-                        "subnetAddress":"10.172.8.192/26",
-                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
-                        "udr":"DM-IT-SMP-Dev-Spokes-RT",
-                        "udrRg":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "subnetName":"PrivateEndpointSubnet",
+                        "vNetName":"Contoso-Hub-VNET",
+                        "subnetAddress":"10.172.5.224/27",
+                        "rgName":"Contoso-Hub-RG",
+                        "udr":"Contoso-Spokes-RT",
+                        "udrRg":"Contoso-Hub-RG",
                         "createNsg":true
                     }
                 ]
@@ -342,9 +130,9 @@
             "value":{
                 "vmSettings":[
                     {
-                        "vmName":"smpdevdns01",
-                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
-                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "vmName":"cntdns01",
+                        "vNetName":"Contoso-Hub-VNET",
+                        "rgName":"Contoso-Hub-RG",
                         "subnetName":"SharedServiceSubnet",
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",
@@ -352,12 +140,12 @@
                         "osSku":"2022-datacenter-g2",
                         "vmSize":"Standard_b2s",
                         "adminUsername":"localadmin",
-                        "adminPassword":"Pa$$w0rdDmSmP*"
+                        "adminPassword":"dat23uPhutu*"
                     },
                     {
-                        "vmName":"smpdevdns02",
-                        "vNetName":"DM-IT-SMP-Dev-Hub-VNET",
-                        "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
+                        "vmName":"cntdns02",
+                        "vNetName":"Contoso-Hub-VNET",
+                        "rgName":"Contoso-Hub-RG",
                         "subnetName":"SharedServiceSubnet",
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",
@@ -365,58 +153,31 @@
                         "osSku":"2022-datacenter-g2",
                         "vmSize":"Standard_b2s",
                         "adminUsername":"localadmin",
-                        "adminPassword":"Pa$$w0rdDmSmP*"
+                        "adminPassword":"dat23uPhutu*"
                     }
                 ]
             }
         },
         "linuxVMs":{
             "value":{
-                "vmSettings":[
-                    {
-                        "vmName":"smpdevpeapi01",
-                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
-                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
-                        "subnetName":"PeApiSubnet",
-                        "osDiskType":"StandardSSD_LRS",
-                        "osPublisher":"RedHat",
-                        "osOffer":"RHEL",
-                        "osSku":"90-gen2",
-                        "vmSize":"Standard_b2s",
-                        "adminUsername":"smpadmin",
-                        "adminPassword":"Pa$$w0rdDmSmP*"
-                    },
-                    {
-                        "vmName":"smpdevpeapi02",
-                        "vNetName":"DM-IT-SMP-Dev-ParkingEnv-VNET",
-                        "rgName":"DM-IT-SMP-Dev-ParkingEnv-RG",
-                        "subnetName":"PeApiSubnet",
-                        "osDiskType":"StandardSSD_LRS",
-                        "osPublisher":"RedHat",
-                        "osOffer":"RHEL",
-                        "osSku":"90-gen2",
-                        "vmSize":"Standard_b2s",
-                        "adminUsername":"smpadmin",
-                        "adminPassword":"Pa$$w0rdDmSmP*"
-                    }
-                ]
+                "vmSettings":[]
             }
         },
         "azFirewall": {
             "value":{
-                "buildAzFirewall":true,
-                "name":"DM-IT-SMP-Dev-Hub-AzFW-01",
-                "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
-                "vnetName":"DM-IT-SMP-Dev-Hub-VNET",
+                "buildAzFirewall":false,
+                "name":"Contoso-Hub-AzFW-01",
+                "rgName":"Contoso-Hub-RG",
+                "vnetName":"Contoso-Hub-VNET",
                 "tier":"Standard"
             }
         },
         "azBastion": {
             "value":{
-                "buildAzBastion":true,
-                "name":"DM-IT-SMP-Dev-Hub-AzBastion-01",
-                "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
-                "vnetName":"DM-IT-SMP-Dev-Hub-VNET",
+                "buildAzBastion":false,
+                "name":"Contoso-Hub-AzBastion-01",
+                "rgName":"Contoso-Hub-RG",
+                "vnetName":"Contoso-Hub-VNET",
                 "sku":"Standard",
                 "disableCopyPaste":false,
                 "enableFileCopy":true,
@@ -427,13 +188,13 @@
         },
         "azVpnGateway": {
             "value":{
-                "buildVpnGateway":true,
-                "name":"DM-IT-SMP-Dev-Hub-VpnGw-01",
-                "rgName":"DM-IT-SMP-Dev-Connectivity-RG",
+                "buildVpnGateway":false,
+                "name":"Contoso-Hub-VpnGw-01",
+                "rgName":"Contoso-Hub-RG",
                 "vpnType":"RouteBased",
-                "vnetName":"DM-IT-SMP-Dev-Hub-VNET",
+                "vnetName":"Contoso-Hub-VNET",
                 "gatewaySku":"VpnGw1",
-                "localGatewayName":"DM-IT-SMP-Dev-Hub-LocalGW-01",
+                "localGatewayName":"Contoso-Hub-LocalGW-01",
                 "localGatewayIpAddress":"56.41.32.65",
                 "localAddressPrefix":["10.100.10.0/24"]
             }
