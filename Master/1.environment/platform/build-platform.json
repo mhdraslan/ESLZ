@@ -19,7 +19,7 @@
     "resources": [
        {
             "type":"Microsoft.Resources/deployments",
-            "apiVersion":"2019-05-01",
+            "apiVersion":"2019-05-10",
             "Name":"Build-Platform-Connectivity",
             "location":"[parameters('location')]",
             "dependsOn": [],
