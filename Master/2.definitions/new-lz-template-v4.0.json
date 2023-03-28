@@ -306,7 +306,8 @@
             ],
             "copy": {
                 "name": "UdrLinksCopy",
-                "count": "[length(parameters('subnets').subnetSettings)]"
+                "count": "[length(parameters('subnets').subnetSettings)]",
+                "mode": "Serial"
             },
             "properties":{
                 "mode":"Incremental",
