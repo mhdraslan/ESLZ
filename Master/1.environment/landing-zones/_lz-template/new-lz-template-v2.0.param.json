@@ -208,7 +208,7 @@
                         "osSku":"2022-datacenter-g2",
                         "vmSize":"Standard_b2s",
                         "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
+                        "adminPassword":"Pa$$w0rd123*"
                     },
                     {
                         "vmName":"ae1talabatbe02",
@@ -221,7 +221,7 @@
                         "osSku":"2022-datacenter-g2",
                         "vmSize":"Standard_b2s",
                         "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
+                        "adminPassword":"Pa$$w0rd123*"
                     },
                     {
                         "vmName":"ae1talabatfe01",
@@ -234,7 +234,7 @@
                         "osSku":"2022-datacenter-g2",
                         "vmSize":"Standard_b2s",
                         "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
+                        "adminPassword":"Pa$$w0rd123*"
                     },
                     {
                         "vmName":"ae1talabatfe02",
@@ -245,7 +245,7 @@
                         "osVersionNumber":"2019",
                         "vmSize":"Standard_b2s",
                         "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
+                        "adminPassword":"Pa$$w0rd123*"
                     },
                     {
                         "vmName":"ae1addc01",
@@ -258,7 +258,7 @@
                         "osSku":"2022-datacenter-g2",
                         "vmSize":"Standard_b2s",
                         "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
+                        "adminPassword":"Pa$$w0rd123*"
                     },
                     {
                         "vmName":"ae1addc02",
@@ -271,7 +271,7 @@
                         "osSku":"2022-datacenter-g2",
                         "vmSize":"Standard_b2s",
                         "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
+                        "adminPassword":"Pa$$w0rd123*"
                     }
                 ]
             }
@@ -290,7 +290,7 @@
                         "osSku":"22_04-lts-gen2",
                         "vmSize":"Standard_b2s",
                         "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
+                        "adminPassword":"Pa$$w0rd123*"
                     },
                     {
                         "vmName":"ae1talabatbe04",
@@ -303,7 +303,7 @@
                         "osSku":"22_04-lts-gen2",
                         "vmSize":"Standard_b2s",
                         "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
+                        "adminPassword":"Pa$$w0rd123*"
                     },
                     {
                         "vmName":"ae1talabatfe03",
@@ -316,7 +316,7 @@
                         "osSku":"22_04-lts-gen2",
                         "vmSize":"Standard_b2s",
                         "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
+                        "adminPassword":"Pa$$w0rd123*"
                     },
                     {
                         "vmName":"ae1talabatfe04",
@@ -329,7 +329,7 @@
                         "osSku":"22_04-lts-gen2",
                         "vmSize":"Standard_b2s",
                         "adminUsername":"localadmin",
-                        "adminPassword":"dat23uPhutu*"
+                        "adminPassword":"Pa$$w0rd123*"
                     }
                 ]
             }

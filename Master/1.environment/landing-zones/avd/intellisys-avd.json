@@ -162,7 +162,7 @@
                     "osVersionNumber":"2019",
                     "vmSize":"Standard_b2s",
                     "adminUsername":"localadmin",
-                    "adminPassword":"dat23uPhutu*"
+                    "adminPassword":"Pa$$w0rd123*"
                 },
                 {
                     "vmName":"ae1talabatbe02",
@@ -172,7 +172,7 @@
                     "osVersionNumber":"2019",
                     "vmSize":"Standard_b2s",
                     "adminUsername":"localadmin",
-                    "adminPassword":"dat23uPhutu*"
+                    "adminPassword":"Pa$$w0rd123*"
                 },
                 {
                     "vmName":"ae1talabatfe01",
@@ -182,7 +182,7 @@
                     "osVersionNumber":"2019",
                     "vmSize":"Standard_b2s",
                     "adminUsername":"localadmin",
-                    "adminPassword":"dat23uPhutu*"
+                    "adminPassword":"Pa$$w0rd123*"
                 },
                 {
                     "vmName":"ae1talabatfe02",
@@ -192,7 +192,7 @@
                     "osVersionNumber":"2019",
                     "vmSize":"Standard_b2s",
                     "adminUsername":"localadmin",
-                    "adminPassword":"dat23uPhutu*"
+                    "adminPassword":"Pa$$w0rd123*"
                 }
             ]
         }*/
