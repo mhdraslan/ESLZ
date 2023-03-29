@@ -79,7 +79,7 @@
                     {
                         "routeEntryName":"no-next-hop",
                         "routeEntryAddressPrefix":"0.0.0.0/0",
-                        "routeEntryType":"none",
+                        "routeEntryType":"None",
                         "routeEntryNextHopIPAddress":"",
                         "routeTableName":"Contoso-Blackhole-RT"
                     }
