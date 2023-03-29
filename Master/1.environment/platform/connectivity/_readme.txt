@@ -14,7 +14,5 @@ The Template creates the following:
 7. Azure Firewall
 8. Azure Bastion
 
-
-
 TODO
 - 

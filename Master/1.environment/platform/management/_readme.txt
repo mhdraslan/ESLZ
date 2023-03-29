@@ -17,11 +17,10 @@ The Template creates the following:
 1.6 Templates RG
 2. Virtual network + Subnets (PrivateEndpointSubnet)
 3. Peering with Hub VNet
-4. 2x DC virtual machines
+4. 
 5. Routing Tables linked to all subnets
 6. NSG linked to all subnets
 
-
-
 TODO
+- Create a Management deployment template that calls the base LZ template then a Management specific ARM template which deployes services such as SA and LAW
 - 

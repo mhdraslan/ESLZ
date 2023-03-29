@@ -11,10 +11,10 @@
     },
     "variables": {
         "baseUri"           : "../../",
-        "lzTemplateUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'2.definitions/lz-template-v4.0.json'))]",
+        "lzTemplateUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'2.definitions/new-azure-lz.json'))]",
         "lzConnectivityUri" : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/connectivity/connectivity-lz.param.json'))]",
-        "lzIdentityUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/identity/new-identityconfig.json'))]",
-        "lzManagementUri"   : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/management/new-identityconfig.param.json'))]"
+        "lzIdentityUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/identity/identity-lz.param.json'))]",
+        "lzManagementUri"   : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/management/management-lz.param.json'))]"
     },
     "resources": [
        {

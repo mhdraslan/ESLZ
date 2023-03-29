@@ -48,6 +48,10 @@
                     {
                         "routeTableName":"Contoso-Spokes-RT",
                         "rgName":"Contoso-Hub-RG"
+                    },
+                    {
+                        "routeTableName":"Contoso-Blackhole-RT",
+                        "rgName":"Contoso-Hub-RG"
                     }
                 ],
                 "udrSettings":[
@@ -71,6 +75,13 @@
                         "routeEntryType":"VirtualAppliance",
                         "routeEntryNextHopIPAddress":"10.172.5.4",
                         "routeTableName":"Contoso-Gateway-RT"
+                    },
+                    {
+                        "routeEntryName":"no-next-hop",
+                        "routeEntryAddressPrefix":"0.0.0.0/0",
+                        "routeEntryType":"none",
+                        "routeEntryNextHopIPAddress":"",
+                        "routeTableName":"Contoso-Blackhole-RT"
                     }
                 ]
             }
@@ -165,7 +176,7 @@
         },
         "azFirewall": {
             "value":{
-                "buildAzFirewall":false,
+                "buildAzFirewall":true,
                 "name":"Contoso-Hub-AzFW-01",
                 "rgName":"Contoso-Hub-RG",
                 "vnetName":"Contoso-Hub-VNET",
@@ -174,7 +185,7 @@
         },
         "azBastion": {
             "value":{
-                "buildAzBastion":false,
+                "buildAzBastion":true,
                 "name":"Contoso-Hub-AzBastion-01",
                 "rgName":"Contoso-Hub-RG",
                 "vnetName":"Contoso-Hub-VNET",
@@ -188,7 +199,7 @@
         },
         "azVpnGateway": {
             "value":{
-                "buildVpnGateway":false,
+                "buildVpnGateway":true,
                 "name":"Contoso-Hub-VpnGw-01",
                 "rgName":"Contoso-Hub-RG",
                 "vpnType":"RouteBased",

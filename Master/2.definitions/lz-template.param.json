@@ -35,7 +35,30 @@
                         "rgName":"Contoso-Hub-RG"
                     }
                 ],
-                "peeringSettings":[]
+                "peeringSettings":[
+                    {
+                        "vNetName":"Contoso-Hub-VNET",
+                        "rgName":"Contoso-Hub-RG",
+                        "remoteVnetName":"Contoso-Spoke-VNET",
+                        "remoteVNetSubscriptionId":"<<SpokeSubscriptionId>>",
+                        "remoteVNetResourceGroup":"Contoso-Spoke-RG",
+                        "peeringName":"VNet-Peering-Hub-Spoke",
+                        "allowForwardedTraffic":false,
+                        "allowGatewayTransit":false,
+                        "useRemoteGateways":false
+                    },
+                    {
+                        "vNetName":"Contoso-Spoke-VNET",
+                        "rgName":"Contoso-Spoke-RG",
+                        "remoteVnetName":"Contoso-Hub-VNET",
+                        "remoteVNetSubscriptionId":"<<HubSubscriptionId>>",
+                        "remoteVNetResourceGroup":"Contoso-Hub-RG",
+                        "peeringName":"VNet-Peering-Spoke-Hub",
+                        "allowForwardedTraffic":false,
+                        "allowGatewayTransit":false,
+                        "useRemoteGateways":false
+                    }
+                ]
             }
         },
         "routes":{
