@@ -9,10 +9,10 @@
             "value":{
                 "rgSettings":[
                     // DO NOT DELETE FIRST (DEPLOYMENT) RESOURCE GROUP. DELETE AFTER SUCCESSFUL DEPLOYMENT
-                    {
+                    /*{
                         "rgName":"Contoso-Deployment-rg",
                         "rgLocation":"UAENorth"
-                    },
+                    },*/
                     // ADD RESOURCE GROUP SECTIONS BELOW
                     {
                         "rgName":"Contoso-Management-RG",
