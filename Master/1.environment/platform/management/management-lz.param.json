@@ -107,7 +107,7 @@
                     {
                         "subnetName":"Unused3",
                         "vNetName":"Contoso-Management-VNET",
-                        "subnetAddress":"10.172.6.128/26",
+                        "subnetAddress":"10.172.7.128/26",
                         "rgName":"Contoso-Management-RG",
                         "udr":"Contoso-Blackhole-RT",
                         "udrRg":"Contoso-Hub-RG",
