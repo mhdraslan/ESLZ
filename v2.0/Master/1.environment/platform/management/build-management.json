@@ -5,11 +5,11 @@
     "variables": {
         "baseUri"           : "../../../",
         "lzTemplateUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'2.definitions/new-azure-lz.json'))]",
-        "lzConnectivityUri" : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/connectivity/connectivity-lz.param.json'))]",
-        "lzIdentityUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/identity/identity-lz.param.json'))]",
-        "lzManagementUri"   : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/management/management-lz.param.json'))]"
+        "lzManagementUri"   : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/management/management-lz.param.json'))]",
+        "lzManagementCustomizationBaseUri"   : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/management/management-lz-customization'))]"
     },
     "resources": [
+        // STEP 1: BUILD THE MANAGEMENT LANDING ZONE
        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
@@ -26,6 +26,7 @@
                 }
             }
         },
+        // STEP 2: DEPLOY CUSTOM LZ RESOURCES
        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
@@ -35,26 +36,10 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[variables('lzTemplateUri')]"
+                    "uri":"[concat(variables('lzManagementCustomizationBaseUri'),'.json')]"
                 },
                 "parameterslink": {
-                    "uri":"[variables('lzIdentityUri')]"
-                }
-            }
-        },
-       {
-            "type":"Microsoft.Resources/deployments",
-            "apiVersion":"2019-05-10",
-            "Name":"Build-Platform-Management",
-            "location":"[deployment().location]",
-            "dependsOn": [],
-            "properties":{
-                "mode":"Incremental",
-                "templatelink":{
-                    "uri":"[variables('lzTemplateUri')]"
-                },
-                "parameterslink": {
-                    "uri":"[variables('lzManagementUri')]"
+                    "uri":"[concat(variables('lzManagementCustomizationBaseUri'),'.param.json')]"
                 }
             }
         }
