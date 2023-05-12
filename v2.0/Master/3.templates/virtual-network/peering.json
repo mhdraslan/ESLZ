@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vNetName": {
+            "type": "string"
+        },
+        "remoteVNetName":{
+            "type":"string"
+        },
+        "remoteVNetSubscriptionId": {
+            "type": "string"
+        },
+        "remoteVNetResourceGroup": {
+            "type": "string"
+        },
+        "peeringName":{
+            "type":"string"
+        },
+        "allowForwardedTraffic": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "allowGatewayTransit": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "useRemoteGateways": {
+            "type": "bool",
+            "defaultValue": false
+        }
+    },
+    "variables": {
+        "remoteVNetId":"[resourceId(parameters('remoteVNetSubscriptionId'),parameters('remoteVNetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('remoteVNetName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+            "apiVersion": "2019-09-01",
+            "name": "[concat(parameters('vNetName'),'/',parameters('peeringName'))]",
+            "dependsOn": [],
+            "properties": {
+                "peeringState": "Connected",
+                "remoteVirtualNetwork": {
+                    "id": "[variables('RemoteVNetId')]"
+                },
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": "[parameters('allowForwardedTraffic')]",
+                "allowGatewayTransit": "[parameters('allowGatewayTransit')]",
+                "useRemoteGateways": "[parameters('useRemoteGateways')]"
+            }
+        }
+    ]
+}

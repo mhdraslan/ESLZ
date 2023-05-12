@@ -1,0 +1,43 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vNetName": {
+            "type": "string"
+        },
+        "subnetName": {
+            "type": "string"
+        },
+        "subnetAddressSpace":{
+            "type":"string"
+        }
+    },
+    "functions": [],
+    "variables": {
+        "subnetName":"[concat(parameters('vNetName'),'/',parameters('subnetName'))]",
+        "nsgName":"[concat(parameters('vNetName'),'-',parameters('subnetName'),'-nsg')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "apiVersion": "2021-05-01",
+            "name": "[variables('nsgName')]",
+            "location":"[resourceGroup().location]"
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2019-09-01",
+            "name": "[variables('subnetName')]",
+            "dependsOn": [
+                "[variables('nsgName')]"
+            ],
+            "properties": {
+                "addressPrefix": "[parameters('subnetAddressSpace')]",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('nsgName'))]"
+                }
+            } 
+        }
+    ],
+    "outputs": {}
+}

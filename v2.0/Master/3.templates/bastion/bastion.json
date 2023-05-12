@@ -1,0 +1,94 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "bastionName": {
+            "type": "string"
+        },
+        "vnetName": {
+            "type": "string"
+        },
+        "bastionSku": {
+            "type": "string",
+            "allowedValues": [
+                "Basic",
+                "Standard"
+            ],
+            "defaultValue":"Standard"
+        },
+        "disableCopyPaste": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "enableFileCopy": {
+            "type": "bool",
+            "defaultValue": true
+        },
+        "enableIpConnect": {
+            "type": "bool",
+            "defaultValue": true
+        },
+        "enableShareableLink": {
+            "type": "bool",
+            "defaultValue": true
+        },
+        "enableTunneling": {
+            "type": "bool",
+            "defaultValue": false
+        }
+    },
+    "functions": [],
+    "variables": {
+        "bastionPublicIpResource":"[concat(parameters('bastionName'), '-pubip')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/bastionHosts",
+            "apiVersion": "2022-05-01",
+            "name": "[parameters('bastionName')]",
+            "dependsOn":[
+                "[variables('bastionPublicIpResource')]"
+            ],
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "[parameters('bastionSku')]"
+            },
+            "properties": {
+                "disableCopyPaste": "[parameters('disableCopyPaste')]",
+                "enableFileCopy": "[parameters('enableFileCopy')]",
+                "enableIpConnect": "[parameters('enableIpConnect')]",
+                "enableShareableLink": "[parameters('enableShareableLink')]",
+                "enableTunneling": "[parameters('enableTunneling')]",
+                "ipConfigurations": [
+                    {
+                        "name": "[variables('bastionPublicIpResource')]",
+                        "properties": {
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('bastionPublicIpResource'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('vnetName'),'AzureBastionSubnet')]"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2019-11-01",
+            "name": "[variables('bastionPublicIpResource')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "Standard"
+            },
+            "properties": {
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4,
+                "ipTags": []
+            }
+        }
+    ],
+    "outputs": {}
+}
