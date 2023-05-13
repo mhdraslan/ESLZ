@@ -1,0 +1,58 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines": {
+            "type": "object"
+        }
+    },
+    "functions": [],
+    "variables": {
+        "vmTemplateUri":"https://raw.githubusercontent.com/mhdraslan/ESLZ/main/Working/3.templates/virtual-machine/windowsserver.json"
+    },
+    "resources": [
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('Build-VM-',parameters('virtualMachines').vmSettings[copyIndex()].vmName)]",
+            "dependsOn": [],
+            "copy": {
+                "name": "VMCopy",
+                "count": "[length(parameters('virtualMachines').vmSettings)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('vmTemplateUri')]"
+                },
+                "parameters":{
+                    "vmName": {
+                        "value":"[parameters('virtualMachines').vmSettings[copyIndex()].vmName]"
+                    },
+                    "vNetName": {
+                        "value": "[parameters('virtualMachines').vmSettings[copyIndex()].vNetName]"
+                    },
+                    "subnetName": {
+                        "value": "[parameters('virtualMachines').vmSettings[copyIndex()].subnetName]"
+                    },
+                    "osDiskType": {
+                        "value": "[parameters('virtualMachines').vmSettings[copyIndex()].osDiskType]"
+                    },
+                    "osVersionNumber": {
+                        "value": "[parameters('virtualMachines').vmSettings[copyIndex()].osVersionNumber]"
+                    },
+                    "vmSize": {
+                        "value": "[parameters('virtualMachines').vmSettings[copyIndex()].vmSize]"
+                    },
+                    "adminUsername": {
+                        "value": "[parameters('virtualMachines').vmSettings[copyIndex()].adminUsername]"
+                    },
+                    "adminPassword": {
+                        "value": "[parameters('virtualMachines').vmSettings[copyIndex()].adminPassword]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}

@@ -1,0 +1,122 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmName": {
+            "type": "string"
+        },
+        "vNetName": {
+            "type": "string"
+        },
+        "subnetName": {
+            "type": "string"
+        },
+        "osDiskType": {
+            "type": "string",
+            "allowedValues":["Standard_LRS","Premium_LRS","StandardSSD_LRS"],
+            "defaultValue":"StandardSSD_LRS"
+        },
+        "osVersionNumber": {
+            "type": "string",
+            "defaultValue": "2019"
+        },
+        "osPublisher": {
+            "type": "string",
+            "defaultValue": "MicrosoftWindowsServer"
+        },
+        "osOffer": {
+            "type": "string",
+            "defaultValue": "WindowsServer"
+        },
+        "osSku": {
+            "type": "string",
+            "defaultValue": "2022-datacenter-g2"
+        },
+        "vmSize": {
+            "type": "string"
+        },
+        "adminUsername": {
+            "type": "string"
+        },
+        "adminPassword": {
+            "type": "secureString"
+        }
+    },
+    "variables": {
+        "VMlocation":"[resourceGroup().location]",
+        "VMVnetId": "[resourceId('Microsoft.Network/virtualNetworks',parameters('vNetName'))]",
+        "SubnetRef": "[concat(variables('VMVnetId'), '/subnets/', parameters('subnetName'))]",
+        "NicResName":"[concat(parameters('vmName'),'_NIC-1')]"
+    },
+    "resources": [
+        {
+            "name": "[variables('NicResName')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2019-07-01",
+            "location": "[variables('VMlocation')]",
+            "dependsOn": [],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "subnet": {
+                                "id": "[variables('SubnetRef')]"
+                            },
+                            "privateIPAllocationMethod": "Dynamic"
+                        }
+                    }
+                ],
+                "enableIPForwarding": false
+            }
+        },
+        {
+            "name": "[parameters('vmName')]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "location": "[variables('VMlocation')]",
+            "dependsOn": [
+                "[concat('Microsoft.Network/networkInterfaces/', variables('NicResName'))]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('vmSize')]"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "createOption": "fromImage",
+                        "managedDisk": {
+                            "storageAccountType": "[parameters('osDiskType')]"
+                        }
+                    },
+                    "imageReference": {
+                        "publisher": "[parameters('osPublisher')]",
+                        "offer": "[parameters('osOffer')]",
+                        "sku": "[parameters('osSku')]",
+                        "version": "latest"
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('NicResName'))]",
+                            "properties":{
+                                "primary": true
+                            }
+                        }
+                    ]
+                },
+                "osProfile": {
+                    "computerName": "[parameters('vmName')]",
+                    "adminUsername": "[parameters('adminUsername')]",
+                    "adminPassword": "[parameters('adminPassword')]",
+                    "windowsConfiguration": {
+                        "enableAutomaticUpdates": true,
+                        "provisionVmAgent": true
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
