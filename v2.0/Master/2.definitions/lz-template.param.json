@@ -221,6 +221,32 @@
                 "localGatewayIpAddress":"56.41.32.65",
                 "localAddressPrefix":["10.100.10.0/24"]
             }
+        },
+        "azAppGatewayV2": {
+            "value":{
+                "build":false,
+                "name":"Contoso-Hub-AppGw-01",
+                "rgName":"Contoso-Hub-RG",
+                "gwTier":"Standard_v2",
+                "vnetName":"Contoso-Hub-VNET",
+                "subnetName":"appgwsubnet",
+                "privateIp":"192.168.0.1",
+                "publicIpName":"appgwpubip",
+                "publicIpSku":"appgwpubip",
+                "allocationMethod":"Static",
+                "capacity":1,
+                "autoScaleMaxCapacity":2
+            }
+        },
+        "logAnalyticsWorkspace": {
+            "value":{
+                "build":false,
+                "name":"LAWS01",
+                "rgName":"Contoso-Mgmt-RG",
+                "retention":30,
+                "publicNetworkAccessForIngestion":"Enabled",
+                "publicNetworkAccessForQuery":"Enabled"
+            }
         }
     },
     "variables": {},

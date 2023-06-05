@@ -1,32 +1,23 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "templatesBaseUri": {
-            "type": "string"
-        },
-        "location": {
-            "type": "string"
-        }
-    },
+    "parameters": {},
     "variables": {
-        "platformTemplateUri": "[concat(parameters('templatesBaseUri'),'/1.environment/platform/build-platform')]",
-        "avdTemplateUri": "[concat(parameters('templatesBaseUri'),'/1.environment/landing zones/avd/intellisys-avd')]"
+        "baseUri"           : "",
+        "platformTemplateUri": "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'/1.environment/platform/build-platform.json'))]",
+        "avdTemplateUri": "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'/1.environment/landing-zones/avd/lz'))]"
     },
     "resources": [
        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "Name":"1-Build-Platform",
-            "location":"[parameters('location')]",
+            "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[concat(variables('platformTemplateUri'),'.json')]"
-                },
-                "parameterslink": {
-                    "uri":"[concat(variables('platformTemplateUri'),'.param.json')]"
+                    "uri":"[variables('platformTemplateUri')]"
                 }
             }
         },
@@ -34,7 +25,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "Name":"1-Build-AVD-LandingZone",
-            "location":"[parameters('location')]",
+            "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
                 "mode":"Incremental",

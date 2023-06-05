@@ -1,0 +1,44 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspaceName": {
+            "type": "String"
+        },
+        "workspaceRetention":{
+            "type":"int",
+            "defaultValue":30
+        },/**/
+        "publicNetworkAccessForIngestion":{
+            "type":"String",
+            "defaultValue":"Enabled",
+            "allowedValues": ["Enabled","Disabled"]
+        },
+        "publicNetworkAccessForQuery":{
+            "type":"String",
+            "defaultValue":"Enabled",
+            "allowedValues": ["Enabled","Disabled"]
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "apiVersion": "2021-12-01-preview",
+            "name": "[parameters('workspaceName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "sku": {
+                    "name": "pergb2018"
+                },
+                "retentionInDays": "[parameters('workspaceRetention')]",
+                "workspaceCapping": {
+                    "dailyQuotaGb": -1
+                },
+                "publicNetworkAccessForIngestion": "[parameters('publicNetworkAccessForIngestion')]",
+                "publicNetworkAccessForQuery": "[parameters('publicNetworkAccessForQuery')]"
+            }
+        }
+    ],
+    "outputs": {}
+}

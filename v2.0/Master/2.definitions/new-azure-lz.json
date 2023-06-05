@@ -31,7 +31,14 @@
         },
         "azVpnGateway": {
             "type": "object"
+        },
+        "azAppGatewayV2": {
+            "type": "object"
+        },
+        "logAnalyticsWorkspace": {
+            "type": "object"
         }
+        
     },
     "functions": [],
     "variables": {
@@ -50,7 +57,10 @@
             "linuxVm"       : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'virtual-machine/linuxvm.json'))]",
             "azFirewall"    : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'az-firewall/azfirewall.json'))]",
             "azBastion"     : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'bastion/bastion.json'))]",
-            "vpnGateway"    : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'network-gateway/vpngw.json'))]"
+            "vpnGateway"    : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'network-gateway/vpngw.json'))]",
+            "logAnalytics"  : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'log-analytics/laws.json'))]",
+            "keyVault"      : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'misc/kv.json'))]",
+            "appGateway"    : "[uri(deployment().properties.templateLink.uri, concat(variables('templatesBase'), 'app-gateway/appgw-v2.json'))]"
         }
     },
     "resources": [
@@ -547,6 +557,88 @@
                     },
                     "gatewaySku":{
                         "value":"[parameters('azVpnGateway').gatewaySku]"
+                    }
+                }
+            }
+        },
+        // AZURE APPLICATION GATEWAY V2
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"Create_Azure_App_Gateway",
+            "condition": "[parameters('azAppGatewayV2').build]",
+            "resourceGroup": "[parameters('azAppGatewayV2').rgName]",
+            "dependsOn": [
+                "UdrLinksCopy"
+            ],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('deploymentUris').appGateway]"
+                },
+                "parameters":{
+                    "appGwName":{
+                        "value":"[parameters('azAppGatewayV2').name]"
+                    },
+                    "appGwTier":{
+                        "value":"[parameters('azAppGatewayV2').gwTier]"
+                    },
+                    "AppGwVNet":{
+                        "value":"[parameters('azAppGatewayV2').vnetName]"
+                    },
+                    "AppGwSubnetName":{
+                        "value":"[parameters('azAppGatewayV2').subnetName]"
+                    },
+                    "appGwPrivateIpAddress":{
+                        "value":"[parameters('azAppGatewayV2').privateIp]"
+                    },
+                    "publicIpAddressName":{
+                        "value":"[parameters('azAppGatewayV2').publicIpName]"
+                    },
+                    "publicIpAddressSku":{
+                        "value":"[parameters('azAppGatewayV2').publicIpSku]"
+                    },
+                    "allocationMethod":{
+                        "value":"[parameters('azAppGatewayV2').allocationMethod]"
+                    },
+                    "capacity":{
+                        "value":"[parameters('azAppGatewayV2').capacity]"
+                    },
+                    "autoScaleMaxCapacity":{
+                        "value":"[parameters('azAppGatewayV2').autoScaleMaxCapacity]"
+                    }
+                }
+            }
+        },
+        // LOG ANALYTICS
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"Create_Log_Analytics_Workspace",
+            "condition": "[parameters('logAnalyticsWorkspace').build]",
+            "resourceGroup": "[parameters('logAnalyticsWorkspace').rgName]",
+            "dependsOn": [
+                "ResourceGroupsCopy"
+            ],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('deploymentUris').logAnalytics]"
+                },
+                "parameters":{
+                    "workspaceName":{
+                        "value":"[parameters('logAnalyticsWorkspace').name]"
+                    },
+                    "workspaceRetention":{
+                        "value":"[parameters('logAnalyticsWorkspace').retention]"
+                    },
+                    "publicNetworkAccessForIngestion":{
+                        "value":"[parameters('logAnalyticsWorkspace').publicNetworkAccessForIngestion]"
+                    },
+                    "publicNetworkAccessForQuery":{
+                        "value":"[parameters('logAnalyticsWorkspace').publicNetworkAccessForQuery]"
                     }
                 }
             }
