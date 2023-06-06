@@ -258,7 +258,7 @@
                     {
                         "subnetName":"appgwprodsnet",
                         "vNetName":"aen-hub-vnet-01",
-                        "subnetAddress":"10.200.0.0/26",
+                        "subnetAddress":"10.200.3.0/25",
                         "rgName":"rsg-aen-hubvnets-prd",
                         "udr":"",
                         "udrRg":"",
@@ -267,7 +267,7 @@
                     {
                         "subnetName":"appgwdevsnet",
                         "vNetName":"aen-hub-vnet-01",
-                        "subnetAddress":"10.200.0.64/26",
+                        "subnetAddress":"10.200.3.128/25",
                         "rgName":"rsg-aen-hubvnets-prd",
                         "udr":"",
                         "udrRg":"",
