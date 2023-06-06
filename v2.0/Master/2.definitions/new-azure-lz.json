@@ -282,7 +282,8 @@
             ],
             "copy": {
                 "name": "NsgsCopy",
-                "count": "[length(parameters('subnets').subnetSettings)]"
+                "count": "[length(parameters('subnets').subnetSettings)]",
+                "mode": "Serial"
             },
             "properties":{
                 "mode":"Incremental",
