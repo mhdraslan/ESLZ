@@ -43,6 +43,10 @@
                         "rgLocation":"UAENorth"
                     },
                     {
+                        "rgName":"rsg-aen-appgateway-dev",
+                        "rgLocation":"UAENorth"
+                    },
+                    {
                         "rgName":"rsg-aen-activedirectory-prd",
                         "rgLocation":"UAENorth"
                     },
