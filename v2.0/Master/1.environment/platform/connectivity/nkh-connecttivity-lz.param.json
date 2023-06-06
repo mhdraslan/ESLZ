@@ -74,7 +74,7 @@
                         "vNetName":"aen-hub-vnet-01",
                         "rgName":"rsg-aen-hubvnets-prd",
                         "remoteVnetName":"aen-identity-vnet-01",
-                        "remoteVNetSubscriptionId":"<<SpokeSubscriptionId>>",
+                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                         "remoteVNetResourceGroup":"rsg-aen-hubvnets-prd",
                         "peeringName":"vnet-peering-hub-identity",
                         "allowForwardedTraffic":false,
@@ -85,7 +85,7 @@
                         "vNetName":"aen-identity-vnet-01",
                         "rgName":"rsg-aen-hubvnets-prd",
                         "remoteVnetName":"aen-hub-vnet-01",
-                        "remoteVNetSubscriptionId":"<<HubSubscriptionId>>",
+                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                         "remoteVNetResourceGroup":"rsg-aen-hubvnets-prd",
                         "peeringName":"vnet-peering-identity-hub",
                         "allowForwardedTraffic":false,
@@ -437,6 +437,14 @@
                     {
                         "build":true,
                         "name":"law-aen-ops-01",
+                        "rgName":"rsg-aen-management-prd",
+                        "retention":30,
+                        "publicNetworkAccessForIngestion":"Enabled",
+                        "publicNetworkAccessForQuery":"Enabled"
+                    },
+                    {
+                        "build":true,
+                        "name":"law-aen-sec-01",
                         "rgName":"rsg-aen-management-prd",
                         "retention":30,
                         "publicNetworkAccessForIngestion":"Enabled",
