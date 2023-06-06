@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "subscriptionId": {
-            "value":"67236ec4-f453-4086-b4d1-78a6a93fad71"
+            "value":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
         },
         "resourceGroups":{
             "value":{
@@ -224,28 +224,36 @@
         },
         "azAppGatewayV2": {
             "value":{
-                "build":false,
-                "name":"Contoso-Hub-AppGw-01",
-                "rgName":"Contoso-Hub-RG",
-                "gwTier":"Standard_v2",
-                "vnetName":"Contoso-Hub-VNET",
-                "subnetName":"appgwsubnet",
-                "privateIp":"192.168.0.1",
-                "publicIpName":"appgwpubip",
-                "publicIpSku":"appgwpubip",
-                "allocationMethod":"Static",
-                "capacity":1,
-                "autoScaleMaxCapacity":2
+                "settings":[
+                    {
+                        "build":false,
+                        "name":"Contoso-Hub-AppGw-01",
+                        "rgName":"Contoso-Hub-RG",
+                        "gwTier":"Standard_v2",
+                        "vnetName":"Contoso-Hub-VNET",
+                        "subnetName":"appgwsubnet",
+                        "privateIp":"192.168.0.1",
+                        "publicIpName":"appgwpubip",
+                        "publicIpSku":"appgwpubip",
+                        "allocationMethod":"Static",
+                        "capacity":1,
+                        "autoScaleMaxCapacity":2
+                    }
+                ]
             }
         },
         "logAnalyticsWorkspace": {
             "value":{
-                "build":false,
-                "name":"LAWS01",
-                "rgName":"Contoso-Mgmt-RG",
-                "retention":30,
-                "publicNetworkAccessForIngestion":"Enabled",
-                "publicNetworkAccessForQuery":"Enabled"
+                "settings":[
+                    {
+                        "build":false,
+                        "name":"LAWS01",
+                        "rgName":"Contoso-Mgmt-RG",
+                        "retention":30,
+                        "publicNetworkAccessForIngestion":"Enabled",
+                        "publicNetworkAccessForQuery":"Enabled"
+                    }
+                ]
             }
         }
     },

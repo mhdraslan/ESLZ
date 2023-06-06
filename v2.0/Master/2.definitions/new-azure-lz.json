@@ -579,34 +579,34 @@
                 },
                 "parameters":{
                     "appGwName":{
-                        "value":"[parameters('azAppGatewayV2').name]"
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].name]"
                     },
                     "appGwTier":{
-                        "value":"[parameters('azAppGatewayV2').gwTier]"
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].gwTier]"
                     },
                     "AppGwVNet":{
-                        "value":"[parameters('azAppGatewayV2').vnetName]"
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].vnetName]"
                     },
                     "AppGwSubnetName":{
-                        "value":"[parameters('azAppGatewayV2').subnetName]"
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].subnetName]"
                     },
                     "appGwPrivateIpAddress":{
-                        "value":"[parameters('azAppGatewayV2').privateIp]"
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].privateIp]"
                     },
                     "publicIpAddressName":{
-                        "value":"[parameters('azAppGatewayV2').publicIpName]"
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].publicIpName]"
                     },
                     "publicIpAddressSku":{
-                        "value":"[parameters('azAppGatewayV2').publicIpSku]"
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].publicIpSku]"
                     },
                     "allocationMethod":{
-                        "value":"[parameters('azAppGatewayV2').allocationMethod]"
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].allocationMethod]"
                     },
                     "capacity":{
-                        "value":"[parameters('azAppGatewayV2').capacity]"
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].capacity]"
                     },
                     "autoScaleMaxCapacity":{
-                        "value":"[parameters('azAppGatewayV2').autoScaleMaxCapacity]"
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].autoScaleMaxCapacity]"
                     }
                 }
             }
@@ -629,16 +629,16 @@
                 },
                 "parameters":{
                     "workspaceName":{
-                        "value":"[parameters('logAnalyticsWorkspace').name]"
+                        "value":"[parameters('logAnalyticsWorkspace').settings[copyIndex()].name]"
                     },
                     "workspaceRetention":{
-                        "value":"[parameters('logAnalyticsWorkspace').retention]"
+                        "value":"[parameters('logAnalyticsWorkspace').settings[copyIndex()].retention]"
                     },
                     "publicNetworkAccessForIngestion":{
-                        "value":"[parameters('logAnalyticsWorkspace').publicNetworkAccessForIngestion]"
+                        "value":"[parameters('logAnalyticsWorkspace').settings[copyIndex()].publicNetworkAccessForIngestion]"
                     },
                     "publicNetworkAccessForQuery":{
-                        "value":"[parameters('logAnalyticsWorkspace').publicNetworkAccessForQuery]"
+                        "value":"[parameters('logAnalyticsWorkspace').settings[copyIndex()].publicNetworkAccessForQuery]"
                     }
                 }
             }
