@@ -14,10 +14,6 @@
                         "rgLocation":"UAENorth"
                     },
                     // ADD RESOURCE GROUP SECTIONS BELOW
-                    /*{
-                        "rgName":"rsg-aen-hubvnets-prd",
-                        "rgLocation":"UAENorth"
-                    },*/
                     {
                         "rgName":"rsg-aen-privatednszones-prd",
                         "rgLocation":"UAENorth"
