@@ -47,7 +47,6 @@
     },
     "functions": [],
     "variables": {
-        //"bastionPublicIpResource":"[concat(parameters('bastionName'), '-pubip')]",
         "bastionPublicIpResource": "[if(equals(parameters('bastionPublicIpName'),''),concat(parameters('bastionName'), '-pip'),parameters('bastionPublicIpName'))]",
         "vNetId": "[if(equals(parameters('vNetResourceGroup'),''),resourceId('Microsoft.Network/virtualNetworks',parameters('vNetName')),resourceId(parameters('vNetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('vNetName')))]",
         "subnetId": "[concat(variables('vNetId'), '/subnets/AzureBastionSubnet')]"

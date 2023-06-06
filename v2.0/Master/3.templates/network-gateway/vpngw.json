@@ -37,13 +37,17 @@
           "description": "CIDR block representing the address space of the OnPremise VPN network's Subnet"
         }
       },
-      "virtualNetworkName": {
+      "vNetName": {
         "type": "string",
         "defaultValue": "azureVnet",
         "metadata": {
           "description": "Virtual Network name that contains the gatewat subnet"
         }
       },
+        "vNetResourceGroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
       "gatewayName": {
         "type": "string",
         "defaultValue": "azureGateway",
@@ -54,15 +58,21 @@
       "gatewaySku": {
         "type": "string",
         "defaultValue": "VpnGw1",
-        "allowedValues": ["Basic","VpnGw1","VpnGw2","VpnGw3"],
+        "allowedValues": ["Basic","VpnGw1","VpnGw1AZ","VpnGw2","VpnGw2AZ","VpnGw3","VpnGw3AZ","VpnGw4","VpnGw4AZ","VpnGw5","VpnGw5AZ"],
         "metadata": {
           "description": "The Sku of the Gateway"
         }
+      },
+      "gatewayPublicIpName": {
+          "type": "string",
+          "defaultValue": ""
       }
     },
     "variables": {
-      "gatewaySubnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', parameters('virtualNetworkName'),'GatewaySubnet')]",
-      "gatewayPublicIPName":"[concat(parameters('gatewayName'),'-ip')]"
+      "gatewayPublicIpName": "[if(equals(parameters('gatewayPublicIpName'),''),concat(parameters('gatewayName'), '-pip'),parameters('gatewayPublicIpName'))]",
+      "vNetId": "[if(equals(parameters('vNetResourceGroup'),''),resourceId('Microsoft.Network/virtualNetworks',parameters('vNetName')),resourceId(parameters('vNetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('vNetName')))]",
+      "subnetId": "[concat(variables('vNetId'), '/subnets/GatewaySubnet')]"
+
     },
     "resources": [
       {
@@ -81,7 +91,7 @@
       {
         "apiVersion": "2015-06-15",
         "type": "Microsoft.Network/publicIPAddresses",
-        "name": "[variables('gatewayPublicIPName')]",
+        "name": "[variables('gatewayPublicIpName')]",
         "location": "[resourceGroup().location]",
         "properties": {
           "publicIPAllocationMethod": "Dynamic"
@@ -93,7 +103,7 @@
         "name": "[parameters('gatewayName')]",
         "location": "[resourceGroup().location]",
         "dependsOn": [
-          "[concat('Microsoft.Network/publicIPAddresses/', variables('gatewayPublicIPName'))]"
+          "[concat('Microsoft.Network/publicIPAddresses/', variables('gatewayPublicIpName'))]"
         ],
         "properties": {
           "ipConfigurations": [
@@ -101,10 +111,10 @@
               "properties": {
                 "privateIPAllocationMethod": "Dynamic",
                 "subnet": {
-                  "id": "[variables('gatewaySubnetRef')]"
+                  "id": "[variables('subnetId')]"
                 },
                 "publicIPAddress": {
-                  "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('gatewayPublicIPName'))]"
+                  "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('gatewayPublicIpName'))]"
                 }
               },
               "name": "vnetGatewayConfig"

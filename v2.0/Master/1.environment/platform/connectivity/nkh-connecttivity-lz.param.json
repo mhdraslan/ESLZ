@@ -387,7 +387,7 @@
                 "vnetName":"aen-hub-vnet-01",
                 "vNetResourceGroup":"rsg-aen-hubvnets-prd",
                 "sku":"Standard",
-                "bastionPublicIpName":"",
+                "bastionPublicIpName":"pip-aen-bastion-01",
                 "disableCopyPaste":false,
                 "enableFileCopy":true,
                 "enableIpConnect":true,
@@ -397,15 +397,17 @@
         },
         "azVpnGateway": {
             "value":{
-                "buildVpnGateway":false,
+                "buildVpnGateway":true,
                 "name":"gw-aen-azvpngw-01",
                 "rgName":"rsg-aen-connectivity-prd",
                 "vpnType":"RouteBased",
                 "vnetName":"aen-hub-vnet-01",
+                "vNetResourceGroup":"rsg-aen-hubvnets-prd",
                 "gatewaySku":"VpnGw1",
                 "localGatewayName":"lgw-aen-hqvpngw-01",
                 "localGatewayIpAddress":"20.30.40.50",
-                "localAddressPrefix":["10.100.10.0/24"]
+                "localAddressPrefix":["10.100.10.0/24"],
+                "gatewayPublicIpName":"pip-aen-azvpngw-01"
             }
         },
         "azAppGatewayV2": {

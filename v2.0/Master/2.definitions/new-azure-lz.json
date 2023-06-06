@@ -561,11 +561,17 @@
                     "localAddressPrefix":{
                         "value":"[parameters('azVpnGateway').localAddressPrefix]"
                     },
-                    "virtualNetworkName":{
+                    "vNetName":{
                         "value":"[parameters('azVpnGateway').vnetName]"
+                    },
+                    "vNetResourceGroup":{
+                        "value":"[parameters('azVpnGateway').vNetResourceGroup]"
                     },
                     "gatewaySku":{
                         "value":"[parameters('azVpnGateway').gatewaySku]"
+                    },
+                    "gatewayPublicIpName":{
+                        "value":"[parameters('azVpnGateway').gatewayPublicIpName]"
                     }
                 }
             }
