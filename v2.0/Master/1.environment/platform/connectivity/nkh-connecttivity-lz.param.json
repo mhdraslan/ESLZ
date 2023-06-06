@@ -294,8 +294,9 @@
                 "vmSettings":[
                     {
                         "vmName":"aendns01",
-                        "vNetName":"aen-hub-vnet-01",
                         "rgName":"rsg-aen-sharedservices-prd",
+                        "vNetName":"aen-hub-vnet-01",
+                        "vNetResourceGroup":"rsg-aen-hubvnets-prd",
                         "subnetName":"sharedservicesnet",
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",
@@ -307,8 +308,9 @@
                     },
                     {
                         "vmName":"aendns02",
-                        "vNetName":"aen-hub-vnet-01",
                         "rgName":"rsg-aen-sharedservices-prd",
+                        "vNetName":"aen-hub-vnet-01",
+                        "vNetResourceGroup":"rsg-aen-hubvnets-prd",
                         "subnetName":"sharedservicesnet",
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",
@@ -320,8 +322,9 @@
                     },
                     {
                         "vmName":"aendc01",
-                        "vNetName":"aen-identity-vnet-01",
                         "rgName":"rsg-aen-activedirectory-prd",
+                        "vNetName":"aen-identity-vnet-01",
+                        "vNetResourceGroup":"rsg-aen-hubvnets-prd",
                         "subnetName":"addcsnet",
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",
@@ -333,8 +336,9 @@
                     },
                     {
                         "vmName":"aendc02",
-                        "vNetName":"aen-identity-vnet-01",
                         "rgName":"rsg-aen-activedirectory-prd",
+                        "vNetName":"aen-identity-vnet-01",
+                        "vNetResourceGroup":"rsg-aen-hubvnets-prd",
                         "subnetName":"addcsnet",
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",
@@ -346,8 +350,9 @@
                     },
                     {
                         "vmName":"aenaadc01",
-                        "vNetName":"aen-identity-vnet-01",
                         "rgName":"rsg-aen-activedirectory-prd",
+                        "vNetName":"aen-identity-vnet-01",
+                        "vNetResourceGroup":"rsg-aen-hubvnets-prd",
                         "subnetName":"addcsnet",
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",

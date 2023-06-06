@@ -366,6 +366,9 @@
                     "vNetName":{
                         "value":"[parameters('windowsVMs').vmSettings[copyIndex()].vNetName]"
                     },
+                    "vNetResourceGroup":{
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].vNetResourceGroup]"
+                    },
                     "subnetName":{
                         "value":"[parameters('windowsVMs').vmSettings[copyIndex()].subnetName]"
                     },

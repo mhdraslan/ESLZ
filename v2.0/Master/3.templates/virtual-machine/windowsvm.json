@@ -8,6 +8,10 @@
         "vNetName": {
             "type": "string"
         },
+        "vNetResourceGroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
         "subnetName": {
             "type": "string"
         },
@@ -44,7 +48,7 @@
     },
     "variables": {
         "VMlocation":"[resourceGroup().location]",
-        "VMVnetId": "[resourceId('Microsoft.Network/virtualNetworks',parameters('vNetName'))]",
+        "VMVnetId": "[if(equals(parameters('vNetResourceGroup'),''),resourceId('Microsoft.Network/virtualNetworks',parameters('vNetName')),resourceId(parameters('vNetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('vNetName')))]",
         "SubnetRef": "[concat(variables('VMVnetId'), '/subnets/', parameters('subnetName'))]",
         "NicResName":"[concat(parameters('vmName'),'_NIC-1')]"
     },
