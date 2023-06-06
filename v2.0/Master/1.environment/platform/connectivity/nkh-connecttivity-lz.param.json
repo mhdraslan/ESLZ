@@ -399,7 +399,7 @@
         },
         "azAppGatewayV2": {
             "value":{
-                "gwSettings":[
+                "settings":[
                     {
                         "build":true,
                         "name":"agw-aen-prod-01",

@@ -566,12 +566,16 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_Azure_App_Gateway_',parameters('azAppGatewayV2').gwSettings[copyIndex()].name)]",
+            "Name":"[concat('Create_Azure_App_Gateway_',parameters('azAppGatewayV2').settings[copyIndex()].name)]",
             "condition": "[parameters('azAppGatewayV2').settings[copyIndex()].build]",
             "resourceGroup": "[parameters('azAppGatewayV2').settings[copyIndex()].rgName]",
             "dependsOn": [
                 "UdrLinksCopy"
             ],
+            "copy": {
+                "name": "appGwV2Copy",
+                "count": "[length(parameters('azAppGatewayV2').settings)]"
+            },
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
@@ -616,12 +620,16 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"Create_Log_Analytics_Workspace",
+            "Name":"[concat('Create_Log_Analytics_Workspace_',parameters('logAnalyticsWorkspace').settings[copyIndex()].name)]",
             "condition": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].build]",
             "resourceGroup": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].rgName]",
             "dependsOn": [
                 "ResourceGroupsCopy"
             ],
+            "copy": {
+                "name": "lawCopy",
+                "count": "[length(parameters('logAnalyticsWorkspace').settings)]"
+            },
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
