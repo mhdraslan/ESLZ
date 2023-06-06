@@ -8,6 +8,10 @@
         "vnetName": {
             "type": "string"
         },
+        "vNetResourceGroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
         "bastionSku": {
             "type": "string",
             "allowedValues": [
@@ -15,6 +19,10 @@
                 "Standard"
             ],
             "defaultValue":"Standard"
+        },
+        "bastionPublicIpName": {
+            "type": "string",
+            "defaultValue": ""
         },
         "disableCopyPaste": {
             "type": "bool",
@@ -39,7 +47,10 @@
     },
     "functions": [],
     "variables": {
-        "bastionPublicIpResource":"[concat(parameters('bastionName'), '-pubip')]"
+        //"bastionPublicIpResource":"[concat(parameters('bastionName'), '-pubip')]",
+        "bastionPublicIpResource": "[if(equals(parameters('bastionPublicIpName'),''),concat(parameters('bastionName'), '-pip'),parameters('bastionPublicIpName'))]",
+        "vNetId": "[if(equals(parameters('vNetResourceGroup'),''),resourceId('Microsoft.Network/virtualNetworks',parameters('vNetName')),resourceId(parameters('vNetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('vNetName')))]",
+        "subnetId": "[concat(variables('vNetId'), '/subnets/AzureBastionSubnet')]"
     },
     "resources": [
         {
@@ -67,7 +78,7 @@
                                 "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('bastionPublicIpResource'))]"
                             },
                             "subnet": {
-                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('vnetName'),'AzureBastionSubnet')]"
+                                "id": "[variables('subnetId')]"
                             }
                         }
                     }

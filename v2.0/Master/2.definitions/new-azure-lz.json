@@ -501,8 +501,14 @@
                     "vnetName":{
                         "value":"[parameters('azBastion').vnetName]"
                     },
+                    "vNetResourceGroup":{
+                        "value":"[parameters('azBastion').vNetResourceGroup]"
+                    },
                     "bastionSku":{
                         "value":"[parameters('azBastion').sku]"
+                    },
+                    "bastionPublicIpName":{
+                        "value":"[parameters('azBastion').bastionPublicIpName]"
                     },
                     "disableCopyPaste":{
                         "value":"[parameters('azBastion').disableCopyPaste]"
