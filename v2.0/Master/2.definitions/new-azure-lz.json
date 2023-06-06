@@ -567,8 +567,8 @@
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"Create_Azure_App_Gateway",
-            "condition": "[parameters('azAppGatewayV2').build]",
-            "resourceGroup": "[parameters('azAppGatewayV2').rgName]",
+            "condition": "[parameters('azAppGatewayV2').settings[copyIndex()].build]",
+            "resourceGroup": "[parameters('azAppGatewayV2').settings[copyIndex()].rgName]",
             "dependsOn": [
                 "UdrLinksCopy"
             ],
@@ -617,8 +617,8 @@
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"Create_Log_Analytics_Workspace",
-            "condition": "[parameters('logAnalyticsWorkspace').build]",
-            "resourceGroup": "[parameters('logAnalyticsWorkspace').rgName]",
+            "condition": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].build]",
+            "resourceGroup": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].rgName]",
             "dependsOn": [
                 "ResourceGroupsCopy"
             ],
