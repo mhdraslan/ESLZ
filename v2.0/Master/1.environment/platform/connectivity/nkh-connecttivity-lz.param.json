@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "subscriptionId": {
-            "value":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
+            "value":"447c88e8-6ba0-4c01-9cd5-f4984c6e5f23"
         },
         "resourceGroups":{
             "value":{
@@ -70,7 +70,7 @@
                         "vNetName":"aen-hub-vnet-01",
                         "rgName":"rsg-aen-connectivity-01",
                         "remoteVnetName":"aen-identity-vnet-01",
-                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
+                        "remoteVNetSubscriptionId":"447c88e8-6ba0-4c01-9cd5-f4984c6e5f23",
                         "remoteVNetResourceGroup":"rsg-aen-identity-01",
                         "peeringName":"vnet-peering-hub-identity",
                         "allowForwardedTraffic":false,
@@ -81,7 +81,7 @@
                         "vNetName":"aen-identity-vnet-01",
                         "rgName":"rsg-aen-identity-01",
                         "remoteVnetName":"aen-hub-vnet-01",
-                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
+                        "remoteVNetSubscriptionId":"447c88e8-6ba0-4c01-9cd5-f4984c6e5f23",
                         "remoteVNetResourceGroup":"rsg-aen-connectivity-01",
                         "peeringName":"vnet-peering-identity-hub",
                         "allowForwardedTraffic":false,
