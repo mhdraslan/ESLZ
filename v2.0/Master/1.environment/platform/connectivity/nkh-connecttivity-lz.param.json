@@ -378,7 +378,7 @@
         },
         "azBastion": {
             "value":{
-                "buildAzBastion":false,
+                "buildAzBastion":true,
                 "name":"aen-bastion-01",
                 "rgName":"rsg-aen-connectivity-01",
                 "vnetName":"aen-hub-vnet-01",
@@ -394,7 +394,7 @@
         },
         "azVpnGateway": {
             "value":{
-                "buildVpnGateway":false,
+                "buildVpnGateway":true,
                 "name":"aen-gw-vpn-01",
                 "rgName":"rsg-aen-connectivity-01",
                 "vpnType":"RouteBased",
@@ -447,7 +447,7 @@
             "value":{
                 "settings":[
                     {
-                        "build":false,
+                        "build":true,
                         "name":"law-aen-ops-01",
                         "rgName":"rsg-aen-management-prd",
                         "retention":30,
@@ -455,7 +455,7 @@
                         "publicNetworkAccessForQuery":"Enabled"
                     },
                     {
-                        "build":false,
+                        "build":true,
                         "name":"law-aen-sec-01",
                         "rgName":"rsg-aen-management-prd",
                         "retention":30,
