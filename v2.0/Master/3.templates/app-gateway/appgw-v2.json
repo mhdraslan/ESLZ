@@ -54,8 +54,8 @@
         "subnetId": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
         "applicationGatewayId": "[resourceId('Microsoft.Network/applicationGateways', parameters('appGwName'))]",
 
-        //"publicIPRef": "[resourceId('Microsoft.Network/publicIPAddresses/', parameters('publicIpAddressName'))]",
-        "appGwPublicIpResource": "[if(equals(parameters('publicIpAddressName'),''),concat(parameters('appGwName'), '-pip'),parameters('publicIpAddressName'))]"
+        "appGwPublicIpName": "[if(equals(parameters('publicIpAddressName'),''),concat(parameters('appGwName'), '-pip'),parameters('publicIpAddressName'))]",
+        "appGwPublicIpResourceId": "[resourceId('Microsoft.Network/publicIPAddresses/', variables('appGwPublicIpName'))]"
     },
     "resources": [
         {
@@ -88,7 +88,7 @@
                         "name": "appGwPublicFrontendIp",
                         "properties": {
                             "PublicIPAddress": {
-                                "id": "[variables('appGwPublicIpResource')]"
+                                "id": "[variables('appGwPublicIpResourceId')]"
                             }
                         }
                     },
@@ -207,7 +207,7 @@
                         "name": "appGwPublicFrontendIp",
                         "properties": {
                             "PublicIPAddress": {
-                                "id": "[variables('appGwPublicIpResource')]"
+                                "id": "[variables('appGwPublicIpResourceId')]"
                             }
                         }
                     },
