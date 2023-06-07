@@ -15,39 +15,31 @@
                     },
                     // ADD RESOURCE GROUP SECTIONS BELOW
                     {
-                        "rgName":"rsg-aen-privatednszones-prd",
+                        "rgName":"rsg-aen-prod-connectivity-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-fortigate-prd",
+                        "rgName":"rsg-aen-prod-web-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-prod-app-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-sharedservices-prd",
+                        "rgName":"rsg-aen-prod-db-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-bastion-prd",
+                        "rgName":"rsg-aen-prod-kv-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-appgateway-prd",
+                        "rgName":"rsg-aen-prod-monitor-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-appgateway-dev",
-                        "rgLocation":"UAENorth"
-                    },
-                    {
-                        "rgName":"rsg-aen-activedirectory-prd",
-                        "rgLocation":"UAENorth"
-                    },
-                    {
-                        "rgName":"rsg-aen-management-prd",
+                        "rgName":"rsg-aen-prod-rsv-01",
                         "rgLocation":"UAENorth"
                     }
                 ]
@@ -57,16 +49,10 @@
             "value":{
                 "vnetSettings":[
                     {
-                        "vNetName":"aen-hub-vnet-01",
-                        "vNetAddressSpace":"10.200.0.0/22",
+                        "vNetName":"aen-prod-vnet-01",
+                        "vNetAddressSpace":"10.200.4.0/22",
                         "vNetDnsServers":["10.200.1.132","10.200.1.133"],
-                        "rgName":"rsg-aen-connectivity-prd"
-                    },
-                    {
-                        "vNetName":"aen-identity-vnet-01",
-                        "vNetAddressSpace":"10.200.12.128/25",
-                        "vNetDnsServers":["10.200.1.132","10.200.1.133"],
-                        "rgName":"rsg-aen-connectivity-prd"
+                        "rgName":"rsg-aen-prod-connectivity-01"
                     }
                 ],
                 "peeringSettings":[

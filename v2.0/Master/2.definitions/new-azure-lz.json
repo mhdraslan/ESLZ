@@ -373,6 +373,9 @@
                     "subnetName":{
                         "value":"[parameters('windowsVMs').vmSettings[copyIndex()].subnetName]"
                     },
+                    "vmZones":{
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].vmZones]"
+                    },
                     "osDiskType":{
                         "value":"[parameters('windowsVMs').vmSettings[copyIndex()].osDiskType]"
                     },
@@ -604,13 +607,16 @@
                     "appGwTier":{
                         "value":"[parameters('azAppGatewayV2').settings[copyIndex()].gwTier]"
                     },
-                    "AppGwVNet":{
+                    "vNetName":{
                         "value":"[parameters('azAppGatewayV2').settings[copyIndex()].vnetName]"
                     },
-                    "AppGwSubnetName":{
+                    "vNetResourceGroup":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].vNetResourceGroup]"
+                    },
+                    "subnetName":{
                         "value":"[parameters('azAppGatewayV2').settings[copyIndex()].subnetName]"
                     },
-                    "appGwPrivateIpAddress":{
+                    "privateIpAddress":{
                         "value":"[parameters('azAppGatewayV2').settings[copyIndex()].privateIp]"
                     },
                     "publicIpAddressName":{

@@ -13,13 +13,17 @@
             ],
             "defaultValue":"Standard_v2"
         },
-        "AppGwVNet": {
-            "type": "String"
-        },        
-        "AppGwSubnetName": {
+        "vNetName": {
             "type": "String"
         },
-        "appGwPrivateIpAddress": {
+        "vNetResourceGroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subnetName": {
+            "type": "String"
+        },
+        "privateIpAddress": {
             "type": "String"
         },
         "publicIpAddressName": {
@@ -45,10 +49,13 @@
         }
     },
     "variables": {
-        "vnetId": "[resourceId('Microsoft.Network/virtualNetworks',parameters('AppGwVNet'))]",
-        "publicIPRef": "[resourceId('Microsoft.Network/publicIPAddresses/', parameters('publicIpAddressName'))]",
-        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('AppGwSubnetName'))]",
-        "applicationGatewayId": "[resourceId('Microsoft.Network/applicationGateways', parameters('appGwName'))]"
+        //"vnetId": "[resourceId('Microsoft.Network/virtualNetworks',parameters('vNetName'))]",
+        "vNetId": "[if(equals(parameters('vNetResourceGroup'),''),resourceId('Microsoft.Network/virtualNetworks',parameters('vNetName')),resourceId(parameters('vNetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('vNetName')))]",
+        "subnetId": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
+        "applicationGatewayId": "[resourceId('Microsoft.Network/applicationGateways', parameters('appGwName'))]",
+
+        //"publicIPRef": "[resourceId('Microsoft.Network/publicIPAddresses/', parameters('publicIpAddressName'))]",
+        "appGwPublicIpResource": "[if(equals(parameters('publicIpAddressName'),''),concat(parameters('appGwName'), '-pip'),parameters('publicIpAddressName'))]"
     },
     "resources": [
         {
@@ -71,7 +78,7 @@
                         "name": "appGatewayIpConfig",
                         "properties": {
                             "subnet": {
-                                "id": "[variables('subnetRef')]"
+                                "id": "[variables('subnetId')]"
                             }
                         }
                     }
@@ -81,7 +88,7 @@
                         "name": "appGwPublicFrontendIp",
                         "properties": {
                             "PublicIPAddress": {
-                                "id": "[variables('publicIPRef')]"
+                                "id": "[variables('appGwPublicIpResource')]"
                             }
                         }
                     },
@@ -89,9 +96,9 @@
                         "name": "appGwPrivateFrontendIp",
                         "properties": {
                             "subnet": {
-                                "id": "[variables('subnetRef')]"
+                                "id": "[variables('subnetId')]"
                             },
-                            "privateIpAddress": "[parameters('appGwPrivateIpAddress')]",
+                            "privateIpAddress": "[parameters('privateIpAddress')]",
                             "privateIPAllocationMethod": "Static"
                         }
                     }
@@ -190,7 +197,7 @@
                         "name": "appGatewayIpConfig",
                         "properties": {
                             "subnet": {
-                                "id": "[variables('subnetRef')]"
+                                "id": "[variables('subnetId')]"
                             }
                         }
                     }
@@ -200,7 +207,7 @@
                         "name": "appGwPublicFrontendIp",
                         "properties": {
                             "PublicIPAddress": {
-                                "id": "[variables('publicIPRef')]"
+                                "id": "[variables('appGwPublicIpResource')]"
                             }
                         }
                     },
@@ -208,9 +215,9 @@
                         "name": "appGwPrivateFrontendIp",
                         "properties": {
                             "subnet": {
-                                "id": "[variables('subnetRef')]"
+                                "id": "[variables('subnetId')]"
                             },
-                            "privateIpAddress": "[parameters('appGwPrivateIpAddress')]",
+                            "privateIpAddress": "[parameters('privateIpAddress')]",
                             "privateIPAllocationMethod": "Static"
                         }
                     }
