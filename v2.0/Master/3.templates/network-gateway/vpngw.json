@@ -44,10 +44,10 @@
           "description": "Virtual Network name that contains the gatewat subnet"
         }
       },
-        "vNetResourceGroup": {
-            "type": "string",
-            "defaultValue": ""
-        },
+      "vNetResourceGroup": {
+          "type": "string",
+          "defaultValue": ""
+      },
       "gatewayName": {
         "type": "string",
         "defaultValue": "azureGateway",
@@ -89,16 +89,20 @@
         }
       },
       {
-        "apiVersion": "2015-06-15",
+        "apiVersion": "2020-08-01",
         "type": "Microsoft.Network/publicIPAddresses",
         "name": "[variables('gatewayPublicIpName')]",
         "location": "[resourceGroup().location]",
         "properties": {
-          "publicIPAllocationMethod": "Dynamic"
-        }
+          "publicIPAllocationMethod": "Static"
+        },
+        "sku":{
+          "name":"Standard"
+        },
+        "zones":["1","2","3"]
       },
       {
-        "apiVersion": "2015-06-15",
+        "apiVersion": "2020-11-01",
         "type": "Microsoft.Network/virtualNetworkGateways",
         "name": "[parameters('gatewayName')]",
         "location": "[resourceGroup().location]",
