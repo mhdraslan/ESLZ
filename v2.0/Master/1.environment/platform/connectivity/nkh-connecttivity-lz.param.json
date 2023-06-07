@@ -447,7 +447,7 @@
             "value":{
                 "settings":[
                     {
-                        "build":true,
+                        "build":false,
                         "name":"law-aen-ops-01",
                         "rgName":"rsg-aen-management-prd",
                         "retention":30,
@@ -455,7 +455,7 @@
                         "publicNetworkAccessForQuery":"Enabled"
                     },
                     {
-                        "build":true,
+                        "build":false,
                         "name":"law-aen-sec-01",
                         "rgName":"rsg-aen-management-prd",
                         "retention":30,
