@@ -55,30 +55,7 @@
                         "rgName":"rsg-aen-prod-connectivity-01"
                     }
                 ],
-                "peeringSettings":[
-                    {
-                        "vNetName":"aen-hub-vnet-01",
-                        "rgName":"rsg-aen-connectivity-prd",
-                        "remoteVnetName":"aen-identity-vnet-01",
-                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                        "remoteVNetResourceGroup":"rsg-aen-connectivity-prd",
-                        "peeringName":"vnet-peering-hub-identity",
-                        "allowForwardedTraffic":false,
-                        "allowGatewayTransit":false,
-                        "useRemoteGateways":false
-                    },
-                    {
-                        "vNetName":"aen-identity-vnet-01",
-                        "rgName":"rsg-aen-connectivity-prd",
-                        "remoteVnetName":"aen-hub-vnet-01",
-                        "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                        "remoteVNetResourceGroup":"rsg-aen-connectivity-prd",
-                        "peeringName":"vnet-peering-identity-hub",
-                        "allowForwardedTraffic":false,
-                        "allowGatewayTransit":false,
-                        "useRemoteGateways":false
-                    }
-                ]
+                "peeringSettings":[]
             }
         },
         "routes":{
