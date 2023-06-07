@@ -15,39 +15,35 @@
                     },
                     // ADD RESOURCE GROUP SECTIONS BELOW
                     {
-                        "rgName":"rsg-aen-privatednszones-prd",
+                        "rgName":"rsg-aen-privatednszones-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-fortigate-prd",
+                        "rgName":"rsg-aen-fortigate-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-connectivity-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-sharedservices-prd",
+                        "rgName":"rsg-aen-sharedservices-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-bastion-prd",
+                        "rgName":"rsg-aen-bastion-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-appgateway-prd",
+                        "rgName":"rsg-aen-appgatewayprd-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-appgateway-dev",
+                        "rgName":"rsg-aen-appgatewaynonprod-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-activedirectory-prd",
-                        "rgLocation":"UAENorth"
-                    },
-                    {
-                        "rgName":"rsg-aen-management-prd",
+                        "rgName":"rsg-aen-identity-01",
                         "rgLocation":"UAENorth"
                     }
                 ]
@@ -60,22 +56,22 @@
                         "vNetName":"aen-hub-vnet-01",
                         "vNetAddressSpace":"10.200.0.0/22",
                         "vNetDnsServers":["10.200.1.132","10.200.1.133"],
-                        "rgName":"rsg-aen-connectivity-prd"
+                        "rgName":"rsg-aen-connectivity-01"
                     },
                     {
                         "vNetName":"aen-identity-vnet-01",
                         "vNetAddressSpace":"10.200.12.128/25",
                         "vNetDnsServers":["10.200.1.132","10.200.1.133"],
-                        "rgName":"rsg-aen-connectivity-prd"
+                        "rgName":"rsg-aen-identity-01"
                     }
                 ],
                 "peeringSettings":[
                     {
                         "vNetName":"aen-hub-vnet-01",
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-connectivity-01",
                         "remoteVnetName":"aen-identity-vnet-01",
                         "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                        "remoteVNetResourceGroup":"rsg-aen-connectivity-prd",
+                        "remoteVNetResourceGroup":"rsg-aen-identity-01",
                         "peeringName":"vnet-peering-hub-identity",
                         "allowForwardedTraffic":false,
                         "allowGatewayTransit":false,
@@ -83,10 +79,10 @@
                     },
                     {
                         "vNetName":"aen-identity-vnet-01",
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-identity-01",
                         "remoteVnetName":"aen-hub-vnet-01",
                         "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                        "remoteVNetResourceGroup":"rsg-aen-connectivity-prd",
+                        "remoteVNetResourceGroup":"rsg-aen-connectivity-01",
                         "peeringName":"vnet-peering-identity-hub",
                         "allowForwardedTraffic":false,
                         "allowGatewayTransit":false,
@@ -100,15 +96,15 @@
                 "udrTables":[
                     {
                         "routeTableName":"udr-aen-spoke-01",
-                        "rgName":"rsg-aen-connectivity-prd"
+                        "rgName":"rsg-aen-connectivity-01"
                     },
                     {
                         "routeTableName":"udr-aen-gateway-01",
-                        "rgName":"rsg-aen-connectivity-prd"
+                        "rgName":"rsg-aen-connectivity-01"
                     },
                     {
                         "routeTableName":"udr-aen-blackhole-01",
-                        "rgName":"rsg-aen-connectivity-prd"
+                        "rgName":"rsg-aen-connectivity-01"
                     }
                 ],
                 "udrSettings":[
@@ -178,7 +174,7 @@
                         "subnetName":"AzureFirewallSubnet",
                         "vNetName":"aen-hub-vnet-01",
                         "subnetAddress":"10.200.1.192/26",
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-connectivity-01",
                         "udr":"",
                         "udrRg":"",
                         "createNsg":false
@@ -187,99 +183,99 @@
                         "subnetName":"GatewaySubnet",
                         "vNetName":"aen-hub-vnet-01",
                         "subnetAddress":"10.200.1.0/26",
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-connectivity-01",
                         "udr":"udr-aen-gateway-01",
-                        "udrRg":"rsg-aen-connectivity-prd",
+                        "udrRg":"rsg-aen-connectivity-01",
                         "createNsg":false
                     },
                     {
                         "subnetName":"AzureBastionSubnet",
                         "vNetName":"aen-hub-vnet-01",
                         "subnetAddress":"10.200.1.64/26",
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-connectivity-01",
                         "udr":"",
                         "udrRg":"",
                         "createNsg":false
                     },
                     {
-                        "subnetName":"sharedservicesnet",
+                        "subnetName":"shdsnet",
                         "vNetName":"aen-hub-vnet-01",
                         "subnetAddress":"10.200.1.128/26",
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-connectivity-01",
                         "udr":"udr-aen-spoke-01",
-                        "udrRg":"rsg-aen-connectivity-prd",
+                        "udrRg":"rsg-aen-connectivity-01",
                         "createNsg":true
                     },
                     {
-                        "subnetName":"privateendpointsnet",
+                        "subnetName":"pvtendpointsnet",
                         "vNetName":"aen-hub-vnet-01",
                         "subnetAddress":"10.200.2.0/24",
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-connectivity-01",
                         "udr":"udr-aen-spoke-01",
-                        "udrRg":"rsg-aen-connectivity-prd",
+                        "udrRg":"rsg-aen-connectivity-01",
                         "createNsg":true
                     },
                     {
-                        "subnetName":"fortigatetrustsnet",
+                        "subnetName":"fwtrustsnet",
                         "vNetName":"aen-hub-vnet-01",
                         "subnetAddress":"10.200.0.192/26",
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-connectivity-01",
                         "udr":"",
                         "udrRg":"",
                         "createNsg":false
                     },
                     {
-                        "subnetName":"fortigateuntrustsnet",
+                        "subnetName":"fwuntrustsnet",
                         "vNetName":"aen-hub-vnet-01",
                         "subnetAddress":"10.200.0.128/26",
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-connectivity-01",
                         "udr":"",
                         "udrRg":"",
                         "createNsg":false
                     },
                     {
-                        "subnetName":"fortigatemgmtsnet",
+                        "subnetName":"fwmgmtsnet",
                         "vNetName":"aen-hub-vnet-01",
                         "subnetAddress":"10.200.0.0/26",
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-connectivity-01",
                         "udr":"",
                         "udrRg":"",
                         "createNsg":false
                     },
                     {
-                        "subnetName":"fortigatehasnet",
+                        "subnetName":"fwhasnet",
                         "vNetName":"aen-hub-vnet-01",
                         "subnetAddress":"10.200.0.64/26",
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-connectivity-01",
                         "udr":"",
                         "udrRg":"",
                         "createNsg":false
                     },
                     {
-                        "subnetName":"appgwprodsnet",
+                        "subnetName":"agwprodsnet",
                         "vNetName":"aen-hub-vnet-01",
                         "subnetAddress":"10.200.3.0/25",
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-connectivity-01",
                         "udr":"",
                         "udrRg":"",
                         "createNsg":false
                     },
                     {
-                        "subnetName":"appgwdevsnet",
+                        "subnetName":"agwnonprodsnet",
                         "vNetName":"aen-hub-vnet-01",
                         "subnetAddress":"10.200.3.128/25",
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-connectivity-01",
                         "udr":"",
                         "udrRg":"",
                         "createNsg":false
                     },
                     {
-                        "subnetName":"addcsnet",
+                        "subnetName":"addsnet",
                         "vNetName":"aen-identity-vnet-01",
                         "subnetAddress":"10.200.12.128/27",
-                        "rgName":"rsg-aen-connectivity-prd",
+                        "rgName":"rsg-aen-identity-01",
                         "udr":"udr-aen-spoke-01",
-                        "udrRg":"rsg-aen-connectivity-prd",
+                        "udrRg":"rsg-aen-connectivity-01",
                         "createNsg":true
                     }
                 ]
@@ -290,10 +286,10 @@
                 "vmSettings":[
                     {
                         "vmName":"aendns01",
-                        "rgName":"rsg-aen-sharedservices-prd",
+                        "rgName":"rsg-aen-sharedservices-01",
                         "vNetName":"aen-hub-vnet-01",
-                        "vNetResourceGroup":"rsg-aen-connectivity-prd",
-                        "subnetName":"sharedservicesnet",
+                        "vNetResourceGroup":"rsg-aen-connectivity-01",
+                        "subnetName":"shdsnet",
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",
                         "osOffer":"windowsserver",
@@ -304,10 +300,10 @@
                     },
                     {
                         "vmName":"aendns02",
-                        "rgName":"rsg-aen-sharedservices-prd",
+                        "rgName":"rsg-aen-sharedservices-01",
                         "vNetName":"aen-hub-vnet-01",
-                        "vNetResourceGroup":"rsg-aen-connectivity-prd",
-                        "subnetName":"sharedservicesnet",
+                        "vNetResourceGroup":"rsg-aen-connectivity-01",
+                        "subnetName":"shdsnet",
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",
                         "osOffer":"windowsserver",
@@ -318,10 +314,10 @@
                     },
                     {
                         "vmName":"aendc01",
-                        "rgName":"rsg-aen-activedirectory-prd",
+                        "rgName":"rsg-aen-identity-01",
                         "vNetName":"aen-identity-vnet-01",
-                        "vNetResourceGroup":"rsg-aen-connectivity-prd",
-                        "subnetName":"addcsnet",
+                        "vNetResourceGroup":"rsg-aen-connectivity-01",
+                        "subnetName":"addsnet",
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",
                         "osOffer":"windowsserver",
@@ -332,10 +328,10 @@
                     },
                     {
                         "vmName":"aendc02",
-                        "rgName":"rsg-aen-activedirectory-prd",
+                        "rgName":"rsg-aen-identity-01",
                         "vNetName":"aen-identity-vnet-01",
-                        "vNetResourceGroup":"rsg-aen-connectivity-prd",
-                        "subnetName":"addcsnet",
+                        "vNetResourceGroup":"rsg-aen-connectivity-01",
+                        "subnetName":"addsnet",
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",
                         "osOffer":"windowsserver",
@@ -345,11 +341,11 @@
                         "adminPassword":"Pa$$w0rd123*"
                     },
                     {
-                        "vmName":"aenaadc01",
-                        "rgName":"rsg-aen-activedirectory-prd",
+                        "vmName":"aenadcnct01",
+                        "rgName":"rsg-aen-identity-01",
                         "vNetName":"aen-identity-vnet-01",
-                        "vNetResourceGroup":"rsg-aen-connectivity-prd",
-                        "subnetName":"addcsnet",
+                        "vNetResourceGroup":"rsg-aen-connectivity-01",
+                        "subnetName":"addsnet",
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",
                         "osOffer":"windowsserver",
@@ -370,7 +366,7 @@
             "value":{
                 "buildAzFirewall":false,
                 "name":"Contoso-Hub-AzFW-01",
-                "rgName":"rsg-aen-connectivity-prd",
+                "rgName":"rsg-aen-connectivity-01",
                 "vnetName":"aen-hub-vnet-01",
                 "tier":"Standard"
             }
@@ -378,12 +374,12 @@
         "azBastion": {
             "value":{
                 "buildAzBastion":true,
-                "name":"bsn-aen-bastion-01",
-                "rgName":"rsg-aen-connectivity-prd",
+                "name":"aen-bastion-01",
+                "rgName":"rsg-aen-connectivity-01",
                 "vnetName":"aen-hub-vnet-01",
-                "vNetResourceGroup":"rsg-aen-connectivity-prd",
+                "vNetResourceGroup":"rsg-aen-connectivity-01",
                 "sku":"Standard",
-                "bastionPublicIpName":"pip-aen-bastion-01",
+                "bastionPublicIpName":"aen-bastion-01-pip",
                 "disableCopyPaste":false,
                 "enableFileCopy":true,
                 "enableIpConnect":true,
@@ -394,16 +390,16 @@
         "azVpnGateway": {
             "value":{
                 "buildVpnGateway":true,
-                "name":"gw-aen-azvpngw-01",
-                "rgName":"rsg-aen-connectivity-prd",
+                "name":"aen-gw-vpn-01",
+                "rgName":"rsg-aen-connectivity-01",
                 "vpnType":"RouteBased",
                 "vnetName":"aen-hub-vnet-01",
-                "vNetResourceGroup":"rsg-aen-connectivity-prd",
-                "gatewaySku":"VpnGw1",
-                "localGatewayName":"lgw-aen-hqvpngw-01",
-                "localGatewayIpAddress":"20.30.40.50",
-                "localAddressPrefix":["10.100.10.0/24"],
-                "gatewayPublicIpName":"pip-aen-azvpngw-01"
+                "vNetResourceGroup":"rsg-aen-connectivity-01",
+                "gatewaySku":"VpnGw3AZ",
+                "localGatewayName":"aen-lgw-01",
+                "localGatewayIpAddress":"91.72.224.106",
+                "localAddressPrefix":["10.0.0.0/8","172.16.0.0/12"],
+                "gatewayPublicIpName":"aen-gw-vpn-01-pip"
             }
         },
         "azAppGatewayV2": {
@@ -411,30 +407,30 @@
                 "settings":[
                     {
                         "build":true,
-                        "name":"agw-aen-prod-01",
-                        "rgName":"rsg-aen-appgateway-prd",
-                        "gwTier":"Standard_v2",
+                        "name":"aen-appgw-prod-01",
+                        "rgName":"rsg-aen-appgatewayprd-01",
+                        "gwTier":"WAF_v2",
                         "vnetName":"aen-hub-vnet-01",
-                        "subnetName":"appgwprodsnet",
+                        "subnetName":"agwprodsnet",
                         "privateIp":"10.200.3.4",
-                        "publicIpName":"pip-aen-appgw-prod-01",
+                        "publicIpName":"aen-appgw-prod-01-pip",
                         "publicIpSku":"Standard",
                         "allocationMethod":"Static",
-                        "capacity":1,
+                        "capacity":2,
                         "autoScaleMaxCapacity":7
                     },
                     {
                         "build":true,
-                        "name":"agw-aen-dev-01",
-                        "rgName":"rsg-aen-appgateway-dev",
-                        "gwTier":"Standard_v2",
+                        "name":"aen-appgw-nonprod-01",
+                        "rgName":"rsg-aen-appgatewaynonprod-01",
+                        "gwTier":"WAF_v2",
                         "vnetName":"aen-hub-vnet-01",
-                        "subnetName":"appgwdevsnet",
+                        "subnetName":"agwnonprodsnet",
                         "privateIp":"10.200.3.132",
-                        "publicIpName":"pip-aen-appgw-dev-01",
+                        "publicIpName":"aen-appgw-nonprod-01-pip",
                         "publicIpSku":"Standard",
                         "allocationMethod":"Static",
-                        "capacity":1,
+                        "capacity":2,
                         "autoScaleMaxCapacity":7
                     }
                 ]
@@ -444,7 +440,7 @@
             "value":{
                 "settings":[
                     {
-                        "build":true,
+                        "build":false,
                         "name":"law-aen-ops-01",
                         "rgName":"rsg-aen-management-prd",
                         "retention":30,
@@ -452,7 +448,7 @@
                         "publicNetworkAccessForQuery":"Enabled"
                     },
                     {
-                        "build":true,
+                        "build":false,
                         "name":"law-aen-sec-01",
                         "rgName":"rsg-aen-management-prd",
                         "retention":30,
