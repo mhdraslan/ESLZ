@@ -5,16 +5,16 @@
     "variables": {
         "baseUri"           : "../../",
         "lzTemplateUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'2.definitions/new-azure-lz.json'))]",
-        "lzConnectivityUri" : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/connectivity/nkh-connecttivity-lz.param.json'))]",
-        "lzManagementUri"   : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/management/nkh-mgmt-lz.param.json'))]",
-        "lzSecurityUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/management/nkh-security-lz.param.json'))]"
+        "lzNonProdUri" : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/landing-zones/nakheel/nkh-nonprod-lz.param.json'))]",
+        "lzProdUri"   : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/landing-zones/nakheel/nkh-prod-lz.param.json'))]",
+        "lzSandboxUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/landing-zones/nakheel/nkh-sandbox-lz.param.json'))]"
 
     },
     "resources": [
        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"Build-Platform-Connectivity",
+            "Name":"Build-LZ-NonProd",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
@@ -23,14 +23,14 @@
                     "uri":"[variables('lzTemplateUri')]"
                 },
                 "parameterslink": {
-                    "uri":"[variables('lzConnectivityUri')]"
+                    "uri":"[variables('lzNonProdUri')]"
                 }
             }
         },
        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"Build-Platform-Connectivity",
+            "Name":"Build-LZ-Prod",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
@@ -39,14 +39,14 @@
                     "uri":"[variables('lzTemplateUri')]"
                 },
                 "parameterslink": {
-                    "uri":"[variables('lzManagementUri')]"
+                    "uri":"[variables('lzProdUri')]"
                 }
             }
         },
        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"Build-Platform-Connectivity",
+            "Name":"Build-LZ-Sandbox",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
@@ -55,7 +55,7 @@
                     "uri":"[variables('lzTemplateUri')]"
                 },
                 "parameterslink": {
-                    "uri":"[variables('lzSecurityUri')]"
+                    "uri":"[variables('lzSandboxUri')]"
                 }
             }
         }

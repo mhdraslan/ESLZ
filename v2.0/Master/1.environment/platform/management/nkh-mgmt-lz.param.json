@@ -3,16 +3,11 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "subscriptionId": {
-            "value":"e612c4ff-8b2a-4ca1-b242-d623f2b35ec6"
+            "value":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
         },
         "resourceGroups":{
             "value":{
                 "rgSettings":[
-                    // DO NOT DELETE FIRST (DEPLOYMENT) RESOURCE GROUP. DELETE AFTER SUCCESSFUL DEPLOYMENT
-                    {
-                        "rgName":"rsg-aen-deployment-prd",
-                        "rgLocation":"UAENorth"
-                    },
                     // ADD RESOURCE GROUP SECTIONS BELOW
                     {
                         "rgName":"rsg-aen-mgmt-connectivity-01",
@@ -20,6 +15,10 @@
                     },
                     {
                         "rgName":"rsg-aen-mgmt-monitor-01",
+                        "rgLocation":"UAENorth"
+                    },
+                    {
+                        "rgName":"rsg-aen-mgmt-kv-01",
                         "rgLocation":"UAENorth"
                     }
                 ]
@@ -30,7 +29,7 @@
                 "vnetSettings":[
                     {
                         "vNetName":"aen-mgmt-vnet-01",
-                        "vNetAddressSpace":"10.200.18.0/24",
+                        "vNetAddressSpace":"10.200.13.0/24",
                         "vNetDnsServers":["10.200.1.132","10.200.1.133"],
                         "rgName":"rsg-aen-mgmt-connectivity-01"
                     }
@@ -70,7 +69,17 @@
         },
         "subnets":{
             "value":{
-                "subnetSettings":[]
+                "subnetSettings":[
+                    {
+                        "subnetName":"pvtendpointsnet",
+                        "vNetName":"aen-mgmt-vnet-01",
+                        "subnetAddress":"10.200.13.0/26",
+                        "rgName":"rsg-aen-mgmt-connectivity-01",
+                        "udr":"udr-aen-spoke-01",
+                        "udrRg":"rsg-aen-mgmt-connectivity-01",
+                        "createNsg":true
+                    }
+                ]
             }
         },
         "windowsVMs":{
@@ -130,7 +139,16 @@
         },
         "logAnalyticsWorkspace": {
             "value":{
-                "settings":[]
+                "settings":[
+                    {
+                        "build":true,
+                        "name":"law-aen-ops-01",
+                        "rgName":"rsg-aen-mgmt-connectivity-01",
+                        "retention":30,
+                        "publicNetworkAccessForIngestion":"Enabled",
+                        "publicNetworkAccessForQuery":"Enabled"
+                    }
+                ]
             }
         }
     },

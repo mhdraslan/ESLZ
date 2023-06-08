@@ -3,25 +3,24 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "subscriptionId": {
-            "value":"978012d9-6569-4ba4-a4ed-f223db27676f"
+            "value":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
         },
         "resourceGroups":{
             "value":{
                 "rgSettings":[
-                    // DO NOT DELETE FIRST (DEPLOYMENT) RESOURCE GROUP. DELETE AFTER SUCCESSFUL DEPLOYMENT
-                    {
-                        "rgName":"rsg-aen-deployment-prd",
-                        "rgLocation":"UAENorth"
-                    },
                     // ADD RESOURCE GROUP SECTIONS BELOW
                     {
                         "rgName":"rsg-aen-security-connectivity-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-security-kv-01",
+                        "rgName":"rsg-aen-security-monitor-01",
                         "rgLocation":"UAENorth"
                     },
+                    {
+                        "rgName":"rsg-aen-security-kv-01",
+                        "rgLocation":"UAENorth"
+                    }
                 ]
             }
         },
@@ -30,7 +29,7 @@
                 "vnetSettings":[
                     {
                         "vNetName":"aen-security-vnet-01",
-                        "vNetAddressSpace":"10.200.16.0/23",
+                        "vNetAddressSpace":"10.200.14.0/24",
                         "vNetDnsServers":["10.200.1.132","10.200.1.133"],
                         "rgName":"rsg-aen-security-connectivity-01"
                     }
@@ -70,7 +69,17 @@
         },
         "subnets":{
             "value":{
-                "subnetSettings":[]
+                "subnetSettings":[
+                    {
+                        "subnetName":"pvtendpointsnet",
+                        "vNetName":"aen-security-vnet-01",
+                        "subnetAddress":"10.200.14.0/26",
+                        "rgName":"rsg-aen-security-connectivity-01",
+                        "udr":"udr-aen-spoke-01",
+                        "udrRg":"rsg-aen-security-connectivity-01",
+                        "createNsg":true
+                    }
+                ]
             }
         },
         "windowsVMs":{
@@ -130,7 +139,16 @@
         },
         "logAnalyticsWorkspace": {
             "value":{
-                "settings":[]
+                "settings":[
+                    {
+                        "build":true,
+                        "name":"law-aen-security-01",
+                        "rgName":"rsg-aen-security-connectivity-01",
+                        "retention":30,
+                        "publicNetworkAccessForIngestion":"Enabled",
+                        "publicNetworkAccessForQuery":"Enabled"
+                    }
+                ]
             }
         }
     },

@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "subscriptionId": {
-            "value":"514fda53-bab2-4036-b144-7c8ddc22d06d"
+            "value":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
         },
         "resourceGroups":{
             "value":{
@@ -119,7 +119,38 @@
         },
         "windowsVMs":{
             "value":{
-                "vmSettings":[]
+                "vmSettings":[
+                    {
+                        "vmName":"acstsweb01",
+                        "rgName":"rsg-aen-uat-web-01",
+                        "vNetName":"aen-uat-vnet-01",
+                        "vNetResourceGroup":"rsg-aen-nprod-connectivity-01",
+                        "subnetName":"websnet",
+                        "vmZones":["1"],
+                        "osDiskType":"StandardSSD_LRS",
+                        "osPublisher":"microsoftwindowsserver",
+                        "osOffer":"windowsserver",
+                        "osSku":"2022-datacenter-g2",
+                        "vmSize":"Standard_D2s_v5",
+                        "adminUsername":"localadmin",
+                        "adminPassword":"Pa$$w0rd123*"
+                    },
+                    {
+                        "vmName":"acstsapp01",
+                        "rgName":"rsg-aen-uat-app-01",
+                        "vNetName":"aen-uat-vnet-01",
+                        "vNetResourceGroup":"rsg-aen-nprod-connectivity-01",
+                        "subnetName":"appsnet",
+                        "vmZones":["2"],
+                        "osDiskType":"StandardSSD_LRS",
+                        "osPublisher":"microsoftwindowsserver",
+                        "osOffer":"windowsserver",
+                        "osSku":"2022-datacenter-g2",
+                        "vmSize":"Standard_D2s_v5",
+                        "adminUsername":"localadmin",
+                        "adminPassword":"Pa$$w0rd123*"
+                    }
+                ]
             }
         },
         "linuxVMs":{

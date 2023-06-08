@@ -2,41 +2,43 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "workspaceName": {
+        "kvName": {
             "type": "String"
         },
-        "workspaceRetention":{
-            "type":"int",
-            "defaultValue":30
-        },/**/
-        "publicNetworkAccessForIngestion":{
-            "type":"String",
-            "defaultValue":"Enabled",
-            "allowedValues": ["Enabled","Disabled"]
+        "enabledForDeployment":{
+            "type":"bool",
+            "defaultValue":true
         },
-        "publicNetworkAccessForQuery":{
-            "type":"String",
-            "defaultValue":"Enabled",
-            "allowedValues": ["Enabled","Disabled"]
+        "enabledForDiskEncryption":{
+            "type":"bool",
+            "defaultValue":true
+        },
+        "enabledForTemplateDeployment":{
+            "type":"bool",
+            "defaultValue":true
+        },
+        "sku": {
+            "type": "string",
+            "allowedValues": ["premium","standard"]
         }
     },
     "variables": {},
     "resources": [
         {
-            "type": "Microsoft.OperationalInsights/workspaces",
-            "apiVersion": "2021-12-01-preview",
-            "name": "[parameters('workspaceName')]",
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2022-07-01",
+            "name": "[parameters('kvName')]",
             "location": "[resourceGroup().location]",
             "properties": {
+                "createMode": "default",
+                "enabledForDeployment": "[parameters('enabledForDeployment')]",
+                "enabledForDiskEncryption": "[parameters('enabledForDiskEncryption')]",
+                "enabledForTemplateDeployment": "[parameters('enabledForTemplateDeployment')]",
+                "tenantId": "9def2203-d472-4e2e-af0d-19db3f40aac6",
                 "sku": {
-                    "name": "pergb2018"
-                },
-                "retentionInDays": "[parameters('workspaceRetention')]",
-                "workspaceCapping": {
-                    "dailyQuotaGb": -1
-                },
-                "publicNetworkAccessForIngestion": "[parameters('publicNetworkAccessForIngestion')]",
-                "publicNetworkAccessForQuery": "[parameters('publicNetworkAccessForQuery')]"
+                    "family": "A",
+                    "name": "[parameters('sku')]"
+                }
             }
         }
     ],
