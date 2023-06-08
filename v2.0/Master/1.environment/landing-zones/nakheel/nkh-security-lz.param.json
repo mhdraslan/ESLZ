@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "subscriptionId": {
-            "value":"514fda53-bab2-4036-b144-7c8ddc22d06d"
+            "value":"978012d9-6569-4ba4-a4ed-f223db27676f"
         },
         "resourceGroups":{
             "value":{
@@ -15,29 +15,13 @@
                     },
                     // ADD RESOURCE GROUP SECTIONS BELOW
                     {
-                        "rgName":"rsg-aen-sandbox-connectivity-01",
+                        "rgName":"rsg-aen-security-connectivity-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-sandbox-web-01",
+                        "rgName":"rsg-aen-security-kv-01",
                         "rgLocation":"UAENorth"
                     },
-                    {
-                        "rgName":"rsg-aen-sandbox-app-01",
-                        "rgLocation":"UAENorth"
-                    },
-                    {
-                        "rgName":"rsg-aen-sandbox-db-01",
-                        "rgLocation":"UAENorth"
-                    },
-                    {
-                        "rgName":"rsg-aen-sandbox-kv-01",
-                        "rgLocation":"UAENorth"
-                    },
-                    {
-                        "rgName":"rsg-aen-sandbox-rsv-01",
-                        "rgLocation":"UAENorth"
-                    }
                 ]
             }
         },
@@ -45,10 +29,10 @@
             "value":{
                 "vnetSettings":[
                     {
-                        "vNetName":"aen-sandbox-vnet-01",
-                        "vNetAddressSpace":"10.200.12.0/25",
+                        "vNetName":"aen-security-vnet-01",
+                        "vNetAddressSpace":"10.200.16.0/23",
                         "vNetDnsServers":["10.200.1.132","10.200.1.133"],
-                        "rgName":"rsg-aen-sandbox-connectivity-01"
+                        "rgName":"rsg-aen-security-connectivity-01"
                     }
                 ],
                 "peeringSettings":[]
@@ -59,11 +43,11 @@
                 "udrTables":[
                     {
                         "routeTableName":"udr-aen-spoke-01",
-                        "rgName":"rsg-aen-sandbox-connectivity-01"
+                        "rgName":"rsg-aen-security-connectivity-01"
                     },
                     {
                         "routeTableName":"udr-aen-blackhole-01",
-                        "rgName":"rsg-aen-sandbox-connectivity-01"
+                        "rgName":"rsg-aen-security-connectivity-01"
                     }
                 ],
                 "udrSettings":[
@@ -86,35 +70,7 @@
         },
         "subnets":{
             "value":{
-                "subnetSettings":[
-                    {
-                        "subnetName":"websnet",
-                        "vNetName":"aen-sandbox-vnet-01",
-                        "subnetAddress":"10.200.12.0/27",
-                        "rgName":"rsg-aen-sandbox-connectivity-01",
-                        "udr":"udr-aen-spoke-01",
-                        "udrRg":"rsg-aen-sandbox-connectivity-01",
-                        "createNsg":true
-                    },
-                    {
-                        "subnetName":"appsnet",
-                        "vNetName":"aen-sandbox-vnet-01",
-                        "subnetAddress":"10.200.12.32/27",
-                        "rgName":"rsg-aen-sandbox-connectivity-01",
-                        "udr":"udr-aen-spoke-01",
-                        "udrRg":"rsg-aen-sandbox-connectivity-01",
-                        "createNsg":true
-                    },
-                    {
-                        "subnetName":"dbsnet",
-                        "vNetName":"aen-sandbox-vnet-01",
-                        "subnetAddress":"10.200.12.64/27",
-                        "rgName":"rsg-aen-sandbox-connectivity-01",
-                        "udr":"udr-aen-spoke-01",
-                        "udrRg":"rsg-aen-sandbox-connectivity-01",
-                        "createNsg":true
-                    }
-                ]
+                "subnetSettings":[]
             }
         },
         "windowsVMs":{
