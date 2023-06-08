@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {},
     "variables": {
-        "baseUri"           : "mhdraslan/ESLZ/main/v2.0/Master",
+        "baseUri"           : ".",
         "platformTemplateUri"   : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'/1.environment/platform/nkh-build-platform.json'))]",
         "lzsTemplateUri"        : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'/1.environment/landing-zones/nkh-build-landing-zones.json'))]"
     },
