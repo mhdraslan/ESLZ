@@ -223,7 +223,7 @@
             "value":{
                 "vmSettings":[
                     {
-                        "vmName":"aenuatweb01",
+                        "vmName":"acstuweb01",
                         "rgName":"rsg-aen-uat-web-01",
                         "vNetName":"aen-uat-vnet-01",
                         "vNetResourceGroup":"rsg-aen-nprod-connectivity-01",
@@ -238,7 +238,7 @@
                         "adminPassword":"Pa$$w0rd123*"
                     },
                     {
-                        "vmName":"aenuatapp01",
+                        "vmName":"acstuapp01",
                         "rgName":"rsg-aen-uat-app-01",
                         "vNetName":"aen-uat-vnet-01",
                         "vNetResourceGroup":"rsg-aen-nprod-connectivity-01",
@@ -253,7 +253,7 @@
                         "adminPassword":"Pa$$w0rd123*"
                     },
                     {
-                        "vmName":"aendevweb01",
+                        "vmName":"acstdweb01",
                         "rgName":"rsg-aen-dev-db-01",
                         "vNetName":"aen-dev-vnet-01",
                         "vNetResourceGroup":"rsg-aen-nprod-connectivity-01",
@@ -268,7 +268,7 @@
                         "adminPassword":"Pa$$w0rd123*"
                     },
                                         {
-                        "vmName":"aendevapp01",
+                        "vmName":"acstdapp01",
                         "rgName":"rsg-aen-dev-web-01",
                         "vNetName":"aen-dev-vnet-01",
                         "vNetResourceGroup":"rsg-aen-nprod-connectivity-01",
@@ -283,7 +283,7 @@
                         "adminPassword":"Pa$$w0rd123*"
                     },
                     {
-                        "vmName":"aentestweb01",
+                        "vmName":"acsttweb01",
                         "rgName":"rsg-aen-test-app-01",
                         "vNetName":"aen-test-vnet-01",
                         "vNetResourceGroup":"rsg-aen-nprod-connectivity-01",
@@ -298,7 +298,7 @@
                         "adminPassword":"Pa$$w0rd123*"
                     },
                     {
-                        "vmName":"aentestapp01",
+                        "vmName":"acsttapp01",
                         "rgName":"rsg-aen-test-db-01",
                         "vNetName":"aen-test-vnet-01",
                         "vNetResourceGroup":"rsg-aen-nprod-connectivity-01",
