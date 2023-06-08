@@ -8,11 +8,6 @@
         "resourceGroups":{
             "value":{
                 "rgSettings":[
-                    // DO NOT DELETE FIRST (DEPLOYMENT) RESOURCE GROUP. DELETE AFTER SUCCESSFUL DEPLOYMENT
-                    {
-                        "rgName":"rsg-aen-deployment-prd",
-                        "rgLocation":"UAENorth"
-                    },
                     // ADD RESOURCE GROUP SECTIONS BELOW
                     {
                         "rgName":"rsg-aen-privatednszones-01",
@@ -378,7 +373,7 @@
         },
         "azBastion": {
             "value":{
-                "buildAzBastion":true,
+                "buildAzBastion":false,
                 "name":"aen-bastion-01",
                 "rgName":"rsg-aen-connectivity-01",
                 "vnetName":"aen-hub-vnet-01",
@@ -394,7 +389,7 @@
         },
         "azVpnGateway": {
             "value":{
-                "buildVpnGateway":true,
+                "buildVpnGateway":false,
                 "name":"aen-gw-vpn-01",
                 "rgName":"rsg-aen-connectivity-01",
                 "vpnType":"RouteBased",
