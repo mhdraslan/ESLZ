@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "subscriptionId": {
-            "value":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
+            "value":"514fda53-bab2-4036-b144-7c8ddc22d06d"
         },
         "resourceGroups":{
             "value":{
@@ -122,9 +122,9 @@
                 "vmSettings":[
                     {
                         "vmName":"acstsweb01",
-                        "rgName":"rsg-aen-uat-web-01",
-                        "vNetName":"aen-uat-vnet-01",
-                        "vNetResourceGroup":"rsg-aen-nprod-connectivity-01",
+                        "rgName":"rsg-aen-sandbox-web-01",
+                        "vNetName":"aen-sandbox-vnet-01",
+                        "vNetResourceGroup":"rsg-aen-sandbox-connectivity-01",
                         "subnetName":"websnet",
                         "vmZones":["1"],
                         "osDiskType":"StandardSSD_LRS",
@@ -137,9 +137,9 @@
                     },
                     {
                         "vmName":"acstsapp01",
-                        "rgName":"rsg-aen-uat-app-01",
-                        "vNetName":"aen-uat-vnet-01",
-                        "vNetResourceGroup":"rsg-aen-nprod-connectivity-01",
+                        "rgName":"rsg-aen-sandbox-app-01",
+                        "vNetName":"aen-sandbox-vnet-01",
+                        "vNetResourceGroup":"rsg-aen-sandbox-connectivity-01",
                         "subnetName":"appsnet",
                         "vmZones":["2"],
                         "osDiskType":"StandardSSD_LRS",
@@ -161,21 +161,21 @@
         "azFirewall": {
             "value":{
                 "buildAzFirewall":false,
-                "name":"Contoso-Hub-AzFW-01",
-                "rgName":"rsg-aen-prod-connectivity-01",
-                "vnetName":"aen-prod-vnet-01",
-                "tier":"Standard"
+                "name":"",
+                "rgName":"",
+                "vnetName":"",
+                "tier":""
             }
         },
         "azBastion": {
             "value":{
                 "buildAzBastion":false,
-                "name":"bsn-aen-bastion-01",
-                "rgName":"rsg-aen-prod-connectivity-01",
-                "vnetName":"aen-prod-vnet-01",
-                "vNetResourceGroup":"rsg-aen-prod-connectivity-01",
-                "sku":"Standard",
-                "bastionPublicIpName":"pip-aen-bastion-01",
+                "name":"",
+                "rgName":"",
+                "vnetName":"",
+                "vNetResourceGroup":"",
+                "sku":"",
+                "bastionPublicIpName":"",
                 "disableCopyPaste":false,
                 "enableFileCopy":true,
                 "enableIpConnect":true,
@@ -186,16 +186,16 @@
         "azVpnGateway": {
             "value":{
                 "buildVpnGateway":false,
-                "name":"gw-aen-azvpngw-01",
-                "rgName":"rsg-aen-prod-connectivity-01",
-                "vpnType":"RouteBased",
-                "vnetName":"aen-prod-vnet-01",
-                "vNetResourceGroup":"rsg-aen-prod-connectivity-01",
-                "gatewaySku":"VpnGw1",
-                "localGatewayName":"lgw-aen-hqvpngw-01",
-                "localGatewayIpAddress":"20.30.40.50",
-                "localAddressPrefix":["10.100.10.0/24"],
-                "gatewayPublicIpName":"pip-aen-azvpngw-01"
+                "name":"",
+                "rgName":"",
+                "vpnType":"",
+                "vnetName":"",
+                "vNetResourceGroup":"",
+                "gatewaySku":"",
+                "localGatewayName":"",
+                "localGatewayIpAddress":"",
+                "localAddressPrefix":[],
+                "gatewayPublicIpName":""
             }
         },
         "azAppGatewayV2": {

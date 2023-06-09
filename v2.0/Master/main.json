@@ -30,7 +30,7 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[concat(variables('lzsTemplateUri'),'.json')]"
+                    "uri":"[variables('lzsTemplateUri')]"
                 }
             }
         }
