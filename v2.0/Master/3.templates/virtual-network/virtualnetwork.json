@@ -6,7 +6,7 @@
             "type": "string"
         },
         "vNetAddressSpace":{
-            "type":"string"
+            "type":"array"
         },
         "vNetDNSServers": {
             "type": "array"

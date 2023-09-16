@@ -4,3 +4,7 @@ To DO
 - Update the lz param template file to match the nkh param file
 - Update the Linux VM creation template to parameterize the VNet RG
 - Update the Windows & Linux templates to parameterize the NIC name
+- Test providing the VNet address space as an array rather than a string.
+- Check if you deploy Az azFirewall premium if the deployment will succeed or not.
+- Check if the deployment will work if you do not provide sku information for Azure Firewall and VPN gateway resources
+- 

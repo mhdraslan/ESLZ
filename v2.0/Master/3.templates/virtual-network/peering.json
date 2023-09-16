@@ -2,52 +2,124 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "vNetName": {
+        "sourceVnetName": {
             "type": "string"
         },
-        "remoteVNetName":{
+        "sourceVnetSubscriptionId":{
             "type":"string"
         },
-        "remoteVNetSubscriptionId": {
+        "sourceVnetResourceGroup": {
+            "type": "string"
+        },
+        "remoteVnetName":{
+            "type":"string"
+        },
+        "remoteVnetSubscriptionId": {
             "type": "string"
         },
         "remoteVNetResourceGroup": {
             "type": "string"
         },
-        "peeringName":{
-            "type":"string"
-        },
-        "allowForwardedTraffic": {
+        "sourceVnetPeeringAllowForwardedTraffic": {
             "type": "bool",
             "defaultValue": false
         },
-        "allowGatewayTransit": {
+        "sourceVnetPeeringAllowGatewayTransit": {
             "type": "bool",
             "defaultValue": false
         },
-        "useRemoteGateways": {
+        "sourceVnetPeeringUseRemoteGateways": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "remoteVnetPeeringAllowForwardedTraffic": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "remoteVnetPeeringAllowGatewayTransit": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "remoteVnetPeeringUseRemoteGateways": {
             "type": "bool",
             "defaultValue": false
         }
     },
     "variables": {
-        "remoteVNetId":"[resourceId(parameters('remoteVNetSubscriptionId'),parameters('remoteVNetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('remoteVNetName'))]"
+        "sourceVnetNameTrimmedlength":"[if(greater(length(parameters('sourceVnetName')),24),24,length(parameters('sourceVnetName')))]",
+        "remoteVnetNameTrimmedlength":"[if(greater(length(parameters('remoteVnetName')),24),24,length(parameters('remoteVnetName')))]",
+        "sourceVnetDeploymentName":"[concat('Create-Peering-',substring(parameters('sourceVnetName'),0,variables('sourceVnetNameTrimmedlength')),'-',substring(parameters('remoteVnetName'),0,variables('remoteVnetNameTrimmedlength')))]",
+        "remoteVnetDeploymentName":"[concat('Create-Peering-',substring(parameters('remoteVnetName'),0,variables('remoteVnetNameTrimmedlength')),'-',substring(parameters('sourceVnetName'),0,variables('sourceVnetNameTrimmedlength')))]",
+        "sourceVnetPeeringName":"[concat('VNet-Peering-',substring(parameters('sourceVnetName'),0,variables('sourceVnetNameTrimmedlength')),'-',substring(parameters('remoteVnetName'),0,variables('remoteVnetNameTrimmedlength')))]",
+        "remoteVnetPeeringName":"[concat('VNet-Peering-',substring(parameters('remoteVnetName'),0,variables('remoteVnetNameTrimmedlength')),'-',substring(parameters('sourceVnetName'),0,variables('sourceVnetNameTrimmedlength')))]",
+        "sourceVnetId":"[resourceId(parameters('sourceVnetSubscriptionId'),parameters('sourceVnetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('sourceVnetName'))]",
+        "remoteVnetId":"[resourceId(parameters('remoteVnetSubscriptionId'),parameters('remoteVNetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('remoteVnetName'))]"
     },
     "resources": [
+       {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[variables('sourceVnetDeploymentName')]",
+            "subscriptionId":"[parameters('sourceVnetSubscriptionId')]",
+            "resourceGroup":"[parameters('sourceVnetResourceGroup')]",
+            "properties":{
+                "mode":"Incremental",
+                "template":{
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": [
+                        {
+                            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+                            "apiVersion": "2019-09-01",
+                            "name": "[concat(parameters('sourceVnetName'),'/',variables('sourceVnetPeeringName'))]",
+                            "properties": {
+                                "peeringState": "Connected",
+                                "remoteVirtualNetwork": {
+                                    "id": "[variables('remoteVnetId')]"
+                                },
+                                "allowVirtualNetworkAccess": true,
+                                "allowForwardedTraffic": "[parameters('sourceVnetPeeringAllowForwardedTraffic')]",
+                                "allowGatewayTransit": "[parameters('sourceVnetPeeringAllowGatewayTransit')]",
+                                "useRemoteGateways": "[parameters('sourceVnetPeeringUseRemoteGateways')]"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
         {
-            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
-            "apiVersion": "2019-09-01",
-            "name": "[concat(parameters('vNetName'),'/',parameters('peeringName'))]",
-            "dependsOn": [],
-            "properties": {
-                "peeringState": "Connected",
-                "remoteVirtualNetwork": {
-                    "id": "[variables('RemoteVNetId')]"
-                },
-                "allowVirtualNetworkAccess": true,
-                "allowForwardedTraffic": "[parameters('allowForwardedTraffic')]",
-                "allowGatewayTransit": "[parameters('allowGatewayTransit')]",
-                "useRemoteGateways": "[parameters('useRemoteGateways')]"
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[variables('remoteVnetDeploymentName')]",
+            "subscriptionId":"[parameters('remoteVnetSubscriptionId')]",
+            "resourceGroup":"[parameters('remoteVNetResourceGroup')]",
+            "dependsOn": [
+                "[variables('sourceVnetDeploymentName')]"
+            ],
+            "properties":{
+                "mode":"Incremental",
+                "template":{
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": [
+                        {
+                            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+                            "apiVersion": "2019-09-01",
+                            "name": "[concat(parameters('remoteVnetName'),'/',variables('remoteVnetPeeringName'))]",
+                            "dependsOn": [],
+                            "properties": {
+                                "peeringState": "Connected",
+                                "remoteVirtualNetwork": {
+                                    "id": "[variables('sourceVnetId')]"
+                                },
+                                "allowVirtualNetworkAccess": true,
+                                "allowForwardedTraffic": "[parameters('remoteVnetPeeringAllowForwardedTraffic')]",
+                                "allowGatewayTransit": "[parameters('remoteVnetPeeringAllowGatewayTransit')]",
+                                "useRemoteGateways": "[parameters('remoteVnetPeeringUseRemoteGateways')]"
+                            }
+                        }
+                    ]
+                }
             }
         }
     ]

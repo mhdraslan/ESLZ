@@ -2,23 +2,28 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "subscriptionId": {
-            "value":"978012d9-6569-4ba4-a4ed-f223db27676f"
-        },
         "resourceGroups":{
             "value":{
                 "rgSettings":[
                     // ADD RESOURCE GROUP SECTIONS BELOW
                     {
-                        "rgName":"rsg-aen-security-connectivity-01",
+                        "rgName":"cnt-aen-connectivity-rg",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-security-monitor-01",
+                        "rgName":"cnt-aen-azmonitor-rg",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-security-kv-01",
+                        "rgName":"cnt-aen-storageaccounts-rg",
+                        "rgLocation":"UAENorth"
+                    },
+                    {
+                        "rgName":"cnt-aen-recoveryvaults-rg",
+                        "rgLocation":"UAENorth"
+                    },
+                    {
+                        "rgName":"cnt-aen-keyvaults-rg",
                         "rgLocation":"UAENorth"
                     }
                 ]
@@ -28,25 +33,40 @@
             "value":{
                 "vnetSettings":[
                     {
-                        "vNetName":"aen-security-vnet-01",
+                        "vNetName":"cnt-aen-security-vnet",
                         "vNetAddressSpace":"10.200.14.0/24",
                         "vNetDnsServers":["10.200.1.132","10.200.1.133"],
-                        "rgName":"rsg-aen-security-connectivity-01"
+                        "rgName":"cnt-aen-connectivity-rg"
                     }
                 ],
-                "peeringSettings":[]
+                "peeringSettings":[
+                    {
+                        "sourceVnetName":"cnt-aen-security-vnet",
+                        "sourceVnetSubscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71",
+                        "sourceVnetResourceGroup":"cnt-aen-connectivity-rg",
+                        "remoteVnetName":"cnt-aen-hub-vnet",
+                        "remoteVNetSubscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71",
+                        "remoteVNetResourceGroup":"cnt-aen-connectivity-rg",
+                        "sourceVnetPeeringAllowForwardedTraffic":true,
+                        "sourceVnetPeeringAllowGatewayTransit":false,
+                        "sourceVnetPeeringUseRemoteGateways":false,
+                        "remoteVnetPeeringAllowForwardedTraffic":false,
+                        "remoteVnetPeeringAllowGatewayTransit":false,
+                        "remoteVnetPeeringUseRemoteGateways":false
+                    }
+                ]
             }
         },
         "routes":{
             "value":{
                 "udrTables":[
                     {
-                        "routeTableName":"udr-aen-spoke-01",
-                        "rgName":"rsg-aen-security-connectivity-01"
+                        "routeTableName":"cnt-aen-spoke-udr",
+                        "rgName":"cnt-aen-connectivity-rg"
                     },
                     {
-                        "routeTableName":"udr-aen-blackhole-01",
-                        "rgName":"rsg-aen-security-connectivity-01"
+                        "routeTableName":"cnt-aen-blackhole-udr",
+                        "rgName":"cnt-aen-connectivity-rg"
                     }
                 ],
                 "udrSettings":[
@@ -55,14 +75,14 @@
                         "routeEntryAddressPrefix":"0.0.0.0/0",
                         "routeEntryType":"None",
                         "routeEntryNextHopIPAddress":"",
-                        "routeTableName":"udr-aen-blackhole-01"
+                        "routeTableName":"cnt-aen-blackhole-udr"
                     },  
                     {
                         "routeEntryName":"rt-default",
                         "routeEntryAddressPrefix":"0.0.0.0/0",
                         "routeEntryType":"VirtualAppliance",
-                        "routeEntryNextHopIPAddress":"10.200.1.196",
-                        "routeTableName":"udr-aen-spoke-01"
+                        "routeEntryNextHopIPAddress":"10.200.0.196",
+                        "routeTableName":"cnt-aen-spoke-udr"
                     }
                 ]
             }
@@ -71,12 +91,12 @@
             "value":{
                 "subnetSettings":[
                     {
-                        "subnetName":"pvtendpointsnet",
-                        "vNetName":"aen-security-vnet-01",
-                        "subnetAddress":"10.200.14.0/26",
-                        "rgName":"rsg-aen-security-connectivity-01",
-                        "udr":"udr-aen-spoke-01",
-                        "udrRg":"rsg-aen-security-connectivity-01",
+                        "subnetName":"PrivateEndpointSubnet",
+                        "vNetName":"cnt-aen-security-vnet",
+                        "subnetAddress":"10.200.2.0/24",
+                        "rgName":"cnt-aen-connectivity-rg",
+                        "udr":"cnt-aen-spoke-udr",
+                        "udrRg":"cnt-aen-connectivity-rg",
                         "createNsg":true
                     }
                 ]
@@ -95,21 +115,21 @@
         "azFirewall": {
             "value":{
                 "buildAzFirewall":false,
-                "name":"Contoso-Hub-AzFW-01",
-                "rgName":"rsg-aen-prod-connectivity-01",
-                "vnetName":"aen-prod-vnet-01",
-                "tier":"Standard"
+                "name":"",
+                "rgName":"",
+                "vnetName":"",
+                "tier":""
             }
         },
         "azBastion": {
             "value":{
                 "buildAzBastion":false,
-                "name":"bsn-aen-bastion-01",
-                "rgName":"rsg-aen-prod-connectivity-01",
-                "vnetName":"aen-prod-vnet-01",
-                "vNetResourceGroup":"rsg-aen-prod-connectivity-01",
-                "sku":"Standard",
-                "bastionPublicIpName":"pip-aen-bastion-01",
+                "name":"",
+                "rgName":"",
+                "vnetName":"",
+                "vNetResourceGroup":"",
+                "sku":"",
+                "bastionPublicIpName":"",
                 "disableCopyPaste":false,
                 "enableFileCopy":true,
                 "enableIpConnect":true,
@@ -120,16 +140,16 @@
         "azVpnGateway": {
             "value":{
                 "buildVpnGateway":false,
-                "name":"gw-aen-azvpngw-01",
-                "rgName":"rsg-aen-prod-connectivity-01",
-                "vpnType":"RouteBased",
-                "vnetName":"aen-prod-vnet-01",
-                "vNetResourceGroup":"rsg-aen-prod-connectivity-01",
-                "gatewaySku":"VpnGw1",
-                "localGatewayName":"lgw-aen-hqvpngw-01",
-                "localGatewayIpAddress":"20.30.40.50",
-                "localAddressPrefix":["10.100.10.0/24"],
-                "gatewayPublicIpName":"pip-aen-azvpngw-01"
+                "name":"",
+                "rgName":"",
+                "vpnType":"",
+                "vnetName":"",
+                "vNetResourceGroup":"",
+                "gatewaySku":"",
+                "localGatewayName":"",
+                "localGatewayIpAddress":"",
+                "localAddressPrefix":[],
+                "gatewayPublicIpName":""
             }
         },
         "azAppGatewayV2": {
@@ -142,8 +162,8 @@
                 "settings":[
                     {
                         "build":true,
-                        "name":"law-aen-security-01",
-                        "rgName":"rsg-aen-security-connectivity-01",
+                        "name":"cnt-aen-security-law",
+                        "rgName":"cnt-aen-azmonitor-rg",
                         "retention":30,
                         "publicNetworkAccessForIngestion":"Enabled",
                         "publicNetworkAccessForQuery":"Enabled"

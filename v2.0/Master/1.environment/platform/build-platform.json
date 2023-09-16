@@ -7,13 +7,18 @@
         "lzTemplateUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'2.definitions/new-azure-lz.json'))]",
         "lzConnectivityUri" : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/connectivity/connectivity-lz.param.json'))]",
         "lzIdentityUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/identity/identity-lz.param.json'))]",
-        "lzManagementUri"   : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/management/management-lz.param.json'))]"
+        "lzManagementUri"   : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/management/management-lz.param.json'))]",
+        "lzSecurityUri"   : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/management/security-lz.param.json'))]",
+        "lzConnectivityDeploymentName": "Start-Platform-Connectivity-Build",
+        "lzIdentityDeploymentName":"Start-Platform-Identity-Build",
+        "lzManagementDeploymentName":"Start-Platform-Management-Build",
+        "lzSecurityDeploymentName":"Start-Platform-Security-Build"
     },
     "resources": [
        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"Build-Platform-Connectivity",
+            "Name":"[variables('lzConnectivityDeploymentName')]",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
@@ -29,9 +34,11 @@
        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"Build-Platform-Identity",
+            "Name":"[variables('lzIdentityDeploymentName')]",
             "location":"[deployment().location]",
-            "dependsOn": [],
+            "dependsOn": [
+                "[variables('lzConnectivityDeploymentName')]"
+            ],
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
@@ -45,9 +52,11 @@
        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"Build-Platform-Management",
+            "Name":"[variables('lzManagementDeploymentName')]",
             "location":"[deployment().location]",
-            "dependsOn": [],
+            "dependsOn": [
+                "[variables('lzConnectivityDeploymentName')]"
+            ],
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
@@ -55,6 +64,24 @@
                 },
                 "parameterslink": {
                     "uri":"[variables('lzManagementUri')]"
+                }
+            }
+        },
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "Name":"[variables('lzSecurityDeploymentName')]",
+            "location":"[deployment().location]",
+            "dependsOn": [
+                "[variables('lzConnectivityDeploymentName')]"
+            ],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('lzTemplateUri')]"
+                },
+                "parameterslink": {
+                    "uri":"[variables('lzSecurityUri')]"
                 }
             }
         }

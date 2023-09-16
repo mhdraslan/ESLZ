@@ -5,6 +5,9 @@
         "subscriptionId": {
             "value":"38938244-82a2-4cf5-b87d-300f4b290df3"
         },
+        "hubSubscriptionId":{
+            "value":"67236ec4-f453-4086-b4d1-78a6a93fad71"
+        },
         "resourceGroups":{
             "value":{
                 "rgSettings":[

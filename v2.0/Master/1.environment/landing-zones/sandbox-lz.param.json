@@ -3,7 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "subscriptionId": {
-            "value":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
+            "value":"514fda53-bab2-4036-b144-7c8ddc22d06d"
+        },
+        "hubSubscriptionId":{
+            "value":"67236ec4-f453-4086-b4d1-78a6a93fad71"
         },
         "resourceGroups":{
             "value":{
@@ -15,31 +18,27 @@
                     },
                     // ADD RESOURCE GROUP SECTIONS BELOW
                     {
-                        "rgName":"rsg-aen-prod-connectivity-01",
+                        "rgName":"rsg-aen-sandbox-connectivity-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-prod-web-01",
+                        "rgName":"rsg-aen-sandbox-web-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-prod-app-01",
+                        "rgName":"rsg-aen-sandbox-app-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-prod-db-01",
+                        "rgName":"rsg-aen-sandbox-db-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-prod-kv-01",
+                        "rgName":"rsg-aen-sandbox-kv-01",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"rsg-aen-prod-monitor-01",
-                        "rgLocation":"UAENorth"
-                    },
-                    {
-                        "rgName":"rsg-aen-prod-rsv-01",
+                        "rgName":"rsg-aen-sandbox-rsv-01",
                         "rgLocation":"UAENorth"
                     }
                 ]
@@ -49,10 +48,10 @@
             "value":{
                 "vnetSettings":[
                     {
-                        "vNetName":"aen-prod-vnet-01",
-                        "vNetAddressSpace":"10.200.4.0/22",
+                        "vNetName":"aen-sandbox-vnet-01",
+                        "vNetAddressSpace":"10.200.12.0/25",
                         "vNetDnsServers":["10.200.1.132","10.200.1.133"],
-                        "rgName":"rsg-aen-prod-connectivity-01"
+                        "rgName":"rsg-aen-sandbox-connectivity-01"
                     }
                 ],
                 "peeringSettings":[]
@@ -63,11 +62,11 @@
                 "udrTables":[
                     {
                         "routeTableName":"udr-aen-spoke-01",
-                        "rgName":"rsg-aen-prod-connectivity-01"
+                        "rgName":"rsg-aen-sandbox-connectivity-01"
                     },
                     {
                         "routeTableName":"udr-aen-blackhole-01",
-                        "rgName":"rsg-aen-prod-connectivity-01"
+                        "rgName":"rsg-aen-sandbox-connectivity-01"
                     }
                 ],
                 "udrSettings":[
@@ -82,7 +81,7 @@
                         "routeEntryName":"rt-default",
                         "routeEntryAddressPrefix":"0.0.0.0/0",
                         "routeEntryType":"VirtualAppliance",
-                        "routeEntryNextHopIPAddress":"10.200.0.196",
+                        "routeEntryNextHopIPAddress":"10.200.1.196",
                         "routeTableName":"udr-aen-spoke-01"
                     }
                 ]
@@ -93,29 +92,29 @@
                 "subnetSettings":[
                     {
                         "subnetName":"websnet",
-                        "vNetName":"aen-prod-vnet-01",
-                        "subnetAddress":"10.200.4.0/24",
-                        "rgName":"rsg-aen-prod-connectivity-01",
+                        "vNetName":"aen-sandbox-vnet-01",
+                        "subnetAddress":"10.200.12.0/27",
+                        "rgName":"rsg-aen-sandbox-connectivity-01",
                         "udr":"udr-aen-spoke-01",
-                        "udrRg":"rsg-aen-prod-connectivity-01",
+                        "udrRg":"rsg-aen-sandbox-connectivity-01",
                         "createNsg":true
                     },
                     {
                         "subnetName":"appsnet",
-                        "vNetName":"aen-prod-vnet-01",
-                        "subnetAddress":"10.200.5.0/24",
-                        "rgName":"rsg-aen-prod-connectivity-01",
+                        "vNetName":"aen-sandbox-vnet-01",
+                        "subnetAddress":"10.200.12.32/27",
+                        "rgName":"rsg-aen-sandbox-connectivity-01",
                         "udr":"udr-aen-spoke-01",
-                        "udrRg":"rsg-aen-prod-connectivity-01",
+                        "udrRg":"rsg-aen-sandbox-connectivity-01",
                         "createNsg":true
                     },
                     {
                         "subnetName":"dbsnet",
-                        "vNetName":"aen-prod-vnet-01",
-                        "subnetAddress":"10.200.6.0/24",
-                        "rgName":"rsg-aen-prod-connectivity-01",
+                        "vNetName":"aen-sandbox-vnet-01",
+                        "subnetAddress":"10.200.12.64/27",
+                        "rgName":"rsg-aen-sandbox-connectivity-01",
                         "udr":"udr-aen-spoke-01",
-                        "udrRg":"rsg-aen-prod-connectivity-01",
+                        "udrRg":"rsg-aen-sandbox-connectivity-01",
                         "createNsg":true
                     }
                 ]
@@ -125,10 +124,10 @@
             "value":{
                 "vmSettings":[
                     {
-                        "vmName":"aenprodweb01",
-                        "rgName":"rsg-aen-prod-web-01",
-                        "vNetName":"aen-prod-vnet-01",
-                        "vNetResourceGroup":"rsg-aen-prod-connectivity-01",
+                        "vmName":"acstsweb01",
+                        "rgName":"rsg-aen-sandbox-web-01",
+                        "vNetName":"aen-sandbox-vnet-01",
+                        "vNetResourceGroup":"rsg-aen-sandbox-connectivity-01",
                         "subnetName":"websnet",
                         "vmZones":["1"],
                         "osDiskType":"StandardSSD_LRS",
@@ -140,26 +139,11 @@
                         "adminPassword":"Pa$$w0rd123*"
                     },
                     {
-                        "vmName":"aenprodapp01",
-                        "rgName":"rsg-aen-prod-app-01",
-                        "vNetName":"aen-prod-vnet-01",
-                        "vNetResourceGroup":"rsg-aen-prod-connectivity-01",
+                        "vmName":"acstsapp01",
+                        "rgName":"rsg-aen-sandbox-app-01",
+                        "vNetName":"aen-sandbox-vnet-01",
+                        "vNetResourceGroup":"rsg-aen-sandbox-connectivity-01",
                         "subnetName":"appsnet",
-                        "vmZones":["2"],
-                        "osDiskType":"StandardSSD_LRS",
-                        "osPublisher":"microsoftwindowsserver",
-                        "osOffer":"windowsserver",
-                        "osSku":"2022-datacenter-g2",
-                        "vmSize":"Standard_D2s_v5",
-                        "adminUsername":"localadmin",
-                        "adminPassword":"Pa$$w0rd123*"
-                    },
-                    {
-                        "vmName":"aenproddb01",
-                        "rgName":"rsg-aen-prod-db-01",
-                        "vNetName":"aen-prod-vnet-01",
-                        "vNetResourceGroup":"rsg-aen-prod-connectivity-01",
-                        "subnetName":"dbsnet",
                         "vmZones":["2"],
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",
@@ -180,21 +164,21 @@
         "azFirewall": {
             "value":{
                 "buildAzFirewall":false,
-                "name":"Contoso-Hub-AzFW-01",
-                "rgName":"rsg-aen-prod-connectivity-01",
-                "vnetName":"aen-prod-vnet-01",
-                "tier":"Standard"
+                "name":"",
+                "rgName":"",
+                "vnetName":"",
+                "tier":""
             }
         },
         "azBastion": {
             "value":{
                 "buildAzBastion":false,
-                "name":"bsn-aen-bastion-01",
-                "rgName":"rsg-aen-prod-connectivity-01",
-                "vnetName":"aen-prod-vnet-01",
-                "vNetResourceGroup":"rsg-aen-prod-connectivity-01",
-                "sku":"Standard",
-                "bastionPublicIpName":"pip-aen-bastion-01",
+                "name":"",
+                "rgName":"",
+                "vnetName":"",
+                "vNetResourceGroup":"",
+                "sku":"",
+                "bastionPublicIpName":"",
                 "disableCopyPaste":false,
                 "enableFileCopy":true,
                 "enableIpConnect":true,
@@ -205,16 +189,16 @@
         "azVpnGateway": {
             "value":{
                 "buildVpnGateway":false,
-                "name":"gw-aen-azvpngw-01",
-                "rgName":"rsg-aen-prod-connectivity-01",
-                "vpnType":"RouteBased",
-                "vnetName":"aen-prod-vnet-01",
-                "vNetResourceGroup":"rsg-aen-prod-connectivity-01",
-                "gatewaySku":"VpnGw1",
-                "localGatewayName":"lgw-aen-hqvpngw-01",
-                "localGatewayIpAddress":"20.30.40.50",
-                "localAddressPrefix":["10.100.10.0/24"],
-                "gatewayPublicIpName":"pip-aen-azvpngw-01"
+                "name":"",
+                "rgName":"",
+                "vpnType":"",
+                "vnetName":"",
+                "vNetResourceGroup":"",
+                "gatewaySku":"",
+                "localGatewayName":"",
+                "localGatewayIpAddress":"",
+                "localAddressPrefix":[],
+                "gatewayPublicIpName":""
             }
         },
         "azAppGatewayV2": {

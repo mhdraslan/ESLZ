@@ -5,15 +5,17 @@
     "variables": {
         "baseUri"           : "../../../",
         "lzTemplateUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'2.definitions/new-azure-lz.json'))]",
-        "lzConnectivityUri" : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/connectivity/connectivity-lz.param.json'))]",
-        "lzIdentityUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/identity/identity-lz.param.json'))]",
-        "lzManagementUri"   : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/management/management-lz.param.json'))]"
+        "lzManagementUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/management/management-lz.param.json'))]",
+        "lzSecurityUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/management/security-lz.param.json'))]",
+        "lzManagementBaseDeploymentName": "Build-Platform-Management-Base-LZ",
+        "lzSecurityBaseDeploymentName": "Build-Platform-Security-Base-LZ"
+
     },
     "resources": [
        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"Build-Platform-Management-LandingZone",
+            "Name":"[variables('lzManagementBaseDeploymentName')]",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
@@ -26,10 +28,10 @@
                 }
             }
         },
-       {
+        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"Build-Platform-Identity",
+            "Name":"[variables('lzSecurityBaseDeploymentName')]",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
@@ -38,23 +40,7 @@
                     "uri":"[variables('lzTemplateUri')]"
                 },
                 "parameterslink": {
-                    "uri":"[variables('lzIdentityUri')]"
-                }
-            }
-        },
-       {
-            "type":"Microsoft.Resources/deployments",
-            "apiVersion":"2019-05-10",
-            "Name":"Build-Platform-Management",
-            "location":"[deployment().location]",
-            "dependsOn": [],
-            "properties":{
-                "mode":"Incremental",
-                "templatelink":{
-                    "uri":"[variables('lzTemplateUri')]"
-                },
-                "parameterslink": {
-                    "uri":"[variables('lzManagementUri')]"
+                    "uri":"[variables('lzSecurityUri')]"
                 }
             }
         }

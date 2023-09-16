@@ -4,14 +4,14 @@
     "parameters": {},
     "variables": {
         "baseUri"           : ".",
-        "platformTemplateUri"   : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'/1.environment/platform/nkh-build-platform.json'))]",
-        "lzsTemplateUri"        : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'/1.environment/landing-zones/nkh-build-landing-zones.json'))]"
+        "platformTemplateUri"   : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'/1.environment/platform/build-platform.json'))]",
+        "lzsTemplateUri"        : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'/1.environment/landing-zones/build-landing-zones.json'))]"
     },
     "resources": [
        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"Build-Platform",
+            "Name":"Launch-Platform-Build",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
@@ -24,7 +24,7 @@
        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"Build-Landing-Zones",
+            "Name":"Launch-Landing-Zones-Build",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
