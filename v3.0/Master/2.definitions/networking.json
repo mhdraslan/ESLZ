@@ -32,7 +32,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_UDR_',parameters('subscriptionName'),'-',parameters('routes').udrTables[copyIndex()].routeTableName)]",
+            "Name":"[concat('UDR_',parameters('routes').udrTables[copyIndex()].routeTableName)]",
             "resourceGroup": "[parameters('routes').udrTables[copyIndex()].rgName]",
             "copy": {
                 "name": "UdrTablesCopy",
@@ -55,7 +55,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_UDR_Entries_',parameters('subscriptionName'),'-',parameters('routes').udrSettings[copyIndex()].routeTableName,'_',parameters('routes').udrSettings[copyIndex()].routeEntryName)]",
+            "Name":"[concat('UDR_Entries_',parameters('routes').udrSettings[copyIndex()].routeTableName,'_',parameters('routes').udrSettings[copyIndex()].routeEntryName)]",
             "resourceGroup": "[parameters('routes').udrTables[0].rgName]",
             "dependsOn": [
                 "UdrTablesCopy"
@@ -94,7 +94,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_VirtualNetwork_',parameters('subscriptionName'),'-',parameters('vnets').vnetSettings[copyIndex()].vNetName)]",
+            "Name":"[concat('VirtualNetwork_',parameters('vnets').vnetSettings[copyIndex()].vNetName)]",
             "resourceGroup": "[parameters('vnets').vnetSettings[copyIndex()].rgName]",
             "copy": {
                 "name": "VirtualNetworksCopy",
@@ -123,7 +123,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_Peering_',parameters('subscriptionName'),'-',parameters('vnets').peeringSettings[copyIndex()].peeringName)]",
+            "Name":"[concat('Peering_',parameters('vnets').peeringSettings[copyIndex()].peeringName)]",
             "dependsOn": [
                 "VirtualNetworksCopy"
             ],
@@ -171,7 +171,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_Subnet_',parameters('subscriptionName'),'-',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
+            "Name":"[concat('Subnet_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
             "dependsOn": [
                 "VnetPeeringsCopy"
             ],
@@ -204,7 +204,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_NSG_',parameters('subscriptionName'),'-',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
+            "Name":"[concat('NSG_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
             "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
             "condition": "[parameters('subnets').subnetSettings[copyIndex()].createNsg]",
             "dependsOn": [
@@ -238,7 +238,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Link_UDR_',parameters('subscriptionName'),'-',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
+            "Name":"[concat('UDR_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
             "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
             "condition": "[not(equals(parameters('subnets').subnetSettings[copyIndex()].udr,''))]",
             "dependsOn": [

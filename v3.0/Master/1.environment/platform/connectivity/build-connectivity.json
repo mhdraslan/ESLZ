@@ -83,6 +83,76 @@
                     }
                 }
             }
+        },
+       {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "Name":"[variables('deplaymentNames').lzConnectivityVirtualMachinesDeploymentName]",
+            "location":"[deployment().location]",
+            "dependsOn": [
+                "[variables('deplaymentNames').lzConnectivityNetworkingDeploymentName]"
+            ],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').defResourceGroupsUri]"
+                },
+                "parameters": {
+                    "deploymentUris":{
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "subscriptionName":{
+                        "value":"Connectivity"
+                    },
+                    "subscriptionId":{
+                        "value":"[parameters('subscriptions').connectivity]"
+                    },
+                    "windowsVMs":{
+                        "value":"[parameters('environmentSettings').windowsVMs]"
+                    },
+                    "linuxVMs":{
+                        "value":"[parameters('environmentSettings').linuxVMs]"
+                    }
+                }
+            }
+        },
+       {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "Name":"[variables('deplaymentNames').lzConnectivityNvaDeploymentName]",
+            "location":"[deployment().location]",
+            "dependsOn": [
+                "[variables('deplaymentNames').lzConnectivityNetworkingDeploymentName]"
+            ],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').defNvaUri]"
+                },
+                "parameters": {
+                    "deploymentUris":{
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "subscriptionName":{
+                        "value":"Connectivity"
+                    },
+                    "subscriptionId":{
+                        "value":"[parameters('subscriptions').connectivity]"
+                    },
+                    "azFirewall":{
+                        "value":"[parameters('environmentSettings').azFirewall]"
+                    },
+                    "azBastion":{
+                        "value":"[parameters('environmentSettings').azBastion]"
+                    },
+                    "azVpnGateway":{
+                        "value":"[parameters('environmentSettings').azVpnGateway]"
+                    },
+                    "azAppGatewayV2":{
+                        "value":"[parameters('environmentSettings').azAppGatewayV2]"
+                    }
+                }
+            }
         }
     ],
     "outputs": {},
