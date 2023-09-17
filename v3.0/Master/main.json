@@ -40,11 +40,11 @@
             "buildAppsLzUri"        : "[uri(deployment().properties.templateLink.uri, '1.environment/landing-zones/build-landing-zones.json')]"
         },
         "subscriptions":{
-            "connectivity":"",
-            "identity":"",
-            "management":"",
-            "security":"",
-            "avd":""
+            "connectivity":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
+            "identity":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
+            "management":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
+            "security":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
+            "avd":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
         },
         "connectivityLzSettings":{
             "resourceGroups":{
