@@ -35,10 +35,10 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('subscriptions')]"
+                        "value":"Connectivity"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('subscriptions')]"
+                        "value":"[parameters('subscriptions').connectivity]"
                     },
                     "resourceGroups":{
                         "value":"[parameters('environmentSettings').resourceGroups]"
