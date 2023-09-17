@@ -1,0 +1,202 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "deploymentUris": {
+            "type": "object"
+        },
+        "azFirewall": {
+            "type": "object",
+            "defaultValue": {}
+        },
+        "azBastion": {
+            "type": "object",
+            "defaultValue": {}
+        },
+        "azVpnGateway": {
+            "type": "object",
+            "defaultValue": {}
+        },
+        "azAppGatewayV2": {
+            "type": "object",
+            "defaultValue": {}
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        // AZURE FIREWALL
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"Create_Azure_Firewall",
+            "condition": "[parameters('azFirewall').buildAzFirewall]",
+            "resourceGroup": "[parameters('azFirewall').rgName]",
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').azFirewall]"
+                },
+                "parameters":{
+                    "azFirewallName":{
+                        "value":"[parameters('azFirewall').name]"
+                    },
+                    "azFirewallVnetName":{
+                        "value":"[parameters('azFirewall').vnetName]"
+                    },
+                    "azFirewallTier":{
+                        "value":"[parameters('azFirewall').tier]"
+                    }
+                }
+            }
+        },
+        // AZURE BASTION
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"Create_Azure_Bastion",
+            "condition": "[parameters('azBastion').buildAzBastion]",
+            "resourceGroup": "[parameters('azBastion').rgName]",
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').azBastion]"
+                },
+                "parameters":{
+                    "bastionName":{
+                        "value":"[parameters('azBastion').name]"
+                    },
+                    "vnetName":{
+                        "value":"[parameters('azBastion').vnetName]"
+                    },
+                    "vNetResourceGroup":{
+                        "value":"[parameters('azBastion').vNetResourceGroup]"
+                    },
+                    "bastionSku":{
+                        "value":"[parameters('azBastion').sku]"
+                    },
+                    "bastionPublicIpName":{
+                        "value":"[parameters('azBastion').bastionPublicIpName]"
+                    },
+                    "disableCopyPaste":{
+                        "value":"[parameters('azBastion').disableCopyPaste]"
+                    },
+                    "enableFileCopy":{
+                        "value":"[parameters('azBastion').enableFileCopy]"
+                    },
+                    "enableIpConnect":{
+                        "value":"[parameters('azBastion').enableIpConnect]"
+                    },
+                    "enableShareableLink":{
+                        "value":"[parameters('azBastion').enableShareableLink]"
+                    },
+                    "enableTunneling":{
+                        "value":"[parameters('azBastion').enableTunneling]"
+                    }
+
+                }
+            }
+        },
+        // AZURE VPN GATEWAY
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"Create_Azure_VPN_Gateway",
+            "condition": "[parameters('azVpnGateway').buildVpnGateway]",
+            "resourceGroup": "[parameters('azVpnGateway').rgName]",
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').vpnGateway]"
+                },
+                "parameters":{
+                    "gatewayName":{
+                        "value":"[parameters('azVpnGateway').name]"
+                    },
+                    "vpnType":{
+                        "value":"[parameters('azVpnGateway').vpnType]"
+                    },
+                    "localGatewayName":{
+                        "value":"[parameters('azVpnGateway').localGatewayName]"
+                    },
+                    "localGatewayIpAddress":{
+                        "value":"[parameters('azVpnGateway').localGatewayIpAddress]"
+                    },
+                    "localAddressPrefix":{
+                        "value":"[parameters('azVpnGateway').localAddressPrefix]"
+                    },
+                    "vNetName":{
+                        "value":"[parameters('azVpnGateway').vnetName]"
+                    },
+                    "vNetResourceGroup":{
+                        "value":"[parameters('azVpnGateway').vNetResourceGroup]"
+                    },
+                    "gatewaySku":{
+                        "value":"[parameters('azVpnGateway').gatewaySku]"
+                    },
+                    "gatewayPublicIpName":{
+                        "value":"[parameters('azVpnGateway').gatewayPublicIpName]"
+                    }
+                }
+            }
+        },
+        // AZURE APPLICATION GATEWAY V2
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"[concat('Create_Azure_App_Gateway_',parameters('azAppGatewayV2').settings[copyIndex()].name)]",
+            "condition": "[parameters('azAppGatewayV2').settings[copyIndex()].build]",
+            "resourceGroup": "[parameters('azAppGatewayV2').settings[copyIndex()].rgName]",
+            "copy": {
+                "name": "appGwV2Copy",
+                "count": "[length(parameters('azAppGatewayV2').settings)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').appGateway]"
+                },
+                "parameters":{
+                    "appGwName":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].name]"
+                    },
+                    "appGwTier":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].gwTier]"
+                    },
+                    "vNetName":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].vnetName]"
+                    },
+                    "vNetResourceGroup":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].vNetResourceGroup]"
+                    },
+                    "subnetName":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].subnetName]"
+                    },
+                    "privateIpAddress":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].privateIp]"
+                    },
+                    "publicIpAddressName":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].publicIpName]"
+                    },
+                    "publicIpAddressSku":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].publicIpSku]"
+                    },
+                    "allocationMethod":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].allocationMethod]"
+                    },
+                    "capacity":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].capacity]"
+                    },
+                    "autoScaleMaxCapacity":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].autoScaleMaxCapacity]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}

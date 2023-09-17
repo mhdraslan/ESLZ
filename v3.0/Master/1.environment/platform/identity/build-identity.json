@@ -1,0 +1,31 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {
+        "baseUri"           : "../../../",
+        "lzTemplateUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'2.definitions/new-azure-lz.json'))]",
+        "lzIdentityUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/identity/identity-lz.param.json'))]",
+        "lzIdentityBaseDeploymentName": "Build-Platform-Identity-Base-LZ"
+    },
+    "resources": [
+       {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "Name":"[variables('lzIdentityBaseDeploymentName')]",
+            "location":"[deployment().location]",
+            "dependsOn": [],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('lzTemplateUri')]"
+                },
+                "parameterslink": {
+                    "uri":"[variables('lzIdentityUri')]"
+                }
+            }
+        }
+    ],
+    "outputs": {},
+    "functions": []
+}

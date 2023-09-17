@@ -1,0 +1,52 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "deploymentUris": {
+            "type": "object"
+        },
+        "subscriptions": {
+            "type": "object"
+        },
+        "environmentSettings": {
+            "type": "object"
+        }
+    },
+    "variables": {
+        "deplaymentNames":{
+            "lzConnectivityResourceGroupsDeploymentName": "Build-Platform-Connectivity-LZ-ResourceGroups",
+            "lzConnectivityNetworkingDeploymentName":""
+        }
+    },
+    "resources": [
+       {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "Name":"[variables('deplaymentNames').lzConnectivityResourceGroupsDeploymentName]",
+            "location":"[deployment().location]",
+            "dependsOn": [],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').defResourceGroupsUri]"
+                },
+                "parameters": {
+                    "deploymentUris":{
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "subscriptionName":{
+                        "value":"[parameters('subscriptions')]"
+                    },
+                    "subscriptionId":{
+                        "value":"[parameters('subscriptions')]"
+                    },
+                    "resourceGroups":{
+                        "value":"[parameters('environmentSettings').resourceGroups]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {},
+    "functions": []
+}

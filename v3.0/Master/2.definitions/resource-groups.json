@@ -1,0 +1,51 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "deploymentUris": {
+            "type": "object"
+        },
+        "subscriptionName": {
+            "type": "string"
+        },
+        "subscriptionId": {
+            "type": "string"
+        },
+        "resourceGroups": {
+            "type": "object",
+            "defaultValue": {}
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        // RESOURCE GROUPS
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId":"[parameters('subscriptionId')]",
+            "Name":"[concat('Create_ResourceGroup_',parameters('subscriptionName'),'-',parameters('resourceGroups').rgSettings[copyIndex()].rgName)]",
+            "dependsOn": [],
+            "location":"[parameters('resourceGroups').rgSettings[copyIndex()].rgLocation]",
+            "copy": {
+                "name": "ResourceGroupsCopy",
+                "count": "[length(parameters('resourceGroups').rgSettings)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').resourceGroup]"
+                },
+                "parameters":{
+                    "name":{
+                        "value":"[parameters('resourceGroups').rgSettings[copyIndex()].rgName]"
+                    },
+                    "location":{
+                        "value":"[parameters('resourceGroups').rgSettings[copyIndex()].rgLocation]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}

@@ -1,0 +1,50 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {
+        "baseUri"           : "../../../",
+        "lzTemplateUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'2.definitions/new-azure-lz.json'))]",
+        "lzManagementUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/management/management-lz.param.json'))]",
+        "lzSecurityUri"     : "[uri(deployment().properties.templateLink.uri, concat(variables('baseUri'),'1.environment/platform/management/security-lz.param.json'))]",
+        "lzManagementBaseDeploymentName": "Build-Platform-Management-Base-LZ",
+        "lzSecurityBaseDeploymentName": "Build-Platform-Security-Base-LZ"
+
+    },
+    "resources": [
+       {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "Name":"[variables('lzManagementBaseDeploymentName')]",
+            "location":"[deployment().location]",
+            "dependsOn": [],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('lzTemplateUri')]"
+                },
+                "parameterslink": {
+                    "uri":"[variables('lzManagementUri')]"
+                }
+            }
+        },
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "Name":"[variables('lzSecurityBaseDeploymentName')]",
+            "location":"[deployment().location]",
+            "dependsOn": [],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('lzTemplateUri')]"
+                },
+                "parameterslink": {
+                    "uri":"[variables('lzSecurityUri')]"
+                }
+            }
+        }
+    ],
+    "outputs": {},
+    "functions": []
+}

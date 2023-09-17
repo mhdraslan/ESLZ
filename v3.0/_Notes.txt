@@ -1,0 +1,31 @@
+-Execution Phases
+1. Call Main
+2. Call Environment Definitions
+3. Call Resource Customizations (it needed)
+4. Call Resource Templates
+
+
+-Fixes
+Make VNet names variables in deeper levels. Can use the Suffix option to standarize
+Make RG names variables
+Configure Tags
+Configure peerings to enable the "Use Remote Gateway" options
+Put conditions in ARM templates to check if a component should be deployed or not such as the Azure Firewall
+
+Readjust the peerings templates so that there is a spoke template and multiple spoke parameter files
+Readjust the routing templates so that the Powershell variables are replaced at the top level templates
+
+Need to create a Template Spec to add VRF Subnet
+
+Make the VM Series, Local Administrator username and password variables
+
+The vNetName in building VM templates needs to be a variable, as if the structure of the name changes in the VNet creation templates, it will not be reflicted in the VM templates
+
+Create a templates object that is passed down all the way to all sub templates to make it easy for using them in sub templates
+
+
+
+
+
+
+

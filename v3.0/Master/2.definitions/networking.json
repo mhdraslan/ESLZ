@@ -1,0 +1,270 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "deploymentUris": {
+            "type": "object"
+        },
+        "vnets": {
+            "type": "object",
+            "defaultValue": {}
+        },
+        "subnets": {
+            "type": "object",
+            "defaultValue": {}
+        },
+        "routes": {
+            "type": "object",
+            "defaultValue": {}
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        // UDR Table
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"[concat('Create_UDR_',parameters('routes').udrTables[copyIndex()].routeTableName)]",
+            "resourceGroup": "[parameters('routes').udrTables[copyIndex()].rgName]",
+            "copy": {
+                "name": "UdrTablesCopy",
+                "count": "[length(parameters('routes').udrTables)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').udrTable]"
+                },
+                "parameters":{
+                    "routeTableName":{
+                        "value":"[parameters('routes').udrTables[copyIndex()].routeTableName]"
+                    }
+                }
+            }
+        },
+        // UDR Entries
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"[concat('Create_UDR_Entries_',parameters('routes').udrSettings[copyIndex()].routeTableName,'_',parameters('routes').udrSettings[copyIndex()].routeEntryName)]",
+            "resourceGroup": "[parameters('routes').udrTables[0].rgName]",
+            "dependsOn": [
+                "UdrTablesCopy"
+            ],
+            "copy": {
+                "name": "UdrEntriesCopy",
+                "count": "[length(parameters('routes').udrSettings)]",
+                "mode": "Serial"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').udrEntry]"
+                },
+                "parameters":{
+                    "routeEntryName":{
+                        "value":"[parameters('routes').udrSettings[copyIndex()].routeEntryName]"
+                    },
+                    "RouteEntryAddressPrefix":{
+                        "value":"[parameters('routes').udrSettings[copyIndex()].RouteEntryAddressPrefix]"
+                    },
+                    "routeEntryType":{
+                        "value":"[parameters('routes').udrSettings[copyIndex()].routeEntryType]"
+                    },
+                    "routeEntryNextHopIPAddress":{
+                        "value":"[parameters('routes').udrSettings[copyIndex()].routeEntryNextHopIPAddress]"
+                    },
+                    "routeTableName":{
+                        "value":"[parameters('routes').udrSettings[copyIndex()].routeTableName]"
+                    }
+                }
+            }
+        },
+        // VIRTUAL NETWORKS
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"[concat('Create_VirtualNetwork_',parameters('vnets').vnetSettings[copyIndex()].vNetName)]",
+            "resourceGroup": "[parameters('vnets').vnetSettings[copyIndex()].rgName]",
+            "copy": {
+                "name": "VirtualNetworksCopy",
+                "count": "[length(parameters('vnets').vnetSettings)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').virtualNetwork]"
+                },
+                "parameters":{
+                    "vNetName":{
+                        "value":"[parameters('vnets').vnetSettings[copyIndex()].vNetName]"
+                    },
+                    "vNetAddressSpace":{
+                        "value":"[parameters('vnets').vnetSettings[copyIndex()].vNetAddressSpace]"
+                    },
+                    "vNetDNSServers":{
+                        "value":"[parameters('vnets').vnetSettings[copyIndex()].vNetDnsServers]"
+                    }
+                }
+            }
+        },
+        // VIRTUAL NETWORK PEERINGS
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"[concat('Create_Peering_',parameters('vnets').peeringSettings[copyIndex()].peeringName)]",
+            "dependsOn": [
+                "VirtualNetworksCopy"
+            ],
+            "resourceGroup": "[parameters('vnets').peeringSettings[copyIndex()].rgName]",
+            "copy": {
+                "name": "VnetPeeringsCopy",
+                "count": "[length(parameters('vnets').peeringSettings)]",
+                "mode": "Serial"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').peering]"
+                },
+                "parameters":{
+                    "vNetName":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].vNetName]"
+                    },
+                    "remoteVNetName":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remoteVNetName]"
+                    },
+                    "remoteVNetSubscriptionId":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remoteVNetSubscriptionId]"
+                    },
+                    "remoteVNetResourceGroup":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remoteVNetResourceGroup]"
+                    },
+                    "peeringName":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].peeringName]"
+                    },
+                    "allowForwardedTraffic":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].allowForwardedTraffic]"
+                    },
+                    "allowGatewayTransit":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].allowGatewayTransit]"
+                    },
+                    "useRemoteGateways":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].useRemoteGateways]"
+                    }
+                }
+            }
+        },
+        // SUBNETS
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"[concat('Create_Subnet_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
+            "dependsOn": [
+                "VnetPeeringsCopy"
+            ],
+            "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
+            "copy": {
+                "name": "SubnetsCopy",
+                "count": "[length(parameters('subnets').subnetSettings)]",
+                "mode": "Serial"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').subnet]"
+                },
+                "parameters":{
+                    "vNetName":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].vNetName]"
+                    },
+                    "subnetName":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetName]"
+                    },
+                    "subnetAddressSpace":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetAddress]"
+                    }
+                }
+            }
+        },
+        // NSGs
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"[concat('Create_NSG_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
+            "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
+            "condition": "[parameters('subnets').subnetSettings[copyIndex()].createNsg]",
+            "dependsOn": [
+                "SubnetsCopy"
+            ],
+            "copy": {
+                "name": "NsgsCopy",
+                "count": "[length(parameters('subnets').subnetSettings)]",
+                "mode": "Serial"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').nsg]"
+                },
+                "parameters":{
+                    "vNetName":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].vNetName]"
+                    },
+                    "subnetName":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetName]"
+                    },
+                    "subnetAddressSpace":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetAddress]"
+                    }
+                }
+            }
+        },
+        // UDR Link
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"[concat('Link_UDR_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
+            "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
+            "condition": "[not(equals(parameters('subnets').subnetSettings[copyIndex()].udr,''))]",
+            "dependsOn": [
+                "NsgsCopy",
+                "UdrEntriesCopy"
+            ],
+            "copy": {
+                "name": "UdrLinksCopy",
+                "count": "[length(parameters('subnets').subnetSettings)]",
+                "mode": "Serial"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[if(parameters('subnets').subnetSettings[copyIndex()].createNsg, parameters('deploymentUris').udrLinkwithNsg, parameters('deploymentUris').udrLink)]"
+                },
+                "parameters":{
+                    "udrName":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].udr]"
+                    },
+                    "udrResourceGroup":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].udrRg]"
+                    },
+                    "vNetName":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].vNetName]"
+                    },
+                    "subnetName":{
+                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetName]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
