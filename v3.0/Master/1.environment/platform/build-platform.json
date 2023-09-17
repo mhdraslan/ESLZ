@@ -49,6 +49,9 @@
                     "deploymentUris": {
                         "value":"[parameters('deploymentUris')]"
                     },
+                    "subscriptions":{
+                        "value":"[parameters('subscriptions')]"
+                    },
                     "environmentSettings": {
                         "value":"[parameters('connectivityLzSettings')]"
                     }
