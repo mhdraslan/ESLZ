@@ -48,7 +48,6 @@
         },
         "connectivityLzSettings":{
             "resourceGroups":{
-                "value":{
                     "rgSettings":[
                         // ADD RESOURCE GROUP SECTIONS BELOW
                         {
@@ -84,7 +83,6 @@
                             "rgLocation":"UAENorth"
                         }
                     ]
-                }
             },
             "vnets":{
                 "value":{
