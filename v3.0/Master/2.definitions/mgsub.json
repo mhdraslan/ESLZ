@@ -9,7 +9,7 @@
             "type": "object",
             "defaultValue": {}
         },
-        "resourceGroups": {
+        "subscriptions": {
             "type": "object",
             "defaultValue": {}
         }

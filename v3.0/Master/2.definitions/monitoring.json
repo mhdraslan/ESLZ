@@ -5,6 +5,12 @@
         "deploymentUris": {
             "type": "object"
         },
+        "subscriptionName": {
+            "type": "string"
+        },
+        "subscriptionId": {
+            "type": "string"
+        },
         "logAnalyticsWorkspace": {
             "type": "object",
             "defaultValue": {}
@@ -18,7 +24,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_Log_Analytics_Workspace_',parameters('logAnalyticsWorkspace').settings[copyIndex()].name)]",
+            "Name":"[concat('Create_Log_Analytics_Workspace_',parameters('subscriptionName'),'-',parameters('logAnalyticsWorkspace').settings[copyIndex()].name)]",
             "condition": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].build]",
             "resourceGroup": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].rgName]",
             "copy": {

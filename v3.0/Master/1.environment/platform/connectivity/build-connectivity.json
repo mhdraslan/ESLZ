@@ -15,7 +15,10 @@
     "variables": {
         "deplaymentNames":{
             "lzConnectivityResourceGroupsDeploymentName": "Build-Platform-Connectivity-LZ-ResourceGroups",
-            "lzConnectivityNetworkingDeploymentName":""
+            "lzConnectivityNetworkingDeploymentName":"Build-Platform-Connectivity-LZ-Networking",
+            "lzConnectivityVirtualMachinesDeploymentName":"Build-Platform-Connectivity-LZ-VirtualMachines",
+            "lzConnectivityNvaDeploymentName":"Build-Platform-Connectivity-LZ-NVAs"
+
         }
     },
     "resources": [

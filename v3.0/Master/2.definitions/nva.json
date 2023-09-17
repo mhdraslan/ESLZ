@@ -5,6 +5,12 @@
         "deploymentUris": {
             "type": "object"
         },
+        "subscriptionName": {
+            "type": "string"
+        },
+        "subscriptionId": {
+            "type": "string"
+        },
         "azFirewall": {
             "type": "object",
             "defaultValue": {}
