@@ -60,7 +60,7 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[parameters('deploymentUris').defResourceGroupsUri]"
+                    "uri":"[parameters('deploymentUris').defNetworkingUri]"
                 },
                 "parameters": {
                     "deploymentUris":{
