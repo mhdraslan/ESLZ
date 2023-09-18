@@ -28,6 +28,7 @@
             "defNetworkingUri"      : "[uri(deployment().properties.templateLink.uri, '2.definitions/networking.json')]",
             "defNvaUri"             : "[uri(deployment().properties.templateLink.uri, '2.definitions/nva.json')]",
             "defMonitoringUri"      : "[uri(deployment().properties.templateLink.uri, '2.definitions/monitoring.json')]",
+            "defVirtualMachinesUri" : "[uri(deployment().properties.templateLink.uri, '2.definitions/virtualmachines.json')]",
 
             "lzConnectivityUri"     : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/connectivity/base-connectivity-lz.param.json')]",
             "lzIdentityUri"         : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/identity/identity-lz.param.json')]",
@@ -41,11 +42,26 @@
             "buildAppsLzUri"        : "[uri(deployment().properties.templateLink.uri, '1.environment/landing-zones/build-landing-zones.json')]"
         },
         "subscriptions":{
-            "connectivity":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-            "identity":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-            "management":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-            "security":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-            "avd":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
+            "connectivity": {
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
+                "Name": "Connectivity"
+            },
+            "identity": {
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
+                "Name": "Identity"
+            },
+            "management": {
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
+                "Name": "Management"
+            },
+            "security": {
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
+                "Name": "Security"
+            },
+            "avd": {
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
+                "Name": "AVD"
+            }
         },
         "connectivityLzSettings":{
             "resourceGroups":{
@@ -230,6 +246,22 @@
             },
             "windowsVMs":{
                 "vmSettings":[
+                    /* DO NOT DELETE. WINDOWS VM TEMPLATE
+                    {
+                        "vmName":"aenpdns01",
+                        "rgName":"cnt-aen-sharedservices-rg",
+                        "vNetName":"cnt-aen-hub-vnet",
+                        "vNetResourceGroup":"cnt-aen-connectivity-rg",
+                        "subnetName":"SharedServiceSubnet",
+                        "vmZones":["1"],
+                        "osDiskType":"StandardSSD_LRS",
+                        "osPublisher":"microsoftwindowsserver",
+                        "osOffer":"windowsserver",
+                        "osSku":"2022-datacenter-g2",
+                        "vmSize":"Standard_B2s",
+                        "adminUsername":"localadmin",
+                        "adminPassword":"Pa$$w0rd123*"
+                    },*/
                     {
                         "vmName":"aenpdns01",
                         "rgName":"cnt-aen-sharedservices-rg",
@@ -309,6 +341,22 @@
             },
             "linuxVMs":{
                 "vmSettings":[
+                    /* DO NOT DELETE. LINUX VM TEMPLATE
+                    {
+                        "vmName":"aenpdns01",
+                        "rgName":"cnt-aen-sharedservices-rg",
+                        "vNetName":"cnt-aen-hub-vnet",
+                        "vNetResourceGroup":"cnt-aen-connectivity-rg",
+                        "subnetName":"SharedServiceSubnet",
+                        "vmZones":["1"],
+                        "osDiskType":"StandardSSD_LRS",
+                        "osPublisher":"Canonical",
+                        "osOffer":"0001-com-ubuntu-server-jammy",
+                        "osSku":"22_04-lts-gen2",
+                        "vmSize":"Standard_B2s",
+                        "adminUsername":"localadmin",
+                        "adminPassword":"Pa$$w0rd123*"
+                    },*/
                     {
                         "vmName":"aentlxsrv01",
                         "rgName":"cnt-aen-sharedservices-rg",
@@ -385,7 +433,7 @@
                         "vnetName":"cnt-aen-hub-vnet",
                         "vNetResourceGroup":"cnt-aen-connectivity-rg",
                         "subnetName":"AppGwSubnet",
-                        "privateIp":"10.200.3.4",
+                        "privateIp":"10.200.3.5",
                         "publicIpName":"cnt-aen-prod-appgw-02-pip-01",
                         "publicIpSku":"Standard",
                         "allocationMethod":"Static",

@@ -1,0 +1,137 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "deploymentUris": {
+            "type": "object"
+        },
+        "subscriptionName": {
+            "type": "string"
+        },
+        "subscriptionId": {
+            "type": "string"
+        },
+        "windowsVMs": {
+            "type": "object",
+            "defaultValue": {}
+        },
+        "linuxVMs": {
+            "type": "object",
+            "defaultValue": {}
+        }
+        
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        // WINDOWS VIRTUAL MACHINES
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"[concat('Create_WindowsVM_',parameters('windowsVMs').vmSettings[copyIndex()].vmName)]",
+            "dependsOn": [],
+            "resourceGroup": "[parameters('windowsVMs').vmSettings[copyIndex()].rgName]",
+            "copy": {
+                "name": "windowsVmsCopy",
+                "count": "[length(parameters('windowsVMs').vmSettings)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').windowsVm]"
+                },
+                "parameters":{
+                    "vmName":{
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].vmName]"
+                    },
+                    "vNetName":{
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].vNetName]"
+                    },
+                    "vNetResourceGroup":{
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].vNetResourceGroup]"
+                    },
+                    "subnetName":{
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].subnetName]"
+                    },
+                    "vmZones":{
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].vmZones]"
+                    },
+                    "osDiskType":{
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].osDiskType]"
+                    },
+                    "osPublisher":{
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].osPublisher]"
+                    },
+                    "osOffer":{
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].osOffer]"
+                    },
+                    "osSku":{
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].osSku]"
+                    },
+                    "vmSize":{
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].vmSize]"
+                    },                                        
+                    "adminUsername":{
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].adminUsername]"
+                    },
+                    "adminPassword":{
+                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].adminPassword]"
+                    }
+                }
+            }
+        },
+        // LINUX VIRTUAL MACHINES
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"[concat('Create_LinuxVM_',parameters('linuxVMs').vmSettings[copyIndex()].vmName)]",
+            "dependsOn": [],
+            "resourceGroup": "[parameters('linuxVMs').vmSettings[copyIndex()].rgName]",
+            "copy": {
+                "name": "windowsVmsCopy",
+                "count": "[length(parameters('linuxVMs').vmSettings)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').linuxVm]"
+                },
+                "parameters":{
+                    "vmName":{
+                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].vmName]"
+                    },
+                    "vNetName":{
+                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].vNetName]"
+                    },
+                    "subnetName":{
+                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].subnetName]"
+                    },
+                    "osDiskType":{
+                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].osDiskType]"
+                    },
+                    "osPublisher":{
+                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].osPublisher]"
+                    },
+                    "osOffer":{
+                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].osOffer]"
+                    },
+                    "osSku":{
+                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].osSku]"
+                    },
+                    "vmSize":{
+                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].vmSize]"
+                    },                                        
+                    "adminUsername":{
+                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].adminUsername]"
+                    },
+                    "adminPassword":{
+                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].adminPassword]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}

@@ -9,4 +9,5 @@ To DO
 - Check if the deployment will work if you do not provide sku information for Azure Firewall and VPN gateway resources
 - Check for deployment name to make sure it does not exceed 64 characters
 - Make subscriptions object in main an array of objects and have the id and name of each subscription
+- Subscriptions object in main to be objects containing id and name
 - 
