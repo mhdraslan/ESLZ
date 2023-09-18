@@ -48,8 +48,8 @@
     },
     "variables": {
         "VMlocation":"[resourceGroup().location]",
-        "VMVnetId": "[if(equals(parameters('vNetResourceGroup'),''),resourceId('Microsoft.Network/virtualNetworks',parameters('vNetName')),resourceId(parameters('vNetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('vNetName')))]",
-        "SubnetRef": "[concat(variables('VMVnetId'), '/subnets/', parameters('subnetName'))]",
+        "vmVnetId": "[if(equals(parameters('vNetResourceGroup'),''),resourceId('Microsoft.Network/virtualNetworks',parameters('vNetName')),resourceId(parameters('vNetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('vNetName')))]",
+        "SubnetRef": "[concat(variables('vmVnetId'), '/subnets/', parameters('subnetName'))]",
         "NicResName":"[concat(parameters('vmName'),'_NIC-1')]"
     },
     "resources": [

@@ -105,6 +105,9 @@
                     "vNetName":{
                         "value":"[parameters('linuxVMs').vmSettings[copyIndex()].vNetName]"
                     },
+                    "vNetResourceGroup":{
+                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].vNetResourceGroup]"
+                    },
                     "subnetName":{
                         "value":"[parameters('linuxVMs').vmSettings[copyIndex()].subnetName]"
                     },

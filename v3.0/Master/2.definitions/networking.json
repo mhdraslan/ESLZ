@@ -22,6 +22,10 @@
         "routes": {
             "type": "object",
             "defaultValue": {}
+        },
+        "privateDnsZones": {
+            "type": "object",
+            "defaultValue":{}
         }
     },
     "functions": [],
@@ -267,6 +271,33 @@
                     },
                     "subnetName":{
                         "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetName]"
+                    }
+                }
+            }
+        },
+
+        // PRIVATE DNS ZONES
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"[concat('PrivateDNSZone_',parameters('privateDnsZones').zones[copyIndex()])]",
+            "resourceGroup": "[parameters('privateDnsZones').rgname]",
+            "condition": "[parameters('privateDnsZones').build]",
+            "dependsOn": [],
+            "copy": {
+                "name": "privateDnsZonesCopy",
+                "count": "[length(parameters('privateDnsZones').zones)]",
+                "mode": "parallel"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').privatednszone]"
+                },
+                "parameters":{
+                    "privateDnsZoneName":{
+                        "value":"[parameters('privateDnsZones').zones[copyIndex()]]"
                     }
                 }
             }
