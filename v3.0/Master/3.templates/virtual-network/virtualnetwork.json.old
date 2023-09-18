@@ -27,7 +27,9 @@
             "location": "[variables('VNetlocation')]",
             "properties": {
                 "addressSpace": {
-                    "addressPrefixes": "[parameters('vNetAddressSpace')]"
+                    "addressPrefixes": [
+                        "[parameters('vNetAddressSpace')]"
+                    ]
                 },
                 "dhcpOptions": {
                     "dnsServers": "[parameters('vNetDNSServers')]"
