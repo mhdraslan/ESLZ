@@ -326,7 +326,7 @@
                 ]
             },
             "azFirewall": {
-                "buildAzFirewall":false,
+                "buildAzFirewall":true,
                 "name":"cnt-aen-hub-azfw-01",
                 "rgName":"cnt-aen-firewall-rg",
                 "vnetName":"cnt-aen-hub-vnet",
@@ -362,7 +362,7 @@
             "azAppGatewayV2": {
                 "settings":[
                     {
-                        "build":true,
+                        "build":false,
                         "name":"cnt-aen-connectivity-appgw-01",
                         "rgName":"cnt-aen-appgateway-rg",
                         "gwTier":"WAF_v2",
