@@ -82,6 +82,9 @@
                     },
                     "routes":{
                         "value":"[parameters('environmentSettings').routes]"
+                    },
+                    "zones": {
+                        "value": "[parameters('environmentSettings').zones]"
                     }
                 }
             }
