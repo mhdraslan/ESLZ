@@ -22,8 +22,8 @@
         }
     },
     "resources": [
-        /*// Build Resource Groups
-       {
+        // Build Resource Groups
+        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "Name":"[variables('deplaymentNames').lzConnectivityResourceGroupsDeploymentName]",
@@ -51,7 +51,7 @@
             }
         },
         // Build networking
-       {
+        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "Name":"[variables('deplaymentNames').lzConnectivityNetworkingDeploymentName]",
@@ -88,15 +88,15 @@
                     }
                 }
             }
-        },*/
+        },
         // Build virtual machines
-       {
+        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "Name":"[variables('deplaymentNames').lzConnectivityVirtualMachinesDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
-                //"[variables('deplaymentNames').lzConnectivityNetworkingDeploymentName]" 
+                "[variables('deplaymentNames').lzConnectivityNetworkingDeploymentName]" 
             ],
             "properties":{
                 "mode":"Incremental",
@@ -121,9 +121,9 @@
                     }
                 }
             }
-        }/*,
+        },
         // Build NVAs
-       {
+        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "Name":"[variables('deplaymentNames').lzConnectivityNvaDeploymentName]",
@@ -160,7 +160,7 @@
                     }
                 }
             }
-        }*/
+        }
     ],
     "outputs": {},
     "functions": []
