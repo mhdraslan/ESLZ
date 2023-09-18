@@ -522,6 +522,9 @@
         "appLzSettings":{}
     },
     "resources": [
+        // BUILD MANAGEMENT GROUPS
+        
+        // BUILD PLATFORM LZ
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
@@ -555,6 +558,7 @@
                 }
             }
         }/*,
+        //BUILD APP LZ
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
