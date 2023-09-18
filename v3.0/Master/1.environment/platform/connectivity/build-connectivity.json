@@ -96,7 +96,7 @@
             "Name":"[variables('deplaymentNames').lzConnectivityVirtualMachinesDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
-                "[variables('deplaymentNames').lzConnectivityNetworkingDeploymentName]"
+                //"[variables('deplaymentNames').lzConnectivityNetworkingDeploymentName]"
             ],
             "properties":{
                 "mode":"Incremental",
