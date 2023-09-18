@@ -83,8 +83,8 @@
                     "routes":{
                         "value":"[parameters('environmentSettings').routes]"
                     },
-                    "zones": {
-                        "value": "[parameters('environmentSettings').zones]"
+                    "privateDnsZones": {
+                        "value": "[parameters('environmentSettings').privateDnsZones]"
                     }
                 }
             }
