@@ -52,10 +52,10 @@
                         "value":"[parameters('azFirewall').vnetName]"
                     },
                     "azFirewallVnetResourceGroup":{
-                        "value":"[parameters('azFirewall').vnetName]"
+                        "value":"[parameters('azFirewall').vnetResourceGroup]"
                     },
                     "azFirewallPublicIpName":{
-                        "value":"[parameters('azFirewall').vnetName]"
+                        "value":"[parameters('azFirewall').publicIpName]"
                     },
                     "azFirewallTier":{
                         "value":"[parameters('azFirewall').tier]"
