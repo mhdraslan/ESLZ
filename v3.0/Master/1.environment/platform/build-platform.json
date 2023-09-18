@@ -34,7 +34,7 @@
         }
     },
     "resources": [
-       {
+        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "Name":"[variables('deplaymentNames').lzConnectivityDeploymentName]",
@@ -58,7 +58,7 @@
                 }
             }
         }/*,
-       {
+        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "Name":"[variables('deplaymentNames').lzIdentityDeploymentName]",
@@ -76,7 +76,7 @@
                 }
             }
         },
-       {
+        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "Name":"[variables('deplaymentNames').lzManagementDeploymentName]",

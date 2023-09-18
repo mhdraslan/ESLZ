@@ -263,7 +263,8 @@
                         "vmSize":"Standard_B2s",
                         "adminUsername":"localadmin",
                         "adminPassword":"Pa$$w0rd123*"
-                    },*/
+                    },
+                    */
                     {
                         "vmName":"aenpdns01",
                         "rgName":"cnt-aen-sharedservices-rg",
@@ -358,7 +359,8 @@
                         "vmSize":"Standard_B2s",
                         "adminUsername":"localadmin",
                         "adminPassword":"Pa$$w0rd123*"
-                    },*/
+                    },
+                    */
                     {
                         "vmName":"aentlxsrv01",
                         "rgName":"cnt-aen-sharedservices-rg",
@@ -520,7 +522,7 @@
         "appLzSettings":{}
     },
     "resources": [
-       {
+        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "Name":"Launch-Platform-Build",
@@ -553,7 +555,7 @@
                 }
             }
         }/*,
-       {
+        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "Name":"Launch-Landing-Zones-Build",
