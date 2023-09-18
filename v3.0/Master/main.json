@@ -329,8 +329,8 @@
             "azFirewall": {
                 "buildAzFirewall":true,
                 "name":"cnt-aen-hub-azfw-01",
-                "rgName":"cnt-aen-firewall-rg",
                 "vnetName":"cnt-aen-hub-vnet",
+                "vnetResourceGroupName":"cnt-aen-connectivity-rg", //Az Firewall must be in same resource group as VNet
                 "publicIpName":"cnt-aen-hub-azfw-01-pip-01",
                 "tier":"Standard"
             },
@@ -351,10 +351,9 @@
             "azVpnGateway": {
                 "buildVpnGateway":true,
                 "name":"cnt-aen-hub-vpngw",
-                "rgName":"cnt-aen-firewall-rg",
                 "vpnType":"RouteBased",
                 "vnetName":"cnt-aen-hub-vnet",
-                "vNetResourceGroup":"cnt-aen-connectivity-rg",
+                "vnetResourceGroupName":"cnt-aen-connectivity-rg",
                 "gatewaySku":"VpnGw1AZ",
                 "localGatewayName":"cnt-aen-onprem-lgw-01",
                 "localGatewayIpAddress":"91.72.224.106",
@@ -364,7 +363,7 @@
             "azAppGatewayV2": {
                 "settings":[
                     {
-                        "build":false,
+                        "build":true,
                         "name":"cnt-aen-connectivity-appgw-01",
                         "rgName":"cnt-aen-appgateway-rg",
                         "gwTier":"WAF_v2",
@@ -379,7 +378,7 @@
                         "autoScaleMaxCapacity":2
                     },
                     {
-                        "build":false,
+                        "build":true,
                         "name":"cnt-aen-connectivity-appgw-02",
                         "rgName":"cnt-aen-appgateway-rg",
                         "gwTier":"Standard_v2",

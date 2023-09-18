@@ -38,7 +38,7 @@
             "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"Create_Azure_Firewall",
             "condition": "[parameters('azFirewall').buildAzFirewall]",
-            "resourceGroup": "[parameters('azFirewall').rgName]",
+            "resourceGroup": "[parameters('azFirewall').vnetResourceGroupName]",
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
@@ -115,7 +115,7 @@
             "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"Create_Azure_VPN_Gateway",
             "condition": "[parameters('azVpnGateway').buildVpnGateway]",
-            "resourceGroup": "[parameters('azVpnGateway').rgName]",
+            "resourceGroup": "[parameters('azVpnGateway').vnetResourceGroupName]",
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
@@ -140,8 +140,8 @@
                     "vNetName":{
                         "value":"[parameters('azVpnGateway').vnetName]"
                     },
-                    "vNetResourceGroup":{
-                        "value":"[parameters('azVpnGateway').vNetResourceGroup]"
+                    "vnetResourceGroupName":{
+                        "value":"[parameters('azVpnGateway').vnetResourceGroupName]"
                     },
                     "gatewaySku":{
                         "value":"[parameters('azVpnGateway').gatewaySku]"

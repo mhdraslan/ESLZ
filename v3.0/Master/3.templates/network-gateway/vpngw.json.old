@@ -44,7 +44,7 @@
           "description": "Virtual Network name that contains the gatewat subnet"
         }
       },
-      "vnetResourceGroupName": {
+      "vNetResourceGroup": {
           "type": "string",
           "defaultValue": ""
       },
@@ -70,9 +70,8 @@
     },
     "variables": {
       "gatewayPublicIpName": "[if(equals(parameters('gatewayPublicIpName'),''),concat(parameters('gatewayName'), '-pip'),parameters('gatewayPublicIpName'))]",
-      //"vnetId": "[if(equals(parameters('vnetResourceGroupName'),''),resourceId('Microsoft.Network/virtualNetworks',parameters('vNetName')),resourceId(parameters('vnetResourceGroupName'),'Microsoft.Network/virtualNetworks',parameters('vNetName')))]",
-      "vnetId": "[resourceId('Microsoft.Network/virtualNetworks',parameters('vNetName'))]",
-      "subnetId": "[concat(variables('vnetId'), '/subnets/GatewaySubnet')]"
+      "vNetId": "[if(equals(parameters('vNetResourceGroup'),''),resourceId('Microsoft.Network/virtualNetworks',parameters('vNetName')),resourceId(parameters('vNetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('vNetName')))]",
+      "subnetId": "[concat(variables('vNetId'), '/subnets/GatewaySubnet')]"
 
     },
     "resources": [
