@@ -330,6 +330,8 @@
                 "name":"cnt-aen-hub-azfw-01",
                 "rgName":"cnt-aen-firewall-rg",
                 "vnetName":"cnt-aen-hub-vnet",
+                "vnetResourceGroup":"cnt-aen-connectivity-rg",
+                "publicIpName":"cnt-aen-hub-azfw-01-pip-01",
                 "tier":"Standard"
             },
             "azBastion": {

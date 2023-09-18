@@ -13,9 +13,9 @@
             "defaultValue": ""
         },
         "azFirewallPublicIpName":{
-            "type":"string"
+            "type":"string",
+            "defaultValue":""
         },
-
         "azFirewallTier": {
             "type": "string",
             "defaultValue": "Standard",
