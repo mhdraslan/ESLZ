@@ -8,7 +8,7 @@
         "vnetName": {
             "type": "string"
         },
-        "vNetResourceGroup": {
+        "vnetResourceGroup": {
             "type": "string",
             "defaultValue": ""
         },
@@ -48,7 +48,7 @@
     "functions": [],
     "variables": {
         "bastionPublicIpResource": "[if(equals(parameters('bastionPublicIpName'),''),concat(parameters('bastionName'), '-pip'),parameters('bastionPublicIpName'))]",
-        "vNetId": "[if(equals(parameters('vNetResourceGroup'),''),resourceId('Microsoft.Network/virtualNetworks',parameters('vNetName')),resourceId(parameters('vNetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('vNetName')))]",
+        "vNetId": "[if(equals(parameters('vnetResourceGroup'),''),resourceId('Microsoft.Network/virtualNetworks',parameters('vNetName')),resourceId(parameters('vnetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('vNetName')))]",
         "subnetId": "[concat(variables('vNetId'), '/subnets/AzureBastionSubnet')]"
     },
     "resources": [

@@ -8,10 +8,6 @@
         "azFirewallVnetName":{
             "type":"string"
         },
-        "azFirewallVnetResourceGroup":{
-            "type":"string",
-            "defaultValue": ""
-        },
         "azFirewallPublicIpName":{
             "type":"string",
             "defaultValue":""
@@ -26,8 +22,7 @@
         }
     },
     "variables": {
-        "azFwPublicIpResource":"[if(equals(parameters('azFirewallPublicIpName'),''), concat(parameters('azFirewallName'), '-pip'),parameters('azFirewallPublicIpName'))]",
-        "azFwResourceGroup":"[if(equals(parameters('azFirewallVnetResourceGroup'),''),resourcegroup().name,parameters('azFirewallVnetResourceGroup'))]"
+        "azFwPublicIpResource":"[if(equals(parameters('azFirewallPublicIpName'),''), concat(parameters('azFirewallName'), '-pip'),parameters('azFirewallPublicIpName'))]"
     },
     "resources": [
         {
@@ -53,7 +48,7 @@
                                 "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('azFwPublicIpResource'))]"
                             },
                             "subnet": {
-                                "id": "[resourceId(variables('azFwResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',parameters('azFirewallVnetName'),'AzureFirewallSubnet')]"
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('azFirewallVnetName'),'AzureFirewallSubnet')]"
                             }
                         }
                     }

@@ -20,7 +20,8 @@
             "vpnGateway"            : "[uri(deployment().properties.templateLink.uri, '3.templates/network-gateway/vpngw.json')]",
             "logAnalytics"          : "[uri(deployment().properties.templateLink.uri, '3.templates/log-analytics/laws.json')]",
             "keyVault"              : "[uri(deployment().properties.templateLink.uri, '3.templates/misc/kv.json')]",
-            "appGateway"            : "[uri(deployment().properties.templateLink.uri, '3.templates/app-gateway/appgw-v2.json')]",
+            "appGatewayV2Waf"       : "[uri(deployment().properties.templateLink.uri, '3.templates/app-gateway/appgw-v2-waf.json')]",
+            "appGatewayV2Standard"  : "[uri(deployment().properties.templateLink.uri, '3.templates/app-gateway/appgw-v2-standard.json')]",
 
             "defResourceGroupsUri"  : "[uri(deployment().properties.templateLink.uri, '2.definitions/resource-groups.json')]",
             "defMgSubsUri"          : "[uri(deployment().properties.templateLink.uri, '2.definitions/mgsub.json')]",
@@ -330,12 +331,11 @@
                 "name":"cnt-aen-hub-azfw-01",
                 "rgName":"cnt-aen-firewall-rg",
                 "vnetName":"cnt-aen-hub-vnet",
-                "vnetResourceGroup":"cnt-aen-connectivity-rg",
                 "publicIpName":"cnt-aen-hub-azfw-01-pip-01",
                 "tier":"Standard"
             },
             "azBastion": {
-                "buildAzBastion":false,
+                "buildAzBastion":true,
                 "name":"cnt-aen-hub-bsn",
                 "rgName":"cnt-aen-connectivity-rg",
                 "vnetName":"cnt-aen-hub-vnet",
@@ -349,9 +349,9 @@
                 "enableTunneling":false
             },
             "azVpnGateway": {
-                "buildVpnGateway":false,
+                "buildVpnGateway":true,
                 "name":"cnt-aen-hub-vpngw",
-                "rgName":"cnt-aen-connectivity-rg",
+                "rgName":"cnt-aen-firewall-rg",
                 "vpnType":"RouteBased",
                 "vnetName":"cnt-aen-hub-vnet",
                 "vNetResourceGroup":"cnt-aen-connectivity-rg",
@@ -373,6 +373,21 @@
                         "subnetName":"AppGwSubnet",
                         "privateIp":"10.200.3.4",
                         "publicIpName":"cnt-aen-prod-appgw-01-pip-01",
+                        "publicIpSku":"Standard",
+                        "allocationMethod":"Static",
+                        "capacity":1,
+                        "autoScaleMaxCapacity":2
+                    },
+                    {
+                        "build":false,
+                        "name":"cnt-aen-connectivity-appgw-02",
+                        "rgName":"cnt-aen-appgateway-rg",
+                        "gwTier":"Standard_v2",
+                        "vnetName":"cnt-aen-hub-vnet",
+                        "vNetResourceGroup":"cnt-aen-connectivity-rg",
+                        "subnetName":"AppGwSubnet",
+                        "privateIp":"10.200.3.4",
+                        "publicIpName":"cnt-aen-prod-appgw-02-pip-01",
                         "publicIpSku":"Standard",
                         "allocationMethod":"Static",
                         "capacity":1,

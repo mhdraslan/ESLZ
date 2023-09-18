@@ -51,9 +51,6 @@
                     "azFirewallVnetName":{
                         "value":"[parameters('azFirewall').vnetName]"
                     },
-                    "azFirewallVnetResourceGroup":{
-                        "value":"[parameters('azFirewall').vnetResourceGroup]"
-                    },
                     "azFirewallPublicIpName":{
                         "value":"[parameters('azFirewall').publicIpName]"
                     },
@@ -155,13 +152,13 @@
                 }
             }
         },
-        // AZURE APPLICATION GATEWAY V2
+        // AZURE APPLICATION GATEWAY V2 STANDARD
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"[concat('Create_Azure_App_Gateway_',parameters('azAppGatewayV2').settings[copyIndex()].name)]",
-            "condition": "[parameters('azAppGatewayV2').settings[copyIndex()].build]",
+            "condition": "[and(parameters('azAppGatewayV2').settings[copyIndex()].build, equals(parameters('azAppGatewayV2').settings[copyIndex()].gwTier,'Standard_v2'))]",
             "resourceGroup": "[parameters('azAppGatewayV2').settings[copyIndex()].rgName]",
             "copy": {
                 "name": "appGwV2Copy",
@@ -170,7 +167,61 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[parameters('deploymentUris').appGateway]"
+                    "uri":"[parameters('deploymentUris').appGatewayV2Standard]"
+                },
+                "parameters":{
+                    "appGwName":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].name]"
+                    },
+                    "appGwTier":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].gwTier]"
+                    },
+                    "vNetName":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].vnetName]"
+                    },
+                    "vNetResourceGroup":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].vNetResourceGroup]"
+                    },
+                    "subnetName":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].subnetName]"
+                    },
+                    "privateIpAddress":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].privateIp]"
+                    },
+                    "publicIpAddressName":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].publicIpName]"
+                    },
+                    "publicIpAddressSku":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].publicIpSku]"
+                    },
+                    "allocationMethod":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].allocationMethod]"
+                    },
+                    "capacity":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].capacity]"
+                    },
+                    "autoScaleMaxCapacity":{
+                        "value":"[parameters('azAppGatewayV2').settings[copyIndex()].autoScaleMaxCapacity]"
+                    }
+                }
+            }
+        },
+        // AZURE APPLICATION GATEWAY V2 WAF
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"[concat('Create_Azure_App_Gateway_',parameters('azAppGatewayV2').settings[copyIndex()].name)]",
+            "condition": "[and(parameters('azAppGatewayV2').settings[copyIndex()].build, equals(parameters('azAppGatewayV2').settings[copyIndex()].gwTier,'WAF_v2'))]",
+            "resourceGroup": "[parameters('azAppGatewayV2').settings[copyIndex()].rgName]",
+            "copy": {
+                "name": "appGwV2Copy",
+                "count": "[length(parameters('azAppGatewayV2').settings)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').appGatewayV2Waf]"
                 },
                 "parameters":{
                     "appGwName":{
