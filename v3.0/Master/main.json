@@ -375,7 +375,7 @@
                 ]
             },
             "azFirewall": {
-                "buildAzFirewall":true,
+                "buildAzFirewall":false,
                 "name":"cnt-aen-hub-azfw-01",
                 "vnetName":"cnt-aen-hub-vnet",
                 "vnetResourceGroupName":"cnt-aen-connectivity-rg", //Az Firewall must be in same resource group as VNet
@@ -383,7 +383,7 @@
                 "tier":"Standard"
             },
             "azBastion": {
-                "buildAzBastion":true,
+                "buildAzBastion":false,
                 "name":"cnt-aen-hub-bsn",
                 "rgName":"cnt-aen-connectivity-rg",
                 "vnetName":"cnt-aen-hub-vnet",
@@ -397,7 +397,7 @@
                 "enableTunneling":false
             },
             "azVpnGateway": {
-                "buildVpnGateway":true,
+                "buildVpnGateway":false,
                 "name":"cnt-aen-hub-vpngw",
                 "vpnType":"RouteBased",
                 "vnetName":"cnt-aen-hub-vnet",
