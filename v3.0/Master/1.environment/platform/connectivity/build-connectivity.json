@@ -57,7 +57,7 @@
             "Name":"[variables('deplaymentNames').lzConnectivityNetworkingDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
-                "[variables('deplaymentNames').lzConnectivityResourceGroupsDeploymentName]"
+                //"[variables('deplaymentNames').lzConnectivityResourceGroupsDeploymentName]"
             ],
             "properties":{
                 "mode":"Incremental",
