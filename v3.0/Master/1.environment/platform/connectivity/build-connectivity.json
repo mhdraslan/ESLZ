@@ -49,7 +49,7 @@
                     }
                 }
             }
-        },*/
+        },
         // Build networking
        {
             "type":"Microsoft.Resources/deployments",
@@ -57,7 +57,7 @@
             "Name":"[variables('deplaymentNames').lzConnectivityNetworkingDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
-                //"[variables('deplaymentNames').lzConnectivityResourceGroupsDeploymentName]" 
+                "[variables('deplaymentNames').lzConnectivityResourceGroupsDeploymentName]" 
             ],
             "properties":{
                 "mode":"Incremental",
@@ -88,7 +88,7 @@
                     }
                 }
             }
-        }/*,
+        },*/
         // Build virtual machines
        {
             "type":"Microsoft.Resources/deployments",
@@ -121,7 +121,7 @@
                     }
                 }
             }
-        },
+        }/*,
         // Build NVAs
        {
             "type":"Microsoft.Resources/deployments",
