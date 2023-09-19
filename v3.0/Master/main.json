@@ -45,7 +45,7 @@
         },
         "subscriptions":{
             "connectivity": {
-                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", // "315c8def-c6ca-4b68-b35f-7bca25c963e3",
+                "id": "67236ec4-f453-4086-b4d1-78a6a93fad71", // "315c8def-c6ca-4b68-b35f-7bca25c963e3",
                 "Name": "Connectivity"
             },
             "identity": {
@@ -371,7 +371,7 @@
                 "enableTunneling":false
             },
             "azVpnGateway": {
-                "buildVpnGateway":true,
+                "buildVpnGateway":false,
                 "name":"dewa-aen-prd-plt-hub-vnet-gw-vpn",
                 "vpnType":"RouteBased",
                 "vnetName":"dewa-aen-prd-plt-hub-vnet",

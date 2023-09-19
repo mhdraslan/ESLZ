@@ -34,7 +34,6 @@
         }
     },
     "resources": [
-        /*
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
@@ -58,14 +57,14 @@
                     }
                 }
             }
-        },*/
+        },
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "Name":"[variables('deplaymentNames').lzIdentityDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
-                //"[variables('deplaymentNames').lzConnectivityDeploymentName]"
+                "[variables('deplaymentNames').lzConnectivityDeploymentName]"
             ],
             "properties":{
                 "mode":"Incremental",
