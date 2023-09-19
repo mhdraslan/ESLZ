@@ -506,7 +506,7 @@
                         "vNetName":"dewa-aen-prd-plt-identity-vnet",
                         "vNetAddressSpace":["10.52.48.0/26"],
                         "vNetDnsServers":["10.52.48.4","10.52.48.5"],
-                        "rgName":"dewa-aen-prd-plt-sdm-dcs-int-rg"
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg"
                     }
                 ],
                 "peeringSettings":[]
@@ -588,7 +588,7 @@
                     */
                     {
                         "vmName":"az-srv-dc-01",
-                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "rgName":"dewa-aen-prd-plt-sdm-dcs-int-rg",
                         "vNetName":"dewa-aen-prd-plt-identity-vnet",
                         "vNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "subnetName":"DCs-SNet",
@@ -603,7 +603,7 @@
                     },
                     {
                         "vmName":"az-srv-dc-02",
-                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "rgName":"dewa-aen-prd-plt-sdm-dcs-int-rg",
                         "vNetName":"dewa-aen-prd-plt-identity-vnet",
                         "vNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "subnetName":"DCs-SNet",
