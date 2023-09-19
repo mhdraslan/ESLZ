@@ -45,23 +45,23 @@
         },
         "subscriptions":{
             "connectivity": {
-                "id": "315c8def-c6ca-4b68-b35f-7bca25c963e3",
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", // "315c8def-c6ca-4b68-b35f-7bca25c963e3",
                 "Name": "Connectivity"
             },
             "identity": {
-                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", // "562a5583-7189-454a-8868-9a774bc1ff4e",
                 "Name": "Identity"
             },
             "management": {
-                "id": "bc923b92-eb30-4121-b5bc-4f64d07cb5de",
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", // "bc923b92-eb30-4121-b5bc-4f64d07cb5de",
                 "Name": "Management"
             },
             "security": {
-                "id": "bc9c92b3-f1ef-4c50-adc2-6a123b7d9f2f",
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", // "bc9c92b3-f1ef-4c50-adc2-6a123b7d9f2f",
                 "Name": "Security"
             }/*,
             "avd": {
-                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", 562a5583-7189-454a-8868-9a774bc1ff4e
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", 
                 "Name": "AVD"
             }*/
         },
