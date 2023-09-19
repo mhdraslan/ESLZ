@@ -272,7 +272,7 @@
                         "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "udr":"dewa-aen-prd-plt-hub-apppublish-rt",
                         "udrRg":"dewa-aen-prd-plt-sdm-network-int-rg",
-                        "createNsg":true
+                        "createNsg":false
                     }
                 ]
             },
