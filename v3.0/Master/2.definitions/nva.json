@@ -157,7 +157,8 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_Azure_App_Gateway_',parameters('azAppGatewayV2').settings[copyIndex()].name)]",
+            //"Name":"[concat('Create_Azure_App_Gateway_',parameters('azAppGatewayV2').settings[copyIndex()].name)]",
+            "Name":"[concat(parameters('azAppGatewayV2').settings[copyIndex()].name)]",
             "condition": "[and(parameters('azAppGatewayV2').settings[copyIndex()].build, equals(parameters('azAppGatewayV2').settings[copyIndex()].gwTier,'Standard_v2'))]",
             "resourceGroup": "[parameters('azAppGatewayV2').settings[copyIndex()].rgName]",
             "copy": {
@@ -211,7 +212,8 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_Azure_App_Gateway_',parameters('azAppGatewayV2').settings[copyIndex()].name)]",
+            //"Name":"[concat('Create_Azure_App_Gateway_',parameters('azAppGatewayV2').settings[copyIndex()].name)]",
+            "Name":"[concat(parameters('azAppGatewayV2').settings[copyIndex()].name)]",
             "condition": "[and(parameters('azAppGatewayV2').settings[copyIndex()].build, equals(parameters('azAppGatewayV2').settings[copyIndex()].gwTier,'WAF_v2'))]",
             "resourceGroup": "[parameters('azAppGatewayV2').settings[copyIndex()].rgName]",
             "copy": {

@@ -24,7 +24,8 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId":"[parameters('subscriptionId')]",
-            "Name":"[concat('Create_ResourceGroup_',parameters('subscriptionName'),'-',parameters('resourceGroups').rgSettings[copyIndex()].rgName)]",
+            //"Name":"[concat('Create_ResourceGroup_',parameters('subscriptionName'),'-',parameters('resourceGroups').rgSettings[copyIndex()].rgName)]",
+            "Name":"[concat(parameters('resourceGroups').rgSettings[copyIndex()].rgName)]",
             "dependsOn": [],
             "location":"[parameters('resourceGroups').rgSettings[copyIndex()].rgLocation]",
             "copy": {
