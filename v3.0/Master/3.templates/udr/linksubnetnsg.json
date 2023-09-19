@@ -17,7 +17,7 @@
         }
     },
     "variables": {
-        "udrLinkDeploymentName":"[concat('Associate-',parameters('udrName'),'-',parameters('subnetName'))]",
+        "udrLinkDeploymentName":"[concat('lnk-',parameters('udrName'),'-',parameters('subnetName'))]",
         "udrId":"[if(equals(parameters('udrResourceGroup'),''), resourceId('Microsoft.Network/routeTables',parameters('udrName')),resourceId(parameters('udrResourceGroup'),'Microsoft.Network/routeTables',parameters('udrName')))]"
     },
     "resources": [
