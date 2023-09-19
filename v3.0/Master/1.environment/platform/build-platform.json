@@ -70,10 +70,18 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[parameters('deploymentUris').lzTemplateUri]"
+                    "uri":"[parameters('deploymentUris').buildIdentityLzUri]"
                 },
-                "parameterslink": {
-                    "uri":"[parameters('deploymentUris').lzIdentityUri]"
+                "parameters": {
+                    "deploymentUris": {
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "subscriptions":{
+                        "value":"[parameters('subscriptions')]"
+                    },
+                    "environmentSettings": {
+                        "value":"[parameters('identityLzSettings')]"
+                    }
                 }
             }
         }/*,
