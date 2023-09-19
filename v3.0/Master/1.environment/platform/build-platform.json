@@ -38,7 +38,8 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "Name":"[variables('deplaymentNames').lzConnectivityDeploymentName]",
-            "location":"[deployment().location]",
+            "subscriptionId": "[parameters('subscriptions').Connectivity.Id]",
+            //"location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
                 "mode":"Incremental",
@@ -62,7 +63,8 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "Name":"[variables('deplaymentNames').lzIdentityDeploymentName]",
-            "location":"[deployment().location]",
+            "subscriptionId": "[parameters('subscriptions').Identity.Id]",
+            //"location":"[deployment().location]",
             "dependsOn": [
                 "[variables('deplaymentNames').lzConnectivityDeploymentName]"
             ],
