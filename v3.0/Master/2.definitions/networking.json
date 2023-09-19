@@ -132,7 +132,7 @@
             "dependsOn": [
                 "VirtualNetworksCopy"
             ],
-            "resourceGroup": "[parameters('vnets').peeringSettings[copyIndex()].rgName]",
+            "resourceGroup": "[parameters('vnets').peeringSettings[copyIndex()].sourceVnetResourceGroup]",
             "copy": {
                 "name": "VnetPeeringsCopy",
                 "count": "[length(parameters('vnets').peeringSettings)]",
