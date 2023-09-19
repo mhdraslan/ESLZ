@@ -70,35 +70,35 @@
                 "rgSettings":[
                     // ADD RESOURCE GROUP SECTIONS BELOW
                     {
-                        "rgName":"cnt-aen-privatednszones-rg",
+                        "rgName":"dewa-aen-prd-plt-sdm-privatednszones-int-rg",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"cnt-aen-connectivity-rg",
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"cnt-aen-firewall-rg",
+                        "rgName":"dewa-aen-prd-plt-sdm-monitor-int-rg",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"cnt-aen-sharedservices-rg",
+                        "rgName":"dewa-aen-prd-plt-sdm-sharedservices-int-rg",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"cnt-aen-bastion-rg",
+                        "rgName":"dewa-aen-prd-plt-sdm-remoteaccess-int-rg",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"cnt-aen-appgateway-rg",
+                        "rgName":"dewa-aen-prd-plt-sdm-apppublish-int-rg",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"cnt-aen-recoveryvaults-rg",
+                        "rgName":"dewa-aen-prd-plt-sdm-recovery-int-rg",
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"cnt-aen-keyvaults-rg",
+                        "rgName":"dewa-aen-prd-plt-sdm-security-int-rg",
                         "rgLocation":"UAENorth"
                     }
                 ]
@@ -106,143 +106,173 @@
             "vnets":{
                 "vnetSettings":[
                     {
-                        "vNetName":"cnt-aen-hub-vnet",
-                        "vNetAddressSpace":["10.200.0.0/22"],
-                        "vNetDnsServers":["10.200.1.132","10.200.1.133"],
-                        "rgName":"cnt-aen-connectivity-rg"
+                        "vNetName":"dewa-aen-prd-plt-hub-vnet",
+                        "vNetAddressSpace":["10.52.0.0/22"],
+                        "vNetDnsServers":["10.52.48.4","10.52.48.5"],
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg"
                     }
                 ],
                 "peeringSettings":[]
             },
             "routes":{
                 "udrTables":[
+                    /* DO NOT DELETE - UDR TABLE TEMPLATE
                     {
-                        "routeTableName":"cnt-aen-connectivity-spoke-udr",
-                        "rgName":"cnt-aen-connectivity-rg"
+                        "routeTableName":"cnt-aen-hub-sharedsvc-rt",
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg"
+                    }
+                    */                    
+                    {
+                        "routeTableName":"dewa-aen-prd-plt-hub-sharedsvc-rt",
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg"
                     },
                     {
-                        "routeTableName":"cnt-aen-connectivity-gateway-udr",
-                        "rgName":"cnt-aen-connectivity-rg"
+                        "routeTableName":"dewa-aen-prd-plt-hub-gateway-rt",
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg"
                     },
                     {
-                        "routeTableName":"cnt-aen-connectivity-blackhole-udr",
-                        "rgName":"cnt-aen-connectivity-rg"
+                        "routeTableName":"dewa-aen-prd-plt-hub-privendpoint-rt",
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg"
+                    },
+                    {
+                        "routeTableName":"dewa-aen-prd-plt-hub-apppublish-rt",
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg"
                     }
                 ],
                 "udrSettings":[
+                    /* DO NOT DELETE - UDR ENTRY TEMPLATE
                     {
-                        "routeEntryName":"rt-blackhole",
+                        "routeEntryName":"default-gateway",
+                        "routeEntryAddressPrefix":"10.0.0.0/24",
+                        "routeEntryType":"VirtualAppliance", //Allowed values: VirtualAppliance, None, Internet, VirtualNetworkGateway
+                        "routeEntryNextHopIPAddress":"10.200.0.196",
+                        "routeTableName":"cnt-aen-connectivity-gateway-udr"
+                    }
+                    */
+                    {
+                        "routeEntryName":"default-gateway",
                         "routeEntryAddressPrefix":"0.0.0.0/0",
-                        "routeEntryType":"None",
-                        "routeEntryNextHopIPAddress":"",
-                        "routeTableName":"cnt-aen-connectivity-blackhole-udr"
+                        "routeEntryType":"VirtualAppliance",
+                        "routeEntryNextHopIPAddress":"10.52.1.196",
+                        "routeTableName":"dewa-aen-prd-plt-hub-sharedsvc-rt"
                     },  
                     {
-                        "routeEntryName":"rt-default",
+                        "routeEntryName":"default-gateway",
                         "routeEntryAddressPrefix":"0.0.0.0/0",
                         "routeEntryType":"VirtualAppliance",
-                        "routeEntryNextHopIPAddress":"10.200.0.196",
-                        "routeTableName":"cnt-aen-connectivity-spoke-udr"
+                        "routeEntryNextHopIPAddress":"10.52.1.196",
+                        "routeTableName":"dewa-aen-prd-plt-hub-privendpoint-rt"
                     },
                     {
-                        "routeEntryName":"rt-prod",
-                        "routeEntryAddressPrefix":"10.200.4.0/22",
-                        "routeEntryType":"VirtualAppliance",
-                        "routeEntryNextHopIPAddress":"10.200.0.196",
-                        "routeTableName":"cnt-aen-connectivity-gateway-udr"
+                        "routeEntryName":"default-gateway",
+                        "routeEntryAddressPrefix":"0.0.0.0/0",
+                        "routeEntryType":"Internet",
+                        "routeEntryNextHopIPAddress":"",
+                        "routeTableName":"dewa-aen-prd-plt-hub-apppublish-rt"
                     },
                     {
-                        "routeEntryName":"rt-uat",
-                        "routeEntryAddressPrefix":"10.200.8.0/24",
+                        "routeEntryName":"to-azure",
+                        "routeEntryAddressPrefix":"10.52.0.0/16",
                         "routeEntryType":"VirtualAppliance",
-                        "routeEntryNextHopIPAddress":"10.200.0.196",
-                        "routeTableName":"cnt-aen-connectivity-gateway-udr"
+                        "routeEntryNextHopIPAddress":"10.52.1.196",
+                        "routeTableName":"dewa-aen-prd-plt-hub-apppublish-rt"
                     },
                     {
-                        "routeEntryName":"rt-dev",
-                        "routeEntryAddressPrefix":"10.200.9.0/24",
+                        "routeEntryName":"identity-vnet",
+                        "routeEntryAddressPrefix":"10.52.48.0/26",
                         "routeEntryType":"VirtualAppliance",
-                        "routeEntryNextHopIPAddress":"10.200.0.196",
-                        "routeTableName":"cnt-aen-connectivity-gateway-udr"
+                        "routeEntryNextHopIPAddress":"10.52.1.196",
+                        "routeTableName":"dewa-aen-prd-plt-hub-gateway-rt"
                     },
                     {
-                        "routeEntryName":"rt-test",
-                        "routeEntryAddressPrefix":"10.200.10.0/24",
+                        "routeEntryName":"cloudpc-20-vnet",
+                        "routeEntryAddressPrefix":"10.52.20.0/22",
                         "routeEntryType":"VirtualAppliance",
-                        "routeEntryNextHopIPAddress":"10.200.0.196",
-                        "routeTableName":"cnt-aen-connectivity-gateway-udr"
+                        "routeEntryNextHopIPAddress":"10.52.1.196",
+                        "routeTableName":"dewa-aen-prd-plt-hub-gateway-rt"
                     },
                     {
-                        "routeEntryName":"rt-sandbox",
-                        "routeEntryAddressPrefix":"10.200.12.0/25",
+                        "routeEntryName":"cloudpc-24-vnet",
+                        "routeEntryAddressPrefix":"10.52.24.0/22",
                         "routeEntryType":"VirtualAppliance",
-                        "routeEntryNextHopIPAddress":"10.200.0.196",
-                        "routeTableName":"cnt-aen-connectivity-gateway-udr"
+                        "routeEntryNextHopIPAddress":"10.52.1.196",
+                        "routeTableName":"dewa-aen-prd-plt-hub-gateway-rt"
                     },
                     {
-                        "routeEntryName":"rt-identity",
-                        "routeEntryAddressPrefix":"10.200.12.128/25",
+                        "routeEntryName":"cloudpc-28-vnet",
+                        "routeEntryAddressPrefix":"10.52.28.0/22",
                         "routeEntryType":"VirtualAppliance",
-                        "routeEntryNextHopIPAddress":"10.200.0.196",
-                        "routeTableName":"cnt-aen-connectivity-gateway-udr"
+                        "routeEntryNextHopIPAddress":"10.52.1.196",
+                        "routeTableName":"dewa-aen-prd-plt-hub-gateway-rt"
                     }
                 ]
             },
             "subnets":{
                 "subnetSettings":[
+                    /* DO NOT DELETE - SUBNET TEMPLATE
                     {
                         "subnetName":"AzureFirewallSubnet",
-                        "vNetName":"cnt-aen-hub-vnet",
+                        "vNetName":"dewa-aen-prd-plt-hub-vnet",
                         "subnetAddress":"10.200.1.192/26",
-                        "rgName":"cnt-aen-connectivity-rg",
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "udr":"",
+                        "udrRg":"",
+                        "createNsg":false
+                    }                    
+                    */
+                    {
+                        "subnetName":"AzureFirewallSubnet",
+                        "vNetName":"dewa-aen-prd-plt-hub-vnet",
+                        "subnetAddress":"10.52.1.192/26",
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "udr":"",
                         "udrRg":"",
                         "createNsg":false
                     },
                     {
                         "subnetName":"GatewaySubnet",
-                        "vNetName":"cnt-aen-hub-vnet",
-                        "subnetAddress":"10.200.1.0/26",
-                        "rgName":"cnt-aen-connectivity-rg",
-                        "udr":"cnt-aen-connectivity-gateway-udr",
-                        "udrRg":"cnt-aen-connectivity-rg",
+                        "vNetName":"dewa-aen-prd-plt-hub-vnet",
+                        "subnetAddress":"10.52.1.0/26",
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "udr":"dewa-aen-prd-plt-hub-gateway-rt",
+                        "udrRg":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "createNsg":false
                     },
                     {
                         "subnetName":"AzureBastionSubnet",
-                        "vNetName":"cnt-aen-hub-vnet",
-                        "subnetAddress":"10.200.1.64/26",
-                        "rgName":"cnt-aen-connectivity-rg",
+                        "vNetName":"dewa-aen-prd-plt-hub-vnet",
+                        "subnetAddress":"10.52.1.64/26",
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "udr":"",
                         "udrRg":"",
                         "createNsg":false
                     },
                     {
-                        "subnetName":"SharedServiceSubnet",
-                        "vNetName":"cnt-aen-hub-vnet",
-                        "subnetAddress":"10.200.1.128/26",
-                        "rgName":"cnt-aen-connectivity-rg",
-                        "udr":"cnt-aen-connectivity-spoke-udr",
-                        "udrRg":"cnt-aen-connectivity-rg",
+                        "subnetName":"SharedService-SNet",
+                        "vNetName":"dewa-aen-prd-plt-hub-vnet",
+                        "subnetAddress":"10.52.1.128/26",
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "udr":"dewa-aen-prd-plt-hub-sharedsvc-rt",
+                        "udrRg":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "createNsg":true
                     },
                     {
-                        "subnetName":"PrivateEndpointSubnet",
-                        "vNetName":"cnt-aen-hub-vnet",
-                        "subnetAddress":"10.200.2.0/24",
-                        "rgName":"cnt-aen-connectivity-rg",
-                        "udr":"cnt-aen-connectivity-spoke-udr",
-                        "udrRg":"cnt-aen-connectivity-rg",
+                        "subnetName":"PrivateEndpoint-SNet",
+                        "vNetName":"dewa-aen-prd-plt-hub-vnet",
+                        "subnetAddress":"10.52.2.0/24",
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "udr":"dewa-aen-prd-plt-hub-privendpoint-rt",
+                        "udrRg":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "createNsg":true
                     },
                     {
-                        "subnetName":"AppGwSubnet",
-                        "vNetName":"cnt-aen-hub-vnet",
-                        "subnetAddress":"10.200.3.0/25",
-                        "rgName":"cnt-aen-connectivity-rg",
-                        "udr":"",
-                        "udrRg":"",
-                        "createNsg":false
+                        "subnetName":"AppGw-SNet",
+                        "vNetName":"dewa-aen-prd-plt-hub-vnet",
+                        "subnetAddress":"10.52.3.0/24",
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "udr":"dewa-aen-prd-plt-hub-apppublish-rt",
+                        "udrRg":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "createNsg":true
                     }
                 ]
             },
@@ -252,9 +282,9 @@
                     {
                         "vmName":"aenpdns01",
                         "rgName":"cnt-aen-sharedservices-rg",
-                        "vNetName":"cnt-aen-hub-vnet",
-                        "vNetResourceGroup":"cnt-aen-connectivity-rg",
-                        "subnetName":"SharedServiceSubnet",
+                        "vNetName":"dewa-aen-prd-plt-hub-vnet",
+                        "vNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "subnetName":"SharedService-SNet",
                         "vmZones":["1"],
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",
@@ -266,77 +296,32 @@
                     },
                     */
                     {
-                        "vmName":"aenpdns01",
-                        "rgName":"cnt-aen-sharedservices-rg",
-                        "vNetName":"cnt-aen-hub-vnet",
-                        "vNetResourceGroup":"cnt-aen-connectivity-rg",
-                        "subnetName":"SharedServiceSubnet",
+                        "vmName":"az-srv-dns-01",
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "vNetName":"dewa-aen-prd-plt-hub-vnet",
+                        "vNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "subnetName":"SharedService-SNet",
                         "vmZones":["1"],
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",
                         "osOffer":"windowsserver",
                         "osSku":"2022-datacenter-g2",
-                        "vmSize":"Standard_B2s",
+                        "vmSize":"Standard_D2s_v5",
                         "adminUsername":"localadmin",
                         "adminPassword":"Pa$$w0rd123*"
                     },
                     {
-                        "vmName":"aenpdns02",
-                        "rgName":"cnt-aen-sharedservices-rg",
-                        "vNetName":"cnt-aen-hub-vnet",
-                        "vNetResourceGroup":"cnt-aen-connectivity-rg",
-                        "subnetName":"SharedServiceSubnet",
+                        "vmName":"az-srv-dns-02",
+                        "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "vNetName":"dewa-aen-prd-plt-hub-vnet",
+                        "vNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "subnetName":"SharedService-SNet",
                         "vmZones":["2"],
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"microsoftwindowsserver",
                         "osOffer":"windowsserver",
                         "osSku":"2022-datacenter-g2",
-                        "vmSize":"Standard_B2s",
-                        "adminUsername":"localadmin",
-                        "adminPassword":"Pa$$w0rd123*"
-                    },
-                    {
-                        "vmName":"aenpdc01",
-                        "rgName":"cnt-aen-identity-rg",
-                        "vNetName":"cnt-aen-identity-vnet",
-                        "vNetResourceGroup":"cnt-aen-identity-rg",
-                        "subnetName":"DomainControllerSubnet",
-                        "vmZones":["1"],
-                        "osDiskType":"StandardSSD_LRS",
-                        "osPublisher":"microsoftwindowsserver",
-                        "osOffer":"windowsserver",
-                        "osSku":"2022-datacenter-g2",
-                        "vmSize":"Standard_B2s",
-                        "adminUsername":"localadmin",
-                        "adminPassword":"Pa$$w0rd123*"
-                    },
-                    {
-                        "vmName":"aenpdc02",
-                        "rgName":"cnt-aen-identity-rg",
-                        "vNetName":"cnt-aen-identity-vnet",
-                        "vNetResourceGroup":"cnt-aen-identity-rg",
-                        "subnetName":"DomainControllerSubnet",
-                        "vmZones":["2"],
-                        "osDiskType":"StandardSSD_LRS",
-                        "osPublisher":"microsoftwindowsserver",
-                        "osOffer":"windowsserver",
-                        "osSku":"2022-datacenter-g2",
-                        "vmSize":"Standard_B2s",
-                        "adminUsername":"localadmin",
-                        "adminPassword":"Pa$$w0rd123*"
-                    },
-                    {
-                        "vmName":"aenpadcnct01",
-                        "rgName":"cnt-aen-identity-rg",
-                        "vNetName":"cnt-aen-identity-vnet",
-                        "vNetResourceGroup":"cnt-aen-identity-rg",
-                        "subnetName":"DomainControllerSubnet",
-                        "vmZones":[],
-                        "osDiskType":"StandardSSD_LRS",
-                        "osPublisher":"microsoftwindowsserver",
-                        "osOffer":"windowsserver",
-                        "osSku":"2022-datacenter-g2",
-                        "vmSize":"Standard_B2s",
+                        "vmSize":"Standard_D2s_v5",
                         "adminUsername":"localadmin",
                         "adminPassword":"Pa$$w0rd123*"
                     }
@@ -348,9 +333,9 @@
                     {
                         "vmName":"aenpdns01",
                         "rgName":"cnt-aen-sharedservices-rg",
-                        "vNetName":"cnt-aen-hub-vnet",
-                        "vNetResourceGroup":"cnt-aen-connectivity-rg",
-                        "subnetName":"SharedServiceSubnet",
+                        "vNetName":"dewa-aen-prd-plt-hub-vnet",
+                        "vNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "subnetName":"SharedService-SNet",
                         "vmZones":["1"],
                         "osDiskType":"StandardSSD_LRS",
                         "osPublisher":"Canonical",
@@ -361,39 +346,24 @@
                         "adminPassword":"Pa$$w0rd123*"
                     },
                     */
-                    {
-                        "vmName":"aentlxsrv01",
-                        "rgName":"cnt-aen-sharedservices-rg",
-                        "vNetName":"cnt-aen-hub-vnet",
-                        "vNetResourceGroup":"cnt-aen-connectivity-rg",
-                        "subnetName":"SharedServiceSubnet",
-                        "vmZones":["1"],
-                        "osDiskType":"StandardSSD_LRS",
-                        "osPublisher":"Canonical",
-                        "osOffer":"0001-com-ubuntu-server-jammy",
-                        "osSku":"22_04-lts-gen2",
-                        "vmSize":"Standard_B2s",
-                        "adminUsername":"localadmin",
-                        "adminPassword":"Pa$$w0rd123*"
-                    }
                 ]
             },
             "azFirewall": {
-                "buildAzFirewall":false,
-                "name":"cnt-aen-hub-azfw-01",
-                "vnetName":"cnt-aen-hub-vnet",
-                "vnetResourceGroupName":"cnt-aen-connectivity-rg", //Az Firewall must be in same resource group as VNet
-                "publicIpName":"cnt-aen-hub-azfw-01-pip-01",
-                "tier":"Standard"
+                "buildAzFirewall":true,
+                "name":"dewa-aen-prd-plt-hub-afw",
+                "vnetName":"dewa-aen-prd-plt-hub-vnet",
+                "vnetResourceGroupName":"dewa-aen-prd-plt-sdm-network-int-rg", //Az Firewall must be in same resource group as VNet
+                "publicIpName":"dewa-aen-prd-plt-hub-afw-pip-01",
+                "tier":"Premium"
             },
             "azBastion": {
-                "buildAzBastion":false,
-                "name":"cnt-aen-hub-bsn",
-                "rgName":"cnt-aen-connectivity-rg",
-                "vnetName":"cnt-aen-hub-vnet",
-                "vNetResourceGroup":"cnt-aen-connectivity-rg",
+                "buildAzBastion":true,
+                "name":"dewa-aen-prd-plt-hub-bast",
+                "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                "vnetName":"dewa-aen-prd-plt-hub-vnet",
+                "vNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
                 "sku":"Standard",
-                "bastionPublicIpName":"cnt-aen-hub-bsn-pip-01",
+                "bastionPublicIpName":"dewa-aen-prd-plt-hub-bast-pip-01",
                 "disableCopyPaste":false,
                 "enableFileCopy":true,
                 "enableIpConnect":true,
@@ -401,44 +371,29 @@
                 "enableTunneling":false
             },
             "azVpnGateway": {
-                "buildVpnGateway":false,
-                "name":"cnt-aen-hub-vpngw",
+                "buildVpnGateway":true,
+                "name":"dewa-aen-prd-plt-hub-vnet-gw-vpn",
                 "vpnType":"RouteBased",
-                "vnetName":"cnt-aen-hub-vnet",
-                "vnetResourceGroupName":"cnt-aen-connectivity-rg",
+                "vnetName":"dewa-aen-prd-plt-hub-vnet",
+                "vnetResourceGroupName":"dewa-aen-prd-plt-sdm-network-int-rg",
                 "gatewaySku":"VpnGw1AZ",
-                "localGatewayName":"cnt-aen-onprem-lgw-01",
-                "localGatewayIpAddress":"91.72.224.106",
-                "localAddressPrefix":["10.0.0.0/8","172.16.0.0/12"],
-                "gatewayPublicIpName":"cnt-aen-hub-vpngw-pip-01"
+                "localGatewayName":"dewa-aen-prd-plt-onprem-lgw-01",
+                "localGatewayIpAddress":"8.8.8.8",
+                "localAddressPrefix":["10.0.0.0/8"],
+                "gatewayPublicIpName":"dewa-aen-prd-plt-hub-vnet-gw-vpn-pip-01"
             },
             "azAppGatewayV2": {
                 "settings":[
                     {
                         "build":true,
-                        "name":"cnt-aen-connectivity-appgw-01",
-                        "rgName":"cnt-aen-appgateway-rg",
+                        "name":"dewa-aen-prd-plt-hubapppublish-agw-01",
+                        "rgName":"dewa-aen-prd-plt-sdm-apppublish-int-rg",
                         "gwTier":"WAF_v2",
-                        "vnetName":"cnt-aen-hub-vnet",
-                        "vNetResourceGroup":"cnt-aen-connectivity-rg",
-                        "subnetName":"AppGwSubnet",
-                        "privateIp":"10.200.3.4",
-                        "publicIpName":"cnt-aen-prod-appgw-01-pip-01",
-                        "publicIpSku":"Standard",
-                        "allocationMethod":"Static",
-                        "capacity":1,
-                        "autoScaleMaxCapacity":2
-                    },
-                    {
-                        "build":true,
-                        "name":"cnt-aen-connectivity-appgw-02",
-                        "rgName":"cnt-aen-appgateway-rg",
-                        "gwTier":"Standard_v2",
-                        "vnetName":"cnt-aen-hub-vnet",
-                        "vNetResourceGroup":"cnt-aen-connectivity-rg",
-                        "subnetName":"AppGwSubnet",
-                        "privateIp":"10.200.3.5",
-                        "publicIpName":"cnt-aen-prod-appgw-02-pip-01",
+                        "vnetName":"dewa-aen-prd-plt-hub-vnet",
+                        "vNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "subnetName":"AppGw-SNet",
+                        "privateIp":"10.52.3.4",
+                        "publicIpName":"dewa-aen-prd-plt-hubapppublish-agw-01-pip-01",
                         "publicIpSku":"Standard",
                         "allocationMethod":"Static",
                         "capacity":1,
@@ -448,7 +403,7 @@
             },
             "privateDnsZones": {
                 "build":true,
-                "rgName":"cnt-aen-privatednszones-rg",
+                "rgName":"dewa-aen-prd-plt-sdm-privatednszones-int-rg",
                 "zones": [
                     "[format('privatelink.{0}.azmk8s.io', toLower(variables('deploymentLocation')))]",
                     "[format('privatelink.{0}.batch.azure.com', toLower(variables('deploymentLocation')))]",
@@ -523,7 +478,7 @@
     },
     "resources": [
         // BUILD MANAGEMENT GROUPS
-        
+
         // BUILD PLATFORM LZ
         {
             "type":"Microsoft.Resources/deployments",
