@@ -32,6 +32,10 @@
             "type": "bool",
             "defaultValue": false
         },
+        "sourcePeeringName": {
+            "type": "string",
+            "defaultValue": ""
+        },
         "remoteVnetPeeringAllowForwardedTraffic": {
             "type": "bool",
             "defaultValue": false
@@ -43,6 +47,10 @@
         "remoteVnetPeeringUseRemoteGateways": {
             "type": "bool",
             "defaultValue": false
+        },
+        "remotePeeringName": {
+            "type": "string",
+            "defaultValue": ""
         }
     },
     "variables": {
@@ -50,8 +58,8 @@
         "remoteVnetNameTrimmedlength":"[if(greater(length(parameters('remoteVnetName')),24),24,length(parameters('remoteVnetName')))]",
         "sourceVnetDeploymentName":"[concat('Create-Peering-',substring(parameters('sourceVnetName'),0,variables('sourceVnetNameTrimmedlength')),'-',substring(parameters('remoteVnetName'),0,variables('remoteVnetNameTrimmedlength')))]",
         "remoteVnetDeploymentName":"[concat('Create-Peering-',substring(parameters('remoteVnetName'),0,variables('remoteVnetNameTrimmedlength')),'-',substring(parameters('sourceVnetName'),0,variables('sourceVnetNameTrimmedlength')))]",
-        "sourceVnetPeeringName":"[concat('VNet-Peering-',substring(parameters('sourceVnetName'),0,variables('sourceVnetNameTrimmedlength')),'-',substring(parameters('remoteVnetName'),0,variables('remoteVnetNameTrimmedlength')))]",
-        "remoteVnetPeeringName":"[concat('VNet-Peering-',substring(parameters('remoteVnetName'),0,variables('remoteVnetNameTrimmedlength')),'-',substring(parameters('sourceVnetName'),0,variables('sourceVnetNameTrimmedlength')))]",
+        "sourceVnetPeeringName":"[if(equals(parameters('sourcePeeringName'),''), concat('VNet-Peering-',substring(parameters('sourceVnetName'),0,variables('sourceVnetNameTrimmedlength')),'-',substring(parameters('remoteVnetName'),0,variables('remoteVnetNameTrimmedlength'))),parameters('sourcePeeringName'))]",
+        "remoteVnetPeeringName":"[if(equals(parameters('remotePeeringName'),''), concat('VNet-Peering-',substring(parameters('remoteVnetName'),0,variables('remoteVnetNameTrimmedlength')),'-',substring(parameters('sourceVnetName'),0,variables('sourceVnetNameTrimmedlength'))),parameters('remotePeeringName'))]",
         "sourceVnetId":"[resourceId(parameters('sourceVnetSubscriptionId'),parameters('sourceVnetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('sourceVnetName'))]",
         "remoteVnetId":"[resourceId(parameters('remoteVnetSubscriptionId'),parameters('remoteVNetResourceGroup'),'Microsoft.Network/virtualNetworks',parameters('remoteVnetName'))]"
     },

@@ -144,29 +144,47 @@
                     "uri":"[parameters('deploymentUris').peering]"
                 },
                 "parameters":{
-                    "vNetName":{
-                        "value":"[parameters('vnets').peeringSettings[copyIndex()].vNetName]"
+                    "sourceVnetName":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].sourceVnetName]"
                     },
-                    "remoteVNetName":{
-                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remoteVNetName]"
+                    "sourceVnetSubscriptionId":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].sourceVnetSubscriptionId]"
                     },
-                    "remoteVNetSubscriptionId":{
-                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remoteVNetSubscriptionId]"
+                    "sourceVnetResourceGroup":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].sourceVnetResourceGroup]"
                     },
-                    "remoteVNetResourceGroup":{
-                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remoteVNetResourceGroup]"
+                    "remoteVnetName":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remoteVnetName]"
                     },
-                    "peeringName":{
-                        "value":"[parameters('vnets').peeringSettings[copyIndex()].peeringName]"
+                    "remoteVnetSubscriptionId":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remoteVnetSubscriptionId]"
                     },
-                    "allowForwardedTraffic":{
-                        "value":"[parameters('vnets').peeringSettings[copyIndex()].allowForwardedTraffic]"
+                    "remoteVnetResourceGroup":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remoteVnetResourceGroup]"
                     },
-                    "allowGatewayTransit":{
-                        "value":"[parameters('vnets').peeringSettings[copyIndex()].allowGatewayTransit]"
+                    "sourcePeeringName":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].sourcePeeringName]"
                     },
-                    "useRemoteGateways":{
-                        "value":"[parameters('vnets').peeringSettings[copyIndex()].useRemoteGateways]"
+                    "sourceVnetPeeringAllowForwardedTraffic":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].sourceVnetPeeringAllowForwardedTraffic]"
+                    },
+                    "sourceVnetPeeringAllowGatewayTransit":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].sourceVnetPeeringAllowGatewayTransit]"
+                    },
+                    "sourceVnetPeeringUseRemoteGateways":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].sourceVnetPeeringUseRemoteGateways]"
+                    },
+                    "remotePeeringName":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remotePeeringName]"
+                    },
+                    "remoteVnetPeeringAllowForwardedTraffic":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remoteVnetPeeringAllowForwardedTraffic]"
+                    },
+                    "remoteVnetPeeringAllowGatewayTransit":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remoteVnetPeeringAllowGatewayTransit]"
+                    },
+                    "remoteVnetPeeringUseRemoteGateways":{
+                        "value":"[parameters('vnets').peeringSettings[copyIndex()].remoteVnetPeeringUseRemoteGateways]"
                     }
                 }
             }

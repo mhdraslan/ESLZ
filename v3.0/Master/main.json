@@ -513,17 +513,19 @@
                     /* DO NOT DELETE. PEERING TEMPLATE
                     {
                         "sourceVnetName":"cnt-aen-identity-vnet",
-                        "sourceVnetSubscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71",
+                        "sourceVnetSubscriptionId":"[variables('subscriptions').identity.id]",
                         "sourceVnetResourceGroup":"cnt-aen-connectivity-rg",
                         "remoteVnetName":"cnt-aen-hub-vnet",
-                        "remoteVNetSubscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71",
+                        "remoteVNetSubscriptionId":"[variables('subscriptions').connectivity.id]",
                         "remoteVNetResourceGroup":"cnt-aen-connectivity-rg",
                         "sourceVnetPeeringAllowForwardedTraffic":true,
                         "sourceVnetPeeringAllowGatewayTransit":false,
-                        "sourceVnetPeeringUseRemoteGateways":false,
+                        "sourceVnetPeeringUseRemoteGateways":true,
                         "remoteVnetPeeringAllowForwardedTraffic":false,
                         "remoteVnetPeeringAllowGatewayTransit":false,
-                        "remoteVnetPeeringUseRemoteGateways":false
+                        "remoteVnetPeeringUseRemoteGateways":false,
+                        "sourcePeeringName": "", // Leave empty to use default naming
+                        "remotePeeringName": ""  // Leave empty to use default naming
                     }
                     */
                     {
@@ -538,7 +540,9 @@
                         "sourceVnetPeeringUseRemoteGateways":true,
                         "remoteVnetPeeringAllowForwardedTraffic":false,
                         "remoteVnetPeeringAllowGatewayTransit":false,
-                        "remoteVnetPeeringUseRemoteGateways":false
+                        "remoteVnetPeeringUseRemoteGateways":false,
+                        "sourcePeeringName": "dewa-aen-prd-plt-identity-hub",
+                        "remotePeeringName": "dewa-aen-prd-plt-hub-identity"
                     }
                 ]
             },
