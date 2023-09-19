@@ -128,7 +128,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Peering_',parameters('vnets').peeringSettings[copyIndex()].peeringName)]",
+            "Name":"[concat('Peering_',parameters('vnets').peeringSettings[copyIndex()].sourcePeeringName)]",
             "dependsOn": [
                 "VirtualNetworksCopy"
             ],
