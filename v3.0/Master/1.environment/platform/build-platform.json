@@ -39,7 +39,7 @@
             "apiVersion":"2019-05-10",
             "Name":"[variables('deplaymentNames').lzConnectivityDeploymentName]",
             "subscriptionId": "[parameters('subscriptions').Connectivity.Id]",
-            //"location":"[deployment().location]",
+            "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
                 "mode":"Incremental",
@@ -64,7 +64,7 @@
             "apiVersion":"2019-05-10",
             "Name":"[variables('deplaymentNames').lzIdentityDeploymentName]",
             "subscriptionId": "[parameters('subscriptions').Identity.Id]",
-            //"location":"[deployment().location]",
+            "location":"[deployment().location]",
             "dependsOn": [
                 "[variables('deplaymentNames').lzConnectivityDeploymentName]"
             ],
