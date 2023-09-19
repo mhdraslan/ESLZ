@@ -49,7 +49,7 @@
                 "Name": "Connectivity"
             },
             "identity": {
-                "id": "562a5583-7189-454a-8868-9a774bc1ff4e",
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                 "Name": "Identity"
             },
             "management": {
@@ -61,7 +61,7 @@
                 "Name": "Security"
             }/*,
             "avd": {
-                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", 562a5583-7189-454a-8868-9a774bc1ff4e
                 "Name": "AVD"
             }*/
         },
