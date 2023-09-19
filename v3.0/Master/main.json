@@ -537,7 +537,7 @@
                         "remoteVNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "sourceVnetPeeringAllowForwardedTraffic":true,
                         "sourceVnetPeeringAllowGatewayTransit":false,
-                        "sourceVnetPeeringUseRemoteGateways":true,
+                        "sourceVnetPeeringUseRemoteGateways":false,
                         "remoteVnetPeeringAllowForwardedTraffic":false,
                         "remoteVnetPeeringAllowGatewayTransit":false,
                         "remoteVnetPeeringUseRemoteGateways":false,
