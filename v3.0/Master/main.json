@@ -509,7 +509,38 @@
                         "rgName":"dewa-aen-prd-plt-sdm-network-int-rg"
                     }
                 ],
-                "peeringSettings":[]
+                "peeringSettings":[
+                    /* DO NOT DELETE. PEERING TEMPLATE
+                    {
+                        "sourceVnetName":"cnt-aen-identity-vnet",
+                        "sourceVnetSubscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71",
+                        "sourceVnetResourceGroup":"cnt-aen-connectivity-rg",
+                        "remoteVnetName":"cnt-aen-hub-vnet",
+                        "remoteVNetSubscriptionId":"67236ec4-f453-4086-b4d1-78a6a93fad71",
+                        "remoteVNetResourceGroup":"cnt-aen-connectivity-rg",
+                        "sourceVnetPeeringAllowForwardedTraffic":true,
+                        "sourceVnetPeeringAllowGatewayTransit":false,
+                        "sourceVnetPeeringUseRemoteGateways":false,
+                        "remoteVnetPeeringAllowForwardedTraffic":false,
+                        "remoteVnetPeeringAllowGatewayTransit":false,
+                        "remoteVnetPeeringUseRemoteGateways":false
+                    }
+                    */
+                    {
+                        "sourceVnetName":"dewa-aen-prd-plt-identity-vnet",
+                        "sourceVnetSubscriptionId":"[variables('subscriptions').identity.id]",
+                        "sourceVnetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "remoteVnetName":"dewa-aen-prd-plt-hub-vnet",
+                        "remoteVNetSubscriptionId":"[variables('subscriptions').connectivity.id]",
+                        "remoteVNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
+                        "sourceVnetPeeringAllowForwardedTraffic":true,
+                        "sourceVnetPeeringAllowGatewayTransit":false,
+                        "sourceVnetPeeringUseRemoteGateways":true,
+                        "remoteVnetPeeringAllowForwardedTraffic":false,
+                        "remoteVnetPeeringAllowGatewayTransit":false,
+                        "remoteVnetPeeringUseRemoteGateways":false
+                    }
+                ]
             },
             "routes":{
                 "udrTables":[
