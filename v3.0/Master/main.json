@@ -45,19 +45,19 @@
         },
         "subscriptions":{
             "connectivity": {
-                "id": "67236ec4-f453-4086-b4d1-78a6a93fad71", // "315c8def-c6ca-4b68-b35f-7bca25c963e3",
+                "id": "315c8def-c6ca-4b68-b35f-7bca25c963e3", // "67236ec4-f453-4086-b4d1-78a6a93fad71"
                 "Name": "Connectivity"
             },
             "identity": {
-                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", // "562a5583-7189-454a-8868-9a774bc1ff4e",
+                "id": "562a5583-7189-454a-8868-9a774bc1ff4e", // "5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
                 "Name": "Identity"
             },
             "management": {
-                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", // "bc923b92-eb30-4121-b5bc-4f64d07cb5de",
+                "id": "bc923b92-eb30-4121-b5bc-4f64d07cb5de", // "5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
                 "Name": "Management"
             },
             "security": {
-                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", // "bc9c92b3-f1ef-4c50-adc2-6a123b7d9f2f",
+                "id": "bc9c92b3-f1ef-4c50-adc2-6a123b7d9f2f", // "5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
                 "Name": "Security"
             }/*,
             "avd": {
