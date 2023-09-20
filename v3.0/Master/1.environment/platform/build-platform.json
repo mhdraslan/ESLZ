@@ -5,7 +5,7 @@
         "deploymentUris": {
             "type": "object"
         },
-        "subscriptions": {
+        "platformSubscriptions": {
             "type": "object"
         },
         "connectivityLzSettings":{
@@ -34,12 +34,12 @@
         }
     },
     "resources": [
-        /*
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
+            "condition": "[parameters('connectivityLzSettings').build]",
             "Name":"[variables('deplaymentNames').lzConnectivityDeploymentName]",
-            "subscriptionId": "[parameters('subscriptions').Connectivity.Id]",
+            "subscriptionId": "[parameters('platformSubscriptions').Connectivity.Id]",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
@@ -51,20 +51,21 @@
                     "deploymentUris": {
                         "value":"[parameters('deploymentUris')]"
                     },
-                    "subscriptions":{
-                        "value":"[parameters('subscriptions')]"
+                    "platformSubscriptions":{
+                        "value":"[parameters('platformSubscriptions')]"
                     },
                     "environmentSettings": {
                         "value":"[parameters('connectivityLzSettings')]"
                     }
                 }
             }
-        },*/
+        },
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
+            "condition": "[parameters('identityLzSettings').build]",
             "Name":"[variables('deplaymentNames').lzIdentityDeploymentName]",
-            "subscriptionId": "[parameters('subscriptions').Identity.Id]",
+            "subscriptionId": "[parameters('platformSubscriptions').Identity.Id]",
             "location":"[deployment().location]",
             "dependsOn": [
                 //"[variables('deplaymentNames').lzConnectivityDeploymentName]"
@@ -78,15 +79,15 @@
                     "deploymentUris": {
                         "value":"[parameters('deploymentUris')]"
                     },
-                    "subscriptions":{
-                        "value":"[parameters('subscriptions')]"
+                    "platformSubscriptions":{
+                        "value":"[parameters('platformSubscriptions')]"
                     },
                     "environmentSettings": {
                         "value":"[parameters('identityLzSettings')]"
                     }
                 }
             }
-        }/*,
+        },
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
@@ -98,13 +99,21 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[parameters('deploymentUris').lzTemplateUri]"
+                    "uri":"[parameters('deploymentUris').buildManagementLzUri]"
                 },
-                "parameterslink": {
-                    "uri":"[parameters('deploymentUris').lzManagementUri]"
+                "parameters": {
+                    "deploymentUris": {
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "platformSubscriptions":{
+                        "value":"[parameters('platformSubscriptions')]"
+                    },
+                    "environmentSettings": {
+                        "value":"[parameters('managementLzSettings')]"
+                    }
                 }
             }
-        },
+        }/*,
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",

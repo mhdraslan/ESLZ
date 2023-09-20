@@ -10,14 +10,17 @@
         },
         "environmentSettings": {
             "type": "object"
+        },
+        "lzName": {
+            "type": "string"
         }
     },
     "variables": {
         "deplaymentNames":{
-            "lzIdentityResourceGroupsDeploymentName": "Build-Platform-Identity-LZ-ResourceGroups",
-            "lzIdentityNetworkingDeploymentName":"Build-Platform-Identity-LZ-Networking",
-            "lzIdentityVirtualMachinesDeploymentName":"Build-Platform-Identity-LZ-VirtualMachines",
-            "lzIdentityNvaDeploymentName":"Build-Platform-Identity-LZ-NVAs"
+            "lzAppResourceGroupsDeploymentName": "[concat('Build-',parameters('lzName'),'-LZ-ResourceGroups')]",
+            "lzAppNetworkingDeploymentName":"[concat('Build-',parameters('lzName'),'-LZ-Networking')]",
+            "lzAppVirtualMachinesDeploymentName":"[concat('Build-',parameters('lzName'),'-LZ-VirtualMachines')]",
+            "lzAppNvaDeploymentName":"[concat('Build-',parameters('lzName'),'-LZ-NVAs')]"
         }
     },
     "resources": [
@@ -25,7 +28,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"[variables('deplaymentNames').lzIdentityResourceGroupsDeploymentName]",
+            "Name":"[variables('deplaymentNames').lzAppResourceGroupsDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
@@ -53,10 +56,10 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"[variables('deplaymentNames').lzIdentityNetworkingDeploymentName]",
+            "Name":"[variables('deplaymentNames').lzAppNetworkingDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
-                "[variables('deplaymentNames').lzIdentityResourceGroupsDeploymentName]" 
+                "[variables('deplaymentNames').lzAppResourceGroupsDeploymentName]" 
             ],
             "properties":{
                 "mode":"Incremental",
@@ -92,10 +95,10 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"[variables('deplaymentNames').lzIdentityVirtualMachinesDeploymentName]",
+            "Name":"[variables('deplaymentNames').lzAppVirtualMachinesDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
-                "[variables('deplaymentNames').lzIdentityNetworkingDeploymentName]" 
+                "[variables('deplaymentNames').lzAppNetworkingDeploymentName]" 
             ],
             "properties":{
                 "mode":"Incremental",
