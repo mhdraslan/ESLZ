@@ -37,7 +37,8 @@
         }
     },
     "resources": [
-        {
+        
+/*        {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "condition": "[parameters('connectivityLzSettings').build]",
@@ -136,6 +137,11 @@
             }
         }*/
     ],
-    "outputs": {},
+    "outputs": {
+        "test": {
+            "type":"string",
+            "value": "[parameters('deploymentUris').buildConnectivityLzUri]"
+        }
+    },
     "functions": []
 }
