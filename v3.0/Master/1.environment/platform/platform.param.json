@@ -34,15 +34,15 @@
                 "defMonitoringUri"      : "2.definitions/monitoring.json",
                 "defVirtualMachinesUri" : "2.definitions/virtualmachines.json",
 
-                "lzConnectivityUri"     : "1.environment/platform/connectivity/base-connectivity-lz.param.json",
-                "lzIdentityUri"         : "1.environment/platform/identity/identity-lz.param.json",
-                "lzManagementUri"       : "1.environment/platform/management/management-lz.param.json",
-                "lzSecurityUri"         : "1.environment/platform/management/security-lz.param.json",
+                //"lzConnectivityUri"     : "1.environment/platform/connectivity/base-connectivity-lz.param.json",
+                //"lzIdentityUri"         : "1.environment/platform/identity/identity-lz.param.json",
+                //"lzManagementUri"       : "1.environment/platform/management/management-lz.param.json",
+                //"lzSecurityUri"         : "1.environment/platform/management/security-lz.param.json",
                 
                 "buildPlatformLzUri"    : "1.environment/platform/build-platform.json",
-                "buildConnectivityLzUri": "1.environment/platform/connectivity/build-connectivity.json",
-                "buildIdentityLzUri"    : "1.environment/platform/identity/build-identity.json",
-                "buildManagementLzUri"  : "1.environment/platform/management/build-management.json",
+                "buildConnectivityLzUri": "connectivity/build-connectivity.json",
+                "buildIdentityLzUri"    : "identity/build-identity.json",
+                "buildManagementLzUri"  : "management/build-management.json",
                 "buildAppsLzUri"        : "1.environment/landing-zones/build-landing-zones.json"
             }
         },
