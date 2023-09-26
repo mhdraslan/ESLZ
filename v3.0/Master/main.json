@@ -45,19 +45,19 @@
         },
         "platformSubscriptions":{
             "connectivity": {
-                "id": "315c8def-c6ca-4b68-b35f-7bca25c963e3", // "67236ec4-f453-4086-b4d1-78a6a93fad71"
+                "id":  "67236ec4-f453-4086-b4d1-78a6a93fad71", //"315c8def-c6ca-4b68-b35f-7bca25c963e3"
                 "Name": "Connectivity"
             },
             "identity": {
-                "id": "562a5583-7189-454a-8868-9a774bc1ff4e", // "5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", //"562a5583-7189-454a-8868-9a774bc1ff4e"
                 "Name": "Identity"
             },
             "management": {
-                "id": "bc923b92-eb30-4121-b5bc-4f64d07cb5de", // "5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", // "bc923b92-eb30-4121-b5bc-4f64d07cb5de"
                 "Name": "Management"
             },
             "security": {
-                "id": "bc9c92b3-f1ef-4c50-adc2-6a123b7d9f2f", // "5fe2c881-8871-4546-bc4e-07a2e40dbe9e"
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", //"bc9c92b3-f1ef-4c50-adc2-6a123b7d9f2f"
                 "Name": "Security"
             }/*,
             "avd": {
@@ -1097,9 +1097,9 @@
             }
         },
         "cloudpcLzSettings":{
-            "build":false,
+            "build":true,
             "subscription":{
-                "id":"xxxxxxxxxxxxxxxxxxxxxxx",
+                "id":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                 "name":"cloudpc"
             },
             "resourceGroups":{
@@ -1127,7 +1127,11 @@
                         "rgLocation":"UAENorth"
                     },
                     {
-                        "rgName":"dewa-aen-prd-plt-sdm-dcs-int-rg",
+                        "rgName":"dewa-aen-prd-plt-sdm-cloudpc-int-rg",
+                        "rgLocation":"UAENorth"
+                    },
+                    {
+                        "rgName":"dewa-aen-prd-plt-sdm-cpc-images-int-rg",
                         "rgLocation":"UAENorth"
                     }
                 ]
@@ -1143,9 +1147,9 @@
                     }
                     */
                     {
-                        "vNetName":"dewa-aen-prd-plt-identity-vnet",
-                        "vNetAddressSpace":["10.52.48.0/26"],
-                        "vNetDnsServers":["10.52.48.4","10.52.48.5"],
+                        "vNetName":"dewa-aen-prd-plt-cloudpc-vnet",
+                        "vNetAddressSpace":["10.52.20.0/20","10.52.24.0/20","10.52.28.0/20"],
+                        "vNetDnsServers":["10.52.1.132","10.52.1.133"],
                         "rgName":"dewa-aen-prd-plt-sdm-network-int-rg"
                     }
                 ],
@@ -1169,8 +1173,8 @@
                     }
                     */
                     {
-                        "sourceVnetName":"dewa-aen-prd-plt-identity-vnet",
-                        "sourceVnetSubscriptionId":"[variables('platformSubscriptions').identity.id]",
+                        "sourceVnetName":"dewa-aen-prd-plt-cloudpc-vnet",
+                        "sourceVnetSubscriptionId":"[variables('cloudpcLzSettings').subscription.id]",
                         "sourceVnetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "remoteVnetName":"dewa-aen-prd-plt-hub-vnet",
                         "remoteVNetSubscriptionId":"[variables('platformSubscriptions').connectivity.id]",
@@ -1181,8 +1185,8 @@
                         "remoteVnetPeeringAllowForwardedTraffic":false,
                         "remoteVnetPeeringAllowGatewayTransit":false,
                         "remoteVnetPeeringUseRemoteGateways":false,
-                        "sourcePeeringName": "dewa-aen-prd-plt-identity-hub",
-                        "remotePeeringName": "dewa-aen-prd-plt-hub-identity"
+                        "sourcePeeringName": "dewa-aen-prd-plt-cloudpc-hub",
+                        "remotePeeringName": "dewa-aen-prd-plt-hub-cloudpc"
                     }
                 ]
             },
@@ -1195,7 +1199,7 @@
                     }
                     */                    
                     {
-                        "routeTableName":"dewa-aen-prd-plt-identity-dcs-rt",
+                        "routeTableName":"dewa-aen-prd-plt-cloudpc-spoke-rt",
                         "rgName":"dewa-aen-prd-plt-sdm-network-int-rg"
                     }
                 ],
@@ -1214,7 +1218,7 @@
                         "routeEntryAddressPrefix":"0.0.0.0/0",
                         "routeEntryType":"VirtualAppliance",
                         "routeEntryNextHopIPAddress":"10.52.1.196",
-                        "routeTableName":"dewa-aen-prd-plt-identity-dcs-rt"
+                        "routeTableName":"dewa-aen-prd-plt-cloudpc-spoke-rt"
                     }
                 ]
             },
@@ -1232,11 +1236,11 @@
                     }                    
                     */
                     {
-                        "subnetName":"DCs-SNet",
-                        "vNetName":"dewa-aen-prd-plt-identity-vnet",
-                        "subnetAddress":"10.52.48.0/28",
+                        "subnetName":"PoC1-SNet",
+                        "vNetName":"dewa-aen-prd-plt-cloudpc-vnet",
+                        "subnetAddress":"10.52.28.0/23",
                         "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
-                        "udr":"dewa-aen-prd-plt-identity-dcs-rt",
+                        "udr":"dewa-aen-prd-plt-cloudpc-spoke-rt",
                         "udrRg":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "createNsg":true
                     }
@@ -1261,36 +1265,6 @@
                         "adminPassword":"Pa$$w0rd123*"
                     },
                     */
-                    {
-                        "vmName":"az-srv-dc-01",
-                        "rgName":"dewa-aen-prd-plt-sdm-dcs-int-rg",
-                        "vNetName":"dewa-aen-prd-plt-identity-vnet",
-                        "vNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
-                        "subnetName":"DCs-SNet",
-                        "vmZones":["1"],
-                        "osDiskType":"StandardSSD_LRS",
-                        "osPublisher":"microsoftwindowsserver",
-                        "osOffer":"windowsserver",
-                        "osSku":"2022-datacenter-g2",
-                        "vmSize":"Standard_D2s_v5",
-                        "adminUsername":"localadmin",
-                        "adminPassword":"Pa$$w0rd123*"
-                    },
-                    {
-                        "vmName":"az-srv-dc-02",
-                        "rgName":"dewa-aen-prd-plt-sdm-dcs-int-rg",
-                        "vNetName":"dewa-aen-prd-plt-identity-vnet",
-                        "vNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
-                        "subnetName":"DCs-SNet",
-                        "vmZones":["2"],
-                        "osDiskType":"StandardSSD_LRS",
-                        "osPublisher":"microsoftwindowsserver",
-                        "osOffer":"windowsserver",
-                        "osSku":"2022-datacenter-g2",
-                        "vmSize":"Standard_D2s_v5",
-                        "adminUsername":"localadmin",
-                        "adminPassword":"Pa$$w0rd123*"
-                    }
                 ]
             },
             "linuxVMs":{
@@ -1494,21 +1468,29 @@
                     }
                 }
             }
-        }/*,
+        },
         //BUILD APP LZ
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"Launch-Landing-Zones-Build",
+            "Name":"Launch-Platform-Build",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[variables('deploymentUris').buildAppsLzUri]"
+                    "uri":"[variables('deploymentUris').buildAppLzUri]"
+                },
+                "parameters": {
+                    "deploymentUris": {
+                        "value":"[variables('deploymentUris')]"
+                    },
+                    "platformSubscriptions": {
+                        "value":"[variables('platformSubscriptions')]"
+                    }
                 }
             }
-        }*/
+        }
     ],
     "outputs": {},
     "functions": []
