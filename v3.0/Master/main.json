@@ -1449,6 +1449,9 @@
                     "uri":"[variables('deploymentUris').buildPlatformLzUri]"
                 },
                 "parameters": {
+                    "deploymentLocation": {
+                        "value":"[variables('deploymentLocation')]"
+                    },
                     "deploymentUris": {
                         "value":"[variables('deploymentUris')]"
                     },
