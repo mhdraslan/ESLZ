@@ -5,7 +5,7 @@
         "deploymentUris": {
             "type": "object"
         },
-        "platformSubscriptions": {
+        "subscriptions": {
             "type": "object"
         },
         "environmentSettings": {
@@ -38,10 +38,10 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('platformSubscriptions').identity.Name]"
+                        "value":"[parameters('subscriptions').identity.Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('platformSubscriptions').identity.Id]"
+                        "value":"[parameters('subscriptions').identity.Id]"
                     },
                     "resourceGroups":{
                         "value":"[parameters('environmentSettings').resourceGroups]"
@@ -68,10 +68,10 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('platformSubscriptions').identity.Name]"
+                        "value":"[parameters('subscriptions').identity.Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('platformSubscriptions').identity.Id]"
+                        "value":"[parameters('subscriptions').identity.Id]"
                     },
                     "vnets":{
                         "value":"[parameters('environmentSettings').vnets]"
@@ -107,10 +107,10 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('platformSubscriptions').identity.Name]"
+                        "value":"[parameters('subscriptions').identity.Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('platformSubscriptions').identity.Id]"
+                        "value":"[parameters('subscriptions').identity.Id]"
                     },
                     "windowsVMs":{
                         "value":"[parameters('environmentSettings').windowsVMs]"

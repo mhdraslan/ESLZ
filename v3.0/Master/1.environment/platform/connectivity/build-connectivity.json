@@ -5,7 +5,7 @@
         "deploymentUris": {
             "type": "object"
         },
-        "platformSubscriptions": {
+        "subscriptions": {
             "type": "object"
         },
         "environmentSettings": {
@@ -39,10 +39,10 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('platformSubscriptions').connectivity.Name]"
+                        "value":"[parameters('subscriptions').connectivity.Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('platformSubscriptions').connectivity.Id]"
+                        "value":"[parameters('subscriptions').connectivity.Id]"
                     },
                     "resourceGroups":{
                         "value":"[parameters('environmentSettings').resourceGroups]"
@@ -69,10 +69,10 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('platformSubscriptions').connectivity.Name]"
+                        "value":"[parameters('subscriptions').connectivity.Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('platformSubscriptions').connectivity.Id]"
+                        "value":"[parameters('subscriptions').connectivity.Id]"
                     },
                     "vnets":{
                         "value":"[parameters('environmentSettings').vnets]"
@@ -108,10 +108,10 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('platformSubscriptions').connectivity.Name]"
+                        "value":"[parameters('subscriptions').connectivity.Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('platformSubscriptions').connectivity.Id]"
+                        "value":"[parameters('subscriptions').connectivity.Id]"
                     },
                     "windowsVMs":{
                         "value":"[parameters('environmentSettings').windowsVMs]"
@@ -141,10 +141,10 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('platformSubscriptions').connectivity.Name]"
+                        "value":"[parameters('subscriptions').connectivity.Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('platformSubscriptions').connectivity.Id]"
+                        "value":"[parameters('subscriptions').connectivity.Id]"
                     },
                     "azFirewall":{
                         "value":"[parameters('environmentSettings').azFirewall]"

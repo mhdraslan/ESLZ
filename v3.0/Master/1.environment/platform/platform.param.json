@@ -46,7 +46,7 @@
                 "buildAppsLzUri"        : "1.environment/landing-zones/build-landing-zones.json"
             }
         },
-        "platformSubscriptions":{
+        "subscriptions":{
             "value":{
                 "connectivity": {
                     "id":  "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", //"315c8def-c6ca-4b68-b35f-7bca25c963e3"
@@ -519,10 +519,10 @@
                         /* DO NOT DELETE. PEERING TEMPLATE
                         {
                             "sourceVnetName":"cnt-aen-identity-vnet",
-                            "sourceVnetSubscriptionId":"[parameters('platformSubscriptions').identity.id]",
+                            "sourceVnetSubscriptionId":"[parameters('subscriptions').identity.id]",
                             "sourceVnetResourceGroup":"cnt-aen-connectivity-rg",
                             "remoteVnetName":"cnt-aen-hub-vnet",
-                            "remoteVNetSubscriptionId":"[parameters('platformSubscriptions').connectivity.id]",
+                            "remoteVNetSubscriptionId":"[parameters('subscriptions').connectivity.id]",
                             "remoteVNetResourceGroup":"cnt-aen-connectivity-rg",
                             "sourceVnetPeeringAllowForwardedTraffic":true,
                             "sourceVnetPeeringAllowGatewayTransit":false,
@@ -536,10 +536,10 @@
                         */
                         {
                             "sourceVnetName":"dewa-aen-prd-plt-identity-vnet",
-                            "sourceVnetSubscriptionId":"[parameters('platformSubscriptions').identity.id]",
+                            "sourceVnetSubscriptionId":"[parameters('subscriptions').identity.id]",
                             "sourceVnetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
                             "remoteVnetName":"dewa-aen-prd-plt-hub-vnet",
-                            "remoteVNetSubscriptionId":"[parameters('platformSubscriptions').connectivity.id]",
+                            "remoteVNetSubscriptionId":"[parameters('subscriptions').connectivity.id]",
                             "remoteVNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
                             "sourceVnetPeeringAllowForwardedTraffic":true,
                             "sourceVnetPeeringAllowGatewayTransit":false,
@@ -844,10 +844,10 @@
                         /* DO NOT DELETE. PEERING TEMPLATE
                         {
                             "sourceVnetName":"cnt-aen-identity-vnet",
-                            "sourceVnetSubscriptionId":"[parameters('platformSubscriptions').identity.id]",
+                            "sourceVnetSubscriptionId":"[parameters('subscriptions').identity.id]",
                             "sourceVnetResourceGroup":"cnt-aen-connectivity-rg",
                             "remoteVnetName":"cnt-aen-hub-vnet",
-                            "remoteVNetSubscriptionId":"[parameters('platformSubscriptions').connectivity.id]",
+                            "remoteVNetSubscriptionId":"[parameters('subscriptions').connectivity.id]",
                             "remoteVNetResourceGroup":"cnt-aen-connectivity-rg",
                             "sourceVnetPeeringAllowForwardedTraffic":true,
                             "sourceVnetPeeringAllowGatewayTransit":false,
@@ -861,10 +861,10 @@
                         */
                         {
                             "sourceVnetName":"dewa-aen-prd-plt-mgmt-vnet",
-                            "sourceVnetSubscriptionId":"[parameters('platformSubscriptions').management.id]",
+                            "sourceVnetSubscriptionId":"[parameters('subscriptions').management.id]",
                             "sourceVnetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
                             "remoteVnetName":"dewa-aen-prd-plt-hub-vnet",
-                            "remoteVNetSubscriptionId":"[parameters('platformSubscriptions').connectivity.id]",
+                            "remoteVNetSubscriptionId":"[parameters('subscriptions').connectivity.id]",
                             "remoteVNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
                             "sourceVnetPeeringAllowForwardedTraffic":true,
                             "sourceVnetPeeringAllowGatewayTransit":false,

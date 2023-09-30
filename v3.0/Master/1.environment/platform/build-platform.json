@@ -8,7 +8,7 @@
         "deploymentUris": {
             "type": "object"
         },
-        "platformSubscriptions": {
+        "subscriptions": {
             "type": "object"
         },
         "connectivityLzSettings":{
@@ -42,7 +42,7 @@
             "apiVersion":"2019-05-10",
             "condition": "[parameters('connectivityLzSettings').build]",
             "Name":"[variables('deplaymentNames').lzConnectivityDeploymentName]",
-            "subscriptionId": "[parameters('platformSubscriptions').Connectivity.Id]",
+            "subscriptionId": "[parameters('subscriptions').Connectivity.Id]",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
@@ -54,8 +54,8 @@
                     "deploymentUris": {
                         "value":"[parameters('deploymentUris')]"
                     },
-                    "platformSubscriptions":{
-                        "value":"[parameters('platformSubscriptions')]"
+                    "subscriptions":{
+                        "value":"[parameters('subscriptions')]"
                     },
                     "environmentSettings": {
                         "value":"[parameters('connectivityLzSettings')]"
@@ -68,7 +68,7 @@
             "apiVersion":"2019-05-10",
             "condition": "[parameters('identityLzSettings').build]",
             "Name":"[variables('deplaymentNames').lzIdentityDeploymentName]",
-            "subscriptionId": "[parameters('platformSubscriptions').Identity.Id]",
+            "subscriptionId": "[parameters('subscriptions').Identity.Id]",
             "location":"[deployment().location]",
             "dependsOn": [
                 "[variables('deplaymentNames').lzConnectivityDeploymentName]"
@@ -82,8 +82,8 @@
                     "deploymentUris": {
                         "value":"[parameters('deploymentUris')]"
                     },
-                    "platformSubscriptions":{
-                        "value":"[parameters('platformSubscriptions')]"
+                    "subscriptions":{
+                        "value":"[parameters('subscriptions')]"
                     },
                     "environmentSettings": {
                         "value":"[parameters('identityLzSettings')]"
@@ -108,8 +108,8 @@
                     "deploymentUris": {
                         "value":"[parameters('deploymentUris')]"
                     },
-                    "platformSubscriptions":{
-                        "value":"[parameters('platformSubscriptions')]"
+                    "subscriptions":{
+                        "value":"[parameters('subscriptions')]"
                     },
                     "environmentSettings": {
                         "value":"[parameters('managementLzSettings')]"

@@ -43,7 +43,12 @@
             "buildManagementLzUri" : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/management/build-management.json')]",
             "buildAppsLzUri"        : "[uri(deployment().properties.templateLink.uri, '1.environment/landing-zones/build-landing-zones.json')]"
         },
-        "platformSubscriptions":{
+        "subscriptions":{
+            /* DO NOT DELETE. SUBSCRIPTION TEMPLATE
+            "avd": {
+                "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", 
+                "Name": "AVD"
+            }*/
             "connectivity": {
                 "id":  "67236ec4-f453-4086-b4d1-78a6a93fad71", //"315c8def-c6ca-4b68-b35f-7bca25c963e3"
                 "Name": "Connectivity"
@@ -59,11 +64,11 @@
             "security": {
                 "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", //"bc9c92b3-f1ef-4c50-adc2-6a123b7d9f2f"
                 "Name": "Security"
-            }/*,
-            "avd": {
+            },
+            "cloudPc": {
                 "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e", 
-                "Name": "AVD"
-            }*/
+                "Name": "CloudPC"
+            }
         },
         "connectivityLzSettings":{
             "build":true,
@@ -515,10 +520,10 @@
                     /* DO NOT DELETE. PEERING TEMPLATE
                     {
                         "sourceVnetName":"cnt-aen-identity-vnet",
-                        "sourceVnetSubscriptionId":"[variables('platformSubscriptions').identity.id]",
+                        "sourceVnetSubscriptionId":"[variables('subscriptions').identity.id]",
                         "sourceVnetResourceGroup":"cnt-aen-connectivity-rg",
                         "remoteVnetName":"cnt-aen-hub-vnet",
-                        "remoteVNetSubscriptionId":"[variables('platformSubscriptions').connectivity.id]",
+                        "remoteVNetSubscriptionId":"[variables('subscriptions').connectivity.id]",
                         "remoteVNetResourceGroup":"cnt-aen-connectivity-rg",
                         "sourceVnetPeeringAllowForwardedTraffic":true,
                         "sourceVnetPeeringAllowGatewayTransit":false,
@@ -532,10 +537,10 @@
                     */
                     {
                         "sourceVnetName":"dewa-aen-prd-plt-identity-vnet",
-                        "sourceVnetSubscriptionId":"[variables('platformSubscriptions').identity.id]",
+                        "sourceVnetSubscriptionId":"[variables('subscriptions').identity.id]",
                         "sourceVnetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "remoteVnetName":"dewa-aen-prd-plt-hub-vnet",
-                        "remoteVNetSubscriptionId":"[variables('platformSubscriptions').connectivity.id]",
+                        "remoteVNetSubscriptionId":"[variables('subscriptions').connectivity.id]",
                         "remoteVNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "sourceVnetPeeringAllowForwardedTraffic":true,
                         "sourceVnetPeeringAllowGatewayTransit":false,
@@ -838,10 +843,10 @@
                     /* DO NOT DELETE. PEERING TEMPLATE
                     {
                         "sourceVnetName":"cnt-aen-identity-vnet",
-                        "sourceVnetSubscriptionId":"[variables('platformSubscriptions').identity.id]",
+                        "sourceVnetSubscriptionId":"[variables('subscriptions').identity.id]",
                         "sourceVnetResourceGroup":"cnt-aen-connectivity-rg",
                         "remoteVnetName":"cnt-aen-hub-vnet",
-                        "remoteVNetSubscriptionId":"[variables('platformSubscriptions').connectivity.id]",
+                        "remoteVNetSubscriptionId":"[variables('subscriptions').connectivity.id]",
                         "remoteVNetResourceGroup":"cnt-aen-connectivity-rg",
                         "sourceVnetPeeringAllowForwardedTraffic":true,
                         "sourceVnetPeeringAllowGatewayTransit":false,
@@ -855,10 +860,10 @@
                     */
                     {
                         "sourceVnetName":"dewa-aen-prd-plt-mgmt-vnet",
-                        "sourceVnetSubscriptionId":"[variables('platformSubscriptions').management.id]",
+                        "sourceVnetSubscriptionId":"[variables('subscriptions').management.id]",
                         "sourceVnetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "remoteVnetName":"dewa-aen-prd-plt-hub-vnet",
-                        "remoteVNetSubscriptionId":"[variables('platformSubscriptions').connectivity.id]",
+                        "remoteVNetSubscriptionId":"[variables('subscriptions').connectivity.id]",
                         "remoteVNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "sourceVnetPeeringAllowForwardedTraffic":true,
                         "sourceVnetPeeringAllowGatewayTransit":false,
@@ -1098,10 +1103,6 @@
         },
         "cloudpcLzSettings":{
             "build":false,
-            "subscription":{
-                "id":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                "name":"cloudpc"
-            },
             "resourceGroups":{
                 "rgSettings":[
                     /* DO NOT DELETE. RESOURCE GROUP TEMPLATES
@@ -1157,10 +1158,10 @@
                     /* DO NOT DELETE. PEERING TEMPLATE
                     {
                         "sourceVnetName":"contoso-identity-vnet",
-                        "sourceVnetSubscriptionId":"[variables('platformSubscriptions').identity.id]",
+                        "sourceVnetSubscriptionId":"[variables('subscriptions').identity.id]",
                         "sourceVnetResourceGroup":"contoso-connectivity-rg",
                         "remoteVnetName":"contoso-hub-vnet",
-                        "remoteVNetSubscriptionId":"[variables('platformSubscriptions').connectivity.id]",
+                        "remoteVNetSubscriptionId":"[variables('subscriptions').connectivity.id]",
                         "remoteVNetResourceGroup":"contoso-connectivity-rg",
                         "sourceVnetPeeringAllowForwardedTraffic":true,
                         "sourceVnetPeeringAllowGatewayTransit":false,
@@ -1174,10 +1175,10 @@
                     */
                     {
                         "sourceVnetName":"dewa-aen-prd-plt-cloudpc-vnet",
-                        "sourceVnetSubscriptionId":"[variables('cloudpcLzSettings').subscription.id]",
+                        "sourceVnetSubscriptionId":"[variables('subscriptions').cloudPc.id]",
                         "sourceVnetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "remoteVnetName":"dewa-aen-prd-plt-hub-vnet",
-                        "remoteVNetSubscriptionId":"[variables('platformSubscriptions').connectivity.id]",
+                        "remoteVNetSubscriptionId":"[variables('subscriptions').connectivity.id]",
                         "remoteVNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
                         "sourceVnetPeeringAllowForwardedTraffic":true,
                         "sourceVnetPeeringAllowGatewayTransit":false,
@@ -1451,8 +1452,8 @@
                     "deploymentUris": {
                         "value":"[variables('deploymentUris')]"
                     },
-                    "platformSubscriptions": {
-                        "value":"[variables('platformSubscriptions')]"
+                    "subscriptions": {
+                        "value":"[variables('subscriptions')]"
                     },
                     "connectivityLzSettings": {
                         "value":"[variables('connectivityLzSettings')]"
@@ -1485,8 +1486,8 @@
                     "deploymentUris": {
                         "value":"[variables('deploymentUris')]"
                     },
-                    "platformSubscriptions": {
-                        "value":"[variables('platformSubscriptions')]"
+                    "subscriptions": {
+                        "value":"[variables('subscriptions')]"
                     }
                 }
             }
