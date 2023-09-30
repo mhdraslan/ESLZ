@@ -32,7 +32,7 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').defResourceGroupsUri)]"
+                    "uri":"[uri(parameters('deploymentUris').base,parameters('deploymentUris').defResourceGroupsUri)]"
                 },
                 "parameters": {
                     "deploymentUris":{
@@ -62,7 +62,7 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').defNetworkingUri)]"
+                    "uri":"[uri(parameters('deploymentUris').base,parameters('deploymentUris').defNetworkingUri)]"
                 },
                 "parameters": {
                     "deploymentUris":{
@@ -101,7 +101,7 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').defVirtualMachinesUri)]"
+                    "uri":"[uri(parameters('deploymentUris').base,parameters('deploymentUris').defVirtualMachinesUri)]"
                 },
                 "parameters": {
                     "deploymentUris":{
@@ -134,7 +134,7 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').defNvaUri)]"
+                    "uri":"[uri(parameters('deploymentUris').base,parameters('deploymentUris').defNvaUri)]"
                 },
                 "parameters": {
                     "deploymentUris":{
