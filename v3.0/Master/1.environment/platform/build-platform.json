@@ -36,8 +36,7 @@
             "lzSecurityDeploymentName":"Start-Platform-Security-Build"
         }
     },
-    "resources": [
-        
+    "resources": [ 
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
@@ -49,7 +48,7 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[uri(parameters('deploymentUris').base,parameters('deploymentUris').buildConnectivityLzUri)]"
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').buildConnectivityLzUri)]"
                 },
                 "parameters": {
                     "deploymentUris": {
@@ -77,7 +76,7 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[uri(parameters('deploymentUris').base,parameters('deploymentUris').buildIdentityLzUri)]"
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').buildIdentityLzUri)]"
                 },
                 "parameters": {
                     "deploymentUris": {
@@ -103,7 +102,7 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[uri(parameters('deploymentUris').base,parameters('deploymentUris').buildManagementLzUri)]"
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').buildManagementLzUri)]"
                 },
                 "parameters": {
                     "deploymentUris": {
@@ -129,10 +128,10 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[uri(parameters('deploymentUris').base,parameters('deploymentUris').lzTemplateUri)]"
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').lzTemplateUri)]"
                 },
                 "parameterslink": {
-                    "uri":"[uri(parameters('deploymentUris').base,parameters('deploymentUris').lzSecurityUri)]"
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').lzSecurityUri)]"
                 }
             }
         }*/
@@ -140,7 +139,7 @@
     "outputs": {
         "test": {
             "type":"string",
-            "value": "[uri(parameters('deploymentUris').base,parameters('deploymentUris').buildConnectivityLzUri)]"
+            "value": "[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').buildConnectivityLzUri)]"
         }
     },
     "functions": []
