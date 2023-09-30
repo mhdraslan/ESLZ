@@ -1469,7 +1469,7 @@
                     }
                 }
             }
-        },
+        }/*,
         //BUILD APP LZ
         {
             "type":"Microsoft.Resources/deployments",
@@ -1491,7 +1491,7 @@
                     }
                 }
             }
-        }
+        }*/
     ],
     "outputs": {},
     "functions": []
