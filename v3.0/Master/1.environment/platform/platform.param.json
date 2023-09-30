@@ -7,6 +7,7 @@
         },
         "deploymentUris": {
             "value":{
+                "base"                  : "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/v3.0/Master/", // URL must end with a "/".
                 "resourceGroup"         : "3.templates/resource-group/resourcegroup.json",
                 "virtualNetwork"        : "3.templates/virtual-network/virtualnetwork.json",
                 "subnet"                : "3.templates/virtual-network/subnet.json",
@@ -40,10 +41,10 @@
                 //"lzSecurityUri"         : "1.environment/platform/management/security-lz.param.json", 
                 
                 "buildPlatformLzUri"    : "1.environment/platform/build-platform.json",
-                "buildConnectivityLzUri": "connectivity/build-connectivity.json",
-                "buildIdentityLzUri"    : "identity/build-identity.json",
-                "buildManagementLzUri"  : "management/build-management.json",
-                "buildAppsLzUri"        : "1.environment/landing-zones/build-landing-zones.json"
+                "buildConnectivityLzUri": "1.environment/platform/connectivity/build-connectivity.json",
+                "buildIdentityLzUri"    : "1.environment/platform/identity/build-identity.json",
+                "buildManagementLzUri"  : "1.environment/platform/management/build-management.json"
+                //"buildAppsLzUri"        : "1.environment/landing-zones/build-landing-zones.json"
             }
         },
         "platformSubscriptions":{
