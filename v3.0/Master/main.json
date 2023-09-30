@@ -1479,7 +1479,7 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[variables('deploymentUris').buildAppLzUri]"
+                    "uri":"[variables('deploymentUris').buildAppsLzUri]"
                 },
                 "parameters": {
                     "deploymentUris": {
