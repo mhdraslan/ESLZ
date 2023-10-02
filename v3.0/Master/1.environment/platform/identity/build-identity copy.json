@@ -14,11 +14,10 @@
     },
     "variables": {
         "deplaymentNames":{
-            "resourceGroupsDeploymentName": "Build-Platform-Connectivity-LZ-ResourceGroups",
-            "networkingDeploymentName":"Build-Platform-Connectivity-LZ-Networking",
-            "virtualMachinesDeploymentName":"Build-Platform-Connectivity-LZ-VirtualMachines",
-            "nvaDeploymentName":"Build-Platform-Connectivity-LZ-NVAs"
-
+            "lzIdentityResourceGroupsDeploymentName": "Build-Platform-Identity-LZ-ResourceGroups",
+            "lzIdentityNetworkingDeploymentName":"Build-Platform-Identity-LZ-Networking",
+            "lzIdentityVirtualMachinesDeploymentName":"Build-Platform-Identity-LZ-VirtualMachines",
+            "lzIdentityNvaDeploymentName":"Build-Platform-Identity-LZ-NVAs"
         }
     },
     "resources": [
@@ -26,7 +25,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"[variables('deplaymentNames').resourceGroupsDeploymentName]",
+            "Name":"[variables('deplaymentNames').lzIdentityResourceGroupsDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
@@ -39,10 +38,10 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('subscriptions').connectivity.Name]"
+                        "value":"[parameters('subscriptions').identity.Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('subscriptions').connectivity.Id]"
+                        "value":"[parameters('subscriptions').identity.Id]"
                     },
                     "resourceGroups":{
                         "value":"[parameters('environmentSettings').resourceGroups]"
@@ -54,10 +53,10 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"[variables('deplaymentNames').networkingDeploymentName]",
+            "Name":"[variables('deplaymentNames').lzIdentityNetworkingDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
-                "[variables('deplaymentNames').resourceGroupsDeploymentName]" 
+                "[variables('deplaymentNames').lzIdentityResourceGroupsDeploymentName]" 
             ],
             "properties":{
                 "mode":"Incremental",
@@ -69,10 +68,10 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('subscriptions').connectivity.Name]"
+                        "value":"[parameters('subscriptions').identity.Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('subscriptions').connectivity.Id]"
+                        "value":"[parameters('subscriptions').identity.Id]"
                     },
                     "vnets":{
                         "value":"[parameters('environmentSettings').vnets]"
@@ -93,10 +92,10 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"[variables('deplaymentNames').virtualMachinesDeploymentName]",
+            "Name":"[variables('deplaymentNames').lzIdentityVirtualMachinesDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
-                "[variables('deplaymentNames').networkingDeploymentName]" 
+                "[variables('deplaymentNames').lzIdentityNetworkingDeploymentName]" 
             ],
             "properties":{
                 "mode":"Incremental",
@@ -108,55 +107,16 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('subscriptions').connectivity.Name]"
+                        "value":"[parameters('subscriptions').identity.Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('subscriptions').connectivity.Id]"
+                        "value":"[parameters('subscriptions').identity.Id]"
                     },
                     "windowsVMs":{
                         "value":"[parameters('environmentSettings').windowsVMs]"
                     },
                     "linuxVMs":{
                         "value":"[parameters('environmentSettings').linuxVMs]"
-                    }
-                }
-            }
-        },
-        // Build NVAs
-        {
-            "type":"Microsoft.Resources/deployments",
-            "apiVersion":"2019-05-10",
-            "Name":"[variables('deplaymentNames').nvaDeploymentName]",
-            "location":"[deployment().location]",
-            "dependsOn": [
-                "[variables('deplaymentNames').networkingDeploymentName]"
-            ],
-            "properties":{
-                "mode":"Incremental",
-                "templatelink":{
-                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').defNvaUri)]"
-                },
-                "parameters": {
-                    "deploymentUris":{
-                        "value":"[parameters('deploymentUris')]"
-                    },
-                    "subscriptionName":{
-                        "value":"[parameters('subscriptions').connectivity.Name]"
-                    },
-                    "subscriptionId":{
-                        "value":"[parameters('subscriptions').connectivity.Id]"
-                    },
-                    "azFirewall":{
-                        "value":"[parameters('environmentSettings').azFirewall]"
-                    },
-                    "azBastion":{
-                        "value":"[parameters('environmentSettings').azBastion]"
-                    },
-                    "azVpnGateway":{
-                        "value":"[parameters('environmentSettings').azVpnGateway]"
-                    },
-                    "azAppGatewayV2":{
-                        "value":"[parameters('environmentSettings').azAppGatewayV2]"
                     }
                 }
             }

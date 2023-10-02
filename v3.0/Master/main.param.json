@@ -5,47 +5,6 @@
         "deploymentLocation": {
             "value":"uaenorth"
         },
-        "deploymentUris": {
-            "value":{
-                "resourceGroup"         : "3.templates/resource-group/resourcegroup.json",
-                "virtualNetwork"        : "3.templates/virtual-network/virtualnetwork.json",
-                "subnet"                : "3.templates/virtual-network/subnet.json",
-                "nsg"                   : "3.templates/virtual-network/nsg.json",
-                "peering"               : "3.templates/virtual-network/peering.json",
-                "udrTable"              : "3.templates/udr/routetable.json",
-                "udrEntry"              : "3.templates/udr/routeentry.json",
-                "udrLink"               : "3.templates/udr/linksubnet.json",
-                "udrLinkwithNsg"        : "3.templates/udr/linksubnetnsg.json",
-                "windowsVm"             : "3.templates/virtual-machine/windowsvm.json",
-                "linuxVm"               : "3.templates/virtual-machine/linuxvm.json",
-                "azFirewall"            : "3.templates/az-firewall/azfirewall.json",
-                "azBastion"             : "3.templates/bastion/bastion.json",
-                "vpnGateway"            : "3.templates/network-gateway/vpngw.json",
-                "logAnalytics"          : "3.templates/log-analytics/laws.json",
-                "keyVault"              : "3.templates/misc/kv.json",
-                "appGatewayV2Waf"       : "3.templates/app-gateway/appgw-v2-waf.json",
-                "appGatewayV2Standard"  : "3.templates/app-gateway/appgw-v2-standard.json",
-                "privatednszone"        : "3.templates/dns/privatednszone.json",
-
-                "defResourceGroupsUri"  : "2.definitions/resource-groups.json",
-                "defMgSubsUri"          : "2.definitions/mgsub.json",
-                "defNetworkingUri"      : "2.definitions/networking.json",
-                "defNvaUri"             : "2.definitions/nva.json",
-                "defMonitoringUri"      : "2.definitions/monitoring.json",
-                "defVirtualMachinesUri" : "2.definitions/virtualmachines.json",
-
-                //"lzConnectivityUri"     : "1.environment/platform/connectivity/base-connectivity-lz.param.json",
-                //"lzIdentityUri"         : "1.environment/platform/identity/identity-lz.param.json",
-                //"lzManagementUri"       : "1.environment/platform/management/management-lz.param.json",
-                //"lzSecurityUri"         : "1.environment/platform/management/security-lz.param.json", 
-                
-                "buildPlatformLzUri"    : "1.environment/platform/build-platform.json",
-                "buildConnectivityLzUri": "1.environment/platform/connectivity/build-connectivity.json",
-                "buildIdentityLzUri"    : "1.environment/platform/identity/build-identity.json",
-                "buildManagementLzUri"  : "1.environment/platform/management/build-management.json",
-                "buildAppsLzUri"        : "1.environment/landing-zones/build-landing-zones.json"
-            }
-        },
         "subscriptions":{
             "value":{
                 "connectivity": {
@@ -836,7 +795,7 @@
                         {
                             "vNetName":"dewa-aen-prd-plt-mgmt-vnet",
                             "vNetAddressSpace":["10.52.63.192/26"],
-                            "vNetDnsServers":["10.52.1.132.4","10.52.1.133"],
+                            "vNetDnsServers":["10.52.1.132","10.52.1.133"],
                             "rgName":"dewa-aen-prd-plt-sdm-network-int-rg"
                         }
                     ],
@@ -1105,6 +1064,399 @@
         },
         "securityLzSettings": {
             "value":{}
+        },
+        "appsLzSettings":{
+            "value":{
+                "landingZones":[
+                    {
+                        "build":true,
+                        "resourceGroups":{
+                            "rgSettings":[
+                                /* DO NOT DELETE. RESOURCE GROUP TEMPLATES
+                                {
+                                    // Networking resources rg
+                                    "rgName":"contoso-network-rg",
+                                    "rgLocation":"UAENorth"
+                                },
+                                */
+                                {
+                                    // Networking resources rg
+                                    "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                                    "rgLocation":"UAENorth"
+                                },
+                                {
+                                    // Monitoring resources rg
+                                    "rgName":"dewa-aen-prd-plt-sdm-monitor-int-rg",
+                                    "rgLocation":"UAENorth"
+                                },
+                                {
+                                    // DR resources rg
+                                    "rgName":"dewa-aen-prd-plt-sdm-recovery-int-rg",
+                                    "rgLocation":"UAENorth"
+                                },
+                                {
+                                    // Security resources rg
+                                    "rgName":"dewa-aen-prd-plt-sdm-security-int-rg",
+                                    "rgLocation":"UAENorth"
+                                },
+                                {
+                                    // Application specific resources rg
+                                    "rgName":"dewa-aen-prd-plt-sdm-cloudpc-int-rg",
+                                    "rgLocation":"UAENorth"
+                                },
+                                {
+                                    // Application specific resources rg
+                                    "rgName":"dewa-aen-prd-plt-sdm-cpc-images-int-rg",
+                                    "rgLocation":"UAENorth"
+                                }
+                            ]
+                        },
+                        "vnets":{
+                            "vnetSettings":[
+                                /* DO NOT DELETE. VIRTUAL NETWORK TEMPLATE
+                                {
+                                    "vNetName":"contoso-identity-vnet",
+                                    "vNetAddressSpace":["10.52.48.0/26"],
+                                    "vNetDnsServers":["10.52.48.4","10.52.48.5"],
+                                    "rgName":"contoso-network-rg"
+                                }
+                                */
+                                {
+                                    "vNetName":"dewa-aen-prd-plt-cloudpc-vnet",
+                                    "vNetAddressSpace":["10.52.20.0/20","10.52.24.0/20","10.52.28.0/20"],
+                                    "vNetDnsServers":["10.52.1.132","10.52.1.133"],
+                                    "rgName":"dewa-aen-prd-plt-sdm-network-int-rg"
+                                }
+                            ],
+                            "peeringSettings":[
+                                /* DO NOT DELETE. PEERING TEMPLATE
+                                {
+                                    "sourceVnetName":"contoso-identity-vnet",
+                                    "sourceVnetSubscriptionId":"[variables('subscriptions').identity.id]",
+                                    "sourceVnetResourceGroup":"contoso-connectivity-rg",
+                                    "remoteVnetName":"contoso-hub-vnet",
+                                    "remoteVNetSubscriptionId":"[variables('subscriptions').connectivity.id]",
+                                    "remoteVNetResourceGroup":"contoso-connectivity-rg",
+                                    "sourceVnetPeeringAllowForwardedTraffic":true,
+                                    "sourceVnetPeeringAllowGatewayTransit":false,
+                                    "sourceVnetPeeringUseRemoteGateways":true,
+                                    "remoteVnetPeeringAllowForwardedTraffic":false,
+                                    "remoteVnetPeeringAllowGatewayTransit":false,
+                                    "remoteVnetPeeringUseRemoteGateways":false,
+                                    "sourcePeeringName": "", // Leave empty to use default naming
+                                    "remotePeeringName": ""  // Leave empty to use default naming
+                                }
+                                
+                                {
+                                    "sourceVnetName":"dewa-aen-prd-plt-cloudpc-vnet",
+                                    "sourceVnetSubscriptionId":"[variables('subscriptions').cloudPc.id]",
+                                    "sourceVnetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
+                                    "remoteVnetName":"dewa-aen-prd-plt-hub-vnet",
+                                    "remoteVNetSubscriptionId":"[variables('subscriptions').connectivity.id]",
+                                    "remoteVNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
+                                    "sourceVnetPeeringAllowForwardedTraffic":true,
+                                    "sourceVnetPeeringAllowGatewayTransit":false,
+                                    "sourceVnetPeeringUseRemoteGateways":false,
+                                    "remoteVnetPeeringAllowForwardedTraffic":false,
+                                    "remoteVnetPeeringAllowGatewayTransit":false,
+                                    "remoteVnetPeeringUseRemoteGateways":false,
+                                    "sourcePeeringName": "dewa-aen-prd-plt-cloudpc-hub",
+                                    "remotePeeringName": "dewa-aen-prd-plt-hub-cloudpc"
+                                }
+                                */
+                            ]
+                        },
+                        "routes":{
+                            "udrTables":[
+                                /* DO NOT DELETE - UDR TABLE TEMPLATE
+                                {
+                                    "routeTableName":"contoso-hub-sharedsvc-rt",
+                                    "rgName":"contoso-network-int-rg"
+                                }
+                                */                    
+                                {
+                                    "routeTableName":"dewa-aen-prd-plt-cloudpc-spoke-rt",
+                                    "rgName":"dewa-aen-prd-plt-sdm-network-int-rg"
+                                }
+                            ],
+                            "udrSettings":[
+                                /* DO NOT DELETE - UDR ENTRY TEMPLATE
+                                {
+                                    "routeEntryName":"default-gateway",
+                                    "routeEntryAddressPrefix":"10.0.0.0/24",
+                                    "routeEntryType":"VirtualAppliance", //Allowed values: VirtualAppliance, None, Internet, VirtualNetworkGateway
+                                    "routeEntryNextHopIPAddress":"10.200.0.196",
+                                    "routeTableName":"contoso-connectivity-gateway-udr"
+                                }
+                                */
+                                {
+                                    "routeEntryName":"default-gateway",
+                                    "routeEntryAddressPrefix":"0.0.0.0/0",
+                                    "routeEntryType":"VirtualAppliance",
+                                    "routeEntryNextHopIPAddress":"10.52.1.196",
+                                    "routeTableName":"dewa-aen-prd-plt-cloudpc-spoke-rt"
+                                }
+                            ]
+                        },
+                        "subnets":{
+                            "subnetSettings":[
+                                /* DO NOT DELETE - SUBNET TEMPLATE
+                                {
+                                    "subnetName":"AzureFirewallSubnet",
+                                    "vNetName":"dewa-aen-prd-plt-hub-vnet",
+                                    "subnetAddress":"10.200.1.192/26",
+                                    "rgName":"contoso-network-rg",
+                                    "udr":"",
+                                    "udrRg":"",
+                                    "createNsg":false
+                                }                    
+                                */
+                                {
+                                    "subnetName":"PoC1-SNet",
+                                    "vNetName":"dewa-aen-prd-plt-cloudpc-vnet",
+                                    "subnetAddress":"10.52.28.0/23",
+                                    "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                                    "udr":"dewa-aen-prd-plt-cloudpc-spoke-rt",
+                                    "udrRg":"dewa-aen-prd-plt-sdm-network-int-rg",
+                                    "createNsg":true
+                                },
+                                {
+                                    "subnetName":"AzureFirewallSubnet",
+                                    "vNetName":"dewa-aen-prd-plt-cloudpc-vnet",
+                                    "subnetAddress":"10.52.20.0/26",
+                                    "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                                    "udr":"",
+                                    "udrRg":"",
+                                    "createNsg":false
+                                },
+                                {
+                                    "subnetName":"AzureBastionSubnet",
+                                    "vNetName":"dewa-aen-prd-plt-cloudpc-vnet",
+                                    "subnetAddress":"10.52.20.64/26",
+                                    "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                                    "udr":"",
+                                    "udrRg":"",
+                                    "createNsg":false
+                                }
+                            ]
+                        },
+                        "windowsVMs":{
+                            "vmSettings":[
+                                /* DO NOT DELETE. WINDOWS VM TEMPLATE
+                                {
+                                    "vmName":"aenpdns01",
+                                    "rgName":"contoso-sharedservices-rg",
+                                    "vNetName":"contoso-hub-vnet",
+                                    "vNetResourceGroup":"contoso-network-rg",
+                                    "subnetName":"SharedService-SNet",
+                                    "vmZones":["1"],
+                                    "osDiskType":"StandardSSD_LRS",
+                                    "osPublisher":"microsoftwindowsserver",
+                                    "osOffer":"windowsserver",
+                                    "osSku":"2022-datacenter-g2",
+                                    "vmSize":"Standard_B2s",
+                                    "adminUsername":"localadmin",
+                                    "adminPassword":"Pa$$w0rd123*"
+                                }
+                                */
+                                {
+                                    "vmName":"testvm01",
+                                    "rgName":"dewa-aen-prd-plt-sdm-cloudpc-int-rg",
+                                    "vNetName":"dewa-aen-prd-plt-cloudpc-vnet",
+                                    "vNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
+                                    "subnetName":"PoC1-SNet",
+                                    "vmZones":["1"],
+                                    "osDiskType":"StandardSSD_LRS",
+                                    "osPublisher":"microsoftwindowsserver",
+                                    "osOffer":"windowsserver",
+                                    "osSku":"2022-datacenter-g2",
+                                    "vmSize":"Standard_B2s",
+                                    "adminUsername":"localadmin",
+                                    "adminPassword":"Pa$$w0rd123*"
+                                }
+                            ]
+                        },
+                        "linuxVMs":{
+                            "vmSettings":[
+                                /* DO NOT DELETE. LINUX VM TEMPLATE
+                                {
+                                    "vmName":"aenpdns01",
+                                    "rgName":"contoso-sharedservices-rg",
+                                    "vNetName":"contoso-hub-vnet",
+                                    "vNetResourceGroup":"contoso-network-rg",
+                                    "subnetName":"SharedService-SNet",
+                                    "vmZones":["1"],
+                                    "osDiskType":"StandardSSD_LRS",
+                                    "osPublisher":"Canonical",
+                                    "osOffer":"0001-com-ubuntu-server-jammy",
+                                    "osSku":"22_04-lts-gen2",
+                                    "vmSize":"Standard_B2s",
+                                    "adminUsername":"localadmin",
+                                    "adminPassword":"Pa$$w0rd123*"
+                                }
+                                */
+                                {
+                                    "vmName":"testvm02",
+                                    "rgName":"dewa-aen-prd-plt-sdm-cpc-images-int-rg",
+                                    "vNetName":"dewa-aen-prd-plt-cloudpc-vnet",
+                                    "vNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
+                                    "subnetName":"PoC1-SNet",
+                                    "vmZones":["3"],
+                                    "osDiskType":"StandardSSD_LRS",
+                                    "osPublisher":"Canonical",
+                                    "osOffer":"0001-com-ubuntu-server-jammy",
+                                    "osSku":"22_04-lts-gen2",
+                                    "vmSize":"Standard_B2s",
+                                    "adminUsername":"localadmin",
+                                    "adminPassword":"Pa$$w0rd123*"
+                                }
+                            ]
+                        },
+                        "azFirewall": {
+                            "buildAzFirewall":true,
+                            "name":"dewa-aen-prd-lz-cloudpc-afw",
+                            "vnetName":"dewa-aen-prd-plt-cloudpc-vnet",
+                            "vnetResourceGroupName":"dewa-aen-prd-plt-sdm-network-int-rg", //Az Firewall must be in same resource group as VNet
+                            "publicIpName":"dewa-aen-prd-lz-cloudpc-afw-pip-01",
+                            "tier":"Premium"
+                        },
+                        "azBastion": {
+                            "buildAzBastion":true,
+                            "name":"dewa-aen-prd-lz-cloudpc-bast",
+                            "rgName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                            "vnetName":"dewa-aen-prd-plt-hub-vnet",
+                            "vNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
+                            "sku":"Standard",
+                            "bastionPublicIpName":"dewa-aen-prd-lz-cloudpc-bast-pip-01",
+                            "disableCopyPaste":false,
+                            "enableFileCopy":true,
+                            "enableIpConnect":true,
+                            "enableShareableLink":true,
+                            "enableTunneling":false
+                        },
+                        "azVpnGateway": {
+                            "buildVpnGateway":false,
+                            "name":"dewa-aen-prd-plt-hub-vnet-gw-vpn",
+                            "vpnType":"RouteBased",
+                            "vnetName":"dewa-aen-prd-plt-hub-vnet",
+                            "vnetResourceGroupName":"dewa-aen-prd-plt-sdm-network-int-rg",
+                            "gatewaySku":"VpnGw1AZ",
+                            "localGatewayName":"dewa-aen-prd-plt-onprem-lgw-01",
+                            "localGatewayIpAddress":"8.8.8.8",
+                            "localAddressPrefix":["10.0.0.0/8"],
+                            "gatewayPublicIpName":"dewa-aen-prd-plt-hub-vnet-gw-vpn-pip-01"
+                        },
+                        "azAppGatewayV2": {
+                            "settings":[
+                                /* DO NOT DELETE. APP GATEWAY TEMPLATE
+                                {
+                                    "build":false,
+                                    "name":"contoso-appgw-01",
+                                    "rgName":"contoso-appgw-rg",
+                                    "gwTier":"WAF_v2",
+                                    "vnetName":"contoso-hub-vnet",
+                                    "vNetResourceGroup":"contoso-network-rg",
+                                    "subnetName":"AppGw-SNet",
+                                    "privateIp":"10.52.3.4",
+                                    "publicIpName":"contoso-appgw-01-pip-01",
+                                    "publicIpSku":"Standard",
+                                    "allocationMethod":"Static",
+                                    "capacity":1,
+                                    "autoScaleMaxCapacity":2
+                                }                    
+                                */
+                                {
+                                    "build":false,
+                                    "name":"dewa-aen-prd-plt-hubapppublish-agw-01",
+                                    "rgName":"dewa-aen-prd-plt-sdm-apppublish-int-rg",
+                                    "gwTier":"WAF_v2",
+                                    "vnetName":"dewa-aen-prd-plt-hub-vnet",
+                                    "vNetResourceGroup":"dewa-aen-prd-plt-sdm-network-int-rg",
+                                    "subnetName":"AppGw-SNet",
+                                    "privateIp":"10.52.3.4",
+                                    "publicIpName":"dewa-aen-prd-plt-hubapppublish-agw-01-pip-01",
+                                    "publicIpSku":"Standard",
+                                    "allocationMethod":"Static",
+                                    "capacity":1,
+                                    "autoScaleMaxCapacity":2
+                                }
+                            ]
+                        },
+                        "privateDnsZones": {
+                            "build":false,
+                            "rgName":"dewa-aen-prd-plt-sdm-privatednszones-int-rg",
+                            "zones": [ // DO NOT UPDATE OR DELETE
+                                "[format('privatelink.{0}.azmk8s.io', toLower(parameters('deploymentLocation')))]",
+                                "[format('privatelink.{0}.batch.azure.com', toLower(parameters('deploymentLocation')))]",
+                                "[format('privatelink.{0}.kusto.windows.net', toLower(parameters('deploymentLocation')))]",
+                                "privatelink.adf.azure.com",
+                                "privatelink.afs.azure.net",
+                                "privatelink.agentsvc.azure-automation.net",
+                                "privatelink.analysis.windows.net",
+                                "privatelink.api.azureml.ms",
+                                "privatelink.azconfig.io",
+                                "privatelink.azure-api.net",
+                                "privatelink.azure-automation.net",
+                                "privatelink.azurecr.io",
+                                "privatelink.azure-devices.net",
+                                "privatelink.azure-devices-provisioning.net",
+                                "privatelink.azurehdinsight.net",
+                                "privatelink.azurehealthcareapis.com",
+                                "privatelink.azurestaticapps.net",
+                                "privatelink.azuresynapse.net",
+                                "privatelink.azurewebsites.net",
+                                "privatelink.batch.azure.com",
+                                "privatelink.blob.core.windows.net",
+                                "privatelink.cassandra.cosmos.azure.com",
+                                "privatelink.cognitiveservices.azure.com",
+                                "privatelink.database.windows.net",
+                                "privatelink.datafactory.azure.net",
+                                "privatelink.dev.azuresynapse.net",
+                                "privatelink.dfs.core.windows.net",
+                                "privatelink.dicom.azurehealthcareapis.com",
+                                "privatelink.digitaltwins.azure.net",
+                                "privatelink.directline.botframework.com",
+                                "privatelink.documents.azure.com",
+                                "privatelink.eventgrid.azure.net",
+                                "privatelink.file.core.windows.net",
+                                "privatelink.gremlin.cosmos.azure.com",
+                                "privatelink.guestconfiguration.azure.com",
+                                "privatelink.his.arc.azure.com",
+                                "privatelink.kubernetesconfiguration.azure.com",
+                                "privatelink.managedhsm.azure.net",
+                                "privatelink.mariadb.database.azure.com",
+                                "privatelink.media.azure.net",
+                                "privatelink.mongo.cosmos.azure.com",
+                                "privatelink.monitor.azure.com",
+                                "privatelink.mysql.database.azure.com",
+                                "privatelink.notebooks.azure.net",
+                                "privatelink.ods.opinsights.azure.com",
+                                "privatelink.oms.opinsights.azure.com",
+                                "privatelink.pbidedicated.windows.net",
+                                "privatelink.postgres.database.azure.com",
+                                "privatelink.prod.migration.windowsazure.com",
+                                "privatelink.purview.azure.com",
+                                "privatelink.purviewstudio.azure.com",
+                                "privatelink.queue.core.windows.net",
+                                "privatelink.redis.cache.windows.net",
+                                "privatelink.redisenterprise.cache.azure.net",
+                                "privatelink.search.windows.net",
+                                "privatelink.service.signalr.net",
+                                "privatelink.servicebus.windows.net",
+                                "privatelink.siterecovery.windowsazure.com",
+                                "privatelink.sql.azuresynapse.net",
+                                "privatelink.table.core.windows.net",
+                                "privatelink.table.cosmos.azure.com",
+                                "privatelink.tip1.powerquery.microsoft.com",
+                                "privatelink.token.botframework.com",
+                                "privatelink.vaultcore.azure.net",
+                                "privatelink.web.core.windows.net",
+                                "privatelink.webpubsub.azure.com"
+                            ]
+                        }
+                    }
+                ]
+            }
         }
     },
     "functions": [],

@@ -2,129 +2,61 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "deploymentLocation": {
+            "type": "string"
+        },
         "deploymentUris": {
             "type": "object"
         },
         "subscriptions": {
             "type": "object"
         },
-        "environmentSettings": {
-            "type": "object"
-        },
-        "lzName": {
-            "type": "string"
+        "landingZones":{
+            "type": "object",
+            "defaultValue":{}
         }
     },
     "variables": {
         "deplaymentNames":{
-            "lzAppResourceGroupsDeploymentName": "[concat('Build-',parameters('lzName'),'-LZ-ResourceGroups')]",
-            "lzAppNetworkingDeploymentName":"[concat('Build-',parameters('lzName'),'-LZ-Networking')]",
-            "lzAppVirtualMachinesDeploymentName":"[concat('Build-',parameters('lzName'),'-LZ-VirtualMachines')]",
-            "lzAppNvaDeploymentName":"[concat('Build-',parameters('lzName'),'-LZ-NVAs')]"
+            "lzConnectivityDeploymentName": "Start-Platform-Connectivity-Build",
+            "lzIdentityDeploymentName":"Start-Platform-Identity-Build",
+            "lzManagementDeploymentName":"Start-Platform-Management-Build",
+            "lzSecurityDeploymentName":"Start-Platform-Security-Build"
         }
     },
-    "resources": [
-        // Build Resource Groups
+    "resources": [ 
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"[variables('deplaymentNames').lzAppResourceGroupsDeploymentName]",
+            "condition": "[parameters('connectivityLzSettings').build]",
+            "Name":"[variables('deplaymentNames').lzConnectivityDeploymentName]",
+            "subscriptionId": "[parameters('subscriptions').Connectivity.Id]",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[parameters('deploymentUris').defResourceGroupsUri]"
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').buildConnectivityLzUri)]"
                 },
                 "parameters": {
-                    "deploymentUris":{
+                    "deploymentUris": {
                         "value":"[parameters('deploymentUris')]"
                     },
-                    "subscriptionName":{
-                        "value":"[parameters('subscriptions').identity.Name]"
+                    "subscriptions":{
+                        "value":"[parameters('subscriptions')]"
                     },
-                    "subscriptionId":{
-                        "value":"[parameters('subscriptions').identity.Id]"
-                    },
-                    "resourceGroups":{
-                        "value":"[parameters('environmentSettings').resourceGroups]"
-                    }
-                }
-            }
-        },
-        // Build networking
-        {
-            "type":"Microsoft.Resources/deployments",
-            "apiVersion":"2019-05-10",
-            "Name":"[variables('deplaymentNames').lzAppNetworkingDeploymentName]",
-            "location":"[deployment().location]",
-            "dependsOn": [
-                "[variables('deplaymentNames').lzAppResourceGroupsDeploymentName]" 
-            ],
-            "properties":{
-                "mode":"Incremental",
-                "templatelink":{
-                    "uri":"[parameters('deploymentUris').defNetworkingUri]"
-                },
-                "parameters": {
-                    "deploymentUris":{
-                        "value":"[parameters('deploymentUris')]"
-                    },
-                    "subscriptionName":{
-                        "value":"[parameters('subscriptions').identity.Name]"
-                    },
-                    "subscriptionId":{
-                        "value":"[parameters('subscriptions').identity.Id]"
-                    },
-                    "vnets":{
-                        "value":"[parameters('environmentSettings').vnets]"
-                    },
-                    "subnets":{
-                        "value":"[parameters('environmentSettings').subnets]"
-                    },
-                    "routes":{
-                        "value":"[parameters('environmentSettings').routes]"
-                    },
-                    "privateDnsZones": {
-                        "value": "[parameters('environmentSettings').privateDnsZones]"
-                    }
-                }
-            }
-        },
-        // Build virtual machines
-        {
-            "type":"Microsoft.Resources/deployments",
-            "apiVersion":"2019-05-10",
-            "Name":"[variables('deplaymentNames').lzAppVirtualMachinesDeploymentName]",
-            "location":"[deployment().location]",
-            "dependsOn": [
-                "[variables('deplaymentNames').lzAppNetworkingDeploymentName]" 
-            ],
-            "properties":{
-                "mode":"Incremental",
-                "templatelink":{
-                    "uri":"[parameters('deploymentUris').defVirtualMachinesUri]"
-                },
-                "parameters": {
-                    "deploymentUris":{
-                        "value":"[parameters('deploymentUris')]"
-                    },
-                    "subscriptionName":{
-                        "value":"[parameters('subscriptions').identity.Name]"
-                    },
-                    "subscriptionId":{
-                        "value":"[parameters('subscriptions').identity.Id]"
-                    },
-                    "windowsVMs":{
-                        "value":"[parameters('environmentSettings').windowsVMs]"
-                    },
-                    "linuxVMs":{
-                        "value":"[parameters('environmentSettings').linuxVMs]"
+                    "environmentSettings": {
+                        "value":"[parameters('connectivityLzSettings')]"
                     }
                 }
             }
         }
     ],
-    "outputs": {},
+    "outputs": {
+        "test": {
+            "type":"string",
+            "value": "[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').buildConnectivityLzUri)]"
+        }
+    },
     "functions": []
 }

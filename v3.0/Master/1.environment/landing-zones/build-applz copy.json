@@ -10,15 +10,17 @@
         },
         "environmentSettings": {
             "type": "object"
+        },
+        "lzName": {
+            "type": "string"
         }
     },
     "variables": {
         "deplaymentNames":{
-            "resourceGroupsDeploymentName": "Build-Platform-Connectivity-LZ-ResourceGroups",
-            "networkingDeploymentName":"Build-Platform-Connectivity-LZ-Networking",
-            "virtualMachinesDeploymentName":"Build-Platform-Connectivity-LZ-VirtualMachines",
-            "nvaDeploymentName":"Build-Platform-Connectivity-LZ-NVAs"
-
+            "lzAppResourceGroupsDeploymentName": "[concat('Build-',parameters('lzName'),'-LZ-ResourceGroups')]",
+            "lzAppNetworkingDeploymentName":"[concat('Build-',parameters('lzName'),'-LZ-Networking')]",
+            "lzAppVirtualMachinesDeploymentName":"[concat('Build-',parameters('lzName'),'-LZ-VirtualMachines')]",
+            "lzAppNvaDeploymentName":"[concat('Build-',parameters('lzName'),'-LZ-NVAs')]"
         }
     },
     "resources": [
@@ -26,23 +28,23 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"[variables('deplaymentNames').resourceGroupsDeploymentName]",
+            "Name":"[variables('deplaymentNames').lzAppResourceGroupsDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').defResourceGroupsUri)]"
+                    "uri":"[parameters('deploymentUris').defResourceGroupsUri]"
                 },
                 "parameters": {
                     "deploymentUris":{
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('subscriptions').connectivity.Name]"
+                        "value":"[parameters('subscriptions').identity.Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('subscriptions').connectivity.Id]"
+                        "value":"[parameters('subscriptions').identity.Id]"
                     },
                     "resourceGroups":{
                         "value":"[parameters('environmentSettings').resourceGroups]"
@@ -54,25 +56,25 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"[variables('deplaymentNames').networkingDeploymentName]",
+            "Name":"[variables('deplaymentNames').lzAppNetworkingDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
-                "[variables('deplaymentNames').resourceGroupsDeploymentName]" 
+                "[variables('deplaymentNames').lzAppResourceGroupsDeploymentName]" 
             ],
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').defNetworkingUri)]"
+                    "uri":"[parameters('deploymentUris').defNetworkingUri]"
                 },
                 "parameters": {
                     "deploymentUris":{
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('subscriptions').connectivity.Name]"
+                        "value":"[parameters('subscriptions').identity.Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('subscriptions').connectivity.Id]"
+                        "value":"[parameters('subscriptions').identity.Id]"
                     },
                     "vnets":{
                         "value":"[parameters('environmentSettings').vnets]"
@@ -93,70 +95,31 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"[variables('deplaymentNames').virtualMachinesDeploymentName]",
+            "Name":"[variables('deplaymentNames').lzAppVirtualMachinesDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
-                "[variables('deplaymentNames').networkingDeploymentName]" 
+                "[variables('deplaymentNames').lzAppNetworkingDeploymentName]" 
             ],
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').defVirtualMachinesUri)]"
+                    "uri":"[parameters('deploymentUris').defVirtualMachinesUri]"
                 },
                 "parameters": {
                     "deploymentUris":{
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('subscriptions').connectivity.Name]"
+                        "value":"[parameters('subscriptions').identity.Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('subscriptions').connectivity.Id]"
+                        "value":"[parameters('subscriptions').identity.Id]"
                     },
                     "windowsVMs":{
                         "value":"[parameters('environmentSettings').windowsVMs]"
                     },
                     "linuxVMs":{
                         "value":"[parameters('environmentSettings').linuxVMs]"
-                    }
-                }
-            }
-        },
-        // Build NVAs
-        {
-            "type":"Microsoft.Resources/deployments",
-            "apiVersion":"2019-05-10",
-            "Name":"[variables('deplaymentNames').nvaDeploymentName]",
-            "location":"[deployment().location]",
-            "dependsOn": [
-                "[variables('deplaymentNames').networkingDeploymentName]"
-            ],
-            "properties":{
-                "mode":"Incremental",
-                "templatelink":{
-                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').defNvaUri)]"
-                },
-                "parameters": {
-                    "deploymentUris":{
-                        "value":"[parameters('deploymentUris')]"
-                    },
-                    "subscriptionName":{
-                        "value":"[parameters('subscriptions').connectivity.Name]"
-                    },
-                    "subscriptionId":{
-                        "value":"[parameters('subscriptions').connectivity.Id]"
-                    },
-                    "azFirewall":{
-                        "value":"[parameters('environmentSettings').azFirewall]"
-                    },
-                    "azBastion":{
-                        "value":"[parameters('environmentSettings').azBastion]"
-                    },
-                    "azVpnGateway":{
-                        "value":"[parameters('environmentSettings').azVpnGateway]"
-                    },
-                    "azAppGatewayV2":{
-                        "value":"[parameters('environmentSettings').azAppGatewayV2]"
                     }
                 }
             }
