@@ -50,6 +50,7 @@
             "appGatewayV2Waf"       : "[uri(deployment().properties.templateLink.uri, '3.templates/app-gateway/appgw-v2-waf.json')]",
             "appGatewayV2Standard"  : "[uri(deployment().properties.templateLink.uri, '3.templates/app-gateway/appgw-v2-standard.json')]",
             "privatednszone"        : "[uri(deployment().properties.templateLink.uri, '3.templates/dns/privatednszone.json')]",
+            "privatednszoneregional": "[uri(deployment().properties.templateLink.uri, '3.templates/dns/privatednszoneregional.json')]",
 
             "defResourceGroupsUri"  : "[uri(deployment().properties.templateLink.uri, '2.definitions/resource-groups.json')]",
             "defMgSubsUri"          : "[uri(deployment().properties.templateLink.uri, '2.definitions/mgsub.json')]",

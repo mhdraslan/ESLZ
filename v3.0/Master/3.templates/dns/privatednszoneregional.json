@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "region": {
+            "type": "string",
+            "metadata": {
+                "description":"region for region specific zones."
+            }
+        }
+    },
+    "variables": {
+        "zones": [
+            "[format('privatelink.{0}.azmk8s.io', toLower(parameters('region')))]",
+            "[format('privatelink.{0}.batch.azure.com', toLower(parameters('region')))]",
+            "[format('privatelink.{0}.kusto.windows.net', toLower(parameters('region')))]"
+        ]
+
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/privateDnsZones",
+            "apiVersion": "2020-06-01",
+            "copy":{
+                "name":"privateDnsZonesCopy",
+                "count":"[length(variables('zones'))]"
+            },
+            "name": "[variables('zones')[copyIndex()]]",
+            "location": "global",
+            "properties": {}
+        }
+    ]
+}

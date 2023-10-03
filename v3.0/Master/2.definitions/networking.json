@@ -294,29 +294,40 @@
                 }
             }
         },
-
-        // PRIVATE DNS ZONES
+        // PRIVATE DNS ZONES NON REGION SPECIFIC
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('PrivateDNSZone_',parameters('privateDnsZones').zones[copyIndex()])]",
+            "Name":"[concat('PrivateDNSZone_',parameters('subscriptionName'))]",
             "resourceGroup": "[parameters('privateDnsZones').rgname]",
             "condition": "[parameters('privateDnsZones').build]",
             "dependsOn": [],
-            "copy": {
-                "name": "privateDnsZonesCopy",
-                "count": "[length(parameters('privateDnsZones').zones)]",
-                "mode": "parallel"
-            },
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
                     "uri":"[parameters('deploymentUris').privatednszone]"
                 },
+                "parameters":{}
+            }
+        },
+        // PRIVATE DNS ZONES REGION SPECIFIC
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"[concat('PrivateDNSZoneRegional_',parameters('subscriptionName'))]",
+            "resourceGroup": "[parameters('privateDnsZones').rgname]",
+            "condition": "[parameters('privateDnsZones').build]",
+            "dependsOn": [],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').privatednszoneregional]"
+                },
                 "parameters":{
-                    "privateDnsZoneName":{
-                        "value":"[parameters('privateDnsZones').zones[copyIndex()]]"
+                    "regions":{
+                        "value":"[parameters('privateDnsZones').regions]"
                     }
                 }
             }
