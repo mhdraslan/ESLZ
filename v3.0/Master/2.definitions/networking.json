@@ -316,18 +316,22 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('PrivateDNSZoneRegional_',parameters('subscriptionName'))]",
+            "Name":"[concat('PrivateDNSZoneRegional_',parameters('privateDnsZones').regions[copyIndex()],'-', parameters('subscriptionName'))]",
             "resourceGroup": "[parameters('privateDnsZones').rgname]",
             "condition": "[parameters('privateDnsZones').build]",
             "dependsOn": [],
+            "copy": {
+                "name": "privateDnsZonesRegionalCopy",
+                "count": "[length(parameters('privateDnsZones').regions)]"
+            },
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
                     "uri":"[parameters('deploymentUris').privatednszoneregional]"
                 },
                 "parameters":{
-                    "regions":{
-                        "value":"[parameters('privateDnsZones').regions]"
+                    "region":{
+                        "value":"[parameters('privateDnsZones').regions[copyIndex()]]"
                     }
                 }
             }
