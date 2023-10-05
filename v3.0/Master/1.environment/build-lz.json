@@ -5,19 +5,27 @@
         "deploymentUris": {
             "type": "object"
         },
-        "subscriptions": {
+        "subscription": {
             "type": "object"
         },
         "environmentSettings": {
             "type": "object"
+        },
+        "deploymentNamePrefix":{
+            "type":"string",
+            "metadata":{
+                "description":"Text to display before the deployment name. Default value 'Build-'."
+            },
+            "defaultValue":"Build-"
+            }
         }
     },
     "variables": {
         "deplaymentNames":{
-            "resourceGroupsDeploymentName": "Build-Platform-Connectivity-LZ-ResourceGroups",
-            "networkingDeploymentName":"Build-Platform-Connectivity-LZ-Networking",
-            "virtualMachinesDeploymentName":"Build-Platform-Connectivity-LZ-VirtualMachines",
-            "nvaDeploymentName":"Build-Platform-Connectivity-LZ-NVAs"
+            "resourceGroupsDeploymentName"  : "[concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-ResourceGroups')]",
+            "networkingDeploymentName"      : "[concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-Networking')]",
+            "virtualMachinesDeploymentName" : "[concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-VirtualMachines')]",
+            "nvaDeploymentName"             : "[concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-NVAs')]"
 
         }
     },
@@ -39,10 +47,10 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('subscriptions').connectivity.Name]"
+                        "value":"[parameters('subscription').Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('subscriptions').connectivity.Id]"
+                        "value":"[parameters('subscription').Id]"
                     },
                     "resourceGroups":{
                         "value":"[parameters('environmentSettings').resourceGroups]"
@@ -69,10 +77,10 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('subscriptions').connectivity.Name]"
+                        "value":"[parameters('subscription').Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('subscriptions').connectivity.Id]"
+                        "value":"[parameters('subscription').Id]"
                     },
                     "vnets":{
                         "value":"[parameters('environmentSettings').vnets]"
@@ -108,10 +116,10 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('subscriptions').connectivity.Name]"
+                        "value":"[parameters('subscription').Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('subscriptions').connectivity.Id]"
+                        "value":"[parameters('subscription').Id]"
                     },
                     "windowsVMs":{
                         "value":"[parameters('environmentSettings').windowsVMs]"
@@ -141,10 +149,10 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "subscriptionName":{
-                        "value":"[parameters('subscriptions').connectivity.Name]"
+                        "value":"[parameters('subscription').Name]"
                     },
                     "subscriptionId":{
-                        "value":"[parameters('subscriptions').connectivity.Id]"
+                        "value":"[parameters('subscription').Id]"
                     },
                     "azFirewall":{
                         "value":"[parameters('environmentSettings').azFirewall]"

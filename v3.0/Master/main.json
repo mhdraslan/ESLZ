@@ -64,6 +64,7 @@
             "lzManagementUri"       : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/management/management-lz.param.json')]",
             "lzSecurityUri"         : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/management/security-lz.param.json')]",
             
+            "buildLzUri"            : "[uri(deployment().properties.templateLink.uri, '1.environment/build-lz.json')]",
             "buildPlatformLzUri"    : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/build-platform.json')]",
             "buildConnectivityLzUri": "[uri(deployment().properties.templateLink.uri, '1.environment/platform/connectivity/build-connectivity.json')]",
             "buildIdentityLzUri"    : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/identity/build-identity.json')]",

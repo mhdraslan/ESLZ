@@ -28,6 +28,7 @@
         "connectivityLzSettings":{
             "value":{
                 "build":false,
+                "lzName":"Connectivity",
                 "resourceGroups":{
                     "rgSettings":[
                         // ADD RESOURCE GROUP SECTIONS BELOW
@@ -365,6 +366,7 @@
         "identityLzSettings":{
             "value":{
                 "build":true,
+                "lzName":"Identity",
                 "resourceGroups":{
                     "rgSettings":[
                         // ADD RESOURCE GROUP SECTIONS BELOW
@@ -510,6 +512,7 @@
                             "adminUsername":"localadmin",
                             "adminPassword":"Pa$$w0rd123*"
                         },
+                        */
                         {
                             "vmName":"az-srv-dc-01",
                             "rgName":"cnt-aen-dcs-rg",
@@ -540,7 +543,6 @@
                             "adminUsername":"localadmin",
                             "adminPassword":"Pa$$w0rd123*"
                         }
-                        */
                     ]
                 },
                 "linuxVMs":{
@@ -630,6 +632,7 @@
         "managementLzSettings":{
             "value":{
                 "build":true,
+                "lzName":"Management",
                 "resourceGroups":{
                     "rgSettings":[
                         // ADD RESOURCE GROUP SECTIONS BELOW
@@ -867,6 +870,7 @@
                 "landingZones":[
                     {
                         "build":true,
+                        "lzName":"CloudPC",
                         "resourceGroups":{
                             "rgSettings":[
                                 /* DO NOT DELETE. RESOURCE GROUP TEMPLATES
