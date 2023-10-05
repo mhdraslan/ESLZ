@@ -27,7 +27,7 @@
         },
         "connectivityLzSettings":{
             "value":{
-                "build":false,
+                "build":true,
                 "lzName":"Connectivity",
                 "resourceGroups":{
                     "rgSettings":[
@@ -246,6 +246,7 @@
                             "adminUsername":"localadmin",
                             "adminPassword":"Pa$$w0rd123*"
                         },
+                        */
                         {
                             "vmName":"az-srv-dns-01",
                             "rgName":"cnt-aen-network-rg",
@@ -276,7 +277,6 @@
                             "adminUsername":"localadmin",
                             "adminPassword":"Pa$$w0rd123*"
                         }
-                        */
                     ]
                 },
                 "linuxVMs":{
@@ -301,7 +301,7 @@
                     ]
                 },
                 "azFirewall": {
-                    "buildAzFirewall":false,
+                    "buildAzFirewall":true,
                     "name":"cnt-aen-hub-afw",
                     "vnetName":"cnt-aen-hub-vnet",
                     "vnetResourceGroupName":"cnt-aen-network-rg", //Az Firewall must be in same resource group as VNet
@@ -309,7 +309,7 @@
                     "tier":"Premium"
                 },
                 "azBastion": {
-                    "buildAzBastion":false,
+                    "buildAzBastion":true,
                     "name":"cnt-aen-hub-bast",
                     "rgName":"cnt-aen-network-rg",
                     "vnetName":"cnt-aen-hub-vnet",
@@ -337,7 +337,7 @@
                 "azAppGatewayV2": {
                     "settings":[
                         {
-                            "build":false,
+                            "build":true,
                             "name":"cnt-aen-hub-appgw-01",
                             "rgName":"cnt-aen-appgw-rg",
                             "gwTier":"WAF_v2",
@@ -620,12 +620,9 @@
                     ]
                 },
                 "privateDnsZones": {
-                    "build":true,
-                    "rgName":"cnt-aen-privatednszones-rg",
-                    "regions":[
-                        "uaenorth",
-                        "eastus"
-                    ]
+                    "build":false,
+                    "rgName":"",
+                    "regions":[]
                 }
             }
         },
@@ -853,17 +850,17 @@
                     ]
                 },
                 "privateDnsZones": {
-                    "build":true,
-                    "rgName":"cnt-aen-privatednszones-rg",
-                    "regions":[
-                        "uaenorth",
-                        "eastus"
-                    ]
+                    "build":false,
+                    "rgName":"",
+                    "regions":[]
                 }
             }
         },
         "securityLzSettings": {
-            "value":{}
+            "value":{
+                "build":false,
+                "lzName":"Security"
+            }
         },
         "appsLzSettings":{
             "value":{
