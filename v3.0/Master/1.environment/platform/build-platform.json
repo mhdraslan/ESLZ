@@ -94,6 +94,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
+            "condition": "[parameters('managementLzSettings').build]",
             "Name":"[variables('deplaymentNames').lzManagementDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
@@ -120,6 +121,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
+            "condition": "[parameters('securityLzSettings').build]",
             "Name":"[variables('deplaymentNames').lzSecurityDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
@@ -128,10 +130,18 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').lzTemplateUri)]"
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').xxxxx)]"
                 },
-                "parameterslink": {
-                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').lzSecurityUri)]"
+                "parameters": {
+                    "deploymentUris": {
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "subscriptions":{
+                        "value":"[parameters('subscriptions')]"
+                    },
+                    "environmentSettings": {
+                        "value":"[parameters('securityLzSettings')]"
+                    }
                 }
             }
         }*/

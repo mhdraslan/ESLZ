@@ -67,7 +67,7 @@
             "buildPlatformLzUri"    : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/build-platform.json')]",
             "buildConnectivityLzUri": "[uri(deployment().properties.templateLink.uri, '1.environment/platform/connectivity/build-connectivity.json')]",
             "buildIdentityLzUri"    : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/identity/build-identity.json')]",
-            "buildManagementLzUri" : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/management/build-management.json')]",
+            "buildManagementLzUri"  : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/management/build-management.json')]",
             "buildAppsLzUri"        : "[uri(deployment().properties.templateLink.uri, '1.environment/landing-zones/build-landing-zones.json')]"
         }
     },

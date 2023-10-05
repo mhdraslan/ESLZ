@@ -27,7 +27,7 @@
         },
         "connectivityLzSettings":{
             "value":{
-                "build":true,
+                "build":false,
                 "resourceGroups":{
                     "rgSettings":[
                         // ADD RESOURCE GROUP SECTIONS BELOW
@@ -364,7 +364,7 @@
         },
         "identityLzSettings":{
             "value":{
-                "build":false,
+                "build":true,
                 "resourceGroups":{
                     "rgSettings":[
                         // ADD RESOURCE GROUP SECTIONS BELOW
@@ -510,7 +510,6 @@
                             "adminUsername":"localadmin",
                             "adminPassword":"Pa$$w0rd123*"
                         },
-                        */
                         {
                             "vmName":"az-srv-dc-01",
                             "rgName":"cnt-aen-dcs-rg",
@@ -541,6 +540,7 @@
                             "adminUsername":"localadmin",
                             "adminPassword":"Pa$$w0rd123*"
                         }
+                        */
                     ]
                 },
                 "linuxVMs":{
@@ -618,7 +618,7 @@
                     ]
                 },
                 "privateDnsZones": {
-                    "build":false,
+                    "build":true,
                     "rgName":"cnt-aen-privatednszones-rg",
                     "regions":[
                         "uaenorth",
@@ -629,7 +629,7 @@
         },
         "managementLzSettings":{
             "value":{
-                "build":false,
+                "build":true,
                 "resourceGroups":{
                     "rgSettings":[
                         // ADD RESOURCE GROUP SECTIONS BELOW
@@ -850,9 +850,12 @@
                     ]
                 },
                 "privateDnsZones": {
-                    "build":false,
+                    "build":true,
                     "rgName":"cnt-aen-privatednszones-rg",
-                    "regions":[]
+                    "regions":[
+                        "uaenorth",
+                        "eastus"
+                    ]
                 }
             }
         },
