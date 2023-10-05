@@ -310,7 +310,7 @@
                 },
                 "parameters":{}
             }
-        }/*,
+        },
         // PRIVATE DNS ZONES REGION SPECIFIC 
         {
             "type":"Microsoft.Resources/deployments",
@@ -335,7 +335,7 @@
                     }
                 }
             }
-        }*/
+        }
     ],
     "outputs": {}
 }

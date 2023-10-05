@@ -745,7 +745,7 @@
                         {
                             "subnetName":"mgmt1Subnet",
                             "vNetName":"cnt-aen-mgmt-vnet",
-                            "subnetAddress":"10.52.48.0/28",
+                            "subnetAddress":"10.52.63.192/28",
                             "rgName":"cnt-aen-network-rg",
                             "udr":"cnt-aen-spoke-rt",
                             "udrRg":"cnt-aen-network-rg",
@@ -851,7 +851,8 @@
                 },
                 "privateDnsZones": {
                     "build":false,
-                    "rgName":"cnt-aen-privatednszones-rg"
+                    "rgName":"cnt-aen-privatednszones-rg",
+                    "regions":[]
                 }
             }
         },
