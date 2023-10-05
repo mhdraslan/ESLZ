@@ -120,7 +120,7 @@
                     }
                 }
             }
-        }/*,
+        },
         // BUILD SECURITY LZ
         {
             "type":"Microsoft.Resources/deployments",
@@ -149,7 +149,6 @@
                 }
             }
         }
-        */
     ],
     "outputs": {
         "test": {
