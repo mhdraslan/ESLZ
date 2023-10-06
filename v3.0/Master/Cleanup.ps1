@@ -9,7 +9,8 @@ foreach($mg in $mgs){
 
 $subs = Get-AzSubscription
 foreach($sub in $subs){
-    Get-AzSubscriptionDeployment -Id $sub.Id | Remove-AzSubscriptionDeployment -AsJob
+    Select-AzSubscription $sub.Id
+    Get-AzSubscriptionDeployment | Remove-AzSubscriptionDeployment -AsJob
     Get-AzResourceGroup | ?{$_.ResourceGroupName -like $searchCriteria} | Remove-AzResourceGroup -AsJob -Force
 }
 
