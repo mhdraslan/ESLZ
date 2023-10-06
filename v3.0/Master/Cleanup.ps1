@@ -1,6 +1,5 @@
 $searchCriteria = "cnt*"
 
-
 $mgs = Get-AzManagementGroup
 foreach($mg in $mgs){
     Get-AzManagementGroupDeployment -ManagementGroupId $mg.Name | Remove-AzManagementGroupDeployment -AsJob
@@ -13,6 +12,3 @@ foreach($sub in $subs){
     Get-AzSubscriptionDeployment | Remove-AzSubscriptionDeployment -AsJob
     Get-AzResourceGroup | ?{$_.ResourceGroupName -like $searchCriteria} | Remove-AzResourceGroup -AsJob -Force
 }
-
-
-
