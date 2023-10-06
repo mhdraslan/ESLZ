@@ -101,7 +101,7 @@
             "Name":"[variables('deplaymentNames').lzManagementDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
-                "[variables('deplaymentNames').lzConnectivityDeploymentName]"
+                "[variables('deplaymentNames').lzIdentityDeploymentName]"
             ],
             "properties":{
                 "mode":"Incremental",
@@ -129,7 +129,7 @@
             "Name":"[variables('deplaymentNames').lzSecurityDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
-                "[variables('deplaymentNames').lzConnectivityDeploymentName]"
+                "[variables('deplaymentNames').lzManagementDeploymentName]"
             ],
             "properties":{
                 "mode":"Incremental",
