@@ -1,0 +1,127 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "deploymentUris": {
+            "type": "object"
+        },
+        "subscriptions": {
+            "type": "object"
+        },
+        "environmentSettings": {
+            "type": "object"
+        }
+    },
+    "variables": {
+        "deplaymentNames":{
+            "lzIdentityResourceGroupsDeploymentName": "Build-Platform-Identity-LZ-ResourceGroups",
+            "lzIdentityNetworkingDeploymentName":"Build-Platform-Identity-LZ-Networking",
+            "lzIdentityVirtualMachinesDeploymentName":"Build-Platform-Identity-LZ-VirtualMachines",
+            "lzIdentityNvaDeploymentName":"Build-Platform-Identity-LZ-NVAs"
+        }
+    },
+    "resources": [
+        // Build Resource Groups
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "Name":"[variables('deplaymentNames').lzIdentityResourceGroupsDeploymentName]",
+            "location":"[deployment().location]",
+            "dependsOn": [],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').defResourceGroupsUri)]"
+                },
+                "parameters": {
+                    "deploymentUris":{
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "subscriptionName":{
+                        "value":"[parameters('subscriptions').identity.Name]"
+                    },
+                    "subscriptionId":{
+                        "value":"[parameters('subscriptions').identity.Id]"
+                    },
+                    "resourceGroups":{
+                        "value":"[parameters('environmentSettings').resourceGroups]"
+                    }
+                }
+            }
+        },
+        // Build networking
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "Name":"[variables('deplaymentNames').lzIdentityNetworkingDeploymentName]",
+            "location":"[deployment().location]",
+            "dependsOn": [
+                "[variables('deplaymentNames').lzIdentityResourceGroupsDeploymentName]" 
+            ],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').defNetworkingUri)]"
+                },
+                "parameters": {
+                    "deploymentUris":{
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "subscriptionName":{
+                        "value":"[parameters('subscriptions').identity.Name]"
+                    },
+                    "subscriptionId":{
+                        "value":"[parameters('subscriptions').identity.Id]"
+                    },
+                    "vnets":{
+                        "value":"[parameters('environmentSettings').vnets]"
+                    },
+                    "subnets":{
+                        "value":"[parameters('environmentSettings').subnets]"
+                    },
+                    "routes":{
+                        "value":"[parameters('environmentSettings').routes]"
+                    },
+                    "privateDnsZones": {
+                        "value": "[parameters('environmentSettings').privateDnsZones]"
+                    }
+                }
+            }
+        },
+        // Build virtual machines
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "Name":"[variables('deplaymentNames').lzIdentityVirtualMachinesDeploymentName]",
+            "location":"[deployment().location]",
+            "dependsOn": [
+                "[variables('deplaymentNames').lzIdentityNetworkingDeploymentName]" 
+            ],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').defVirtualMachinesUri)]"
+                },
+                "parameters": {
+                    "deploymentUris":{
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "subscriptionName":{
+                        "value":"[parameters('subscriptions').identity.Name]"
+                    },
+                    "subscriptionId":{
+                        "value":"[parameters('subscriptions').identity.Id]"
+                    },
+                    "windowsVMs":{
+                        "value":"[parameters('environmentSettings').windowsVMs]"
+                    },
+                    "linuxVMs":{
+                        "value":"[parameters('environmentSettings').linuxVMs]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {},
+    "functions": []
+}

@@ -1,0 +1,51 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vNetName": {
+            "type": "string"
+        },
+        "subnetName": {
+            "type": "string"
+        },
+        "udrName": {
+            "type": "string"
+        },
+        "udrResourceGroup": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "variables": {
+        //"udrLinkDeploymentName":"[concat('Associate-',parameters('udrName'),'-',parameters('subnetName'))]",
+        "udrLinkDeploymentName":"[concat('lnk-',parameters('udrName'),'-',parameters('subnetName'))]",
+        "udrId":"[if(equals(parameters('udrResourceGroup'),''), resourceId('Microsoft.Network/routeTables',parameters('udrName')),resourceId(parameters('udrResourceGroup'),'Microsoft.Network/routeTables',parameters('udrName')))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-09-01",
+            "name":"[variables('udrLinkDeploymentName')]",
+            "properties":{
+                "mode":"Incremental",
+                "template":{
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources":[
+                        {
+                            "type": "Microsoft.Network/virtualNetworks/subnets",
+                            "apiVersion": "2019-09-01",
+                            "name": "[concat(parameters('vNetName'),'/',parameters('subnetName'))]",
+                            "properties": {
+                                "addressPrefix": "[reference(resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks/subnets',parameters('vNetName'),parameters('subnetName')), '2018-03-01').addressPrefix]",
+                                "routeTable": {
+                                    "id": "[variables('udrId')]"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+   ]
+}

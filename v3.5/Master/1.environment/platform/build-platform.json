@@ -1,0 +1,160 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "deploymentLocation": {
+            "type": "string"
+        },
+        "deploymentUris": {
+            "type": "object"
+        },
+        "subscriptions": {
+            "type": "object"
+        },
+        "connectivityLzSettings":{
+            "type": "object",
+            "defaultValue":{}
+        },
+        "identityLzSettings": {
+            "type": "object",
+            "defaultValue":{}
+        },
+        "managementLzSettings":{
+            "type": "object",
+            "defaultValue":{}
+        },
+        "securityLzSettings":{
+            "type": "object",
+            "defaultValue":{}
+        }
+    },
+    "variables": {
+        "deplaymentNames":{
+            "lzConnectivityDeploymentName": "Start-Platform-Connectivity-Build",
+            "lzIdentityDeploymentName":"Start-Platform-Identity-Build",
+            "lzManagementDeploymentName":"Start-Platform-Management-Build",
+            "lzSecurityDeploymentName":"Start-Platform-Security-Build"
+        }
+    },
+    "resources": [ 
+        // BUILD CONNECTIVITY LZ
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "condition": "[parameters('connectivityLzSettings').build]",
+            "Name":"[variables('deplaymentNames').lzConnectivityDeploymentName]",
+            "subscriptionId": "[parameters('subscriptions').Connectivity.Id]",
+            "location":"[deployment().location]",
+            "dependsOn": [],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').buildLzUri)]"
+                },
+                "parameters": {
+                    "deploymentUris": {
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "subscription":{
+                        "value":"[parameters('subscriptions').Connectivity]"
+                    },
+                    "environmentSettings": {
+                        "value":"[parameters('connectivityLzSettings')]"
+                    }
+                }
+            }
+        },
+        // BUILD IDENTITY LZ
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "condition": "[parameters('identityLzSettings').build]",
+            "Name":"[variables('deplaymentNames').lzIdentityDeploymentName]",
+            "subscriptionId": "[parameters('subscriptions').Identity.Id]",
+            "location":"[deployment().location]",
+            "dependsOn": [
+                "[variables('deplaymentNames').lzConnectivityDeploymentName]"
+            ],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').buildLzUri)]"
+                },
+                "parameters": {
+                    "deploymentUris": {
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "subscription":{
+                        "value":"[parameters('subscriptions').Identity]"
+                    },
+                    "environmentSettings": {
+                        "value":"[parameters('identityLzSettings')]"
+                    }
+                }
+            }
+        },
+        // BUILD MANAGEMENT LZ
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "condition": "[parameters('managementLzSettings').build]",
+            "Name":"[variables('deplaymentNames').lzManagementDeploymentName]",
+            "location":"[deployment().location]",
+            "dependsOn": [
+                "[variables('deplaymentNames').lzIdentityDeploymentName]"
+            ],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').buildLzUri)]"
+                },
+                "parameters": {
+                    "deploymentUris": {
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "subscription":{
+                        "value":"[parameters('subscriptions').Management]"
+                    },
+                    "environmentSettings": {
+                        "value":"[parameters('managementLzSettings')]"
+                    }
+                }
+            }
+        },
+        // BUILD SECURITY LZ
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "condition": "[parameters('securityLzSettings').build]",
+            "Name":"[variables('deplaymentNames').lzSecurityDeploymentName]",
+            "location":"[deployment().location]",
+            "dependsOn": [
+                "[variables('deplaymentNames').lzManagementDeploymentName]"
+            ],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').buildLzUri)]"
+                },
+                "parameters": {
+                    "deploymentUris": {
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "subscription":{
+                        "value":"[parameters('subscriptions').Security]"
+                    },
+                    "environmentSettings": {
+                        "value":"[parameters('securityLzSettings')]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "test": {
+            "type":"string",
+            "value": "[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').buildConnectivityLzUri)]"
+        }
+    },
+    "functions": []
+}
