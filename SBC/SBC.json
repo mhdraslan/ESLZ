@@ -1,0 +1,458 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "resourceGroupName":{
+            "type":"string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        // Resource Group
+        {
+            "type":"Microsoft.Resources/resourceGroups",
+            "apiVersion":"2019-05-01",
+            "name":"[parameters('resourceGroupName')]",
+            "location":"uaenorth",
+            "properties":{}
+        },
+        
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2022-09-01",
+            "name":"deploy-sbc-components",
+            "resourceGroup":"[parameters('resourceGroupName')]",
+            "dependsOn":[
+                "[parameters('resourceGroupName')]"
+            ],
+            "properties":{
+                "mode":"Incremental",
+                "expressionEvaluationOptions": {
+                    "scope": "inner"
+                },
+                "template":{
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "resourceGroupName": {
+                            "type": "string"
+                        }
+                    },
+                    "functions": [],
+                    "variables": {},
+                    "resources": [
+                        // Virtual Network
+                        {
+                            "type": "Microsoft.Network/virtualNetworks",
+                            "apiVersion": "2019-09-01",
+                            "name": "vnet-MS_Teams_DR-uaen-Prod-01",
+                            "location":"uaenorth",
+                            "properties": {
+                                "addressSpace": {
+                                    "addressPrefixes": ["10.11.232.192/26","10.11.198.0/28","10.11.200.0/28"]
+                                },
+                                "dhcpOptions": {
+                                    "dnsServers": []
+                                },
+                                "subnets": [],
+                                "virtualNetworkPeerings": [],
+                                "enableDdosProtection": false,
+                                "enableVmProtection": false
+                            } 
+                        },
+
+                        // Management Subnet
+                        {
+                            "type": "Microsoft.Network/routeTables",
+                            "apiVersion": "2019-11-01",
+                            "name": "udr-MS_Teams_DR-MGMT-uaen-Prod",
+                            "location":"uaenorth"
+                        },                
+                        {
+                            "type": "Microsoft.Network/networkSecurityGroups",
+                            "apiVersion": "2021-05-01",
+                            "name": "nsg-MS_Teams_DR-MGMT-uaen-Prod",
+                            "location":"uaenorth"
+                        },
+                        {
+                            "type": "Microsoft.Network/virtualNetworks/subnets",
+                            "apiVersion": "2019-09-01",
+                            "name": "[concat('vnet-MS_Teams_DR-uaen-Prod-01','/','snet-MS_Teams_DR-MGMT-uaen-Prod')]",
+                            "location":"uaenorth",
+                            "dependsOn": [
+                                "vnet-MS_Teams_DR-uaen-Prod-01",
+                                "udr-MS_Teams_DR-MGMT-uaen-Prod",
+                                "nsg-MS_Teams_DR-MGMT-uaen-Prod"
+                            ],
+                            "properties": {
+                                "addressPrefix": "10.11.232.192/27",
+                                "routeTable": {
+                                    "id": "[resourceId(parameters('resourceGroupName'),'Microsoft.Network/routeTables','udr-MS_Teams_DR-MGMT-uaen-Prod')]"
+                                },
+                                "networkSecurityGroup":{
+                                    "id":"[resourceId(parameters('resourceGroupName'),'Microsoft.Network/networkSecurityGroups','nsg-MS_Teams_DR-MGMT-uaen-Prod')]"
+                                }
+                            }
+                        },
+
+                        // Core Signal Subnet
+                        {
+                            "type": "Microsoft.Network/routeTables",
+                            "apiVersion": "2019-11-01",
+                            "name": "udr-MS_Teams_DR-CoreSignl-uaen-Prod",
+                            "location":"uaenorth"
+                        },
+                        {
+                            "type": "Microsoft.Network/networkSecurityGroups",
+                            "apiVersion": "2021-05-01",
+                            "name": "nsg-MS_Teams_DR-CoreSignl-uaen-Prod",
+                            "location":"uaenorth"
+                        },
+                        {
+                            "type": "Microsoft.Network/virtualNetworks/subnets",
+                            "apiVersion": "2019-09-01",
+                            "name": "[concat('vnet-MS_Teams_DR-uaen-Prod-01','/','snet-MS_Teams_DR-CoreSignl-uaen-Prod')]",
+                            "location":"uaenorth",
+                            "dependsOn": [
+                                "vnet-MS_Teams_DR-uaen-Prod-01",
+                                "udr-MS_Teams_DR-CoreSignl-uaen-Prod",
+                                "nsg-MS_Teams_DR-CoreSignl-uaen-Prod",
+                                "[resourceId(parameters('resourceGroupName'),'Microsoft.Network/virtualNetworks/subnets','vnet-MS_Teams_DR-uaen-Prod-01','snet-MS_Teams_DR-MGMT-uaen-Prod')]"
+                            ],
+                            "properties": {
+                                "addressPrefix": "10.11.232.224/28",
+                                "routeTable": {
+                                    "id": "[resourceId(parameters('resourceGroupName'),'Microsoft.Network/routeTables','udr-MS_Teams_DR-CoreSignl-uaen-Prod')]"
+                                },
+                                "networkSecurityGroup":{
+                                    "id":"[resourceId(parameters('resourceGroupName'),'Microsoft.Network/networkSecurityGroups','nsg-MS_Teams_DR-CoreSignl-uaen-Prod')]"
+                                }
+                            }
+                        },
+
+                        // Core Media Subnet
+                        {
+                            "type": "Microsoft.Network/routeTables",
+                            "apiVersion": "2019-11-01",
+                            "name": "udr-MS_Teams_DR-CoreMedia-uaen-Prod",
+                            "location":"uaenorth"
+                        },
+                        {
+                            "type": "Microsoft.Network/networkSecurityGroups",
+                            "apiVersion": "2021-05-01",
+                            "name": "nsg-MS_Teams_DR-CoreMedia-uaen-Prod",
+                            "location":"uaenorth"
+                        },
+                        {
+                            "type": "Microsoft.Network/virtualNetworks/subnets",
+                            "apiVersion": "2019-09-01",
+                            "name": "[concat('vnet-MS_Teams_DR-uaen-Prod-01','/','snet-MS_Teams_DR-CoreMedia-uaen-Prod')]",
+                            "location":"uaenorth",
+                            "dependsOn": [
+                                "vnet-MS_Teams_DR-uaen-Prod-01",
+                                "udr-MS_Teams_DR-CoreMedia-uaen-Prod",
+                                "nsg-MS_Teams_DR-CoreMedia-uaen-Prod",
+                                "[resourceId(parameters('resourceGroupName'),'Microsoft.Network/virtualNetworks/subnets','vnet-MS_Teams_DR-uaen-Prod-01','snet-MS_Teams_DR-CoreSignl-uaen-Prod')]"
+                            ],
+                            "properties": {
+                                "addressPrefix": "10.11.198.0/28",
+                                "routeTable": {
+                                    "id": "[resourceId(parameters('resourceGroupName'),'Microsoft.Network/routeTables','udr-MS_Teams_DR-CoreMedia-uaen-Prod')]"
+                                },
+                                "networkSecurityGroup":{
+                                    "id":"[resourceId(parameters('resourceGroupName'),'Microsoft.Network/networkSecurityGroups','nsg-MS_Teams_DR-CoreMedia-uaen-Prod')]"
+                                }
+                            }
+                        },
+
+                        // Access SIP Subnet
+                        {
+                            "type": "Microsoft.Network/routeTables",
+                            "apiVersion": "2019-11-01",
+                            "name": "udr-MS_Teams_DR-AccessSIPTrunk-uaen-Prod",
+                            "location":"uaenorth"
+                        },
+                        {
+                            "type": "Microsoft.Network/networkSecurityGroups",
+                            "apiVersion": "2021-05-01",
+                            "name": "nsg-MS_Teams_DR-AccessSIPTrunk-uaen-Prod",
+                            "location":"uaenorth"
+                        },
+                        {
+                            "type": "Microsoft.Network/virtualNetworks/subnets",
+                            "apiVersion": "2019-09-01",
+                            "name": "[concat('vnet-MS_Teams_DR-uaen-Prod-01','/','snet-MS_Teams_DR-AccessSIPTrunk-uaen-Prod')]",
+                            "location":"uaenorth",
+                            "dependsOn": [
+                                "vnet-MS_Teams_DR-uaen-Prod-01",
+                                "udr-MS_Teams_DR-AccessSIPTrunk-uaen-Prod",
+                                "nsg-MS_Teams_DR-AccessSIPTrunk-uaen-Prod",
+                                "[resourceId(parameters('resourceGroupName'),'Microsoft.Network/virtualNetworks/subnets','vnet-MS_Teams_DR-uaen-Prod-01','snet-MS_Teams_DR-CoreMedia-uaen-Prod')]"
+                            ],
+                            "properties": {
+                                "addressPrefix": "10.11.200.0/28",
+                                "routeTable": {
+                                    "id": "[resourceId(parameters('resourceGroupName'),'Microsoft.Network/routeTables','udr-MS_Teams_DR-AccessSIPTrunk-uaen-Prod')]"
+                                },
+                                "networkSecurityGroup":{
+                                    "id":"[resourceId(parameters('resourceGroupName'),'Microsoft.Network/networkSecurityGroups','nsg-MS_Teams_DR-AccessSIPTrunk-uaen-Prod')]"
+                                }
+                            }
+                        },
+
+                        // Public SigMedia Subnet
+                        {
+                            "type": "Microsoft.Network/routeTables",
+                            "apiVersion": "2019-11-01",
+                            "name": "udr-MS_Teams_DR-Public_SigMedia-uaen-Prod",
+                            "location":"uaenorth"
+                        },
+                        {
+                            "type": "Microsoft.Network/networkSecurityGroups",
+                            "apiVersion": "2021-05-01",
+                            "name": "nsg-MS_Teams_DR-Public_SigMedia-uaen-Prod",
+                            "location":"uaenorth"
+                        },
+                        {
+                            "type": "Microsoft.Network/virtualNetworks/subnets",
+                            "apiVersion": "2019-09-01",
+                            "name": "[concat('vnet-MS_Teams_DR-uaen-Prod-01','/','snet-MS_Teams_DR-Public_SigMedia-uaen-Prod')]",
+                            "location":"uaenorth",
+                            "dependsOn": [
+                                "vnet-MS_Teams_DR-uaen-Prod-01",
+                                "udr-MS_Teams_DR-Public_SigMedia-uaen-Prod",
+                                "nsg-MS_Teams_DR-Public_SigMedia-uaen-Prod",
+                                "[resourceId(parameters('resourceGroupName'),'Microsoft.Network/virtualNetworks/subnets','vnet-MS_Teams_DR-uaen-Prod-01','snet-MS_Teams_DR-AccessSIPTrunk-uaen-Prod')]"
+                            ],
+                            "properties": {
+                                "addressPrefix": "10.11.232.240/28",
+                                "routeTable": {
+                                    "id": "[resourceId(parameters('resourceGroupName'),'Microsoft.Network/routeTables','udr-MS_Teams_DR-Public_SigMedia-uaen-Prod')]"
+                                },
+                                "networkSecurityGroup":{
+                                    "id":"[resourceId(parameters('resourceGroupName'),'Microsoft.Network/networkSecurityGroups','nsg-MS_Teams_DR-Public_SigMedia-uaen-Prod')]"
+                                }
+                            }
+                        },
+
+                        // UDR Entries
+                        {
+                            "type": "Microsoft.Network/routeTables/routes",
+                            "apiVersion": "2019-11-01",
+                            "name": "[concat('udr-MS_Teams_DR-MGMT-uaen-Prod','/','Default')]",
+                            "dependsOn": [
+                                "udr-MS_Teams_DR-MGMT-uaen-Prod"
+                            ],
+                            "location":"uaenorth",
+                            "properties": {
+                                "addressPrefix": "0.0.0.0/0",
+                                "nextHopType": "VirtualAppliance",
+                                "nextHopIpAddress": "10.106.4.10"
+                            }
+                        },
+                        {
+                            "type": "Microsoft.Network/routeTables/routes",
+                            "apiVersion": "2019-11-01",
+                            "name": "[concat('udr-MS_Teams_DR-CoreSignl-uaen-Prod','/','Default')]",
+                            "dependsOn": [
+                                "udr-MS_Teams_DR-CoreSignl-uaen-Prod"
+                            ],
+                            "location":"uaenorth",
+                            "properties": {
+                                "addressPrefix": "0.0.0.0/0",
+                                "nextHopType": "VirtualAppliance",
+                                "nextHopIpAddress": "10.106.4.10"
+                            }
+                        },
+                        {
+                            "type": "Microsoft.Network/routeTables/routes",
+                            "apiVersion": "2019-11-01",
+                            "name": "[concat('udr-MS_Teams_DR-CoreMedia-uaen-Prod','/','Default')]",
+                            "dependsOn": [
+                                "udr-MS_Teams_DR-CoreMedia-uaen-Prod"
+                            ],
+                            "location":"uaenorth",
+                            "properties": {
+                                "addressPrefix": "0.0.0.0/0",
+                                "nextHopType": "VirtualAppliance",
+                                "nextHopIpAddress": "10.106.4.10"
+                            }
+                        },
+                        {
+                            "type": "Microsoft.Network/routeTables/routes",
+                            "apiVersion": "2019-11-01",
+                            "name": "[concat('udr-MS_Teams_DR-AccessSIPTrunk-uaen-Prod','/','Default')]",
+                            "dependsOn": [
+                                "udr-MS_Teams_DR-AccessSIPTrunk-uaen-Prod"
+                            ],
+                            "location":"uaenorth",
+                            "properties": {
+                                "addressPrefix": "0.0.0.0/0",
+                                "nextHopType": "VirtualAppliance",
+                                "nextHopIpAddress": "10.106.4.10"
+                            }
+                        },
+                        {
+                            "type": "Microsoft.Network/routeTables/routes",
+                            "apiVersion": "2019-11-01",
+                            "name": "[concat('udr-MS_Teams_DR-Public_SigMedia-uaen-Prod','/','Default')]",
+                            "dependsOn": [
+                                "udr-MS_Teams_DR-Public_SigMedia-uaen-Prod"
+                            ],
+                            "location":"uaenorth",
+                            "properties": {
+                                "addressPrefix": "0.0.0.0/0",
+                                "nextHopType": "VirtualAppliance",
+                                "nextHopIpAddress": "10.106.4.10"
+                            }
+                        },
+                        {
+                            "type": "Microsoft.Network/routeTables/routes",
+                            "apiVersion": "2019-11-01",
+                            "name": "[concat('udr-MS_Teams_DR-MGMT-uaen-Prod','/','To_On-Premises')]",
+                            "dependsOn": [
+                                "[resourceId(parameters('resourceGroupName'),'Microsoft.Network/routeTables/routes','udr-MS_Teams_DR-MGMT-uaen-Prod','Default')]"
+                            ],
+                            "location":"uaenorth",
+                            "properties": {
+                                "addressPrefix": "10.0.0.0/8",
+                                "nextHopType": "VirtualAppliance",
+                                "nextHopIpAddress": "10.11.192.4"
+                            }
+                        },
+                        {
+                            "type": "Microsoft.Network/routeTables/routes",
+                            "apiVersion": "2019-11-01",
+                            "name": "[concat('udr-MS_Teams_DR-CoreSignl-uaen-Prod','/','To_On-Premises')]",
+                            "dependsOn": [
+                                "[resourceId(parameters('resourceGroupName'),'Microsoft.Network/routeTables/routes','udr-MS_Teams_DR-CoreSignl-uaen-Prod','Default')]"
+                            ],
+                            "location":"uaenorth",
+                            "properties": {
+                                "addressPrefix": "10.0.0.0/8",
+                                "nextHopType": "VirtualAppliance",
+                                "nextHopIpAddress": "10.11.192.4"
+                            }
+                        },
+                        {
+                            "type": "Microsoft.Network/routeTables/routes",
+                            "apiVersion": "2019-11-01",
+                            "name": "[concat('udr-MS_Teams_DR-CoreMedia-uaen-Prod','/','To_On-Premises')]",
+                            "dependsOn": [
+                                "[resourceId(parameters('resourceGroupName'),'Microsoft.Network/routeTables/routes','udr-MS_Teams_DR-CoreMedia-uaen-Prod','Default')]"
+                            ],
+                            "location":"uaenorth",
+                            "properties": {
+                                "addressPrefix": "10.0.0.0/8",
+                                "nextHopType": "VirtualAppliance",
+                                "nextHopIpAddress": "10.11.193.196"
+                            }
+                        },
+                        {
+                            "type": "Microsoft.Network/routeTables/routes",
+                            "apiVersion": "2019-11-01",
+                            "name": "[concat('udr-MS_Teams_DR-AccessSIPTrunk-uaen-Prod','/','To_On-Premises')]",
+                            "dependsOn": [
+                                "[resourceId(parameters('resourceGroupName'),'Microsoft.Network/routeTables/routes','udr-MS_Teams_DR-AccessSIPTrunk-uaen-Prod','Default')]"
+                            ],
+                            "location":"uaenorth",
+                            "properties": {
+                                "addressPrefix": "10.0.0.0/8",
+                                "nextHopType": "VirtualAppliance",
+                                "nextHopIpAddress": "10.11.236.4"
+                            }
+                        },
+                        {
+                            "type": "Microsoft.Network/routeTables/routes",
+                            "apiVersion": "2019-11-01",
+                            "name": "[concat('udr-MS_Teams_DR-Public_SigMedia-uaen-Prod','/','To_On-Premises')]",
+                            "dependsOn": [
+                                "[resourceId(parameters('resourceGroupName'),'Microsoft.Network/routeTables/routes','udr-MS_Teams_DR-Public_SigMedia-uaen-Prod','Default')]"
+                            ],
+                            "location":"uaenorth",
+                            "properties": {
+                                "addressPrefix": "10.0.0.0/8",
+                                "nextHopType": "VirtualAppliance",
+                                "nextHopIpAddress": "10.106.4.10"
+                            }
+                        },
+
+                        // Storage Account
+                        {
+                            "type": "Microsoft.Storage/storageAccounts",
+                            "apiVersion": "2019-06-01",
+                            "name": "stteamsdrnorth01",
+                            "location":"uaenorth",
+                            "sku": {
+                                "name": "Standard_LRS",
+                                "tier": "Standard"
+                            },
+                            "kind": "StorageV2",
+                            "properties": {
+                                "largeFileSharesState": "Disabled",
+                                "publicNetworkAccess":"Disabled",
+                                "supportsHttpsTrafficOnly": true,
+                                "encryption": {
+                                    "services": {
+                                        "file": {
+                                            "keyType": "Account",
+                                            "enabled": true
+                                        },
+                                        "blob": {
+                                            "keyType": "Account",
+                                            "enabled": true
+                                        }
+                                    },
+                                    "keySource": "Microsoft.Storage"
+                                },
+                                "accessTier": "Hot"
+                            }
+                        },
+                        {
+                            "name": "pe-teamsdr-uaen-prod",
+                            "type": "Microsoft.Network/privateEndpoints",
+                            "location":"uaenorth",
+                            "dependsOn": [
+                                "[resourceId('Microsoft.Storage/storageAccounts', 'stteamsdrnorth01')]"
+                            ],
+                            "apiVersion": "2021-05-01",
+                            "properties": {
+                                "subnet": {
+                                    "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets','vnet-MS_Teams_DR-uaen-Prod-01','snet-MS_Teams_DR-MGMT-uaen-Prod')]"
+                                },
+                                "ipConfigurations": [
+                                    {
+                                        "name": "ipconfig1",
+                                        "properties": {
+                                            "groupId": "blob",
+                                            "memberName": "blob",
+                                            "privateIPAddress": "10.11.232.222"
+                                        }
+                                    }
+                                ],
+                                "customNetworkInterfaceName": "pe-teamsdr-uaen-prod-blob-nic",
+                                "privateLinkServiceConnections": [
+                                    {
+                                        "name": "pe-teamsdr-uaen-prod",
+                                        "properties": {
+                                            "privateLinkServiceId": "[resourceId('Microsoft.Storage/storageAccounts','stteamsdrnorth01')]",
+                                            "groupIds": ["blob"]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "outputs": {}
+                },
+                "parameters": {
+                    "resourceGroupName": {
+                        "value": "[parameters('resourceGroupName')]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {},
+    "functions": []
+}
