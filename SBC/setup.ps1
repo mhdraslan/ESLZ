@@ -1,1 +1,8 @@
-Measure-Command {New-AzSubscriptionDeployment -Name "SBC-Test-02" -Location uaenorth -TemplateFile "C:\Users\mraslan\OneDrive - Microsoft\Customers\UAE\DXB\Etisalat\SBC.json" -resourceGroupName "rg-MS_Teams_DR-uaen-Prod-01" -Verbose }
+$deploymentName = ""
+$templateUri = ""
+$resourceGroupName = ""
+New-AzSubscriptionDeployment -Name $deploymentName `
+                             -Location uaenorth `
+                             -TemplateUri $templateUri `
+                             -resourceGroupName $resourceGroupName `
+                             -Verbose
