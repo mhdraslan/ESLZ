@@ -1100,6 +1100,7 @@
                         }
                     }
                     */
+                    // Cloud PC Landing Zone
                     {
                         "build":true,
                         "lzName":"CloudPC",
