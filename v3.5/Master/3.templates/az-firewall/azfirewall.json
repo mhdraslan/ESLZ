@@ -19,6 +19,10 @@
                 "Standard",
                 "Premium"
             ]
+        },
+        "azFirewallZones":{
+            "type": "array",
+            "defaultValue": ["1","2","3"]
         }
     },
     "variables": {
@@ -56,7 +60,8 @@
                 "networkRuleCollections": [],
                 "applicationRuleCollections": [],
                 "natRuleCollections": []
-            }
+            },
+            "zones":"[parameters('azFirewallZones')]"
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
