@@ -82,9 +82,6 @@
                     "uri":"[variables('deploymentUris').buildPlatformLzUri]"
                 },
                 "parameters": {
-                    "deploymentLocation": {
-                        "value":"[parameters('deploymentLocation')]"
-                    },
                     "deploymentUris": {
                         "value":"[variables('deploymentUris')]"
                     },
@@ -93,15 +90,6 @@
                     },
                     "connectivityLzSettings": {
                         "value":"[parameters('connectivityLzSettings')]"
-                    },
-                    "identityLzSettings": {
-                        "value":"[parameters('identityLzSettings')]"
-                    },
-                    "managementLzSettings": {
-                        "value":"[parameters('managementLzSettings')]"
-                    },
-                    "securityLzSettings": {
-                        "value":"[parameters('securityLzSettings')]"
                     }
                 }
             }
