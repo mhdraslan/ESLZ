@@ -1,5 +1,4 @@
 {
-    //"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "$schema": "https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
@@ -79,7 +78,7 @@
         // BUILD PLATFORM LZ
         {
             "type":"Microsoft.Resources/deployments",
-            "apiVersion":"2019-05-01",
+            "apiVersion":"2019-07-01",
             "Name":"Launch-Platform-Build",
             "location":"[deployment().location]",
             "dependsOn": [],
@@ -116,7 +115,7 @@
         //BUILD APP LZ
         {
             "type":"Microsoft.Resources/deployments",
-            "apiVersion":"2019-05-01",
+            "apiVersion":"2019-07-01",
             "Name":"[concat('Launch-',parameters('appsLzSettings').landingZones[copyIndex()].lzName,'-LZ-Build')]",
             "location":"[deployment().location]",
             "dependsOn": [],

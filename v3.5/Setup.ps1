@@ -42,3 +42,4 @@ $Total
    New-AzManagementGroupDeployment -Name "test001" -ManagementGroupId "IntelliSYS" -Location uaenorth -TemplateUri "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/v3.0/Master/main.json" -TemplateParameterFile "C:\Users\mraslan\OneDrive\Documents\GitHub\ESLZ\v3.0\Master\main.param.json"
 #>
 
+New-AzTenantDeployment -Name "eslz-test-01" -Location 'UAE North' -TemplateUri "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/v3.5/Master/main.json" -TemplateParameterUri "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/v3.5/Master/main.param.json"
