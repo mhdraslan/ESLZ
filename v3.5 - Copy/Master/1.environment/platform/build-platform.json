@@ -1,0 +1,60 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "deploymentUris": {
+            "type": "object"
+        },
+        "subscriptions": {
+            "type": "object"
+        },
+        "connectivityLzSettings":{
+            "type": "object",
+            "defaultValue":{}
+        }
+    },
+    "variables": {
+        "deploymentNames":{
+            "lzConnectivityDeploymentName": "Start-Platform-Connectivity-Build",
+            "lzIdentityDeploymentName":"Start-Platform-Identity-Build",
+            "lzManagementDeploymentName":"Start-Platform-Management-Build",
+            "lzSecurityDeploymentName":"Start-Platform-Security-Build"
+        }
+    },
+    "resources": [ 
+        // BUILD CONNECTIVITY LZ
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "condition": "[parameters('connectivityLzSettings').build]",
+            "Name":"[variables('deploymentNames').lzConnectivityDeploymentName]",
+            "subscriptionId": "[parameters('subscriptions').Connectivity.Id]",
+            "location":"[deployment().location]",
+            "dependsOn": [],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').buildLzUri)]"
+                },
+                "parameters": {
+                    "deploymentUris": {
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "subscription":{
+                        "value":"[parameters('subscriptions').Connectivity]"
+                    },
+                    "environmentSettings": {
+                        "value":"[parameters('connectivityLzSettings')]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "test": {
+            "type":"string",
+            "value": "Calling from main.json worked."
+        }
+    },
+    "functions": []
+}

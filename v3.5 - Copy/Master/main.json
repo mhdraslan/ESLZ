@@ -1,5 +1,4 @@
 {
-    //"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "$schema": "https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
@@ -22,10 +21,6 @@
             "defaultValue":{}
         },
         "securityLzSettings":{
-            "type": "object",
-            "defaultValue":{}
-        },
-        "appsLzSettings":{
             "type": "object",
             "defaultValue":{}
         }
@@ -74,8 +69,6 @@
         }
     },
     "resources": [
-        // BUILD MANAGEMENT GROUPS
-
         // BUILD PLATFORM LZ
         {
             "type":"Microsoft.Resources/deployments",
@@ -109,39 +102,6 @@
                     },
                     "securityLzSettings": {
                         "value":"[parameters('securityLzSettings')]"
-                    }
-                }
-            }
-        },
-        //BUILD APP LZ
-        {
-            "type":"Microsoft.Resources/deployments",
-            "apiVersion":"2019-05-01",
-            "Name":"[concat('Launch-',parameters('appsLzSettings').landingZones[copyIndex()].lzName,'-LZ-Build')]",
-            "location":"[deployment().location]",
-            "dependsOn": [],
-            "copy":{
-                "name": "AppsLandingZonesCopy",
-                "mode":"serial",
-                "count":"[length(parameters('appsLzSettings').landingZones)]"
-            },
-            "properties":{
-                "mode":"Incremental",
-                "templatelink":{
-                    "uri":"[uri(deployment().properties.templateLink.uri,variables('deploymentUris').buildLzUri)]"
-                },
-                "parameters": {
-                    "deploymentLocation": {
-                        "value":"[parameters('deploymentLocation')]"
-                    },
-                    "deploymentUris": {
-                        "value":"[variables('deploymentUris')]"
-                    },
-                    "subscriptions": {
-                        "value":"[parameters('appsLzSettings').landingZones[copyIndex()].subscription]"
-                    },
-                    "landingZones": {
-                        "value":"[parameters('appsLzSettings')]"
                     }
                 }
             }

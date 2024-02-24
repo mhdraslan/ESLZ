@@ -29,7 +29,7 @@
         }
     },
     "variables": {
-        "deplaymentNames":{
+        "deploymentNames":{
             "lzConnectivityDeploymentName": "Start-Platform-Connectivity-Build",
             "lzIdentityDeploymentName":"Start-Platform-Identity-Build",
             "lzManagementDeploymentName":"Start-Platform-Management-Build",
@@ -42,7 +42,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "condition": "[parameters('connectivityLzSettings').build]",
-            "Name":"[variables('deplaymentNames').lzConnectivityDeploymentName]",
+            "Name":"[variables('deploymentNames').lzConnectivityDeploymentName]",
             "subscriptionId": "[parameters('subscriptions').Connectivity.Id]",
             "location":"[deployment().location]",
             "dependsOn": [],
@@ -69,11 +69,11 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "condition": "[parameters('identityLzSettings').build]",
-            "Name":"[variables('deplaymentNames').lzIdentityDeploymentName]",
+            "Name":"[variables('deploymentNames').lzIdentityDeploymentName]",
             "subscriptionId": "[parameters('subscriptions').Identity.Id]",
             "location":"[deployment().location]",
             "dependsOn": [
-                "[variables('deplaymentNames').lzConnectivityDeploymentName]"
+                "[variables('deploymentNames').lzConnectivityDeploymentName]"
             ],
             "properties":{
                 "mode":"Incremental",
@@ -98,10 +98,10 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "condition": "[parameters('managementLzSettings').build]",
-            "Name":"[variables('deplaymentNames').lzManagementDeploymentName]",
+            "Name":"[variables('deploymentNames').lzManagementDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
-                "[variables('deplaymentNames').lzIdentityDeploymentName]"
+                "[variables('deploymentNames').lzIdentityDeploymentName]"
             ],
             "properties":{
                 "mode":"Incremental",
@@ -126,10 +126,10 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "condition": "[parameters('securityLzSettings').build]",
-            "Name":"[variables('deplaymentNames').lzSecurityDeploymentName]",
+            "Name":"[variables('deploymentNames').lzSecurityDeploymentName]",
             "location":"[deployment().location]",
             "dependsOn": [
-                "[variables('deplaymentNames').lzManagementDeploymentName]"
+                "[variables('deploymentNames').lzManagementDeploymentName]"
             ],
             "properties":{
                 "mode":"Incremental",

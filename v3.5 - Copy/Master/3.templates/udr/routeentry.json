@@ -1,0 +1,35 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "routeTableName": {
+            "type": "string"
+        },
+        "routeEntryName": {
+            "type": "String"
+        },
+        "RouteEntryAddressPrefix": {
+            "type": "String"
+        },
+        "routeEntryType": {
+            "type": "String",
+            "allowedValues": ["VirtualNetworkGateway","VnetLocal","Internet","VirtualAppliance","None"]
+        },
+        "routeEntryNextHopIPAddress": {
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/routeTables/routes",
+            "apiVersion": "2019-11-01",
+            "name": "[concat(parameters('routeTableName'),'/',parameters('routeEntryName'))]",
+            "properties": {
+                "addressPrefix": "[parameters('RouteEntryAddressPrefix')]",
+                "nextHopType": "[parameters('routeEntryType')]",
+                "nextHopIpAddress": "[parameters('routeEntryNextHopIPAddress')]"
+            }
+        }
+    ]
+}

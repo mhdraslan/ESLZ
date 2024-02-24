@@ -1,0 +1,66 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "deploymentUris": {
+            "type": "object"
+        },
+        "subscription": {
+            "type": "object"
+        },
+        "environmentSettings": {
+            "type": "object"
+        },
+        "deploymentNamePrefix":{
+            "type":"string",
+            "metadata":{
+                "description":"Text to display before the deployment name. Default value 'Build-'."
+            },
+            "defaultValue":"Build-"
+        }
+    },
+    "variables": {
+        "deplaymentNames":{
+            "resourceGroupsDeploymentName"  : "[concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-ResourceGroups')]",
+            "networkingDeploymentName"      : "[concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-Networking')]",
+            "virtualMachinesDeploymentName" : "[concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-VirtualMachines')]",
+            "nvaDeploymentName"             : "[concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-NVAs')]"
+        }
+    },
+    "resources": [
+        // Build Resource Groups
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "Name":"[variables('deplaymentNames').resourceGroupsDeploymentName]",
+            "location":"[deployment().location]",
+            "dependsOn": [],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').defResourceGroupsUri)]"
+                },
+                "parameters": {
+                    "deploymentUris":{
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "subscriptionName":{
+                        "value":"[parameters('subscription').Name]"
+                    },
+                    "subscriptionId":{
+                        "value":"[parameters('subscription').Id]"
+                    },
+                    "resourceGroups":{
+                        "value":"[parameters('environmentSettings').resourceGroups]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "test": {
+            "type":"string",
+            "value": "Calling from build-platform.json worked."
+        }
+    }
+}

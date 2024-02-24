@@ -1,0 +1,57 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "deploymentUris": {
+            "type": "object"
+        },
+        "subscriptionName": {
+            "type": "string"
+        },
+        "subscriptionId": {
+            "type": "string"
+        },
+        "logAnalyticsWorkspace": {
+            "type": "object",
+            "defaultValue": {}
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        // LOG ANALYTICS
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "Name":"[concat('Create_Log_Analytics_Workspace_',parameters('subscriptionName'),'-',parameters('logAnalyticsWorkspace').settings[copyIndex()].name)]",
+            "condition": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].build]",
+            "resourceGroup": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].rgName]",
+            "copy": {
+                "name": "lawCopy",
+                "count": "[length(parameters('logAnalyticsWorkspace').settings)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').logAnalytics]"
+                },
+                "parameters":{
+                    "workspaceName":{
+                        "value":"[parameters('logAnalyticsWorkspace').settings[copyIndex()].name]"
+                    },
+                    "workspaceRetention":{
+                        "value":"[parameters('logAnalyticsWorkspace').settings[copyIndex()].retention]"
+                    },
+                    "publicNetworkAccessForIngestion":{
+                        "value":"[parameters('logAnalyticsWorkspace').settings[copyIndex()].publicNetworkAccessForIngestion]"
+                    },
+                    "publicNetworkAccessForQuery":{
+                        "value":"[parameters('logAnalyticsWorkspace').settings[copyIndex()].publicNetworkAccessForQuery]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
