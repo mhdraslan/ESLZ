@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "deploymentLocation": {
-            "type": "string"
-        },
         "deploymentUris": {
             "type": "object"
         },
@@ -150,11 +147,6 @@
             }
         }
     ],
-    "outputs": {
-        "test": {
-            "type":"string",
-            "value": "[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').buildConnectivityLzUri)]"
-        }
-    },
+    "outputs": {},
     "functions": []
 }

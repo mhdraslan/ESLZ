@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "deploymentLocation": {
-            "type": "string"
-        },
         "subscriptions": {
             "type": "object"
         },
@@ -51,6 +48,7 @@
             "appGatewayV2Standard"  : "[uri(deployment().properties.templateLink.uri, '3.templates/app-gateway/appgw-v2-standard.json')]",
             "privatednszone"        : "[uri(deployment().properties.templateLink.uri, '3.templates/dns/privatednszone.json')]",
             "privatednszoneregional": "[uri(deployment().properties.templateLink.uri, '3.templates/dns/privatednszoneregional.json')]",
+            "privatednsresolver"    : "[uri(deployment().properties.templateLink.uri, '3.templates/dns/privatednsresolver.json')]",
 
             "defResourceGroupsUri"  : "[uri(deployment().properties.templateLink.uri, '2.definitions/resource-groups.json')]",
             "defMgSubsUri"          : "[uri(deployment().properties.templateLink.uri, '2.definitions/mgsub.json')]",
@@ -59,17 +57,9 @@
             "defMonitoringUri"      : "[uri(deployment().properties.templateLink.uri, '2.definitions/monitoring.json')]",
             "defVirtualMachinesUri" : "[uri(deployment().properties.templateLink.uri, '2.definitions/virtualmachines.json')]",
 
-            "lzConnectivityUri"     : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/connectivity/base-connectivity-lz.param.json')]",
-            "lzIdentityUri"         : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/identity/identity-lz.param.json')]",
-            "lzManagementUri"       : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/management/management-lz.param.json')]",
-            "lzSecurityUri"         : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/management/security-lz.param.json')]",
-            
             "buildLzUri"            : "[uri(deployment().properties.templateLink.uri, '1.environment/build-lz.json')]",
-            "buildPlatformLzUri"    : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/build-platform.json')]",
-            "buildConnectivityLzUri": "[uri(deployment().properties.templateLink.uri, '1.environment/platform/connectivity/build-connectivity.json')]",
-            "buildIdentityLzUri"    : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/identity/build-identity.json')]",
-            "buildManagementLzUri"  : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/management/build-management.json')]",
-            "buildAppsLzUri"        : "[uri(deployment().properties.templateLink.uri, '1.environment/landing-zones/build-landing-zones.json')]"
+            "buildPlatformLzUri"    : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/build-lz-platform.json')]",
+            "buildAppsLzUri"        : "[uri(deployment().properties.templateLink.uri, '1.environment/landing-zones/build-lz-apps.json')]"
         }
     },
     "resources": [
@@ -88,9 +78,6 @@
                     "uri":"[variables('deploymentUris').buildPlatformLzUri]"
                 },
                 "parameters": {
-                    "deploymentLocation": {
-                        "value":"[parameters('deploymentLocation')]"
-                    },
                     "deploymentUris": {
                         "value":"[variables('deploymentUris')]"
                     },
@@ -130,9 +117,6 @@
                     "uri":"[uri(deployment().properties.templateLink.uri,variables('deploymentUris').buildLzUri)]"
                 },
                 "parameters": {
-                    "deploymentLocation": {
-                        "value":"[parameters('deploymentLocation')]"
-                    },
                     "deploymentUris": {
                         "value":"[variables('deploymentUris')]"
                     },

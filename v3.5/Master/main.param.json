@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "deploymentLocation": {
-            "value":"uaenorth"
-        },
         "subscriptions":{
             "value":{
                 "connectivity": {
@@ -1100,6 +1097,7 @@
                         }
                     }
                     */
+                    
                     // Cloud PC Landing Zone
                     {
                         "build":true,

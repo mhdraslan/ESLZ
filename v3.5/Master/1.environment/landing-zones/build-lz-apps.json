@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "deploymentLocation": {
-            "type": "string"
-        },
         "deploymentUris": {
             "type": "object"
         },
@@ -18,17 +15,17 @@
     },
     "variables": {
         "deplaymentNames":{
-            "lzConnectivityDeploymentName": "Start-Platform-Connectivity-Build",
-            "lzIdentityDeploymentName":"Start-Platform-Identity-Build",
-            "lzManagementDeploymentName":"Start-Platform-Management-Build",
-            "lzSecurityDeploymentName":"Start-Platform-Security-Build"
+            "lzConnectivityDeploymentName": "Start-Apps-LZ-Connectivity-Build",
+            "lzIdentityDeploymentName":"Start-Apps-LZ-Identity-Build",
+            "lzManagementDeploymentName":"Start-Apps-LZ-Management-Build",
+            "lzSecurityDeploymentName":"Start-Apps-LZ-Security-Build"
         }
     },
     "resources": [ 
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "condition": "[parameters('connectivityLzSettings').build]",
+            "condition": "[parameters('landingZones').build]",
             "Name":"[variables('deplaymentNames').lzConnectivityDeploymentName]",
             "subscriptionId": "[parameters('subscriptions').Connectivity.Id]",
             "location":"[deployment().location]",
@@ -53,10 +50,7 @@
         }
     ],
     "outputs": {
-        "test": {
-            "type":"string",
-            "value": "[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').buildConnectivityLzUri)]"
-        }
+        "test": {}
     },
     "functions": []
 }
