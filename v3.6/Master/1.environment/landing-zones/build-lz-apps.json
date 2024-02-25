@@ -1,0 +1,41 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "deploymentUris": {
+            "type": "object"
+        },
+        "landingZones":{
+            "type": "object",
+            "defaultValue":{}
+        }
+    },
+    "variables": {},
+    "resources": [ 
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "condition": "[parameters('landingZones')[copyIndex()].build]",
+            "Name":"[concat('Start-LZ-',parameters('landingZones')[copyIndex()].lzName)]",
+            "subscriptionId": "[parameters('landingZones')[copyIndex()].subscription.Id]",
+            "location":"[deployment().location]",
+            "dependsOn": [],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').buildLzUri)]"
+                },
+                "parameters": {
+                    "deploymentUris": {
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "environmentSettings": {
+                        "value":"[parameters('landingZones')[copyIndex()]]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {},
+    "functions": []
+}

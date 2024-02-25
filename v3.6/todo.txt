@@ -1,0 +1,11 @@
+* renamed landing zone deployment file from lz-template.json to new-azure-lz.json
+
+To DO
+- Update the Windows & Linux templates to parameterize the NIC name
+- Check if you deploy Az azFirewall premium if the deployment will succeed or not.
+- Check if the deployment will work if you do not provide sku information for Azure Firewall and VPN gateway resources
+- Check for deployment name to make sure it does not exceed 64 characters
+- Build management groups 
+- Build policy definitions and assignments
+- Configure peering not to propegate gateway routes
+- 

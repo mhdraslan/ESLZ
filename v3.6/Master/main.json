@@ -1,0 +1,116 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "landingZones":{
+            "type": "object",
+            "defaultValue":{}
+        }
+    },
+    "variables": {
+        "deploymentUris": {
+            "resourceGroup"         : "[uri(deployment().properties.templateLink.uri, '3.templates/resource-group/resourcegroup.json')]",
+            "virtualNetwork"        : "[uri(deployment().properties.templateLink.uri, '3.templates/virtual-network/virtualnetwork.json')]",
+            "subnet"                : "[uri(deployment().properties.templateLink.uri, '3.templates/virtual-network/subnet.json')]",
+            "nsg"                   : "[uri(deployment().properties.templateLink.uri, '3.templates/virtual-network/nsg.json')]",
+            "peering"               : "[uri(deployment().properties.templateLink.uri, '3.templates/virtual-network/peering.json')]",
+            "udrTable"              : "[uri(deployment().properties.templateLink.uri, '3.templates/udr/routetable.json')]",
+            "udrEntry"              : "[uri(deployment().properties.templateLink.uri, '3.templates/udr/routeentry.json')]",
+            "udrLink"               : "[uri(deployment().properties.templateLink.uri, '3.templates/udr/linksubnet.json')]",
+            "udrLinkwithNsg"        : "[uri(deployment().properties.templateLink.uri, '3.templates/udr/linksubnetnsg.json')]",
+            "windowsVm"             : "[uri(deployment().properties.templateLink.uri, '3.templates/virtual-machine/windowsvm.json')]",
+            "linuxVm"               : "[uri(deployment().properties.templateLink.uri, '3.templates/virtual-machine/linuxvm.json')]",
+            "azFirewall"            : "[uri(deployment().properties.templateLink.uri, '3.templates/az-firewall/azfirewall.json')]",
+            "azBastion"             : "[uri(deployment().properties.templateLink.uri, '3.templates/bastion/bastion.json')]",
+            "vpnGateway"            : "[uri(deployment().properties.templateLink.uri, '3.templates/network-gateway/vpngw.json')]",
+            "logAnalytics"          : "[uri(deployment().properties.templateLink.uri, '3.templates/log-analytics/laws.json')]",
+            "keyVault"              : "[uri(deployment().properties.templateLink.uri, '3.templates/misc/kv.json')]",
+            "appGatewayV2Waf"       : "[uri(deployment().properties.templateLink.uri, '3.templates/app-gateway/appgw-v2-waf.json')]",
+            "appGatewayV2Standard"  : "[uri(deployment().properties.templateLink.uri, '3.templates/app-gateway/appgw-v2-standard.json')]",
+            "privatednszone"        : "[uri(deployment().properties.templateLink.uri, '3.templates/dns/privatednszone.json')]",
+            "privatednszoneregional": "[uri(deployment().properties.templateLink.uri, '3.templates/dns/privatednszoneregional.json')]",
+            "privatednsresolver"    : "[uri(deployment().properties.templateLink.uri, '3.templates/dns/privatednsresolver.json')]",
+
+            "defResourceGroupsUri"  : "[uri(deployment().properties.templateLink.uri, '2.definitions/resource-groups.json')]",
+            "defMgSubsUri"          : "[uri(deployment().properties.templateLink.uri, '2.definitions/mgsub.json')]",
+            "defNetworkingUri"      : "[uri(deployment().properties.templateLink.uri, '2.definitions/networking.json')]",
+            "defNvaUri"             : "[uri(deployment().properties.templateLink.uri, '2.definitions/nva.json')]",
+            "defMonitoringUri"      : "[uri(deployment().properties.templateLink.uri, '2.definitions/monitoring.json')]",
+            "defVirtualMachinesUri" : "[uri(deployment().properties.templateLink.uri, '2.definitions/virtualmachines.json')]",
+
+            "buildLzUri"            : "[uri(deployment().properties.templateLink.uri, '1.environment/build-lz.json')]",
+            "buildPlatformLzUri"    : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/build-lz-platform.json')]",
+            "buildAppsLzUri"        : "[uri(deployment().properties.templateLink.uri, '1.environment/landing-zones/build-lz-apps.json')]"
+        }
+    },
+    "resources": [
+        // BUILD MANAGEMENT GROUPS
+
+        // BUILD PLATFORM LZ
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-07-01",
+            "Name":"Launch-Platform-Build",
+            "location":"[deployment().location]",
+            "dependsOn": [],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[variables('deploymentUris').buildPlatformLzUri]"
+                },
+                "parameters": {
+                    "deploymentUris": {
+                        "value":"[variables('deploymentUris')]"
+                    },
+                    "subscriptions": {
+                        "value":"[parameters('subscriptions')]"
+                    },
+                    "connectivityLzSettings": {
+                        "value":"[parameters('connectivityLzSettings')]"
+                    },
+                    "identityLzSettings": {
+                        "value":"[parameters('identityLzSettings')]"
+                    },
+                    "managementLzSettings": {
+                        "value":"[parameters('managementLzSettings')]"
+                    },
+                    "securityLzSettings": {
+                        "value":"[parameters('securityLzSettings')]"
+                    }
+                }
+            }
+        },
+        //BUILD APP LZ
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-07-01",
+            "Name":"[concat('Launch-',parameters('appsLzSettings').landingZones[copyIndex()].lzName,'-LZ-Build')]",
+            "location":"[deployment().location]",
+            "dependsOn": [],
+            "copy":{
+                "name": "AppsLandingZonesCopy",
+                "mode":"serial",
+                "count":"[length(parameters('appsLzSettings').landingZones)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[uri(deployment().properties.templateLink.uri,variables('deploymentUris').buildLzUri)]"
+                },
+                "parameters": {
+                    "deploymentUris": {
+                        "value":"[variables('deploymentUris')]"
+                    },
+                    "subscriptions": {
+                        "value":"[parameters('appsLzSettings').landingZones[copyIndex()].subscription]"
+                    },
+                    "landingZones": {
+                        "value":"[parameters('appsLzSettings')]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {},
+    "functions": []
+}

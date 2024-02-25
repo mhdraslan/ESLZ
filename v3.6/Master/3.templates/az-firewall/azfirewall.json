@@ -1,0 +1,83 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "azFirewallName": {
+            "type": "String"
+        },
+        "azFirewallVnetName":{
+            "type":"string"
+        },
+        "azFirewallPublicIpName":{
+            "type":"string",
+            "defaultValue":""
+        },
+        "azFirewallTier": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Standard",
+                "Premium"
+            ]
+        },
+        "azFirewallZones":{
+            "type": "array",
+            "defaultValue": ["1","2","3"]
+        }
+    },
+    "variables": {
+        "azFwPublicIpResource":"[if(equals(parameters('azFirewallPublicIpName'),''), concat(parameters('azFirewallName'), '-pip'),parameters('azFirewallPublicIpName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/azureFirewalls",
+            "apiVersion": "2022-05-01",
+            "name": "[parameters('azFirewallName')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn":[
+                "[resourceId('Microsoft.Network/publicIPAddresses',variables('azFwPublicIpResource'))]"
+            ],
+            "properties": {
+                "sku": {
+                    "name": "AZFW_VNet",
+                    "tier": "[parameters('azFirewallTier')]"
+                },
+                "threatIntelMode": "Alert",
+                "additionalProperties": {},
+                "ipConfigurations": [
+                    {
+                        "name": "[variables('azFwPublicIpResource')]",
+                        "properties": {
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('azFwPublicIpResource'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('azFirewallVnetName'),'AzureFirewallSubnet')]"
+                            }
+                        }
+                    }
+                ],
+                "networkRuleCollections": [],
+                "applicationRuleCollections": [],
+                "natRuleCollections": []
+            },
+            "zones":"[parameters('azFirewallZones')]"
+        },
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2019-11-01",
+            "name": "[variables('azFwPublicIpResource')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "Standard"
+            },
+            "properties": {
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4,
+                "ipTags": []
+            }
+        }
+    ],
+    "outputs": {}
+}

@@ -1,0 +1,44 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "deploymentUris": {
+            "type": "object"
+        },
+        "resourceGroups": {
+            "type": "object",
+            "defaultValue": {}
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        // RESOURCE GROUPS
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[parameters('resourceGroups').rgSettings[copyIndex()].rgName]",
+            "dependsOn": [],
+            "location":"[parameters('resourceGroups').rgSettings[copyIndex()].rgLocation]",
+            "copy": {
+                "name": "ResourceGroupsCopy",
+                "count": "[length(parameters('resourceGroups').rgSettings)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').resourceGroup]"
+                },
+                "parameters":{
+                    "name":{
+                        "value":"[parameters('resourceGroups').rgSettings[copyIndex()].rgName]"
+                    },
+                    "location":{
+                        "value":"[parameters('resourceGroups').rgSettings[copyIndex()].rgLocation]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
