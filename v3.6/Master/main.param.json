@@ -2,9 +2,44 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "managementGroups":{
+            "value":{
+                "mgSettings":[
+                    /* Template
+                    {
+                        "id":"mg-intellisys", // The management group Id. Used for all references in templates.
+                        "name":"IntelliSYS", // The management group display name. Spaces are accepted.
+                        "parent": "9def2203-d472-4e2e-af0d-19db3f40aac6" // The management group Id of the parent management group that will contain 
+                                                                         // this management group. If created under the Tenant Root Group, then use 
+                                                                         // the Azure Tenant ID.
+                    },
+                    */
+                    {
+                        "id":"mg-intellisys",
+                        "name":"IntelliSYS",
+                        "parent": "9def2203-d472-4e2e-af0d-19db3f40aac6"
+                    },
+                    {
+                        "id":"mg-platform",
+                        "name":"Platform",
+                        "parent": "mg-intellisys"
+                    },
+                    {
+                        "id":"mg-lz",
+                        "name":"Landing Zones",
+                        "parent": "mg-intellisys"
+                    },
+                    {
+                        "id":"mg-connectivity",
+                        "name":"Connectivity",
+                        "parent": "mg-platform"
+                    }
+                ]
+            }
+        },
         "landingZones":{
             "value":{
-                "landingZones":[
+                "lzSettings":[
                     // DO NOT DELETE. APP LANDING ZONE TEMPLATE
                     /*
                     {
@@ -14,6 +49,7 @@
                             "id":"",
                             "name":""
                         },
+                        "parentManagementGroupId":"",
 
                         // Resource Groups Template
                         "resourceGroups":{
@@ -246,6 +282,8 @@
                             "id":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                             "name":"Connectivity"
                         },
+                        "parentManagementGroupId":"",
+
                         "resourceGroups":{
                             "rgSettings":[
                                 // ADD RESOURCE GROUP SECTIONS BELOW
@@ -588,6 +626,7 @@
                             "id":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                             "name":"Identity"
                         },
+                        "parentManagementGroupId":"",
                         "resourceGroups":{
                             "rgSettings":[
                                 // ADD RESOURCE GROUP SECTIONS BELOW
@@ -858,6 +897,7 @@
                             "id":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                             "name":"Management"
                         },
+                        "parentManagementGroupId":"",
                         "resourceGroups":{
                             "rgSettings":[
                                 // ADD RESOURCE GROUP SECTIONS BELOW
@@ -1095,6 +1135,7 @@
                             "id":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                             "name":"CloudPC"
                         },
+                        "parentManagementGroupId":"",
                         "resourceGroups":{
                             "rgSettings":[
                                 /* DO NOT DELETE. RESOURCE GROUP TEMPLATES

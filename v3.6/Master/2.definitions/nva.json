@@ -1,15 +1,9 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "deploymentUris": {
             "type": "object"
-        },
-        "subscriptionName": {
-            "type": "string"
-        },
-        "subscriptionId": {
-            "type": "string"
         },
         "azFirewall": {
             "type": "object",
@@ -35,8 +29,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"Create_Azure_Firewall",
+            "Name":"[parameters('azFirewall').name]",
             "condition": "[parameters('azFirewall').buildAzFirewall]",
             "resourceGroup": "[parameters('azFirewall').vnetResourceGroupName]",
             "properties":{
@@ -64,8 +57,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"Create_Azure_Bastion",
+            "Name":"[parameters('azBastion').name]",
             "condition": "[parameters('azBastion').buildAzBastion]",
             "resourceGroup": "[parameters('azBastion').rgName]",
             "properties":{
@@ -112,8 +104,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"Create_Azure_VPN_Gateway",
+            "Name":"[parameters('azVpnGateway').name]",
             "condition": "[parameters('azVpnGateway').buildVpnGateway]",
             "resourceGroup": "[parameters('azVpnGateway').vnetResourceGroupName]",
             "properties":{
@@ -156,9 +147,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "subscriptionId": "[parameters('subscriptionId')]",
-            //"Name":"[concat('Create_Azure_App_Gateway_',parameters('azAppGatewayV2').settings[copyIndex()].name)]",
-            "Name":"[concat(parameters('azAppGatewayV2').settings[copyIndex()].name)]",
+            "Name":"[concat('',parameters('azAppGatewayV2').settings[copyIndex()].name)]",
             "condition": "[and(parameters('azAppGatewayV2').settings[copyIndex()].build, equals(parameters('azAppGatewayV2').settings[copyIndex()].gwTier,'Standard_v2'))]",
             "resourceGroup": "[parameters('azAppGatewayV2').settings[copyIndex()].rgName]",
             "copy": {
@@ -211,9 +200,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "subscriptionId": "[parameters('subscriptionId')]",
-            //"Name":"[concat('Create_Azure_App_Gateway_',parameters('azAppGatewayV2').settings[copyIndex()].name)]",
-            "Name":"[concat(parameters('azAppGatewayV2').settings[copyIndex()].name)]",
+            "Name":"[concat('',parameters('azAppGatewayV2').settings[copyIndex()].name)]",
             "condition": "[and(parameters('azAppGatewayV2').settings[copyIndex()].build, equals(parameters('azAppGatewayV2').settings[copyIndex()].gwTier,'WAF_v2'))]",
             "resourceGroup": "[parameters('azAppGatewayV2').settings[copyIndex()].rgName]",
             "copy": {

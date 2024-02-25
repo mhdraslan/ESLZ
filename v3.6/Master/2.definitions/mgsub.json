@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "deploymentUris": {
@@ -17,14 +17,41 @@
     "functions": [],
     "variables": {},
     "resources": [
-        // MANAGEMENT GROUPS
-
-        // RESOURCE GROUPS
+        // Management Groups
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "subscriptionId":"[parameters('resourceGroups').rgSettings[copyIndex()].subscriptionId]",
-            "Name":"[concat('Create_ResourceGroup_',parameters('resourceGroups').rgSettings[copyIndex()].rgName)]",
+            "Name":"[concat('MG-',parameters('managementGroups').mgSettings[copyIndex()].name)]",
+            "dependsOn": [],
+            "location":"[deployment().location]",
+            "copy": {
+                "name": "ManagementGroupsCopy",
+                "count": "[length(parameters('managementGroups').mgSettings)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').managementGroup]"
+                },
+                "parameters":{
+                    "id":{
+                        "value": "[parameters('managementGroups').rgSettings[copyIndex()].id]"
+                    },
+                    "name":{
+                        "value":"[parameters('managementGroups').rgSettings[copyIndex()].name]"
+                    },
+                    "location":{
+                        "value":"[deployment().location]"
+                    }
+                }
+            }
+        },
+
+        // Subscriptions
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[concat('MG-',parameters('resourceGroups').rgSettings[copyIndex()].rgName)]",
             "dependsOn": [],
             "location":"[parameters('resourceGroups').rgSettings[copyIndex()].rgLocation]",
             "copy": {

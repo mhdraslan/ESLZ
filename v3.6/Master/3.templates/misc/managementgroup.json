@@ -1,0 +1,34 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "managementGroupId": {
+            "type": "string"
+        },
+        "managementGroupName":{
+            "type":"string"
+        },
+        "parentManagementGroupId": {
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Management/managementGroups",
+            "apiVersion": "2021-04-01",
+            "name": "[parameters('managementGroupId')]",
+            "location": "[deployment().location]",
+            "scope": "/",
+            "properties": {
+                "displayName": "[parameters('managementGroupName')]",
+                "details": {
+                    "parent": {
+                        "id":"[tenantResourceId('Microsoft.Management/managementGroups',parameters('parentManagementGroupId'))]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}

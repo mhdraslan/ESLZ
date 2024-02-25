@@ -98,12 +98,6 @@
                     "deploymentUris":{
                         "value":"[parameters('deploymentUris')]"
                     },
-                    "subscriptionName":{
-                        "value":"[parameters('environmentSettings').subscription.Name]"
-                    },
-                    "subscriptionId":{
-                        "value":"[parameters('environmentSettings').subscription.Id]"
-                    },
                     "windowsVMs":{
                         "value":"[parameters('environmentSettings').windowsVMs]"
                     },

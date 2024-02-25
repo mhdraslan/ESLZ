@@ -15,9 +15,9 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "condition": "[parameters('landingZones')[copyIndex()].build]",
-            "Name":"[concat('Start-LZ-',parameters('landingZones')[copyIndex()].lzName)]",
-            "subscriptionId": "[parameters('landingZones')[copyIndex()].subscription.Id]",
+            "condition": "[parameters('landingZones').lzSettings[copyIndex()].build]",
+            "Name":"[concat('Start-LZ-',parameters('landingZones').lzSettings[copyIndex()].lzName)]",
+            "subscriptionId": "[parameters('landingZones').lzSettings[copyIndex()].subscription.Id]",
             "location":"[deployment().location]",
             "dependsOn": [],
             "properties":{
@@ -30,7 +30,7 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "environmentSettings": {
-                        "value":"[parameters('landingZones')[copyIndex()]]"
+                        "value":"[parameters('landingZones').lzSettings[copyIndex()]]"
                     }
                 }
             }

@@ -1,15 +1,9 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "deploymentUris": {
             "type": "object"
-        },
-        "subscriptionName": {
-            "type": "string"
-        },
-        "subscriptionId": {
-            "type": "string"
         },
         "windowsVMs": {
             "type": "object",
@@ -28,8 +22,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_WindowsVM_',parameters('windowsVMs').vmSettings[copyIndex()].vmName)]",
+            "Name":"[concat('',parameters('windowsVMs').vmSettings[copyIndex()].vmName)]",
             "dependsOn": [],
             "resourceGroup": "[parameters('windowsVMs').vmSettings[copyIndex()].rgName]",
             "copy": {
@@ -85,8 +78,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_LinuxVM_',parameters('linuxVMs').vmSettings[copyIndex()].vmName)]",
+            "Name":"[concat('',parameters('linuxVMs').vmSettings[copyIndex()].vmName)]",
             "dependsOn": [],
             "resourceGroup": "[parameters('linuxVMs').vmSettings[copyIndex()].rgName]",
             "copy": {

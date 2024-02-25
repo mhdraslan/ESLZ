@@ -25,6 +25,7 @@
             "vpnGateway"            : "[uri(deployment().properties.templateLink.uri, '3.templates/network-gateway/vpngw.json')]",
             "logAnalytics"          : "[uri(deployment().properties.templateLink.uri, '3.templates/log-analytics/laws.json')]",
             "keyVault"              : "[uri(deployment().properties.templateLink.uri, '3.templates/misc/kv.json')]",
+            "managementGroup"       : "[uri(deployment().properties.templateLink.uri, '3.templates/misc/managementgroup.json')]",
             "appGatewayV2Waf"       : "[uri(deployment().properties.templateLink.uri, '3.templates/app-gateway/appgw-v2-waf.json')]",
             "appGatewayV2Standard"  : "[uri(deployment().properties.templateLink.uri, '3.templates/app-gateway/appgw-v2-standard.json')]",
             "privatednszone"        : "[uri(deployment().properties.templateLink.uri, '3.templates/dns/privatednszone.json')]",
@@ -39,73 +40,35 @@
             "defVirtualMachinesUri" : "[uri(deployment().properties.templateLink.uri, '2.definitions/virtualmachines.json')]",
 
             "buildLzUri"            : "[uri(deployment().properties.templateLink.uri, '1.environment/build-lz.json')]",
-            "buildPlatformLzUri"    : "[uri(deployment().properties.templateLink.uri, '1.environment/platform/build-lz-platform.json')]",
-            "buildAppsLzUri"        : "[uri(deployment().properties.templateLink.uri, '1.environment/landing-zones/build-lz-apps.json')]"
+            "buildLandingZonesUri"  : "[uri(deployment().properties.templateLink.uri, '1.environment/build-landingzones.json')]"
         }
     },
     "resources": [
         // BUILD MANAGEMENT GROUPS
 
-        // BUILD PLATFORM LZ
+        // Build Landing Zones
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-07-01",
-            "Name":"Launch-Platform-Build",
+            "Name":"[concat('LZ-',parameters('landingZones').lzSettings[copyIndex()].lzName)]",
             "location":"[deployment().location]",
             "dependsOn": [],
-            "properties":{
-                "mode":"Incremental",
-                "templatelink":{
-                    "uri":"[variables('deploymentUris').buildPlatformLzUri]"
-                },
-                "parameters": {
-                    "deploymentUris": {
-                        "value":"[variables('deploymentUris')]"
-                    },
-                    "subscriptions": {
-                        "value":"[parameters('subscriptions')]"
-                    },
-                    "connectivityLzSettings": {
-                        "value":"[parameters('connectivityLzSettings')]"
-                    },
-                    "identityLzSettings": {
-                        "value":"[parameters('identityLzSettings')]"
-                    },
-                    "managementLzSettings": {
-                        "value":"[parameters('managementLzSettings')]"
-                    },
-                    "securityLzSettings": {
-                        "value":"[parameters('securityLzSettings')]"
-                    }
-                }
-            }
-        },
-        //BUILD APP LZ
-        {
-            "type":"Microsoft.Resources/deployments",
-            "apiVersion":"2019-07-01",
-            "Name":"[concat('Launch-',parameters('appsLzSettings').landingZones[copyIndex()].lzName,'-LZ-Build')]",
-            "location":"[deployment().location]",
-            "dependsOn": [],
-            "copy":{
-                "name": "AppsLandingZonesCopy",
-                "mode":"serial",
-                "count":"[length(parameters('appsLzSettings').landingZones)]"
+            "copy": {
+                "mode": "Serial",
+                "name": "LandingZonesCopy",
+                "count": "[length(parameters('landingZones').lzSettings)]"
             },
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[uri(deployment().properties.templateLink.uri,variables('deploymentUris').buildLzUri)]"
+                    "uri":"[variables('deploymentUris').buildLandingZonesUri]"
                 },
                 "parameters": {
                     "deploymentUris": {
                         "value":"[variables('deploymentUris')]"
                     },
-                    "subscriptions": {
-                        "value":"[parameters('appsLzSettings').landingZones[copyIndex()].subscription]"
-                    },
                     "landingZones": {
-                        "value":"[parameters('appsLzSettings')]"
+                        "value":"[parameters('landingZones')]"
                     }
                 }
             }
