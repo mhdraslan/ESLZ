@@ -57,32 +57,32 @@
                                 // Resource Groups Template
                                 {
                                     // Networking resources RG
-                                    "rgName":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
                                     // Monitoring resources RG
-                                    "rgName":"cnt-aen-monitor-rg",
+                                    "rgName":"isys-aen-monitor-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
                                     // DR resources RG
-                                    "rgName":"cnt-aen-recovery-rg",
+                                    "rgName":"isys-aen-recovery-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
                                     // Security resources RG
-                                    "rgName":"cnt-aen-security-rg",
+                                    "rgName":"isys-aen-security-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
                                     // Application specific resources RG
-                                    "rgName":"cnt-aen-cloudpc-rg",
+                                    "rgName":"isys-aen-cloudpc-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
                                     // Application specific resources RG
-                                    "rgName":"cnt-aen-cpc-images-rg",
+                                    "rgName":"isys-aen-cpc-images-rg",
                                     "rgLocation":"UAENorth"
                                 }
                             ]
@@ -147,7 +147,7 @@
                                 // Subnet Template
                                 {
                                     "subnetName":"AzureFirewallSubnet",
-                                    "vNetName":"cnt-aen-hub-vnet",
+                                    "vNetName":"isys-aen-hub-vnet",
                                     "subnetAddress":"10.200.1.192/26",
                                     "rgName":"contoso-network-rg",
                                     "udr":"",
@@ -205,7 +205,7 @@
                             "buildAzFirewall":true,
                             "name":"dewa-aen-prd-lz-cloudpc-afw",
                             "vnetName":"dewa-aen-prd-plt-cloudpc-vnet",
-                            "vnetResourceGroupName":"cnt-aen-network-rg", //Az Firewall must be in same resource group as VNet
+                            "vnetResourceGroupName":"isys-aen-network-rg", //Az Firewall must be in same resource group as VNet
                             "publicIpName":"dewa-aen-prd-lz-cloudpc-afw-pip-01",
                             "tier":"Premium"
                         },
@@ -214,9 +214,9 @@
                         "azBastion": {
                             "buildAzBastion":true,
                             "name":"dewa-aen-prd-lz-cloudpc-bast",
-                            "rgName":"cnt-aen-network-rg",
-                            "vnetName":"cnt-aen-hub-vnet",
-                            "vNetResourceGroup":"cnt-aen-network-rg",
+                            "rgName":"isys-aen-network-rg",
+                            "vnetName":"isys-aen-hub-vnet",
+                            "vNetResourceGroup":"isys-aen-network-rg",
                             "sku":"Standard",
                             "bastionPublicIpName":"dewa-aen-prd-lz-cloudpc-bast-pip-01",
                             "disableCopyPaste":false,
@@ -229,15 +229,15 @@
                         // Azure VPN Gateway Template
                         "azVpnGateway": {
                             "buildVpnGateway":false,
-                            "name":"cnt-aen-hub-vnet-gw-vpn",
+                            "name":"isys-aen-hub-vnet-gw-vpn",
                             "vpnType":"RouteBased",
-                            "vnetName":"cnt-aen-hub-vnet",
-                            "vnetResourceGroupName":"cnt-aen-network-rg",
+                            "vnetName":"isys-aen-hub-vnet",
+                            "vnetResourceGroupName":"isys-aen-network-rg",
                             "gatewaySku":"VpnGw1AZ",
                             "localGatewayName":"dewa-aen-prd-plt-onprem-lgw-01",
                             "localGatewayIpAddress":"8.8.8.8",
                             "localAddressPrefix":["10.0.0.0/8"],
-                            "gatewayPublicIpName":"cnt-aen-hub-vnet-gw-vpn-pip-01"
+                            "gatewayPublicIpName":"isys-aen-hub-vnet-gw-vpn-pip-01"
                         },
 
                         // Azure Applicagtion Gateway Template
@@ -265,7 +265,7 @@
                         // Azure Common Private DNS Zones
                         "privateDnsZones": {
                             "build":false,
-                            "rgName":"cnt-aen-privatednszones-rg"
+                            "rgName":"isys-aen-privatednszones-rg"
                             "regions":[
                                 "eastus",
                                 "westus"
@@ -288,35 +288,35 @@
                             "rgSettings":[
                                 // ADD RESOURCE GROUP SECTIONS BELOW
                                 {
-                                    "rgName":"cnt-aen-privatednszones-rg",
+                                    "rgName":"isys-aen-privatednszones-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
-                                    "rgName":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
-                                    "rgName":"cnt-aen-monitor-rg",
+                                    "rgName":"isys-aen-monitor-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
-                                    "rgName":"cnt-aen-sharedservices-rg",
+                                    "rgName":"isys-aen-sharedservices-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
-                                    "rgName":"cnt-aen-remoteaccess-rg",
+                                    "rgName":"isys-aen-remoteaccess-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
-                                    "rgName":"cnt-aen-appgw-rg",
+                                    "rgName":"isys-aen-appgw-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
-                                    "rgName":"cnt-aen-recovery-rg",
+                                    "rgName":"isys-aen-recovery-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
-                                    "rgName":"cnt-aen-security-rg",
+                                    "rgName":"isys-aen-security-rg",
                                     "rgLocation":"UAENorth"
                                 }
                             ]
@@ -324,10 +324,10 @@
                         "vnets":{
                             "vnetSettings":[
                                 {
-                                    "vNetName":"cnt-aen-hub-vnet",
+                                    "vNetName":"isys-aen-hub-vnet",
                                     "vNetAddressSpace":["10.52.0.0/22"],
                                     "vNetDnsServers":["10.52.48.4","10.52.48.5"],
-                                    "rgName":"cnt-aen-network-rg"
+                                    "rgName":"isys-aen-network-rg"
                                 }
                             ],
                             "peeringSettings":[]
@@ -336,21 +336,21 @@
                             "udrTables":[
                                 /* DO NOT DELETE - UDR TABLE TEMPLATE
                                 {
-                                    "routeTableName":"cnt-aen-spoke-rt",
-                                    "rgName":"cnt-aen-network-rg"
+                                    "routeTableName":"isys-aen-spoke-rt",
+                                    "rgName":"isys-aen-network-rg"
                                 }
                                 */                    
                                 {
-                                    "routeTableName":"cnt-aen-spoke-rt",
-                                    "rgName":"cnt-aen-network-rg"
+                                    "routeTableName":"isys-aen-spoke-rt",
+                                    "rgName":"isys-aen-network-rg"
                                 },
                                 {
-                                    "routeTableName":"cnt-aen-hub-gateway-rt",
-                                    "rgName":"cnt-aen-network-rg"
+                                    "routeTableName":"isys-aen-hub-gateway-rt",
+                                    "rgName":"isys-aen-network-rg"
                                 },
                                 {
-                                    "routeTableName":"cnt-aen-hub-appgw-rt",
-                                    "rgName":"cnt-aen-network-rg"
+                                    "routeTableName":"isys-aen-hub-appgw-rt",
+                                    "rgName":"isys-aen-network-rg"
                                 }
                             ],
                             "udrSettings":[
@@ -360,7 +360,7 @@
                                     "routeEntryAddressPrefix":"10.0.0.0/24",
                                     "routeEntryType":"VirtualAppliance", //Allowed values: VirtualAppliance, None, Internet, VirtualNetworkGateway
                                     "routeEntryNextHopIPAddress":"10.200.0.196",
-                                    "routeTableName":"cnt-aen-connectivity-gateway-udr"
+                                    "routeTableName":"isys-aen-connectivity-gateway-udr"
                                 }
                                 */
                                 {
@@ -368,49 +368,49 @@
                                     "routeEntryAddressPrefix":"0.0.0.0/0",
                                     "routeEntryType":"VirtualAppliance",
                                     "routeEntryNextHopIPAddress":"10.52.1.196",
-                                    "routeTableName":"cnt-aen-spoke-rt"
+                                    "routeTableName":"isys-aen-spoke-rt"
                                 },
                                 {
                                     "routeEntryName":"default-gateway",
                                     "routeEntryAddressPrefix":"0.0.0.0/0",
                                     "routeEntryType":"Internet",
                                     "routeEntryNextHopIPAddress":"",
-                                    "routeTableName":"cnt-aen-hub-appgw-rt"
+                                    "routeTableName":"isys-aen-hub-appgw-rt"
                                 },
                                 {
                                     "routeEntryName":"to-azure",
                                     "routeEntryAddressPrefix":"10.52.0.0/16",
                                     "routeEntryType":"VirtualAppliance",
                                     "routeEntryNextHopIPAddress":"10.52.1.196",
-                                    "routeTableName":"cnt-aen-hub-appgw-rt"
+                                    "routeTableName":"isys-aen-hub-appgw-rt"
                                 },
                                 {
                                     "routeEntryName":"identity-vnet",
                                     "routeEntryAddressPrefix":"10.52.48.0/26",
                                     "routeEntryType":"VirtualAppliance",
                                     "routeEntryNextHopIPAddress":"10.52.1.196",
-                                    "routeTableName":"cnt-aen-hub-gateway-rt"
+                                    "routeTableName":"isys-aen-hub-gateway-rt"
                                 },
                                 {
                                     "routeEntryName":"cloudpc-20-vnet",
                                     "routeEntryAddressPrefix":"10.52.20.0/22",
                                     "routeEntryType":"VirtualAppliance",
                                     "routeEntryNextHopIPAddress":"10.52.1.196",
-                                    "routeTableName":"cnt-aen-hub-gateway-rt"
+                                    "routeTableName":"isys-aen-hub-gateway-rt"
                                 },
                                 {
                                     "routeEntryName":"cloudpc-24-vnet",
                                     "routeEntryAddressPrefix":"10.52.24.0/22",
                                     "routeEntryType":"VirtualAppliance",
                                     "routeEntryNextHopIPAddress":"10.52.1.196",
-                                    "routeTableName":"cnt-aen-hub-gateway-rt"
+                                    "routeTableName":"isys-aen-hub-gateway-rt"
                                 },
                                 {
                                     "routeEntryName":"cloudpc-28-vnet",
                                     "routeEntryAddressPrefix":"10.52.28.0/22",
                                     "routeEntryType":"VirtualAppliance",
                                     "routeEntryNextHopIPAddress":"10.52.1.196",
-                                    "routeTableName":"cnt-aen-hub-gateway-rt"
+                                    "routeTableName":"isys-aen-hub-gateway-rt"
                                 }
                             ]
                         },
@@ -419,9 +419,9 @@
                                 /* DO NOT DELETE - SUBNET TEMPLATE
                                 {
                                     "subnetName":"AzureFirewallSubnet",
-                                    "vNetName":"cnt-aen-hub-vnet",
+                                    "vNetName":"isys-aen-hub-vnet",
                                     "subnetAddress":"10.200.1.192/26",
-                                    "rgName":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
                                     "udr":"",
                                     "udrRg":"",
                                     "createNsg":false
@@ -429,56 +429,56 @@
                                 */
                                 {
                                     "subnetName":"AzureFirewallSubnet",
-                                    "vNetName":"cnt-aen-hub-vnet",
+                                    "vNetName":"isys-aen-hub-vnet",
                                     "subnetAddress":"10.52.1.192/26",
-                                    "rgName":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
                                     "udr":"",
                                     "udrRg":"",
                                     "createNsg":false
                                 },
                                 {
                                     "subnetName":"GatewaySubnet",
-                                    "vNetName":"cnt-aen-hub-vnet",
+                                    "vNetName":"isys-aen-hub-vnet",
                                     "subnetAddress":"10.52.1.0/26",
-                                    "rgName":"cnt-aen-network-rg",
-                                    "udr":"cnt-aen-hub-gateway-rt",
-                                    "udrRg":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
+                                    "udr":"isys-aen-hub-gateway-rt",
+                                    "udrRg":"isys-aen-network-rg",
                                     "createNsg":false
                                 },
                                 {
                                     "subnetName":"AzureBastionSubnet",
-                                    "vNetName":"cnt-aen-hub-vnet",
+                                    "vNetName":"isys-aen-hub-vnet",
                                     "subnetAddress":"10.52.1.64/26",
-                                    "rgName":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
                                     "udr":"",
                                     "udrRg":"",
                                     "createNsg":false
                                 },
                                 {
                                     "subnetName":"SharedServiceSubnet",
-                                    "vNetName":"cnt-aen-hub-vnet",
+                                    "vNetName":"isys-aen-hub-vnet",
                                     "subnetAddress":"10.52.1.128/26",
-                                    "rgName":"cnt-aen-network-rg",
-                                    "udr":"cnt-aen-spoke-rt",
-                                    "udrRg":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
+                                    "udr":"isys-aen-spoke-rt",
+                                    "udrRg":"isys-aen-network-rg",
                                     "createNsg":true
                                 },
                                 {
                                     "subnetName":"PrivateEndpointSubnet",
-                                    "vNetName":"cnt-aen-hub-vnet",
+                                    "vNetName":"isys-aen-hub-vnet",
                                     "subnetAddress":"10.52.2.0/24",
-                                    "rgName":"cnt-aen-network-rg",
-                                    "udr":"cnt-aen-spoke-rt",
-                                    "udrRg":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
+                                    "udr":"isys-aen-spoke-rt",
+                                    "udrRg":"isys-aen-network-rg",
                                     "createNsg":true
                                 },
                                 {
                                     "subnetName":"AppGwSubnet",
-                                    "vNetName":"cnt-aen-hub-vnet",
+                                    "vNetName":"isys-aen-hub-vnet",
                                     "subnetAddress":"10.52.3.0/24",
-                                    "rgName":"cnt-aen-network-rg",
-                                    "udr":"cnt-aen-hub-appgw-rt",
-                                    "udrRg":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
+                                    "udr":"isys-aen-hub-appgw-rt",
+                                    "udrRg":"isys-aen-network-rg",
                                     "createNsg":false
                                 }
                             ]
@@ -488,9 +488,9 @@
                                 /* DO NOT DELETE. WINDOWS VM TEMPLATE
                                 {
                                     "vmName":"aenpdns01",
-                                    "rgName":"cnt-aen-sharedservices-rg",
-                                    "vNetName":"cnt-aen-hub-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-sharedservices-rg",
+                                    "vNetName":"isys-aen-hub-vnet",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"SharedServiceSubnet",
                                     "vmZones":["1"],
                                     "osDiskType":"StandardSSD_LRS",
@@ -504,9 +504,9 @@
                                 */
                                 {
                                     "vmName":"az-srv-dns-01",
-                                    "rgName":"cnt-aen-network-rg",
-                                    "vNetName":"cnt-aen-hub-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
+                                    "vNetName":"isys-aen-hub-vnet",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"SharedServiceSubnet",
                                     "vmZones":["1"],
                                     "osDiskType":"StandardSSD_LRS",
@@ -519,9 +519,9 @@
                                 },
                                 {
                                     "vmName":"az-srv-dns-02",
-                                    "rgName":"cnt-aen-network-rg",
-                                    "vNetName":"cnt-aen-hub-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
+                                    "vNetName":"isys-aen-hub-vnet",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"SharedServiceSubnet",
                                     "vmZones":["2"],
                                     "osDiskType":"StandardSSD_LRS",
@@ -539,9 +539,9 @@
                                 /* DO NOT DELETE. LINUX VM TEMPLATE
                                 {
                                     "vmName":"aenpdns01",
-                                    "rgName":"cnt-aen-sharedservices-rg",
-                                    "vNetName":"cnt-aen-hub-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-sharedservices-rg",
+                                    "vNetName":"isys-aen-hub-vnet",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"SharedServiceSubnet",
                                     "vmZones":["1"],
                                     "osDiskType":"StandardSSD_LRS",
@@ -557,20 +557,20 @@
                         },
                         "azFirewall": {
                             "buildAzFirewall":true,
-                            "name":"cnt-aen-hub-afw",
-                            "vnetName":"cnt-aen-hub-vnet",
-                            "vnetResourceGroupName":"cnt-aen-network-rg", //Az Firewall must be in same resource group as VNet
-                            "publicIpName":"cnt-aen-hub-afw-pip-01",
+                            "name":"isys-aen-hub-afw",
+                            "vnetName":"isys-aen-hub-vnet",
+                            "vnetResourceGroupName":"isys-aen-network-rg", //Az Firewall must be in same resource group as VNet
+                            "publicIpName":"isys-aen-hub-afw-pip-01",
                             "tier":"Premium"
                         },
                         "azBastion": {
                             "buildAzBastion":true,
-                            "name":"cnt-aen-hub-bast",
-                            "rgName":"cnt-aen-network-rg",
-                            "vnetName":"cnt-aen-hub-vnet",
-                            "vNetResourceGroup":"cnt-aen-network-rg",
+                            "name":"isys-aen-hub-bast",
+                            "rgName":"isys-aen-network-rg",
+                            "vnetName":"isys-aen-hub-vnet",
+                            "vNetResourceGroup":"isys-aen-network-rg",
                             "sku":"Standard",
-                            "bastionPublicIpName":"cnt-aen-hub-bast-pip-01",
+                            "bastionPublicIpName":"isys-aen-hub-bast-pip-01",
                             "disableCopyPaste":false,
                             "enableFileCopy":true,
                             "enableIpConnect":true,
@@ -579,28 +579,28 @@
                         },
                         "azVpnGateway": {
                             "buildVpnGateway":false,
-                            "name":"cnt-aen-hub-vnet-gw-vpn",
+                            "name":"isys-aen-hub-vnet-gw-vpn",
                             "vpnType":"RouteBased",
-                            "vnetName":"cnt-aen-hub-vnet",
-                            "vnetResourceGroupName":"cnt-aen-network-rg",
+                            "vnetName":"isys-aen-hub-vnet",
+                            "vnetResourceGroupName":"isys-aen-network-rg",
                             "gatewaySku":"VpnGw1AZ",
                             "localGatewayName":"dewa-aen-prd-plt-onprem-lgw-01",
                             "localGatewayIpAddress":"8.8.8.8",
                             "localAddressPrefix":["10.0.0.0/8"],
-                            "gatewayPublicIpName":"cnt-aen-hub-vnet-gw-vpn-pip-01"
+                            "gatewayPublicIpName":"isys-aen-hub-vnet-gw-vpn-pip-01"
                         },
                         "azAppGatewayV2": {
                             "settings":[
                                 {
                                     "build":true,
-                                    "name":"cnt-aen-hub-appgw-01",
-                                    "rgName":"cnt-aen-appgw-rg",
+                                    "name":"isys-aen-hub-appgw-01",
+                                    "rgName":"isys-aen-appgw-rg",
                                     "gwTier":"WAF_v2",
-                                    "vnetName":"cnt-aen-hub-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "vnetName":"isys-aen-hub-vnet",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"AppGwSubnet",
                                     "privateIp":"10.52.3.4",
-                                    "publicIpName":"cnt-aen-hub-appgw-01-pip-01",
+                                    "publicIpName":"isys-aen-hub-appgw-01-pip-01",
                                     "publicIpSku":"Standard",
                                     "allocationMethod":"Static",
                                     "capacity":1,
@@ -610,7 +610,7 @@
                         },
                         "privateDnsZones": {
                             "build":true,
-                            "rgName":"cnt-aen-privatednszones-rg",
+                            "rgName":"isys-aen-privatednszones-rg",
                             "regions":[
                                 "uaenorth",
                                 "eastus"
@@ -631,23 +631,23 @@
                             "rgSettings":[
                                 // ADD RESOURCE GROUP SECTIONS BELOW
                                 {
-                                    "rgName":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
-                                    "rgName":"cnt-aen-monitor-rg",
+                                    "rgName":"isys-aen-monitor-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
-                                    "rgName":"cnt-aen-recovery-rg",
+                                    "rgName":"isys-aen-recovery-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
-                                    "rgName":"cnt-aen-security-rg",
+                                    "rgName":"isys-aen-security-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
-                                    "rgName":"cnt-aen-dcs-rg",
+                                    "rgName":"isys-aen-dcs-rg",
                                     "rgLocation":"UAENorth"
                                 }
                             ]
@@ -655,21 +655,21 @@
                         "vnets":{
                             "vnetSettings":[
                                 {
-                                    "vNetName":"cnt-aen-identity-vnet",
+                                    "vNetName":"isys-aen-identity-vnet",
                                     "vNetAddressSpace":["10.52.48.0/26"],
                                     "vNetDnsServers":["10.52.48.4","10.52.48.5"],
-                                    "rgName":"cnt-aen-network-rg"
+                                    "rgName":"isys-aen-network-rg"
                                 }
                             ],
                             "peeringSettings":[
                                 /* DO NOT DELETE. PEERING TEMPLATE
                                 {
-                                    "sourceVnetName":"cnt-aen-identity-vnet",
+                                    "sourceVnetName":"isys-aen-identity-vnet",
                                     "sourceVnetSubscriptionId":"[parameters('subscriptions').identity.id]",
-                                    "sourceVnetResourceGroup":"cnt-aen-connectivity-rg",
-                                    "remoteVnetName":"cnt-aen-hub-vnet",
+                                    "sourceVnetResourceGroup":"isys-aen-connectivity-rg",
+                                    "remoteVnetName":"isys-aen-hub-vnet",
                                     "remoteVNetSubscriptionId":"[parameters('subscriptions').connectivity.id]",
-                                    "remoteVNetResourceGroup":"cnt-aen-connectivity-rg",
+                                    "remoteVNetResourceGroup":"isys-aen-connectivity-rg",
                                     "sourceVnetPeeringAllowForwardedTraffic":true,
                                     "sourceVnetPeeringAllowGatewayTransit":false,
                                     "sourceVnetPeeringUseRemoteGateways":true,
@@ -681,20 +681,20 @@
                                 }
                                 */
                                 {
-                                    "sourceVnetName":"cnt-aen-identity-vnet",
+                                    "sourceVnetName":"isys-aen-identity-vnet",
                                     "sourceVnetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                                    "sourceVnetResourceGroup":"cnt-aen-network-rg",
-                                    "remoteVnetName":"cnt-aen-hub-vnet",
+                                    "sourceVnetResourceGroup":"isys-aen-network-rg",
+                                    "remoteVnetName":"isys-aen-hub-vnet",
                                     "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                                    "remoteVNetResourceGroup":"cnt-aen-network-rg",
+                                    "remoteVNetResourceGroup":"isys-aen-network-rg",
                                     "sourceVnetPeeringAllowForwardedTraffic":true,
                                     "sourceVnetPeeringAllowGatewayTransit":false,
                                     "sourceVnetPeeringUseRemoteGateways":false,
                                     "remoteVnetPeeringAllowForwardedTraffic":false,
                                     "remoteVnetPeeringAllowGatewayTransit":false,
                                     "remoteVnetPeeringUseRemoteGateways":false,
-                                    "sourcePeeringName": "cnt-identity-hub",
-                                    "remotePeeringName": "cnt-aen-hub-identity"
+                                    "sourcePeeringName": "isys-identity-hub",
+                                    "remotePeeringName": "isys-aen-hub-identity"
                                 }
                             ]
                         },
@@ -702,13 +702,13 @@
                             "udrTables":[
                                 /* DO NOT DELETE - UDR TABLE TEMPLATE
                                 {
-                                    "routeTableName":"cnt-aen-spoke-rt",
-                                    "rgName":"cnt-aen-network-rg"
+                                    "routeTableName":"isys-aen-spoke-rt",
+                                    "rgName":"isys-aen-network-rg"
                                 }
                                 */                    
                                 {
-                                    "routeTableName":"cnt-aen-spoke-rt",
-                                    "rgName":"cnt-aen-network-rg"
+                                    "routeTableName":"isys-aen-spoke-rt",
+                                    "rgName":"isys-aen-network-rg"
                                 }
                             ],
                             "udrSettings":[
@@ -718,7 +718,7 @@
                                     "routeEntryAddressPrefix":"10.0.0.0/24",
                                     "routeEntryType":"VirtualAppliance", //Allowed values: VirtualAppliance, None, Internet, VirtualNetworkGateway
                                     "routeEntryNextHopIPAddress":"10.200.0.196",
-                                    "routeTableName":"cnt-aen-connectivity-gateway-udr"
+                                    "routeTableName":"isys-aen-connectivity-gateway-udr"
                                 }
                                 */
                                 {
@@ -726,7 +726,7 @@
                                     "routeEntryAddressPrefix":"0.0.0.0/0",
                                     "routeEntryType":"VirtualAppliance",
                                     "routeEntryNextHopIPAddress":"10.52.1.196",
-                                    "routeTableName":"cnt-aen-spoke-rt"
+                                    "routeTableName":"isys-aen-spoke-rt"
                                 }
                             ]
                         },
@@ -735,9 +735,9 @@
                                 /* DO NOT DELETE - SUBNET TEMPLATE
                                 {
                                     "subnetName":"AzureFirewallSubnet",
-                                    "vNetName":"cnt-aen-hub-vnet",
+                                    "vNetName":"isys-aen-hub-vnet",
                                     "subnetAddress":"10.200.1.192/26",
-                                    "rgName":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
                                     "udr":"",
                                     "udrRg":"",
                                     "createNsg":false
@@ -745,11 +745,11 @@
                                 */
                                 {
                                     "subnetName":"DCsSubnet",
-                                    "vNetName":"cnt-aen-identity-vnet",
+                                    "vNetName":"isys-aen-identity-vnet",
                                     "subnetAddress":"10.52.48.0/28",
-                                    "rgName":"cnt-aen-network-rg",
-                                    "udr":"cnt-aen-spoke-rt",
-                                    "udrRg":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
+                                    "udr":"isys-aen-spoke-rt",
+                                    "udrRg":"isys-aen-network-rg",
                                     "createNsg":true
                                 }
                             ]
@@ -759,9 +759,9 @@
                                 /* DO NOT DELETE. WINDOWS VM TEMPLATE
                                 {
                                     "vmName":"aenpdns01",
-                                    "rgName":"cnt-aen-sharedservices-rg",
-                                    "vNetName":"cnt-aen-hub-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-sharedservices-rg",
+                                    "vNetName":"isys-aen-hub-vnet",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"SharedServiceSubnet",
                                     "vmZones":["1"],
                                     "osDiskType":"StandardSSD_LRS",
@@ -775,9 +775,9 @@
                                 */
                                 {
                                     "vmName":"az-srv-dc-01",
-                                    "rgName":"cnt-aen-dcs-rg",
-                                    "vNetName":"cnt-aen-identity-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-dcs-rg",
+                                    "vNetName":"isys-aen-identity-vnet",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"DCsSubnet",
                                     "vmZones":["1"],
                                     "osDiskType":"StandardSSD_LRS",
@@ -790,9 +790,9 @@
                                 },
                                 {
                                     "vmName":"az-srv-dc-02",
-                                    "rgName":"cnt-aen-dcs-rg",
-                                    "vNetName":"cnt-aen-identity-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-dcs-rg",
+                                    "vNetName":"isys-aen-identity-vnet",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"DCsSubnet",
                                     "vmZones":["2"],
                                     "osDiskType":"StandardSSD_LRS",
@@ -810,9 +810,9 @@
                                 /* DO NOT DELETE. LINUX VM TEMPLATE
                                 {
                                     "vmName":"aenpdns01",
-                                    "rgName":"cnt-aen-sharedservices-rg",
-                                    "vNetName":"cnt-aen-hub-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-sharedservices-rg",
+                                    "vNetName":"isys-aen-hub-vnet",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"SharedServiceSubnet",
                                     "vmZones":["1"],
                                     "osDiskType":"StandardSSD_LRS",
@@ -828,20 +828,20 @@
                         },
                         "azFirewall": {
                             "buildAzFirewall":false,
-                            "name":"cnt-aen-hub-afw",
-                            "vnetName":"cnt-aen-hub-vnet",
-                            "vnetResourceGroupName":"cnt-aen-network-rg", //Az Firewall must be in same resource group as VNet
-                            "publicIpName":"cnt-aen-hub-afw-pip-01",
+                            "name":"isys-aen-hub-afw",
+                            "vnetName":"isys-aen-hub-vnet",
+                            "vnetResourceGroupName":"isys-aen-network-rg", //Az Firewall must be in same resource group as VNet
+                            "publicIpName":"isys-aen-hub-afw-pip-01",
                             "tier":"Premium"
                         },
                         "azBastion": {
                             "buildAzBastion":false,
-                            "name":"cnt-aen-hub-bast",
-                            "rgName":"cnt-aen-network-rg",
-                            "vnetName":"cnt-aen-hub-vnet",
-                            "vNetResourceGroup":"cnt-aen-network-rg",
+                            "name":"isys-aen-hub-bast",
+                            "rgName":"isys-aen-network-rg",
+                            "vnetName":"isys-aen-hub-vnet",
+                            "vNetResourceGroup":"isys-aen-network-rg",
                             "sku":"Standard",
-                            "bastionPublicIpName":"cnt-aen-hub-bast-pip-01",
+                            "bastionPublicIpName":"isys-aen-hub-bast-pip-01",
                             "disableCopyPaste":false,
                             "enableFileCopy":true,
                             "enableIpConnect":true,
@@ -850,28 +850,28 @@
                         },
                         "azVpnGateway": {
                             "buildVpnGateway":false,
-                            "name":"cnt-aen-hub-vnet-gw-vpn",
+                            "name":"isys-aen-hub-vnet-gw-vpn",
                             "vpnType":"RouteBased",
-                            "vnetName":"cnt-aen-hub-vnet",
-                            "vnetResourceGroupName":"cnt-aen-network-rg",
+                            "vnetName":"isys-aen-hub-vnet",
+                            "vnetResourceGroupName":"isys-aen-network-rg",
                             "gatewaySku":"VpnGw1AZ",
                             "localGatewayName":"dewa-aen-prd-plt-onprem-lgw-01",
                             "localGatewayIpAddress":"8.8.8.8",
                             "localAddressPrefix":["10.0.0.0/8"],
-                            "gatewayPublicIpName":"cnt-aen-hub-vnet-gw-vpn-pip-01"
+                            "gatewayPublicIpName":"isys-aen-hub-vnet-gw-vpn-pip-01"
                         },
                         "azAppGatewayV2": {
                             "settings":[
                                 {
                                     "build":false,
-                                    "name":"cnt-aen-hub-appgw-01",
-                                    "rgName":"cnt-aen-appgw-rg",
+                                    "name":"isys-aen-hub-appgw-01",
+                                    "rgName":"isys-aen-appgw-rg",
                                     "gwTier":"WAF_v2",
-                                    "vnetName":"cnt-aen-hub-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "vnetName":"isys-aen-hub-vnet",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"AppGwSubnet",
                                     "privateIp":"10.52.3.4",
-                                    "publicIpName":"cnt-aen-hub-appgw-01-pip-01",
+                                    "publicIpName":"isys-aen-hub-appgw-01-pip-01",
                                     "publicIpSku":"Standard",
                                     "allocationMethod":"Static",
                                     "capacity":1,
@@ -881,7 +881,7 @@
                         },
                         "privateDnsZones": {
                             "build":true,
-                            "rgName":"cnt-aen-privatednszones-rg",
+                            "rgName":"isys-aen-privatednszones-rg",
                             "regions":[
                                 "uaenorth",
                                 "eastus"
@@ -902,19 +902,19 @@
                             "rgSettings":[
                                 // ADD RESOURCE GROUP SECTIONS BELOW
                                 {
-                                    "rgName":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
-                                    "rgName":"cnt-aen-monitor-rg",
+                                    "rgName":"isys-aen-monitor-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
-                                    "rgName":"cnt-aen-recovery-rg",
+                                    "rgName":"isys-aen-recovery-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
-                                    "rgName":"cnt-aen-security-rg",
+                                    "rgName":"isys-aen-security-rg",
                                     "rgLocation":"UAENorth"
                                 }
                             ]
@@ -922,21 +922,21 @@
                         "vnets":{
                             "vnetSettings":[
                                 {
-                                    "vNetName":"cnt-aen-mgmt-vnet",
+                                    "vNetName":"isys-aen-mgmt-vnet",
                                     "vNetAddressSpace":["10.52.63.192/26"],
                                     "vNetDnsServers":["10.52.1.132","10.52.1.133"],
-                                    "rgName":"cnt-aen-network-rg"
+                                    "rgName":"isys-aen-network-rg"
                                 }
                             ],
                             "peeringSettings":[
                                 /* DO NOT DELETE. PEERING TEMPLATE
                                 {
-                                    "sourceVnetName":"cnt-aen-identity-vnet",
+                                    "sourceVnetName":"isys-aen-identity-vnet",
                                     "sourceVnetSubscriptionId":"[parameters('subscriptions').identity.id]",
-                                    "sourceVnetResourceGroup":"cnt-aen-connectivity-rg",
-                                    "remoteVnetName":"cnt-aen-hub-vnet",
+                                    "sourceVnetResourceGroup":"isys-aen-connectivity-rg",
+                                    "remoteVnetName":"isys-aen-hub-vnet",
                                     "remoteVNetSubscriptionId":"[parameters('subscriptions').connectivity.id]",
-                                    "remoteVNetResourceGroup":"cnt-aen-connectivity-rg",
+                                    "remoteVNetResourceGroup":"isys-aen-connectivity-rg",
                                     "sourceVnetPeeringAllowForwardedTraffic":true,
                                     "sourceVnetPeeringAllowGatewayTransit":false,
                                     "sourceVnetPeeringUseRemoteGateways":true,
@@ -948,20 +948,20 @@
                                 }
                                 */
                                 {
-                                    "sourceVnetName":"cnt-aen-mgmt-vnet",
+                                    "sourceVnetName":"isys-aen-mgmt-vnet",
                                     "sourceVnetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                                    "sourceVnetResourceGroup":"cnt-aen-network-rg",
-                                    "remoteVnetName":"cnt-aen-hub-vnet",
+                                    "sourceVnetResourceGroup":"isys-aen-network-rg",
+                                    "remoteVnetName":"isys-aen-hub-vnet",
                                     "remoteVNetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                                    "remoteVNetResourceGroup":"cnt-aen-network-rg",
+                                    "remoteVNetResourceGroup":"isys-aen-network-rg",
                                     "sourceVnetPeeringAllowForwardedTraffic":true,
                                     "sourceVnetPeeringAllowGatewayTransit":false,
                                     "sourceVnetPeeringUseRemoteGateways":false,
                                     "remoteVnetPeeringAllowForwardedTraffic":false,
                                     "remoteVnetPeeringAllowGatewayTransit":false,
                                     "remoteVnetPeeringUseRemoteGateways":false,
-                                    "sourcePeeringName": "cnt-mgmt-hub",
-                                    "remotePeeringName": "cnt-aen-hub-mgmt"
+                                    "sourcePeeringName": "isys-mgmt-hub",
+                                    "remotePeeringName": "isys-aen-hub-mgmt"
                                 }
                             ]
                         },
@@ -969,13 +969,13 @@
                             "udrTables":[
                                 /* DO NOT DELETE - UDR TABLE TEMPLATE
                                 {
-                                    "routeTableName":"cnt-aen-spoke-rt",
-                                    "rgName":"cnt-aen-network-rg"
+                                    "routeTableName":"isys-aen-spoke-rt",
+                                    "rgName":"isys-aen-network-rg"
                                 }
                                 */                    
                                 {
-                                    "routeTableName":"cnt-aen-spoke-rt",
-                                    "rgName":"cnt-aen-network-rg"
+                                    "routeTableName":"isys-aen-spoke-rt",
+                                    "rgName":"isys-aen-network-rg"
                                 }
                             ],
                             "udrSettings":[
@@ -985,7 +985,7 @@
                                     "routeEntryAddressPrefix":"10.0.0.0/24",
                                     "routeEntryType":"VirtualAppliance", //Allowed values: VirtualAppliance, None, Internet, VirtualNetworkGateway
                                     "routeEntryNextHopIPAddress":"10.200.0.196",
-                                    "routeTableName":"cnt-aen-connectivity-gateway-udr"
+                                    "routeTableName":"isys-aen-connectivity-gateway-udr"
                                 }
                                 */
                                 {
@@ -993,7 +993,7 @@
                                     "routeEntryAddressPrefix":"0.0.0.0/0",
                                     "routeEntryType":"VirtualAppliance",
                                     "routeEntryNextHopIPAddress":"10.52.1.196",
-                                    "routeTableName":"cnt-aen-spoke-rt"
+                                    "routeTableName":"isys-aen-spoke-rt"
                                 }
                             ]
                         },
@@ -1002,9 +1002,9 @@
                                 /* DO NOT DELETE - SUBNET TEMPLATE
                                 {
                                     "subnetName":"AzureFirewallSubnet",
-                                    "vNetName":"cnt-aen-hub-vnet",
+                                    "vNetName":"isys-aen-hub-vnet",
                                     "subnetAddress":"10.200.1.192/26",
-                                    "rgName":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
                                     "udr":"",
                                     "udrRg":"",
                                     "createNsg":false
@@ -1012,11 +1012,11 @@
                                 */
                                 {
                                     "subnetName":"mgmt1Subnet",
-                                    "vNetName":"cnt-aen-mgmt-vnet",
+                                    "vNetName":"isys-aen-mgmt-vnet",
                                     "subnetAddress":"10.52.63.192/28",
-                                    "rgName":"cnt-aen-network-rg",
-                                    "udr":"cnt-aen-spoke-rt",
-                                    "udrRg":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
+                                    "udr":"isys-aen-spoke-rt",
+                                    "udrRg":"isys-aen-network-rg",
                                     "createNsg":true
                                 }
                             ]
@@ -1026,9 +1026,9 @@
                                 /* DO NOT DELETE. WINDOWS VM TEMPLATE
                                 {
                                     "vmName":"aenpdns01",
-                                    "rgName":"cnt-aen-sharedservices-rg",
-                                    "vNetName":"cnt-aen-hub-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-sharedservices-rg",
+                                    "vNetName":"isys-aen-hub-vnet",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"SharedServiceSubnet",
                                     "vmZones":["1"],
                                     "osDiskType":"StandardSSD_LRS",
@@ -1048,9 +1048,9 @@
                                 /* DO NOT DELETE. LINUX VM TEMPLATE
                                 {
                                     "vmName":"aenpdns01",
-                                    "rgName":"cnt-aen-sharedservices-rg",
-                                    "vNetName":"cnt-aen-hub-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-sharedservices-rg",
+                                    "vNetName":"isys-aen-hub-vnet",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"SharedServiceSubnet",
                                     "vmZones":["1"],
                                     "osDiskType":"StandardSSD_LRS",
@@ -1066,20 +1066,20 @@
                         },
                         "azFirewall": {
                             "buildAzFirewall":false,
-                            "name":"cnt-aen-hub-afw",
-                            "vnetName":"cnt-aen-hub-vnet",
-                            "vnetResourceGroupName":"cnt-aen-network-rg", //Az Firewall must be in same resource group as VNet
-                            "publicIpName":"cnt-aen-hub-afw-pip-01",
+                            "name":"isys-aen-hub-afw",
+                            "vnetName":"isys-aen-hub-vnet",
+                            "vnetResourceGroupName":"isys-aen-network-rg", //Az Firewall must be in same resource group as VNet
+                            "publicIpName":"isys-aen-hub-afw-pip-01",
                             "tier":"Premium"
                         },
                         "azBastion": {
                             "buildAzBastion":false,
-                            "name":"cnt-aen-hub-bast",
-                            "rgName":"cnt-aen-network-rg",
-                            "vnetName":"cnt-aen-hub-vnet",
-                            "vNetResourceGroup":"cnt-aen-network-rg",
+                            "name":"isys-aen-hub-bast",
+                            "rgName":"isys-aen-network-rg",
+                            "vnetName":"isys-aen-hub-vnet",
+                            "vNetResourceGroup":"isys-aen-network-rg",
                             "sku":"Standard",
-                            "bastionPublicIpName":"cnt-aen-hub-bast-pip-01",
+                            "bastionPublicIpName":"isys-aen-hub-bast-pip-01",
                             "disableCopyPaste":false,
                             "enableFileCopy":true,
                             "enableIpConnect":true,
@@ -1088,28 +1088,28 @@
                         },
                         "azVpnGateway": {
                             "buildVpnGateway":false,
-                            "name":"cnt-aen-hub-vnet-gw-vpn",
+                            "name":"isys-aen-hub-vnet-gw-vpn",
                             "vpnType":"RouteBased",
-                            "vnetName":"cnt-aen-hub-vnet",
-                            "vnetResourceGroupName":"cnt-aen-network-rg",
+                            "vnetName":"isys-aen-hub-vnet",
+                            "vnetResourceGroupName":"isys-aen-network-rg",
                             "gatewaySku":"VpnGw1AZ",
                             "localGatewayName":"dewa-aen-prd-plt-onprem-lgw-01",
                             "localGatewayIpAddress":"8.8.8.8",
                             "localAddressPrefix":["10.0.0.0/8"],
-                            "gatewayPublicIpName":"cnt-aen-hub-vnet-gw-vpn-pip-01"
+                            "gatewayPublicIpName":"isys-aen-hub-vnet-gw-vpn-pip-01"
                         },
                         "azAppGatewayV2": {
                             "settings":[
                                 {
                                     "build":false,
-                                    "name":"cnt-aen-hub-appgw-01",
-                                    "rgName":"cnt-aen-appgw-rg",
+                                    "name":"isys-aen-hub-appgw-01",
+                                    "rgName":"isys-aen-appgw-rg",
                                     "gwTier":"WAF_v2",
-                                    "vnetName":"cnt-aen-hub-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "vnetName":"isys-aen-hub-vnet",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"AppGwSubnet",
                                     "privateIp":"10.52.3.4",
-                                    "publicIpName":"cnt-aen-hub-appgw-01-pip-01",
+                                    "publicIpName":"isys-aen-hub-appgw-01-pip-01",
                                     "publicIpSku":"Standard",
                                     "allocationMethod":"Static",
                                     "capacity":1,
@@ -1147,32 +1147,32 @@
                                 */
                                 {
                                     // Networking resources rg
-                                    "rgName":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
                                     // Monitoring resources rg
-                                    "rgName":"cnt-aen-monitor-rg",
+                                    "rgName":"isys-aen-monitor-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
                                     // DR resources rg
-                                    "rgName":"cnt-aen-recovery-rg",
+                                    "rgName":"isys-aen-recovery-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
                                     // Security resources rg
-                                    "rgName":"cnt-aen-security-rg",
+                                    "rgName":"isys-aen-security-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
                                     // Application specific resources rg
-                                    "rgName":"cnt-aen-cloudpc-rg",
+                                    "rgName":"isys-aen-cloudpc-rg",
                                     "rgLocation":"UAENorth"
                                 },
                                 {
                                     // Application specific resources rg
-                                    "rgName":"cnt-aen-cpc-images-rg",
+                                    "rgName":"isys-aen-cpc-images-rg",
                                     "rgLocation":"UAENorth"
                                 }
                             ]
@@ -1191,7 +1191,7 @@
                                     "vNetName":"dewa-aen-prd-plt-cloudpc-vnet",
                                     "vNetAddressSpace":["10.52.20.0/20","10.52.24.0/20","10.52.28.0/20"],
                                     "vNetDnsServers":["10.52.1.132","10.52.1.133"],
-                                    "rgName":"cnt-aen-network-rg"
+                                    "rgName":"isys-aen-network-rg"
                                 }
                             ],
                             "peeringSettings":[
@@ -1216,10 +1216,10 @@
                                 {
                                     "sourceVnetName":"dewa-aen-prd-plt-cloudpc-vnet",
                                     "sourceVnetSubscriptionId":"[variables('subscriptions').cloudPc.id]",
-                                    "sourceVnetResourceGroup":"cnt-aen-network-rg",
-                                    "remoteVnetName":"cnt-aen-hub-vnet",
+                                    "sourceVnetResourceGroup":"isys-aen-network-rg",
+                                    "remoteVnetName":"isys-aen-hub-vnet",
                                     "remoteVNetSubscriptionId":"[variables('subscriptions').connectivity.id]",
-                                    "remoteVNetResourceGroup":"cnt-aen-network-rg",
+                                    "remoteVNetResourceGroup":"isys-aen-network-rg",
                                     "sourceVnetPeeringAllowForwardedTraffic":true,
                                     "sourceVnetPeeringAllowGatewayTransit":false,
                                     "sourceVnetPeeringUseRemoteGateways":false,
@@ -1227,7 +1227,7 @@
                                     "remoteVnetPeeringAllowGatewayTransit":false,
                                     "remoteVnetPeeringUseRemoteGateways":false,
                                     "sourcePeeringName": "dewa-aen-prd-plt-cloudpc-hub",
-                                    "remotePeeringName": "cnt-aen-hub-cloudpc"
+                                    "remotePeeringName": "isys-aen-hub-cloudpc"
                                 }
                                 */
                             ]
@@ -1242,7 +1242,7 @@
                                 */                    
                                 {
                                     "routeTableName":"dewa-aen-prd-plt-cloudpc-spoke-rt",
-                                    "rgName":"cnt-aen-network-rg"
+                                    "rgName":"isys-aen-network-rg"
                                 }
                             ],
                             "udrSettings":[
@@ -1269,7 +1269,7 @@
                                 /* DO NOT DELETE - SUBNET TEMPLATE
                                 {
                                     "subnetName":"AzureFirewallSubnet",
-                                    "vNetName":"cnt-aen-hub-vnet",
+                                    "vNetName":"isys-aen-hub-vnet",
                                     "subnetAddress":"10.200.1.192/26",
                                     "rgName":"contoso-network-rg",
                                     "udr":"",
@@ -1281,16 +1281,16 @@
                                     "subnetName":"PoC1Subnet",
                                     "vNetName":"dewa-aen-prd-plt-cloudpc-vnet",
                                     "subnetAddress":"10.52.28.0/23",
-                                    "rgName":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
                                     "udr":"dewa-aen-prd-plt-cloudpc-spoke-rt",
-                                    "udrRg":"cnt-aen-network-rg",
+                                    "udrRg":"isys-aen-network-rg",
                                     "createNsg":true
                                 },
                                 {
                                     "subnetName":"AzureFirewallSubnet",
                                     "vNetName":"dewa-aen-prd-plt-cloudpc-vnet",
                                     "subnetAddress":"10.52.20.0/26",
-                                    "rgName":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
                                     "udr":"",
                                     "udrRg":"",
                                     "createNsg":false
@@ -1299,7 +1299,7 @@
                                     "subnetName":"AzureBastionSubnet",
                                     "vNetName":"dewa-aen-prd-plt-cloudpc-vnet",
                                     "subnetAddress":"10.52.20.64/26",
-                                    "rgName":"cnt-aen-network-rg",
+                                    "rgName":"isys-aen-network-rg",
                                     "udr":"",
                                     "udrRg":"",
                                     "createNsg":false
@@ -1327,9 +1327,9 @@
                                 */
                                 {
                                     "vmName":"testvm01",
-                                    "rgName":"cnt-aen-cloudpc-rg",
+                                    "rgName":"isys-aen-cloudpc-rg",
                                     "vNetName":"dewa-aen-prd-plt-cloudpc-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"PoC1Subnet",
                                     "vmZones":["1"],
                                     "osDiskType":"StandardSSD_LRS",
@@ -1363,9 +1363,9 @@
                                 */
                                 {
                                     "vmName":"testvm02",
-                                    "rgName":"cnt-aen-cpc-images-rg",
+                                    "rgName":"isys-aen-cpc-images-rg",
                                     "vNetName":"dewa-aen-prd-plt-cloudpc-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"PoC1Subnet",
                                     "vmZones":["3"],
                                     "osDiskType":"StandardSSD_LRS",
@@ -1382,16 +1382,16 @@
                             "buildAzFirewall":true,
                             "name":"dewa-aen-prd-lz-cloudpc-afw",
                             "vnetName":"dewa-aen-prd-plt-cloudpc-vnet",
-                            "vnetResourceGroupName":"cnt-aen-network-rg", //Az Firewall must be in same resource group as VNet
+                            "vnetResourceGroupName":"isys-aen-network-rg", //Az Firewall must be in same resource group as VNet
                             "publicIpName":"dewa-aen-prd-lz-cloudpc-afw-pip-01",
                             "tier":"Premium"
                         },
                         "azBastion": {
                             "buildAzBastion":true,
                             "name":"dewa-aen-prd-lz-cloudpc-bast",
-                            "rgName":"cnt-aen-network-rg",
-                            "vnetName":"cnt-aen-hub-vnet",
-                            "vNetResourceGroup":"cnt-aen-network-rg",
+                            "rgName":"isys-aen-network-rg",
+                            "vnetName":"isys-aen-hub-vnet",
+                            "vNetResourceGroup":"isys-aen-network-rg",
                             "sku":"Standard",
                             "bastionPublicIpName":"dewa-aen-prd-lz-cloudpc-bast-pip-01",
                             "disableCopyPaste":false,
@@ -1402,15 +1402,15 @@
                         },
                         "azVpnGateway": {
                             "buildVpnGateway":false,
-                            "name":"cnt-aen-hub-vnet-gw-vpn",
+                            "name":"isys-aen-hub-vnet-gw-vpn",
                             "vpnType":"RouteBased",
-                            "vnetName":"cnt-aen-hub-vnet",
-                            "vnetResourceGroupName":"cnt-aen-network-rg",
+                            "vnetName":"isys-aen-hub-vnet",
+                            "vnetResourceGroupName":"isys-aen-network-rg",
                             "gatewaySku":"VpnGw1AZ",
                             "localGatewayName":"dewa-aen-prd-plt-onprem-lgw-01",
                             "localGatewayIpAddress":"8.8.8.8",
                             "localAddressPrefix":["10.0.0.0/8"],
-                            "gatewayPublicIpName":"cnt-aen-hub-vnet-gw-vpn-pip-01"
+                            "gatewayPublicIpName":"isys-aen-hub-vnet-gw-vpn-pip-01"
                         },
                         "azAppGatewayV2": {
                             "settings":[
@@ -1433,14 +1433,14 @@
                                 */
                                 {
                                     "build":false,
-                                    "name":"cnt-aen-hub-appgw-01",
-                                    "rgName":"cnt-aen-appgw-rg",
+                                    "name":"isys-aen-hub-appgw-01",
+                                    "rgName":"isys-aen-appgw-rg",
                                     "gwTier":"WAF_v2",
-                                    "vnetName":"cnt-aen-hub-vnet",
-                                    "vNetResourceGroup":"cnt-aen-network-rg",
+                                    "vnetName":"isys-aen-hub-vnet",
+                                    "vNetResourceGroup":"isys-aen-network-rg",
                                     "subnetName":"AppGwSubnet",
                                     "privateIp":"10.52.3.4",
-                                    "publicIpName":"cnt-aen-hub-appgw-01-pip-01",
+                                    "publicIpName":"isys-aen-hub-appgw-01-pip-01",
                                     "publicIpSku":"Standard",
                                     "allocationMethod":"Static",
                                     "capacity":1,
@@ -1450,7 +1450,7 @@
                         },
                         "privateDnsZones": {
                             "build":false,
-                            "rgName":"cnt-aen-privatednszones-rg"
+                            "rgName":"isys-aen-privatednszones-rg"
                         }
                     }
                 ]
