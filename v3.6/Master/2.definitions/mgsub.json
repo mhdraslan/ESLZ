@@ -20,7 +20,7 @@
         // Management Groups
         {
             "type":"Microsoft.Resources/deployments",
-            "apiVersion":"2019-05-01",
+            "apiVersion":"2019-07-01",
             "Name":"[concat('MG-',parameters('managementGroups').mgSettings[copyIndex()].name)]",
             "dependsOn": [],
             "location":"[deployment().location]",
@@ -50,7 +50,7 @@
         // Subscriptions
         {
             "type":"Microsoft.Resources/deployments",
-            "apiVersion":"2019-05-01",
+            "apiVersion":"2019-07-01",
             "Name":"[concat('Subscription-',parameters('subscriptions').subSettings[copyIndex()].name)]",
             "dependsOn": [
                 "ManagementGroupsCopy"
