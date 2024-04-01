@@ -26,6 +26,7 @@
             "location":"[deployment().location]",
             "copy": {
                 "name": "ManagementGroupsCopy",
+                "mode": "Serial",
                 "count": "[length(parameters('managementGroups').mgSettings)]"
             },
             "properties":{
