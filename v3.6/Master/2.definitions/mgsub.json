@@ -21,7 +21,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-07-01",
-            "Name":"[concat('MG-',parameters('managementGroups').mgSettings[copyIndex()].name)]",
+            "Name":"[concat('MG-',replace(parameters('managementGroups').mgSettings[copyIndex()].name,' ','-'))]",
             "dependsOn": [],
             "location":"[deployment().location]",
             "copy": {
@@ -52,7 +52,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-07-01",
-            "Name":"[concat('Subscription-',parameters('subscriptions').subSettings[copyIndex()].name)]",
+            "Name":"[concat('Subscription-',replace(parameters('subscriptions').subSettings[copyIndex()].name,' ','-'))]",
             "dependsOn": [
                 "ManagementGroupsCopy"
             ],
