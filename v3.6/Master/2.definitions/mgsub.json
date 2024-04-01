@@ -34,14 +34,14 @@
                     "uri":"[parameters('deploymentUris').managementGroup]"
                 },
                 "parameters":{
-                    "id":{
-                        "value": "[parameters('managementGroups').rgSettings[copyIndex()].id]"
+                    "managementGroupId":{
+                        "value": "[parameters('managementGroups').mgSettings[copyIndex()].id]"
                     },
-                    "name":{
-                        "value":"[parameters('managementGroups').rgSettings[copyIndex()].name]"
+                    "managementGroupName":{
+                        "value":"[parameters('managementGroups').mgSettings[copyIndex()].name]"
                     },
-                    "location":{
-                        "value":"[deployment().location]"
+                    "parentManagementGroupId":{
+                        "value":"[parameters('managementGroups').mgSettings[copyIndex()].parent]"
                     }
                 }
             }
@@ -51,24 +51,26 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[concat('MG-',parameters('resourceGroups').rgSettings[copyIndex()].rgName)]",
-            "dependsOn": [],
-            "location":"[parameters('resourceGroups').rgSettings[copyIndex()].rgLocation]",
+            "Name":"[concat('Subscription-',parameters('subscriptions').subSettings[copyIndex()].name)]",
+            "dependsOn": [
+                "ManagementGroupsCopy"
+            ],
+            "location":"[deployment().location]",
             "copy": {
-                "name": "ResourceGroupsCopy",
-                "count": "[length(parameters('resourceGroups').rgSettings)]"
+                "name": "SubscriptionsCopy",
+                "count": "[length(parameters('subscriptions').subSettings)]"
             },
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[parameters('deploymentUris').resourceGroup]"
+                    "uri":"[parameters('deploymentUris').moveSubscription]"
                 },
                 "parameters":{
-                    "name":{
-                        "value":"[parameters('resourceGroups').rgSettings[copyIndex()].rgName]"
+                    "subscriptionId":{
+                        "value":"[parameters('subscriptions').subSettings[copyIndex()].id]"
                     },
-                    "location":{
-                        "value":"[parameters('resourceGroups').rgSettings[copyIndex()].rgLocation]"
+                    "parentManagementGroupId":{
+                        "value":"[parameters('subscriptions').subSettings[copyIndex()].parent]"
                     }
                 }
             }

@@ -21,13 +21,23 @@ $Now = Get-Date
 [datetime]$Start = $Now
 Write-Host "Starting operation at $Now" -ForegroundColor Yellow -BackgroundColor Black
 
-# Start the deployment
+<#
+# Subscription deployment
 Write-Host "Initiating deployment..." -ForegroundColor Yellow -BackgroundColor Black
 $DeploymentName = $environmentName + " -Environment-Deployment-" + $Now.ToString("yyyyMMddHHmmss")
 $MainTemplateUri = $TemplateBaseUri + "/main.json"
 $MainParamsUri = $TemplateBaseUri + "/main.param.json"
 $rgDeployment = New-AzSubscriptionDeployment -Name $DeploymentName.Replace(" ","") -location $Deploymentlocation -TemplateUri $MainTemplateUri -TemplateParameterUri $MainParamsUri -verbose
 $rgDeployment.Outputs.rgName.Value
+#>
+
+<#
+# Management Group Deployment
+   New-AzManagementGroupDeployment -Name "test001" -ManagementGroupId "IntelliSYS" -Location uaenorth -TemplateUri "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/v3.0/Master/main.json" -TemplateParameterFile "C:\Users\mraslan\OneDrive\Documents\GitHub\ESLZ\v3.0\Master\main.param.json"
+#>
+
+# Azure Tenant Deployment
+New-AzTenantDeployment -Name "eslz-test-01" -Location 'UAE North' -TemplateUri "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/v3.6/Master/main.json" -TemplateParameterUri "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/v3.6/Master/main.param.json"
 
 # Record stop time and report deployment status
 $Now = Get-Date
@@ -38,8 +48,3 @@ $Total = $Finish - $Start
 $Total
 
 
-<#
-   New-AzManagementGroupDeployment -Name "test001" -ManagementGroupId "IntelliSYS" -Location uaenorth -TemplateUri "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/v3.0/Master/main.json" -TemplateParameterFile "C:\Users\mraslan\OneDrive\Documents\GitHub\ESLZ\v3.0\Master\main.param.json"
-#>
-
-New-AzTenantDeployment -Name "eslz-test-01" -Location 'UAE North' -TemplateUri "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/v3.5/Master/main.json" -TemplateParameterUri "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/v3.5/Master/main.param.json"

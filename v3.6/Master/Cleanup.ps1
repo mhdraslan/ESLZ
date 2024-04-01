@@ -1,4 +1,4 @@
-$searchCriteria = "cnt*"
+$searchCriteria = "isys-ae*"
 
 $mgs = Get-AzManagementGroup
 foreach($mg in $mgs){

@@ -1,0 +1,25 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "type": "string"
+        },
+        "parentManagementGroupId": {
+            "type": "string",
+            "metadata": {
+                "description":"Enter the Management Group ID only (not the path) of parent Management Group which the subscription should be a child of."
+            }
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Management/managementGroups/subscriptions",
+            "apiVersion": "2021-04-01",
+            "name": "[concat(parameters('parentManagementGroupId'),'/', parameters('subscriptionId'))]",
+            "location": "[deployment().location]"
+        }
+    ],
+    "outputs": {}
+}

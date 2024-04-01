@@ -37,6 +37,29 @@
                 ]
             }
         },
+        "subscriptions":{
+            "value":{
+                "subSettings":[
+                    /* Template 
+                    {
+                        "id": "",    // The subscription ID of the subscription to be moved.
+                        "name": "",  // The name or description of the subscription. This is only used for logging purpose.
+                        "parent": "" // The Management Group ID (Not path) that will contain the subscription.
+                    }
+                    */
+                    {
+                        "id": "5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
+                        "name": "Landing Zones Subscription",
+                        "parent": "mg-lz"
+                    },
+                    {
+                        "id": "67236ec4-f453-4086-b4d1-78a6a93fad71",
+                        "name": "Platform Subscription",
+                        "parent": "mg-platform"
+                    }
+                ]
+            }
+        },
         "landingZones":{
             "value":{
                 "lzSettings":[
