@@ -481,7 +481,7 @@
                                     "udr":"isys-aen-hub-appgw-rt",
                                     "udrRg":"isys-aen-network-rg",
                                     "createNsg":false
-                                },
+                                },/*
                                 {
                                     "subnetName":"PrivateEndpointSubnet",
                                     "vNetName":"isys-aen-hub-vnet",
@@ -490,7 +490,7 @@
                                     "udr":"isys-aen-hub-subnet-rt",
                                     "udrRg":"isys-aen-network-rg",
                                     "createNsg":true
-                                },
+                                },*/
                                 {
                                     "subnetName":"DnsResolverInSubnet",
                                     "vNetName":"isys-aen-hub-vnet",
