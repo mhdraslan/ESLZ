@@ -83,16 +83,11 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-07-01",
-            "Name":"[concat('LZ-',parameters('landingZones').lzSettings[copyIndex()].lzName)]",
+            "Name":"Build-Landing-Zones",
             "location":"[deployment().location]",
             "dependsOn": [
                 "Build-Management-Groups-and-Move-Subscriptions"
             ],
-            "copy": {
-                "mode": "Serial",
-                "name": "LandingZonesCopy",
-                "count": "[length(parameters('landingZones').lzSettings)]"
-            },
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{

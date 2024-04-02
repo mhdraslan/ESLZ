@@ -20,6 +20,11 @@
             "subscriptionId": "[parameters('landingZones').lzSettings[copyIndex()].subscription.Id]",
             "location":"[deployment().location]",
             "dependsOn": [],
+            "copy": {
+                "name": "LandingZonesCopy",
+                "count": "[length(parameters('landingZones').lzSettings)]",
+                "mode": "Serial"
+            },
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
