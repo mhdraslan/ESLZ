@@ -487,7 +487,7 @@
                                     "vNetName":"isys-aen-hub-vnet",
                                     "subnetAddress":"172.16.1.0/25",
                                     "rgName":"isys-aen-network-rg",
-                                    "udr":"isys-aen-spoke-rt",
+                                    "udr":"isys-aen-hub-subnet-rt",
                                     "udrRg":"isys-aen-network-rg",
                                     "createNsg":true
                                 },
