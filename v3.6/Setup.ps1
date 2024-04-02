@@ -47,6 +47,8 @@ if($deploymentType.ToLower() -eq "mg") {
 # Azure Tenant Deployment
 if($deploymentType.ToLower() -eq "tenant") {
    Write-Host "Initiating tenant deployment..." -ForegroundColor Yellow -BackgroundColor Black
+   Write-Host "Template File URI: $mainTemplateUri" -ForegroundColor Yellow -BackgroundColor Black
+   Write-Host "Template Parameters File URI: $mainParamsUri" -ForegroundColor Yellow -BackgroundColor Black
    $deploymentResult = New-AzTenantDeployment -Name $deploymentName.Replace(" ","") -Location $deploymentLocation -TemplateUri $mainTemplateUri -TemplateParameterUri $mainParamsUri -verbose
    $deploymentResult.Outputs.rgName.Value
 }

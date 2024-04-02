@@ -305,8 +305,6 @@
                             "id":"67236ec4-f453-4086-b4d1-78a6a93fad71",
                             "name":"Platform"
                         },
-                        //"parentManagementGroupId":"",
-
                         "resourceGroups":{
                             "rgSettings":[
                                 // ADD RESOURCE GROUP SECTIONS BELOW
@@ -657,7 +655,6 @@
                             "id":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
                             "name":"Landing Zones"
                         },
-                        //"parentManagementGroupId":"",
                         "resourceGroups":{
                             "rgSettings":[
                                 {
@@ -838,7 +835,8 @@
                         },
                         "privateDnsZones": {
                             "build":false,
-                            "rgName":"contoso-privatednszones-rg"
+                            "rgName":"contoso-privatednszones-rg",
+                            "regions":[]
                         }
                     }
                 ]
