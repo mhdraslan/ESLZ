@@ -1117,7 +1117,7 @@
                                 {
                                     "subnetName":"AppGwSubnet",
                                     "vNetName":"isys-aen-hub-vnet",
-                                    "subnetAddress":"10.52.3.0/24",
+                                    "subnetAddress":"172.16.0.192/27",
                                     "rgName":"isys-aen-network-rg",
                                     "udr":"isys-aen-hub-appgw-rt",
                                     "udrRg":"isys-aen-network-rg",
@@ -1126,7 +1126,7 @@
                                 {
                                     "subnetName":"PrivateEndpointSubnet",
                                     "vNetName":"isys-aen-hub-vnet",
-                                    "subnetAddress":"10.52.2.0/24",
+                                    "subnetAddress":"172.16.1.0/25",
                                     "rgName":"isys-aen-network-rg",
                                     "udr":"isys-aen-spoke-rt",
                                     "udrRg":"isys-aen-network-rg",

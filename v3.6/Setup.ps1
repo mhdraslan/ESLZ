@@ -19,7 +19,7 @@ $templateBaseUri = "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/"
 #region Deployment Variables
 $deploymentType = "Tenant" # Allowed values: RG, Sub, MG, Tenant
 $deploymentManagementGroup = "" # Used only for Management Group ID for management group deployments.
-$deploymentName = $environmentName + " -Environment-Deployment-" + $Now.ToString("yyyy-MM-dd-HH:mm:ss")
+$deploymentName = $environmentName + " -Environment-Deployment-" + $Now.ToString("yyyy-MM-dd-HH-mm-ss")
 $mainTemplateUri = $TemplateBaseUri + "v3.6/Master/main.json"
 $mainParamsUri = $TemplateBaseUri + "v3.6/Master/main.param.json"
 #endregion
@@ -45,7 +45,7 @@ if($deploymentType.ToLower() -eq "mg") {
 }
 
 # Azure Tenant Deployment
-if($deploymentType.ToLower() -eq "mg") {
+if($deploymentType.ToLower() -eq "tenant") {
    Write-Host "Initiating tenant deployment..." -ForegroundColor Yellow -BackgroundColor Black
    $deploymentResult = New-AzTenantDeployment -Name $deploymentName.Replace(" ","") -Location $deploymentLocation -TemplateUri $mainTemplateUri -TemplateParameterUri $mainParamsUri -verbose
    $deploymentResult.Outputs.rgName.Value

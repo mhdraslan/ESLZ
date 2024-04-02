@@ -125,12 +125,14 @@
                     "deploymentUris":{
                         "value":"[parameters('deploymentUris')]"
                     },
+                    /*
                     "subscriptionName":{
                         "value":"[parameters('environmentSettings').subscription.Name]"
                     },
                     "subscriptionId":{
                         "value":"[parameters('environmentSettings').subscription.Id]"
                     },
+                    */
                     "azFirewall":{
                         "value":"[parameters('environmentSettings').azFirewall]"
                     },
