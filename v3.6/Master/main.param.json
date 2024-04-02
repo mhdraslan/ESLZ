@@ -1058,7 +1058,7 @@
                                     "routeEntryType":"VirtualAppliance",
                                     "routeEntryNextHopIPAddress":"172.16.0.4",
                                     "routeTableName":"isys-aen-hub-subnet-rt"
-                                }
+                                },
 
                                 {
                                     "routeEntryName":"identity-vnet",
