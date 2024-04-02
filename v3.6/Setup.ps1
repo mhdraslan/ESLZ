@@ -11,9 +11,17 @@
 
 
 #region Global Variables
-$Deploymentlocation = "eastus"
-$environmentName = "CloudNXG" # Only upper and lower characters and space
-$TemplateBaseUri = "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/Working"
+$deploymentLocation = "UAENorth"
+$environmentName = "IntelliSYS" # Only upper and lower characters and space
+$templateBaseUri = "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/"
+#endregion
+
+#region Deployment Variables
+$deploymentType = "Tenant" # Allowed values: RG, Sub, MG, Tenant
+$deploymentManagementGroup = "" # Used only for Management Group ID for management group deployments.
+$deploymentName = $environmentName + " -Environment-Deployment-" + $Now.ToString("yyyy-MM-dd-HH:mm:ss")
+$mainTemplateUri = $TemplateBaseUri + "v3.6/Master/main.json"
+$mainParamsUri = $TemplateBaseUri + "v3.6/Master/main.param.json"
 #endregion
 
 # Record start time
@@ -21,23 +29,27 @@ $Now = Get-Date
 [datetime]$Start = $Now
 Write-Host "Starting operation at $Now" -ForegroundColor Yellow -BackgroundColor Black
 
-<#
-# Subscription deployment
-Write-Host "Initiating deployment..." -ForegroundColor Yellow -BackgroundColor Black
-$DeploymentName = $environmentName + " -Environment-Deployment-" + $Now.ToString("yyyyMMddHHmmss")
-$MainTemplateUri = $TemplateBaseUri + "/main.json"
-$MainParamsUri = $TemplateBaseUri + "/main.param.json"
-$rgDeployment = New-AzSubscriptionDeployment -Name $DeploymentName.Replace(" ","") -location $Deploymentlocation -TemplateUri $MainTemplateUri -TemplateParameterUri $MainParamsUri -verbose
-$rgDeployment.Outputs.rgName.Value
-#>
 
-<#
+# Subscription Deployment
+if($deploymentType.ToLower() -eq "sub") {
+   Write-Host "Initiating tenant deployment..." -ForegroundColor Yellow -BackgroundColor Black
+   $deploymentResult = New-AzSubscriptionDeployment -Name $deploymentName.Replace(" ","") -location $deploymentLocation -TemplateUri $mainTemplateUri -TemplateParameterUri $mainParamsUri -verbose
+   $deploymentResult.Outputs.rgName.Value
+}
+
 # Management Group Deployment
-   New-AzManagementGroupDeployment -Name "test001" -ManagementGroupId "IntelliSYS" -Location uaenorth -TemplateUri "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/v3.0/Master/main.json" -TemplateParameterFile "C:\Users\mraslan\OneDrive\Documents\GitHub\ESLZ\v3.0\Master\main.param.json"
-#>
+if($deploymentType.ToLower() -eq "mg") {
+   Write-Host "Initiating management group deployment..." -ForegroundColor Yellow -BackgroundColor Black
+   $deploymentResult = New-AzManagementGroupDeployment -Name $deploymentName.Replace(" ","") -ManagementGroupId $deploymentManagementGroup -Location $deploymentLocation -TemplateUri $mainTemplateUri -TemplateParameterUri $mainParamsUri -verbose
+   $deploymentResult.Outputs.rgName.Value
+}
 
 # Azure Tenant Deployment
-New-AzTenantDeployment -Name "eslz-test-01" -Location 'UAE North' -TemplateUri "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/v3.6/Master/main.json" -TemplateParameterUri "https://raw.githubusercontent.com/mhdraslan/ESLZ/main/v3.6/Master/main.param.json"
+if($deploymentType.ToLower() -eq "mg") {
+   Write-Host "Initiating tenant deployment..." -ForegroundColor Yellow -BackgroundColor Black
+   $deploymentResult = New-AzTenantDeployment -Name $deploymentName.Replace(" ","") -Location $deploymentLocation -TemplateUri $mainTemplateUri -TemplateParameterUri $mainParamsUri -verbose
+   $deploymentResult.Outputs.rgName.Value
+}
 
 # Record stop time and report deployment status
 $Now = Get-Date
