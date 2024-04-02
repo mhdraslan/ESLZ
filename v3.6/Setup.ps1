@@ -46,5 +46,3 @@ Write-Host "Operation completed at $Now" -ForegroundColor Yellow -BackgroundColo
 
 $Total = $Finish - $Start
 $Total
-
-
