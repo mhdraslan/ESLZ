@@ -509,7 +509,7 @@
                                     "udrRg":"isys-aen-network-rg",
                                     "createNsg":false
                                 },
-
+                                /*
                                 {
                                     "subnetName":"tier0subnet",
                                     "vNetName":"isys-aen-sharedservices-vnet",
@@ -519,6 +519,7 @@
                                     "udrRg":"isys-aen-network-rg",
                                     "createNsg":true
                                 },
+                                */
                                 {
                                     "subnetName":"tier1subnet",
                                     "vNetName":"isys-aen-sharedservices-vnet",
