@@ -29,7 +29,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[substring(concat('UDR-',parameters('routes').udrTables[copyIndex()].routeTableName),0,64)]",
+            "Name":"[take(concat('UDR-',parameters('routes').udrTables[copyIndex()].routeTableName),64)]",
             "resourceGroup": "[parameters('routes').udrTables[copyIndex()].rgName]",
             "copy": {
                 "name": "UdrTablesCopy",
@@ -52,7 +52,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             //"Name":"[concat('UDR_Entries_',parameters('routes').udrSettings[copyIndex()].routeTableName,'_',parameters('routes').udrSettings[copyIndex()].routeEntryName)]",
-            "Name":"[substring(concat('route-',parameters('routes').udrSettings[copyIndex()].routeTableName,'-',parameters('routes').udrSettings[copyIndex()].routeEntryName),0,64)]",
+            "Name":"[take(concat('route-',parameters('routes').udrSettings[copyIndex()].routeTableName,'-',parameters('routes').udrSettings[copyIndex()].routeEntryName),64)]",
             "resourceGroup": "[parameters('routes').udrTables[0].rgName]",
             "dependsOn": [
                 "UdrTablesCopy"
@@ -90,7 +90,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[substring(concat('VNet-',parameters('vnets').vnetSettings[copyIndex()].vNetName),0,64)]",
+            "Name":"[take(concat('VNet-',parameters('vnets').vnetSettings[copyIndex()].vNetName),64)]",
             "resourceGroup": "[parameters('vnets').vnetSettings[copyIndex()].rgName]",
             "copy": {
                 "name": "VirtualNetworksCopy",
@@ -118,7 +118,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"[substring(concat('Peering-',parameters('vnets').peeringSettings[copyIndex()].sourcePeeringName),0,64)]",
+            "Name":"[take(concat('Peering-',parameters('vnets').peeringSettings[copyIndex()].sourcePeeringName),64)]",
             "dependsOn": [
                 "VirtualNetworksCopy"
             ],
@@ -183,7 +183,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[substring(concat('Subnet-',parameters('subnets').subnetSettings[copyIndex()].vNetName,'-',parameters('subnets').subnetSettings[copyIndex()].subnetName),0,64)]",
+            "Name":"[take(concat('Subnet-',parameters('subnets').subnetSettings[copyIndex()].vNetName,'-',parameters('subnets').subnetSettings[copyIndex()].subnetName),64)]",
             "dependsOn": [
                 "VnetPeeringsCopy"
             ],
@@ -215,7 +215,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[substring(concat('NSG-',parameters('subnets').subnetSettings[copyIndex()].vNetName,'-',parameters('subnets').subnetSettings[copyIndex()].subnetName),0,64)]",
+            "Name":"[take(concat('NSG-',parameters('subnets').subnetSettings[copyIndex()].vNetName,'-',parameters('subnets').subnetSettings[copyIndex()].subnetName),64)]",
             "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
             "condition": "[parameters('subnets').subnetSettings[copyIndex()].createNsg]",
             "dependsOn": [
@@ -248,7 +248,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[substring(concat('UDR Link-',parameters('subnets').subnetSettings[copyIndex()].vNetName,'-',parameters('subnets').subnetSettings[copyIndex()].subnetName),0,64)]",
+            "Name":"[take(concat('UDR Link-',parameters('subnets').subnetSettings[copyIndex()].vNetName,'-',parameters('subnets').subnetSettings[copyIndex()].subnetName),64)]",
             "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
             "condition": "[not(equals(parameters('subnets').subnetSettings[copyIndex()].udr,''))]",
             "dependsOn": [

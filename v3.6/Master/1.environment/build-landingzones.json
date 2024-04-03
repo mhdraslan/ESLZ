@@ -16,7 +16,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
             "condition": "[parameters('landingZones').lzSettings[copyIndex()].build]",
-            "Name":"[substring(concat('Start-LZ-',parameters('landingZones').lzSettings[copyIndex()].lzName),0,64)]",
+            "Name":"[take(concat('Start-LZ-',parameters('landingZones').lzSettings[copyIndex()].lzName),64)]",
             "subscriptionId": "[parameters('landingZones').lzSettings[copyIndex()].subscription.Id]",
             "location":"[deployment().location]",
             "dependsOn": [],

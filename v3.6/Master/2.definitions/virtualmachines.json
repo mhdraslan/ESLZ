@@ -22,7 +22,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[substring(concat('WindowsVM-',parameters('windowsVMs').vmSettings[copyIndex()].vmName),0,64)]",
+            "Name":"[take(concat('WindowsVM-',parameters('windowsVMs').vmSettings[copyIndex()].vmName),64)]",
             "dependsOn": [],
             "resourceGroup": "[parameters('windowsVMs').vmSettings[copyIndex()].rgName]",
             "copy": {
@@ -78,7 +78,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[substring(concat('LinuxVM-',parameters('linuxVMs').vmSettings[copyIndex()].vmName),0,64)]",
+            "Name":"[take(concat('LinuxVM-',parameters('linuxVMs').vmSettings[copyIndex()].vmName),64)]",
             "dependsOn": [],
             "resourceGroup": "[parameters('linuxVMs').vmSettings[copyIndex()].rgName]",
             "copy": {

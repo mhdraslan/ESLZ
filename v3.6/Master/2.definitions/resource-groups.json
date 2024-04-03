@@ -17,7 +17,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[substring(concat('ResourceGroup-',parameters('resourceGroups').rgSettings[copyIndex()].rgName),0,64)]",
+            "Name":"[take(concat('ResourceGroup-',parameters('resourceGroups').rgSettings[copyIndex()].rgName),64)]",
             "dependsOn": [],
             "location":"[parameters('resourceGroups').rgSettings[copyIndex()].rgLocation]",
             "copy": {
