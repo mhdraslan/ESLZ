@@ -51,7 +51,6 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            //"Name":"[concat('UDR_Entries_',parameters('routes').udrSettings[copyIndex()].routeTableName,'_',parameters('routes').udrSettings[copyIndex()].routeEntryName)]",
             "Name":"[take(concat('route-',parameters('routes').udrSettings[copyIndex()].routeTableName,'-',parameters('routes').udrSettings[copyIndex()].routeEntryName),64)]",
             "resourceGroup": "[parameters('routes').udrTables[0].rgName]",
             "dependsOn": [
@@ -285,7 +284,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[concat('Private DNS Zones')]",
+            "Name":"[concat('Private-DNS-Zones')]",
             "resourceGroup": "[parameters('privateDnsZones').rgname]",
             "condition": "[parameters('privateDnsZones').build]",
             "dependsOn": [],
@@ -301,7 +300,7 @@
         {   
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[concat('Private DNS Zones Regional - ',parameters('privateDnsZones').regions[copyIndex()])]",
+            "Name":"[concat('Private-DNS-Zones-Regional-',parameters('privateDnsZones').regions[copyIndex()])]",
             "resourceGroup": "[parameters('privateDnsZones').rgname]",
             "condition": "[parameters('privateDnsZones').build]",
             "dependsOn": [],
