@@ -568,9 +568,9 @@
                                 {
                                     "vmName":"az-srv-lxupdaterep-01",
                                     "rgName":"isys-aen-sharedservices-rg",
-                                    "vNetName":"isys-aen-hub-vnet",
+                                    "vNetName":"isys-aen-sharedservices-vnet",
                                     "vNetResourceGroup":"isys-aen-network-rg",
-                                    "subnetName":"SharedServiceSubnet",
+                                    "subnetName":"tier1subnet",
                                     "vmZones":["1"],
                                     "osDiskType":"StandardSSD_LRS",
                                     "osPublisher":"Canonical",
