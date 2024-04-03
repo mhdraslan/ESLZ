@@ -605,7 +605,7 @@
                             "enableTunneling":false
                         },
                         "azVpnGateway": {
-                            "buildVpnGateway":true,
+                            "buildVpnGateway":false,
                             "name":"isys-aen-hub-gw-vpn",
                             "vpnType":"RouteBased",
                             "vnetName":"isys-aen-hub-vnet",
@@ -641,6 +641,24 @@
                             "regions":[
                                 "uaenorth",
                                 "eastus"
+                            ]
+                        },
+                        "logAnalyticsWorkspaces": {
+                            "settings":[
+                                {
+                                    "name":"isys-aen-sec-laws",
+                                    "rgName": "isys-aen-monitor-rg",
+                                    "retention":30,
+                                    "publicNetworkAccessForIngestion":"Enabled",
+                                    "publicNetworkAccessForQuery":"Enabled"
+                                },
+                                {
+                                    "name":"isys-aen-ops-laws",
+                                    "rgName": "isys-aen-monitor-rg",
+                                    "retention":30,
+                                    "publicNetworkAccessForIngestion":"Enabled",
+                                    "publicNetworkAccessForQuery":"Enabled"
+                                }
                             ]
                         }
                     },
@@ -835,6 +853,17 @@
                             "build":false,
                             "rgName":"contoso-privatednszones-rg",
                             "regions":[]
+                        },
+                        "logAnalyticsWorkspaces": {
+                            "settings":[
+                                {
+                                    "name":"isys-aen-avd-laws",
+                                    "rgName": "isys-aen-avd-rg",
+                                    "retention":30,
+                                    "publicNetworkAccessForIngestion":"Enabled",
+                                    "publicNetworkAccessForQuery":"Enabled"
+                                }
+                            ]
                         }
                     }
                 ]

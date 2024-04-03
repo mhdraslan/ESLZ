@@ -21,7 +21,8 @@
             "resourceGroupsDeploymentName"  : "[take(concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-ResourceGroups'),64)]",
             "networkingDeploymentName"      : "[take(concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-Networking'),64)]",
             "virtualMachinesDeploymentName" : "[take(concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-VirtualMachines'),64)]",
-            "nvaDeploymentName"             : "[take(concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-NVAs'),64)]"
+            "nvaDeploymentName"             : "[take(concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-NVAs'),64)]",
+            "monitoringDeploymentName"      : "[take(concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-Monitoring'),64)]"
         }
     },
     "resources": [
@@ -144,6 +145,30 @@
                     },
                     "azAppGatewayV2":{
                         "value":"[parameters('environmentSettings').azAppGatewayV2]"
+                    }
+                }
+            }
+        },
+        // Build Monitoring
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-10",
+            "Name":"[variables('deplaymentNames').monitoringDeploymentName]",
+            "location":"[deployment().location]",
+            "dependsOn": [
+                "[variables('deplaymentNames').networkingDeploymentName]"
+            ],
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[uri(deployment().properties.templateLink.uri,parameters('deploymentUris').defMonitoringUri)]"
+                },
+                "parameters": {
+                    "deploymentUris":{
+                        "value":"[parameters('deploymentUris')]"
+                    },
+                    "logAnalyticsWorkspace":{
+                        "value":"[parameters('environmentSettings').logAnalyticsWorkspaces]"
                     }
                 }
             }

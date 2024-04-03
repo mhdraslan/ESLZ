@@ -17,7 +17,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[take(concat('LAW-',parameters('logAnalyticsWorkspace').settings[copyIndex()].name),64)]",
+            "Name":"[take(concat('LAWS-',parameters('logAnalyticsWorkspace').settings[copyIndex()].name),64)]",
             "condition": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].build]",
             "resourceGroup": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].rgName]",
             "copy": {
