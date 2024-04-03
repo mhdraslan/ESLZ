@@ -5,7 +5,10 @@ To DO
 - Check if you deploy Az azFirewall premium if the deployment will succeed or not.
 - Check if the deployment will work if you do not provide sku information for Azure Firewall and VPN gateway resources
 - Check for deployment name to make sure it does not exceed 64 characters
-- Build management groups 
 - Build policy definitions and assignments
 - Configure peering not to propegate gateway routes
-- 
+- In level 2 monitoring template, add AMPLS resource
+- Further improve deployment names by checking length of specific parts of the names
+- Remove deployment names as variables and make them part of the resource section
+
+

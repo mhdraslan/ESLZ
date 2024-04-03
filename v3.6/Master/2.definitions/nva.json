@@ -29,7 +29,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[parameters('azFirewall').name]",
+            "Name":"[substring(concat('AzFirewall-',parameters('azFirewall').name),0,64)]",
             "condition": "[parameters('azFirewall').buildAzFirewall]",
             "resourceGroup": "[parameters('azFirewall').vnetResourceGroupName]",
             "properties":{
@@ -57,7 +57,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[parameters('azBastion').name]",
+            "Name":"[substring(concat('Bastion-',parameters('azBastion').name),0,64)]",
             "condition": "[parameters('azBastion').buildAzBastion]",
             "resourceGroup": "[parameters('azBastion').rgName]",
             "properties":{
@@ -104,7 +104,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[parameters('azVpnGateway').name]",
+            "Name":"[substring(concat('VpnGateway-',parameters('azVpnGateway').name),0,64)]",
             "condition": "[parameters('azVpnGateway').buildVpnGateway]",
             "resourceGroup": "[parameters('azVpnGateway').vnetResourceGroupName]",
             "properties":{
@@ -147,7 +147,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[concat('',parameters('azAppGatewayV2').settings[copyIndex()].name)]",
+            "Name":"[substring(concat('AppGatewayV2Std-',parameters('azAppGatewayV2').settings[copyIndex()].name),0,64)]",
             "condition": "[and(parameters('azAppGatewayV2').settings[copyIndex()].build, equals(parameters('azAppGatewayV2').settings[copyIndex()].gwTier,'Standard_v2'))]",
             "resourceGroup": "[parameters('azAppGatewayV2').settings[copyIndex()].rgName]",
             "copy": {
@@ -200,7 +200,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[concat('',parameters('azAppGatewayV2').settings[copyIndex()].name)]",
+            "Name":"[substring(concat('AppGatewayV2Waf-',parameters('azAppGatewayV2').settings[copyIndex()].name),0,64)]",
             "condition": "[and(parameters('azAppGatewayV2').settings[copyIndex()].build, equals(parameters('azAppGatewayV2').settings[copyIndex()].gwTier,'WAF_v2'))]",
             "resourceGroup": "[parameters('azAppGatewayV2').settings[copyIndex()].rgName]",
             "copy": {

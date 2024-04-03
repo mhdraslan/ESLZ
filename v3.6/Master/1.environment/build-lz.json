@@ -18,10 +18,10 @@
     },
     "variables": {
         "deplaymentNames":{
-            "resourceGroupsDeploymentName"  : "[concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-ResourceGroups')]",
-            "networkingDeploymentName"      : "[concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-Networking')]",
-            "virtualMachinesDeploymentName" : "[concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-VirtualMachines')]",
-            "nvaDeploymentName"             : "[concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-NVAs')]"
+            "resourceGroupsDeploymentName"  : "[substring(concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-ResourceGroups'),0,64)]",
+            "networkingDeploymentName"      : "[substring(concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-Networking'),0,64)]",
+            "virtualMachinesDeploymentName" : "[substring(concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-VirtualMachines'),0,64)]",
+            "nvaDeploymentName"             : "[substring(concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-NVAs'),0,64)]"
         }
     },
     "resources": [
