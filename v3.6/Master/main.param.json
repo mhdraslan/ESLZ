@@ -646,6 +646,7 @@
                         "logAnalyticsWorkspaces": {
                             "settings":[
                                 {
+                                    "build": true,
                                     "name":"isys-aen-sec-laws",
                                     "rgName": "isys-aen-monitor-rg",
                                     "retention":30,
@@ -653,6 +654,7 @@
                                     "publicNetworkAccessForQuery":"Enabled"
                                 },
                                 {
+                                    "build": true,
                                     "name":"isys-aen-ops-laws",
                                     "rgName": "isys-aen-monitor-rg",
                                     "retention":30,
@@ -857,6 +859,7 @@
                         "logAnalyticsWorkspaces": {
                             "settings":[
                                 {
+                                    "build": true,
                                     "name":"isys-aen-avd-laws",
                                     "rgName": "isys-aen-avd-rg",
                                     "retention":30,
