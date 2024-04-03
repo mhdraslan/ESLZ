@@ -247,7 +247,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[take(concat('UDR Link-',parameters('subnets').subnetSettings[copyIndex()].vNetName,'-',parameters('subnets').subnetSettings[copyIndex()].subnetName),64)]",
+            "Name":"[take(concat('UDR-Link-',parameters('subnets').subnetSettings[copyIndex()].vNetName,'-',parameters('subnets').subnetSettings[copyIndex()].subnetName),64)]",
             "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
             "condition": "[not(equals(parameters('subnets').subnetSettings[copyIndex()].udr,''))]",
             "dependsOn": [
