@@ -10,7 +10,7 @@
         },
         "resourceGroups":{
             "value":{
-                "rgSettings":[
+                "settings":[
                     // DO NOT DELETE FIRST (DEPLOYMENT) RESOURCE GROUP. DELETE AFTER SUCCESSFUL DEPLOYMENT
                     {
                         "rgName":"rsg-aen-deployment-prd",
@@ -46,7 +46,7 @@
         },
         "vnets":{
             "value":{
-                "vnetSettings":[
+                "settings":[
                     {
                         "vNetName":"aen-sandbox-vnet-01",
                         "vNetAddressSpace":"10.200.12.0/25",
@@ -89,7 +89,7 @@
         },
         "subnets":{
             "value":{
-                "subnetSettings":[
+                "settings":[
                     {
                         "subnetName":"websnet",
                         "vNetName":"aen-sandbox-vnet-01",
@@ -122,7 +122,7 @@
         },
         "windowsVMs":{
             "value":{
-                "vmSettings":[
+                "settings":[
                     {
                         "vmName":"acstsweb01",
                         "rgName":"rsg-aen-sandbox-web-01",
@@ -158,12 +158,12 @@
         },
         "linuxVMs":{
             "value":{
-                "vmSettings":[]
+                "settings":[]
             }
         },
         "azFirewall": {
             "value":{
-                "buildAzFirewall":false,
+                "build":false,
                 "name":"",
                 "rgName":"",
                 "vnetName":"",
@@ -172,7 +172,7 @@
         },
         "azBastion": {
             "value":{
-                "buildAzBastion":false,
+                "build":false,
                 "name":"",
                 "rgName":"",
                 "vnetName":"",
@@ -188,7 +188,7 @@
         },
         "azVpnGateway": {
             "value":{
-                "buildVpnGateway":false,
+                "build":false,
                 "name":"",
                 "rgName":"",
                 "vpnType":"",

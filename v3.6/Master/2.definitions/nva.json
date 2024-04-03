@@ -30,7 +30,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "Name":"[take(concat('AzFirewall-',replace(parameters('azFirewall').name,' ','')),64)]",
-            "condition": "[parameters('azFirewall').buildAzFirewall]",
+            "condition": "[parameters('azFirewall').build]",
             "resourceGroup": "[parameters('azFirewall').vnetResourceGroupName]",
             "properties":{
                 "mode":"Incremental",
@@ -58,7 +58,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "Name":"[take(concat('Bastion-',replace(parameters('azBastion').name,' ','')),64)]",
-            "condition": "[parameters('azBastion').buildAzBastion]",
+            "condition": "[parameters('azBastion').build]",
             "resourceGroup": "[parameters('azBastion').rgName]",
             "properties":{
                 "mode":"Incremental",
@@ -105,7 +105,7 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "Name":"[take(concat('VpnGateway-',replace(parameters('azVpnGateway').name,' ','')),64)]",
-            "condition": "[parameters('azVpnGateway').buildVpnGateway]",
+            "condition": "[parameters('azVpnGateway').build]",
             "resourceGroup": "[parameters('azVpnGateway').vnetResourceGroupName]",
             "properties":{
                 "mode":"Incremental",

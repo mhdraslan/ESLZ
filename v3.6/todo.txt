@@ -9,6 +9,9 @@ To DO
 - Further improve deployment names by checking length of specific parts of the names
 - Remove deployment names as variables and make them part of the resource section
 - Add Azure Firewall policy resource
+- Add managed identity resource for AMA deployment
+- Add code in setup.ps1 to check for invalid characters in environment param file
+
 
 
 

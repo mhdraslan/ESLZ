@@ -4,7 +4,7 @@
     "parameters": {
         "managementGroups":{
             "value":{
-                "mgSettings":[
+                "settings":[
                     /* Template
                     {
                         "id":"mg-intellisys", // The management group Id. Used for all references in templates.
@@ -39,7 +39,7 @@
         },
         "subscriptions":{
             "value":{
-                "subSettings":[
+                "settings":[
                     /* Template 
                     {
                         "id": "",    // The subscription ID of the subscription to be moved.
@@ -62,7 +62,7 @@
         },
         "landingZones":{
             "value":{
-                "lzSettings":[
+                "settings":[
                     // DO NOT DELETE. APP LANDING ZONE TEMPLATE
                     /*
                     {
@@ -76,7 +76,7 @@
 
                         // Resource Groups Template
                         "resourceGroups":{
-                            "rgSettings":[
+                            "settings":[
                                 // Resource Groups Template
                                 {
                                     // Networking resources RG
@@ -113,7 +113,7 @@
 
                         // Virtual Networks Template
                         "vnets":{
-                            "vnetSettings":[
+                            "settings":[
                                 // VNet Template
                                 {
                                     "vNetName":"contoso-identity-vnet",
@@ -166,7 +166,7 @@
 
                         // Subnets Template
                         "subnets":{
-                            "subnetSettings":[
+                            "settings":[
                                 // Subnet Template
                                 {
                                     "subnetName":"AzureFirewallSubnet",
@@ -183,7 +183,7 @@
                         // Virtual Machines Template
                         // Windows VMs Template
                         "windowsVMs":{
-                            "vmSettings":[
+                            "settings":[
 
                                 {
                                     "vmName":"aenpdns01",
@@ -204,7 +204,7 @@
                         },
                         // Linux VMs Template
                         "linuxVMs":{
-                            "vmSettings":[
+                            "settings":[
                                 {
                                     "vmName":"aenpdns01",
                                     "rgName":"contoso-sharedservices-rg",
@@ -225,7 +225,7 @@
 
                         // Azure Firewall Template
                         "azFirewall": {
-                            "buildAzFirewall":true,
+                            "build":true,
                             "name":"dewa-aen-prd-lz-cloudpc-afw",
                             "vnetName":"dewa-aen-prd-plt-cloudpc-vnet",
                             "vnetResourceGroupName":"isys-aen-network-rg", //Az Firewall must be in same resource group as VNet
@@ -235,7 +235,7 @@
 
                         // Azure Bastion Template
                         "azBastion": {
-                            "buildAzBastion":true,
+                            "build":true,
                             "name":"dewa-aen-prd-lz-cloudpc-bast",
                             "rgName":"isys-aen-network-rg",
                             "vnetName":"isys-aen-hub-vnet",
@@ -251,7 +251,7 @@
 
                         // Azure VPN Gateway Template
                         "azVpnGateway": {
-                            "buildVpnGateway":false,
+                            "build":false,
                             "name":"isys-aen-hub-vnet-gw-vpn",
                             "vpnType":"RouteBased",
                             "vnetName":"isys-aen-hub-vnet",
@@ -302,11 +302,11 @@
                         "build":true,
                         "lzName":"Platform",
                         "subscription":{
-                            "id":"67236ec4-f453-4086-b4d1-78a6a93fad71",
-                            "name":"Platform"
+                            "id":"67236ec4-f453-4086-b4d1-78a6a93fad71"//,
+                            //"name":"Platform"
                         },
                         "resourceGroups":{
-                            "rgSettings":[
+                            "settings":[
                                 // ADD RESOURCE GROUP SECTIONS BELOW
                                 {
                                     "rgName":"isys-aen-dnsprivatezones-rg",
@@ -339,7 +339,7 @@
                             ]
                         },
                         "vnets":{
-                            "vnetSettings":[
+                            "settings":[
                                 {
                                     "vNetName":"isys-aen-hub-vnet",
                                     "vNetAddressSpace":["172.16.0.0/23"],
@@ -436,7 +436,7 @@
                             ]
                         },
                         "subnets":{
-                            "subnetSettings":[
+                            "settings":[
                                 {
                                     "subnetName":"AzureFirewallSubnet",
                                     "vNetName":"isys-aen-hub-vnet",
@@ -530,7 +530,7 @@
                             ]
                         },
                         "windowsVMs":{
-                            "vmSettings":[
+                            "settings":[
                                 {
                                     "vmName":"az-srv-dns-01",
                                     "rgName":"isys-aen-sharedservices-rg",
@@ -564,7 +564,7 @@
                             ]
                         },
                         "linuxVMs":{
-                            "vmSettings":[
+                            "settings":[
                                 {
                                     "vmName":"az-srv-lxupdaterep-01",
                                     "rgName":"isys-aen-sharedservices-rg",
@@ -583,7 +583,7 @@
                             ]
                         },
                         "azFirewall": {
-                            "buildAzFirewall":true,
+                            "build":true,
                             "name":"isys-aen-hub-afw",
                             "vnetName":"isys-aen-hub-vnet",
                             "vnetResourceGroupName":"isys-aen-network-rg", //Az Firewall must be in same resource group as VNet
@@ -591,7 +591,7 @@
                             "tier":"Premium"
                         },
                         "azBastion": {
-                            "buildAzBastion":true,
+                            "build":true,
                             "name":"isys-aen-hub-bastion",
                             "rgName":"isys-aen-remoteaccess-rg",
                             "vnetName":"isys-aen-hub-vnet",
@@ -605,7 +605,7 @@
                             "enableTunneling":false
                         },
                         "azVpnGateway": {
-                            "buildVpnGateway":false,
+                            "build":false,
                             "name":"isys-aen-hub-gw-vpn",
                             "vpnType":"RouteBased",
                             "vnetName":"isys-aen-hub-vnet",
@@ -670,11 +670,11 @@
                         "build":true,
                         "lzName":"Landing Zones",
                         "subscription":{
-                            "id":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
-                            "name":"Landing Zones"
+                            "id":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"//,
+                            //"name":"Landing Zones"
                         },
                         "resourceGroups":{
-                            "rgSettings":[
+                            "settings":[
                                 {
                                     // Networking resources rg
                                     "rgName":"isys-aen-network-rg",
@@ -708,7 +708,7 @@
                             ]
                         },
                         "vnets":{
-                            "vnetSettings":[
+                            "settings":[
                                 {
                                     "vNetName":"isys-aen-avd-vnet",
                                     "vNetAddressSpace":["172.16.8.0/24"],
@@ -771,7 +771,7 @@
                             ]
                         },
                         "subnets":{
-                            "subnetSettings":[
+                            "settings":[
                                 {
                                     "subnetName":"AvdAdminsPoolSubnet",
                                     "vNetName":"isys-aen-avd-vnet",
@@ -793,13 +793,13 @@
                             ]
                         },
                         "windowsVMs":{
-                            "vmSettings":[]
+                            "settings":[]
                         },
                         "linuxVMs":{
-                            "vmSettings":[]
+                            "settings":[]
                         },
                         "azFirewall": {
-                            "buildAzFirewall":false,
+                            "build":false,
                             "name":"contoso-afw",
                             "vnetName":"AzureFirewallSubnet",
                             "vnetResourceGroupName":"isys-aen-network-rg", //Az Firewall must be in same resource group as VNet
@@ -807,7 +807,7 @@
                             "tier":"Premium"
                         },
                         "azBastion": {
-                            "buildAzBastion":false,
+                            "build":false,
                             "name":"contoso-bastion",
                             "rgName":"contoso-bastion-rg",
                             "vnetName":"contoso-bastion-vnet",
@@ -821,7 +821,7 @@
                             "enableTunneling":false
                         },
                         "azVpnGateway": {
-                            "buildVpnGateway":false,
+                            "build":false,
                             "name":"contoso-gw-vpn",
                             "vpnType":"RouteBased",
                             "vnetName":"contoso-gw-vpn-vnet",

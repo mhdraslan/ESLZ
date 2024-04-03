@@ -77,12 +77,12 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId":"[parameters('subscriptionId')]",
-            "Name":"[concat('Create_ResourceGroup_',parameters('resourceGroups').rgSettings[copyIndex()].rgName)]",
+            "Name":"[concat('Create_ResourceGroup_',parameters('resourceGroups').settings[copyIndex()].rgName)]",
             "dependsOn": [],
-            "location":"[parameters('resourceGroups').rgSettings[copyIndex()].rgLocation]",
+            "location":"[parameters('resourceGroups').settings[copyIndex()].rgLocation]",
             "copy": {
                 "name": "ResourceGroupsCopy",
-                "count": "[length(parameters('resourceGroups').rgSettings)]"
+                "count": "[length(parameters('resourceGroups').settings)]"
             },
             "properties":{
                 "mode":"Incremental",
@@ -91,10 +91,10 @@
                 },
                 "parameters":{
                     "name":{
-                        "value":"[parameters('resourceGroups').rgSettings[copyIndex()].rgName]"
+                        "value":"[parameters('resourceGroups').settings[copyIndex()].rgName]"
                     },
                     "location":{
-                        "value":"[parameters('resourceGroups').rgSettings[copyIndex()].rgLocation]"
+                        "value":"[parameters('resourceGroups').settings[copyIndex()].rgLocation]"
                     }
                 }
             }
@@ -169,14 +169,14 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_VirtualNetwork_',parameters('vnets').vnetSettings[copyIndex()].vNetName)]",
+            "Name":"[concat('Create_VirtualNetwork_',parameters('vnets').settings[copyIndex()].vNetName)]",
             "dependsOn": [
                 "ResourceGroupsCopy"
             ],
-            "resourceGroup": "[parameters('vnets').vnetSettings[copyIndex()].rgName]",
+            "resourceGroup": "[parameters('vnets').settings[copyIndex()].rgName]",
             "copy": {
                 "name": "VirtualNetworksCopy",
-                "count": "[length(parameters('vnets').vnetSettings)]"
+                "count": "[length(parameters('vnets').settings)]"
             },
             "properties":{
                 "mode":"Incremental",
@@ -185,13 +185,13 @@
                 },
                 "parameters":{
                     "vNetName":{
-                        "value":"[parameters('vnets').vnetSettings[copyIndex()].vNetName]"
+                        "value":"[parameters('vnets').settings[copyIndex()].vNetName]"
                     },
                     "vNetAddressSpace":{
-                        "value":"[parameters('vnets').vnetSettings[copyIndex()].vNetAddressSpace]"
+                        "value":"[parameters('vnets').settings[copyIndex()].vNetAddressSpace]"
                     },
                     "vNetDNSServers":{
-                        "value":"[parameters('vnets').vnetSettings[copyIndex()].vNetDnsServers]"
+                        "value":"[parameters('vnets').settings[copyIndex()].vNetDnsServers]"
                     }
                 }
             }
@@ -249,14 +249,14 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_Subnet_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
+            "Name":"[concat('Create_Subnet_',parameters('subnets').settings[copyIndex()].vNetName,'_',parameters('subnets').settings[copyIndex()].subnetName)]",
             "dependsOn": [
                 "VnetPeeringsCopy"
             ],
-            "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
+            "resourceGroup": "[parameters('subnets').settings[copyIndex()].rgName]",
             "copy": {
                 "name": "SubnetsCopy",
-                "count": "[length(parameters('subnets').subnetSettings)]",
+                "count": "[length(parameters('subnets').settings)]",
                 "mode": "Serial"
             },
             "properties":{
@@ -266,13 +266,13 @@
                 },
                 "parameters":{
                     "vNetName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].vNetName]"
+                        "value":"[parameters('subnets').settings[copyIndex()].vNetName]"
                     },
                     "subnetName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetName]"
+                        "value":"[parameters('subnets').settings[copyIndex()].subnetName]"
                     },
                     "subnetAddressSpace":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetAddress]"
+                        "value":"[parameters('subnets').settings[copyIndex()].subnetAddress]"
                     }
                 }
             }
@@ -282,15 +282,15 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_NSG_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
-            "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
-            "condition": "[parameters('subnets').subnetSettings[copyIndex()].createNsg]",
+            "Name":"[concat('Create_NSG_',parameters('subnets').settings[copyIndex()].vNetName,'_',parameters('subnets').settings[copyIndex()].subnetName)]",
+            "resourceGroup": "[parameters('subnets').settings[copyIndex()].rgName]",
+            "condition": "[parameters('subnets').settings[copyIndex()].createNsg]",
             "dependsOn": [
                 "SubnetsCopy"
             ],
             "copy": {
                 "name": "NsgsCopy",
-                "count": "[length(parameters('subnets').subnetSettings)]",
+                "count": "[length(parameters('subnets').settings)]",
                 "mode": "Serial"
             },
             "properties":{
@@ -300,13 +300,13 @@
                 },
                 "parameters":{
                     "vNetName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].vNetName]"
+                        "value":"[parameters('subnets').settings[copyIndex()].vNetName]"
                     },
                     "subnetName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetName]"
+                        "value":"[parameters('subnets').settings[copyIndex()].subnetName]"
                     },
                     "subnetAddressSpace":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetAddress]"
+                        "value":"[parameters('subnets').settings[copyIndex()].subnetAddress]"
                     }
                 }
             }
@@ -316,35 +316,35 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Link_UDR_',parameters('subnets').subnetSettings[copyIndex()].vNetName,'_',parameters('subnets').subnetSettings[copyIndex()].subnetName)]",
-            "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
-            "condition": "[not(equals(parameters('subnets').subnetSettings[copyIndex()].udr,''))]",
+            "Name":"[concat('Link_UDR_',parameters('subnets').settings[copyIndex()].vNetName,'_',parameters('subnets').settings[copyIndex()].subnetName)]",
+            "resourceGroup": "[parameters('subnets').settings[copyIndex()].rgName]",
+            "condition": "[not(equals(parameters('subnets').settings[copyIndex()].udr,''))]",
             "dependsOn": [
                 "NsgsCopy",
                 "UdrEntriesCopy"
             ],
             "copy": {
                 "name": "UdrLinksCopy",
-                "count": "[length(parameters('subnets').subnetSettings)]",
+                "count": "[length(parameters('subnets').settings)]",
                 "mode": "Serial"
             },
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[if(parameters('subnets').subnetSettings[copyIndex()].createNsg, variables('deploymentUris').udrLinkwithNsg, variables('deploymentUris').udrLink)]"
+                    "uri":"[if(parameters('subnets').settings[copyIndex()].createNsg, variables('deploymentUris').udrLinkwithNsg, variables('deploymentUris').udrLink)]"
                 },
                 "parameters":{
                     "udrName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].udr]"
+                        "value":"[parameters('subnets').settings[copyIndex()].udr]"
                     },
                     "udrResourceGroup":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].udrRg]"
+                        "value":"[parameters('subnets').settings[copyIndex()].udrRg]"
                     },
                     "vNetName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].vNetName]"
+                        "value":"[parameters('subnets').settings[copyIndex()].vNetName]"
                     },
                     "subnetName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetName]"
+                        "value":"[parameters('subnets').settings[copyIndex()].subnetName]"
                     }
                 }
             }
@@ -354,14 +354,14 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_WindowsVM_',parameters('windowsVMs').vmSettings[copyIndex()].vmName)]",
+            "Name":"[concat('Create_WindowsVM_',parameters('windowsVMs').settings[copyIndex()].vmName)]",
             "dependsOn": [
                 "UdrLinksCopy"
             ],
-            "resourceGroup": "[parameters('windowsVMs').vmSettings[copyIndex()].rgName]",
+            "resourceGroup": "[parameters('windowsVMs').settings[copyIndex()].rgName]",
             "copy": {
                 "name": "windowsVmsCopy",
-                "count": "[length(parameters('windowsVMs').vmSettings)]"
+                "count": "[length(parameters('windowsVMs').settings)]"
             },
             "properties":{
                 "mode":"Incremental",
@@ -370,40 +370,40 @@
                 },
                 "parameters":{
                     "vmName":{
-                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].vmName]"
+                        "value":"[parameters('windowsVMs').settings[copyIndex()].vmName]"
                     },
                     "vNetName":{
-                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].vNetName]"
+                        "value":"[parameters('windowsVMs').settings[copyIndex()].vNetName]"
                     },
                     "vNetResourceGroup":{
-                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].vNetResourceGroup]"
+                        "value":"[parameters('windowsVMs').settings[copyIndex()].vNetResourceGroup]"
                     },
                     "subnetName":{
-                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].subnetName]"
+                        "value":"[parameters('windowsVMs').settings[copyIndex()].subnetName]"
                     },
                     "vmZones":{
-                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].vmZones]"
+                        "value":"[parameters('windowsVMs').settings[copyIndex()].vmZones]"
                     },
                     "osDiskType":{
-                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].osDiskType]"
+                        "value":"[parameters('windowsVMs').settings[copyIndex()].osDiskType]"
                     },
                     "osPublisher":{
-                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].osPublisher]"
+                        "value":"[parameters('windowsVMs').settings[copyIndex()].osPublisher]"
                     },
                     "osOffer":{
-                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].osOffer]"
+                        "value":"[parameters('windowsVMs').settings[copyIndex()].osOffer]"
                     },
                     "osSku":{
-                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].osSku]"
+                        "value":"[parameters('windowsVMs').settings[copyIndex()].osSku]"
                     },
                     "vmSize":{
-                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].vmSize]"
+                        "value":"[parameters('windowsVMs').settings[copyIndex()].vmSize]"
                     },                                        
                     "adminUsername":{
-                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].adminUsername]"
+                        "value":"[parameters('windowsVMs').settings[copyIndex()].adminUsername]"
                     },
                     "adminPassword":{
-                        "value":"[parameters('windowsVMs').vmSettings[copyIndex()].adminPassword]"
+                        "value":"[parameters('windowsVMs').settings[copyIndex()].adminPassword]"
                     }
                 }
             }
@@ -413,14 +413,14 @@
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
-            "Name":"[concat('Create_LinuxVM_',parameters('linuxVMs').vmSettings[copyIndex()].vmName)]",
+            "Name":"[concat('Create_LinuxVM_',parameters('linuxVMs').settings[copyIndex()].vmName)]",
             "dependsOn": [
                 "UdrLinksCopy"
             ],
-            "resourceGroup": "[parameters('linuxVMs').vmSettings[copyIndex()].rgName]",
+            "resourceGroup": "[parameters('linuxVMs').settings[copyIndex()].rgName]",
             "copy": {
                 "name": "windowsVmsCopy",
-                "count": "[length(parameters('linuxVMs').vmSettings)]"
+                "count": "[length(parameters('linuxVMs').settings)]"
             },
             "properties":{
                 "mode":"Incremental",
@@ -429,34 +429,34 @@
                 },
                 "parameters":{
                     "vmName":{
-                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].vmName]"
+                        "value":"[parameters('linuxVMs').settings[copyIndex()].vmName]"
                     },
                     "vNetName":{
-                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].vNetName]"
+                        "value":"[parameters('linuxVMs').settings[copyIndex()].vNetName]"
                     },
                     "subnetName":{
-                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].subnetName]"
+                        "value":"[parameters('linuxVMs').settings[copyIndex()].subnetName]"
                     },
                     "osDiskType":{
-                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].osDiskType]"
+                        "value":"[parameters('linuxVMs').settings[copyIndex()].osDiskType]"
                     },
                     "osPublisher":{
-                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].osPublisher]"
+                        "value":"[parameters('linuxVMs').settings[copyIndex()].osPublisher]"
                     },
                     "osOffer":{
-                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].osOffer]"
+                        "value":"[parameters('linuxVMs').settings[copyIndex()].osOffer]"
                     },
                     "osSku":{
-                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].osSku]"
+                        "value":"[parameters('linuxVMs').settings[copyIndex()].osSku]"
                     },
                     "vmSize":{
-                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].vmSize]"
+                        "value":"[parameters('linuxVMs').settings[copyIndex()].vmSize]"
                     },                                        
                     "adminUsername":{
-                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].adminUsername]"
+                        "value":"[parameters('linuxVMs').settings[copyIndex()].adminUsername]"
                     },
                     "adminPassword":{
-                        "value":"[parameters('linuxVMs').vmSettings[copyIndex()].adminPassword]"
+                        "value":"[parameters('linuxVMs').settings[copyIndex()].adminPassword]"
                     }
                 }
             }
@@ -467,7 +467,7 @@
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"Create_Azure_Firewall",
-            "condition": "[parameters('azFirewall').buildAzFirewall]",
+            "condition": "[parameters('azFirewall').build]",
             "resourceGroup": "[parameters('azFirewall').rgName]",
             "dependsOn": [
                 "UdrLinksCopy"
@@ -496,7 +496,7 @@
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"Create_Azure_Bastion",
-            "condition": "[parameters('azBastion').buildAzBastion]",
+            "condition": "[parameters('azBastion').build]",
             "resourceGroup": "[parameters('azBastion').rgName]",
             "dependsOn": [
                 "UdrLinksCopy"
@@ -547,7 +547,7 @@
             "apiVersion":"2019-05-01",
             "subscriptionId": "[parameters('subscriptionId')]",
             "Name":"Create_Azure_VPN_Gateway",
-            "condition": "[parameters('azVpnGateway').buildVpnGateway]",
+            "condition": "[parameters('azVpnGateway').build]",
             "resourceGroup": "[parameters('azVpnGateway').rgName]",
             "dependsOn": [
                 "UdrLinksCopy"

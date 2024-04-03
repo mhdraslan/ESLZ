@@ -21,13 +21,13 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-07-01",
-            "Name":"[take(concat('MG-',replace(parameters('managementGroups').mgSettings[copyIndex()].name,' ','')),64)]",
+            "Name":"[take(concat('MG-',replace(parameters('managementGroups').settings[copyIndex()].name,' ','')),64)]",
             "dependsOn": [],
             "location":"[deployment().location]",
             "copy": {
                 "name": "ManagementGroupsCopy",
                 "mode": "Serial",
-                "count": "[length(parameters('managementGroups').mgSettings)]"
+                "count": "[length(parameters('managementGroups').settings)]"
             },
             "properties":{
                 "mode":"Incremental",
@@ -36,13 +36,13 @@
                 },
                 "parameters":{
                     "managementGroupId":{
-                        "value": "[parameters('managementGroups').mgSettings[copyIndex()].id]"
+                        "value": "[parameters('managementGroups').settings[copyIndex()].id]"
                     },
                     "managementGroupName":{
-                        "value":"[parameters('managementGroups').mgSettings[copyIndex()].name]"
+                        "value":"[parameters('managementGroups').settings[copyIndex()].name]"
                     },
                     "parentManagementGroupId":{
-                        "value":"[parameters('managementGroups').mgSettings[copyIndex()].parent]"
+                        "value":"[parameters('managementGroups').settings[copyIndex()].parent]"
                     }
                 }
             }
@@ -52,14 +52,14 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-07-01",
-            "Name":"[take(concat('Subscription-',replace(parameters('subscriptions').subSettings[copyIndex()].name,' ','')),64)]",
+            "Name":"[take(concat('Subscription-',replace(parameters('subscriptions').settings[copyIndex()].name,' ','')),64)]",
             "dependsOn": [
                 "ManagementGroupsCopy"
             ],
             "location":"[deployment().location]",
             "copy": {
                 "name": "SubscriptionsCopy",
-                "count": "[length(parameters('subscriptions').subSettings)]"
+                "count": "[length(parameters('subscriptions').settings)]"
             },
             "properties":{
                 "mode":"Incremental",
@@ -68,10 +68,10 @@
                 },
                 "parameters":{
                     "subscriptionId":{
-                        "value":"[parameters('subscriptions').subSettings[copyIndex()].id]"
+                        "value":"[parameters('subscriptions').settings[copyIndex()].id]"
                     },
                     "parentManagementGroupId":{
-                        "value":"[parameters('subscriptions').subSettings[copyIndex()].parent]"
+                        "value":"[parameters('subscriptions').settings[copyIndex()].parent]"
                     }
                 }
             }

@@ -89,11 +89,11 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[take(concat('VNet-',replace(parameters('vnets').vnetSettings[copyIndex()].vNetName,' ','')),64)]",
-            "resourceGroup": "[parameters('vnets').vnetSettings[copyIndex()].rgName]",
+            "Name":"[take(concat('VNet-',replace(parameters('vnets').settings[copyIndex()].vNetName,' ','')),64)]",
+            "resourceGroup": "[parameters('vnets').settings[copyIndex()].rgName]",
             "copy": {
                 "name": "VirtualNetworksCopy",
-                "count": "[length(parameters('vnets').vnetSettings)]"
+                "count": "[length(parameters('vnets').settings)]"
             },
             "properties":{
                 "mode":"Incremental",
@@ -102,13 +102,13 @@
                 },
                 "parameters":{
                     "vNetName":{
-                        "value":"[parameters('vnets').vnetSettings[copyIndex()].vNetName]"
+                        "value":"[parameters('vnets').settings[copyIndex()].vNetName]"
                     },
                     "vNetAddressSpace":{
-                        "value":"[parameters('vnets').vnetSettings[copyIndex()].vNetAddressSpace]"
+                        "value":"[parameters('vnets').settings[copyIndex()].vNetAddressSpace]"
                     },
                     "vNetDNSServers":{
-                        "value":"[parameters('vnets').vnetSettings[copyIndex()].vNetDnsServers]"
+                        "value":"[parameters('vnets').settings[copyIndex()].vNetDnsServers]"
                     }
                 }
             }
@@ -182,14 +182,14 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[take(concat('Subnet-',replace(parameters('subnets').subnetSettings[copyIndex()].vNetName,' ',''),'-',replace(parameters('subnets').subnetSettings[copyIndex()].subnetName,' ','')),64)]",
+            "Name":"[take(concat('Subnet-',replace(parameters('subnets').settings[copyIndex()].vNetName,' ',''),'-',replace(parameters('subnets').settings[copyIndex()].subnetName,' ','')),64)]",
             "dependsOn": [
                 "VnetPeeringsCopy"
             ],
-            "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
+            "resourceGroup": "[parameters('subnets').settings[copyIndex()].rgName]",
             "copy": {
                 "name": "SubnetsCopy",
-                "count": "[length(parameters('subnets').subnetSettings)]",
+                "count": "[length(parameters('subnets').settings)]",
                 "mode": "Serial"
             },
             "properties":{
@@ -199,13 +199,13 @@
                 },
                 "parameters":{
                     "vNetName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].vNetName]"
+                        "value":"[parameters('subnets').settings[copyIndex()].vNetName]"
                     },
                     "subnetName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetName]"
+                        "value":"[parameters('subnets').settings[copyIndex()].subnetName]"
                     },
                     "subnetAddressSpace":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetAddress]"
+                        "value":"[parameters('subnets').settings[copyIndex()].subnetAddress]"
                     }
                 }
             }
@@ -214,15 +214,15 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[take(concat('NSG-',replace(parameters('subnets').subnetSettings[copyIndex()].vNetName,' ',''),'-',replace(parameters('subnets').subnetSettings[copyIndex()].subnetName,' ','')),64)]",
-            "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
-            "condition": "[parameters('subnets').subnetSettings[copyIndex()].createNsg]",
+            "Name":"[take(concat('NSG-',replace(parameters('subnets').settings[copyIndex()].vNetName,' ',''),'-',replace(parameters('subnets').settings[copyIndex()].subnetName,' ','')),64)]",
+            "resourceGroup": "[parameters('subnets').settings[copyIndex()].rgName]",
+            "condition": "[parameters('subnets').settings[copyIndex()].createNsg]",
             "dependsOn": [
                 "SubnetsCopy"
             ],
             "copy": {
                 "name": "NsgsCopy",
-                "count": "[length(parameters('subnets').subnetSettings)]",
+                "count": "[length(parameters('subnets').settings)]",
                 "mode": "Serial"
             },
             "properties":{
@@ -232,13 +232,13 @@
                 },
                 "parameters":{
                     "vNetName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].vNetName]"
+                        "value":"[parameters('subnets').settings[copyIndex()].vNetName]"
                     },
                     "subnetName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetName]"
+                        "value":"[parameters('subnets').settings[copyIndex()].subnetName]"
                     },
                     "subnetAddressSpace":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetAddress]"
+                        "value":"[parameters('subnets').settings[copyIndex()].subnetAddress]"
                     }
                 }
             }
@@ -247,35 +247,35 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[take(concat('UDR-Link-',replace(parameters('subnets').subnetSettings[copyIndex()].vNetName,' ',''),'-',replace(parameters('subnets').subnetSettings[copyIndex()].subnetName,' ','')),64)]",
-            "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
-            "condition": "[not(equals(parameters('subnets').subnetSettings[copyIndex()].udr,''))]",
+            "Name":"[take(concat('UDR-Link-',replace(parameters('subnets').settings[copyIndex()].vNetName,' ',''),'-',replace(parameters('subnets').settings[copyIndex()].subnetName,' ','')),64)]",
+            "resourceGroup": "[parameters('subnets').settings[copyIndex()].rgName]",
+            "condition": "[not(equals(parameters('subnets').settings[copyIndex()].udr,''))]",
             "dependsOn": [
                 "NsgsCopy",
                 "UdrEntriesCopy"
             ],
             "copy": {
                 "name": "UdrLinksCopy",
-                "count": "[length(parameters('subnets').subnetSettings)]",
+                "count": "[length(parameters('subnets').settings)]",
                 "mode": "Serial"
             },
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[if(parameters('subnets').subnetSettings[copyIndex()].createNsg, parameters('deploymentUris').udrLinkwithNsg, parameters('deploymentUris').udrLink)]"
+                    "uri":"[if(parameters('subnets').settings[copyIndex()].createNsg, parameters('deploymentUris').udrLinkwithNsg, parameters('deploymentUris').udrLink)]"
                 },
                 "parameters":{
                     "udrName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].udr]"
+                        "value":"[parameters('subnets').settings[copyIndex()].udr]"
                     },
                     "udrResourceGroup":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].udrRg]"
+                        "value":"[parameters('subnets').settings[copyIndex()].udrRg]"
                     },
                     "vNetName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].vNetName]"
+                        "value":"[parameters('subnets').settings[copyIndex()].vNetName]"
                     },
                     "subnetName":{
-                        "value":"[parameters('subnets').subnetSettings[copyIndex()].subnetName]"
+                        "value":"[parameters('subnets').settings[copyIndex()].subnetName]"
                     }
                 }
             }

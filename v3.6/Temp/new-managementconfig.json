@@ -14,11 +14,11 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[concat('Build-VM-',parameters('virtualMachines').vmSettings[copyIndex()].vmName)]",
+            "Name":"[concat('Build-VM-',parameters('virtualMachines').settings[copyIndex()].vmName)]",
             "dependsOn": [],
             "copy": {
                 "name": "VMCopy",
-                "count": "[length(parameters('virtualMachines').vmSettings)]"
+                "count": "[length(parameters('virtualMachines').settings)]"
             },
             "properties":{
                 "mode":"Incremental",
@@ -27,28 +27,28 @@
                 },
                 "parameters":{
                     "vmName": {
-                        "value":"[parameters('virtualMachines').vmSettings[copyIndex()].vmName]"
+                        "value":"[parameters('virtualMachines').settings[copyIndex()].vmName]"
                     },
                     "vNetName": {
-                        "value": "[parameters('virtualMachines').vmSettings[copyIndex()].vNetName]"
+                        "value": "[parameters('virtualMachines').settings[copyIndex()].vNetName]"
                     },
                     "subnetName": {
-                        "value": "[parameters('virtualMachines').vmSettings[copyIndex()].subnetName]"
+                        "value": "[parameters('virtualMachines').settings[copyIndex()].subnetName]"
                     },
                     "osDiskType": {
-                        "value": "[parameters('virtualMachines').vmSettings[copyIndex()].osDiskType]"
+                        "value": "[parameters('virtualMachines').settings[copyIndex()].osDiskType]"
                     },
                     "osVersionNumber": {
-                        "value": "[parameters('virtualMachines').vmSettings[copyIndex()].osVersionNumber]"
+                        "value": "[parameters('virtualMachines').settings[copyIndex()].osVersionNumber]"
                     },
                     "vmSize": {
-                        "value": "[parameters('virtualMachines').vmSettings[copyIndex()].vmSize]"
+                        "value": "[parameters('virtualMachines').settings[copyIndex()].vmSize]"
                     },
                     "adminUsername": {
-                        "value": "[parameters('virtualMachines').vmSettings[copyIndex()].adminUsername]"
+                        "value": "[parameters('virtualMachines').settings[copyIndex()].adminUsername]"
                     },
                     "adminPassword": {
-                        "value": "[parameters('virtualMachines').vmSettings[copyIndex()].adminPassword]"
+                        "value": "[parameters('virtualMachines').settings[copyIndex()].adminPassword]"
                     }
                 }
             }

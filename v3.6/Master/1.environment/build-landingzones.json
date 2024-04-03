@@ -15,14 +15,14 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "condition": "[parameters('landingZones').lzSettings[copyIndex()].build]",
-            "Name":"[take(concat('Start-LZ-',replace(parameters('landingZones').lzSettings[copyIndex()].lzName,' ','')),64)]",
-            "subscriptionId": "[parameters('landingZones').lzSettings[copyIndex()].subscription.Id]",
+            "condition": "[parameters('landingZones').settings[copyIndex()].build]",
+            "Name":"[take(concat('Start-LZ-',replace(parameters('landingZones').settings[copyIndex()].lzName,' ','')),64)]",
+            "subscriptionId": "[parameters('landingZones').settings[copyIndex()].subscription.Id]",
             "location":"[deployment().location]",
             "dependsOn": [],
             "copy": {
                 "name": "LandingZonesCopy",
-                "count": "[length(parameters('landingZones').lzSettings)]",
+                "count": "[length(parameters('landingZones').settings)]",
                 "mode": "Serial"
             },
             "properties":{
@@ -35,7 +35,7 @@
                         "value":"[parameters('deploymentUris')]"
                     },
                     "environmentSettings": {
-                        "value":"[parameters('landingZones').lzSettings[copyIndex()]]"
+                        "value":"[parameters('landingZones').settings[copyIndex()]]"
                     }
                 }
             }

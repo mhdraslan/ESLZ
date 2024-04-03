@@ -10,7 +10,7 @@
         },
         "resourceGroups":{
             "value":{
-                "rgSettings":[
+                "settings":[
                     // DO NOT DELETE FIRST (DEPLOYMENT) RESOURCE GROUP. DELETE AFTER SUCCESSFUL DEPLOYMENT
                     {
                         "rgName":"rsg-aen-deployment-prd",
@@ -79,7 +79,7 @@
         },
         "vnets":{
             "value":{
-                "vnetSettings":[
+                "settings":[
                     {
                         "vNetName":"aen-uat-vnet-01",
                         "vNetAddressSpace":"10.200.8.0/24",
@@ -136,7 +136,7 @@
         },
         "subnets":{
             "value":{
-                "subnetSettings":[
+                "settings":[
                     {
                         "subnetName":"websnet",
                         "vNetName":"aen-uat-vnet-01",
@@ -224,7 +224,7 @@
         },
         "windowsVMs":{
             "value":{
-                "vmSettings":[
+                "settings":[
                     {
                         "vmName":"acstuweb01",
                         "rgName":"rsg-aen-uat-web-01",
@@ -320,12 +320,12 @@
         },
         "linuxVMs":{
             "value":{
-                "vmSettings":[]
+                "settings":[]
             }
         },
         "azFirewall": {
             "value":{
-                "buildAzFirewall":false,
+                "build":false,
                 "name":"Contoso-Hub-AzFW-01",
                 "rgName":"rsg-aen-nprod-connectivity-01",
                 "vnetName":"aen-prod-vnet-01",
@@ -334,7 +334,7 @@
         },
         "azBastion": {
             "value":{
-                "buildAzBastion":false,
+                "build":false,
                 "name":"bsn-aen-bastion-01",
                 "rgName":"rsg-aen-nprod-connectivity-01",
                 "vnetName":"aen-prod-vnet-01",
@@ -350,7 +350,7 @@
         },
         "azVpnGateway": {
             "value":{
-                "buildVpnGateway":false,
+                "build":false,
                 "name":"gw-aen-azvpngw-01",
                 "rgName":"rsg-aen-nprod-connectivity-01",
                 "vpnType":"RouteBased",
