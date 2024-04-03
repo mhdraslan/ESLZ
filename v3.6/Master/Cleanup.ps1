@@ -12,3 +12,4 @@ foreach($sub in $subs){
     Get-AzSubscriptionDeployment | Remove-AzSubscriptionDeployment -AsJob 
     Get-AzResourceGroup | ?{$_.ResourceGroupName -like $searchCriteria} | Remove-AzResourceGroup -AsJob -Force
 }
+Get-Job

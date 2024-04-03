@@ -478,7 +478,7 @@
                                     "vNetName":"isys-aen-hub-vnet",
                                     "subnetAddress":"172.16.0.192/27",
                                     "rgName":"isys-aen-network-rg",
-                                    "udr":"isys-aen-hub-appgw-rt",
+                                    "udr":"isys-aen-hub-appwaf-rt",
                                     "udrRg":"isys-aen-network-rg",
                                     "createNsg":false
                                 },
