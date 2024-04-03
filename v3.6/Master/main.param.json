@@ -637,7 +637,7 @@
                         },
                         "privateDnsZones": {
                             "build":true,
-                            "rgName":"isys-aen-privatednszones-rg",
+                            "rgName":"isys-aen-dnsprivatezones-rg",
                             "regions":[
                                 "uaenorth",
                                 "eastus"
