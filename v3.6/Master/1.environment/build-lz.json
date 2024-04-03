@@ -18,11 +18,11 @@
     },
     "variables": {
         "deplaymentNames":{
-            "resourceGroupsDeploymentName"  : "[take(concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-ResourceGroups'),64)]",
-            "networkingDeploymentName"      : "[take(concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-Networking'),64)]",
-            "virtualMachinesDeploymentName" : "[take(concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-VirtualMachines'),64)]",
-            "nvaDeploymentName"             : "[take(concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-NVAs'),64)]",
-            "monitoringDeploymentName"      : "[take(concat(parameters('deploymentNamePrefix'),parameters('environmentSettings').lzName,'-LZ-Monitoring'),64)]"
+            "resourceGroupsDeploymentName"  : "[take(concat(parameters('deploymentNamePrefix'),replace(parameters('environmentSettings').lzName,' ',''),'-LZ-ResourceGroups'),64)]",
+            "networkingDeploymentName"      : "[take(concat(parameters('deploymentNamePrefix'),replace(parameters('environmentSettings').lzName,' ',''),'-LZ-Networking'),64)]",
+            "virtualMachinesDeploymentName" : "[take(concat(parameters('deploymentNamePrefix'),replace(parameters('environmentSettings').lzName,' ',''),'-LZ-VirtualMachines'),64)]",
+            "nvaDeploymentName"             : "[take(concat(parameters('deploymentNamePrefix'),replace(parameters('environmentSettings').lzName,' ',''),'-LZ-NVAs'),64)]",
+            "monitoringDeploymentName"      : "[take(concat(parameters('deploymentNamePrefix'),replace(parameters('environmentSettings').lzName,' ',''),'-LZ-Monitoring'),64)]"
         }
     },
     "resources": [

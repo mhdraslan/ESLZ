@@ -29,7 +29,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[take(concat('UDR-',parameters('routes').udrTables[copyIndex()].routeTableName),64)]",
+            "Name":"[take(concat('UDR-',replace(parameters('routes').udrTables[copyIndex()].routeTableName,' ','')),64)]",
             "resourceGroup": "[parameters('routes').udrTables[copyIndex()].rgName]",
             "copy": {
                 "name": "UdrTablesCopy",
@@ -51,7 +51,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[take(concat('route-',parameters('routes').udrSettings[copyIndex()].routeTableName,'-',parameters('routes').udrSettings[copyIndex()].routeEntryName),64)]",
+            "Name":"[take(concat('route-',replace(parameters('routes').udrSettings[copyIndex()].routeTableName,' ',''),'-',parameters('routes').udrSettings[copyIndex()].routeEntryName),64)]",
             "resourceGroup": "[parameters('routes').udrTables[0].rgName]",
             "dependsOn": [
                 "UdrTablesCopy"
@@ -89,7 +89,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[take(concat('VNet-',parameters('vnets').vnetSettings[copyIndex()].vNetName),64)]",
+            "Name":"[take(concat('VNet-',replace(parameters('vnets').vnetSettings[copyIndex()].vNetName,' ','')),64)]",
             "resourceGroup": "[parameters('vnets').vnetSettings[copyIndex()].rgName]",
             "copy": {
                 "name": "VirtualNetworksCopy",
@@ -117,7 +117,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-10",
-            "Name":"[take(concat('Peering-',parameters('vnets').peeringSettings[copyIndex()].sourcePeeringName),64)]",
+            "Name":"[take(concat('Peering-',replace(parameters('vnets').peeringSettings[copyIndex()].sourcePeeringName,' ','')),64)]",
             "dependsOn": [
                 "VirtualNetworksCopy"
             ],
@@ -182,7 +182,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[take(concat('Subnet-',parameters('subnets').subnetSettings[copyIndex()].vNetName,'-',parameters('subnets').subnetSettings[copyIndex()].subnetName),64)]",
+            "Name":"[take(concat('Subnet-',replace(parameters('subnets').subnetSettings[copyIndex()].vNetName,' ',''),'-',replace(parameters('subnets').subnetSettings[copyIndex()].subnetName,' ','')),64)]",
             "dependsOn": [
                 "VnetPeeringsCopy"
             ],
@@ -214,7 +214,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[take(concat('NSG-',parameters('subnets').subnetSettings[copyIndex()].vNetName,'-',parameters('subnets').subnetSettings[copyIndex()].subnetName),64)]",
+            "Name":"[take(concat('NSG-',replace(parameters('subnets').subnetSettings[copyIndex()].vNetName,' ',''),'-',replace(parameters('subnets').subnetSettings[copyIndex()].subnetName,' ','')),64)]",
             "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
             "condition": "[parameters('subnets').subnetSettings[copyIndex()].createNsg]",
             "dependsOn": [
@@ -247,7 +247,7 @@
         {
             "type":"Microsoft.Resources/deployments",
             "apiVersion":"2019-05-01",
-            "Name":"[take(concat('UDR-Link-',parameters('subnets').subnetSettings[copyIndex()].vNetName,'-',parameters('subnets').subnetSettings[copyIndex()].subnetName),64)]",
+            "Name":"[take(concat('UDR-Link-',replace(parameters('subnets').subnetSettings[copyIndex()].vNetName,' ',''),'-',replace(parameters('subnets').subnetSettings[copyIndex()].subnetName,' ','')),64)]",
             "resourceGroup": "[parameters('subnets').subnetSettings[copyIndex()].rgName]",
             "condition": "[not(equals(parameters('subnets').subnetSettings[copyIndex()].udr,''))]",
             "dependsOn": [
