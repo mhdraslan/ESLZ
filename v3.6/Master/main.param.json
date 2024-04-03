@@ -784,7 +784,7 @@
                                 {
                                     "subnetName":"AvdDefaultPoolSubnet",
                                     "vNetName":"isys-aen-avd-vnet",
-                                    "subnetAddress":"172.16.8.0/28",
+                                    "subnetAddress":"172.16.8.16/28",
                                     "rgName":"isys-aen-network-rg",
                                     "udr":"isys-aen-spoke-rt",
                                     "udrRg":"isys-aen-network-rg",
