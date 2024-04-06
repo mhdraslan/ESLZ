@@ -1012,7 +1012,8 @@
                                     "publicNetworkAccessForIngestion":"Enabled",
                                     "publicNetworkAccessForQuery":"Enabled",
                                     "createAmaUserAssignedIdentity": true,
-                                    "amaUserAssignedIdentityName": "isys-aen-monitor-ama-mi"
+                                    "amaUserAssignedIdentityName": "isys-aen-monitor-ama-mi",
+                                    "amaUserAssignedIdentityResourceGroup": "isys-aen-monitor-rg"
                                 }
                             ]
                         }

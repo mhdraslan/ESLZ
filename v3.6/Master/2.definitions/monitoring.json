@@ -89,6 +89,9 @@
                     "managedIdentityName":{
                         "value":"[parameters('logAnalyticsWorkspace').settings[copyIndex()].amaUserAssignedIdentityName]"
                     },
+                    "managedIdentityResourceGroup":{
+                        "value":"[parameters('logAnalyticsWorkspace').settings[copyIndex()].amaUserAssignedIdentityResourceGroup]"
+                    },
                     "roleAssignmentName":{
                         "value":"AMA-User-Assigned-Identity-Assignment-To-Subscription"
                     },
