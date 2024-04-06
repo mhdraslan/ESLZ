@@ -83,7 +83,7 @@
             "properties":{
                 "mode":"Incremental",
                 "templatelink":{
-                    "uri":"[parameters('deploymentUris').logAnalytics]"
+                    "uri":"[parameters('deploymentUris').uaiRoleAssignment]"
                 },
                 "parameters":{
                     "managedIdentityName":{
