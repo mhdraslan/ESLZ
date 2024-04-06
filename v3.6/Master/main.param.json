@@ -379,6 +379,10 @@
                                 {
                                     "routeTableName":"isys-aen-hub-subnet-rt",
                                     "rgName":"isys-aen-network-rg"
+                                },
+                                {
+                                    "routeTableName":"isys-aen-sharedservices-jumpservers-rt",
+                                    "rgName":"isys-aen-network-rg"
                                 }
                             ],
                             "udrSettings":[
@@ -433,6 +437,20 @@
                                     "routeEntryType":"VirtualAppliance",
                                     "routeEntryNextHopIPAddress":"172.16.0.4",
                                     "routeTableName":"isys-aen-hub-gateway-rt"
+                                },
+                                {
+                                    "routeEntryName":"default-route",
+                                    "routeEntryAddressPrefix":"0.0.0.0/0",
+                                    "routeEntryType":"Internet",
+                                    "routeEntryNextHopIPAddress":"",
+                                    "routeTableName":"isys-aen-sharedservices-jumpservers-rt"
+                                },
+                                {
+                                    "routeEntryName":"isys-aen",
+                                    "routeEntryAddressPrefix":"172.16.0.0/16",
+                                    "routeEntryType":"VirtualAppliance",
+                                    "routeEntryNextHopIPAddress":"172.16.0.4",
+                                    "routeTableName":"isys-aen-sharedservices-jumpservers-rt"
                                 }
                             ]
                         },
@@ -523,6 +541,24 @@
                                     "subnetName":"tier1subnet",
                                     "vNetName":"isys-aen-sharedservices-vnet",
                                     "subnetAddress":"172.16.6.80/28",
+                                    "rgName":"isys-aen-network-rg",
+                                    "udr":"isys-aen-spoke-rt",
+                                    "udrRg":"isys-aen-network-rg",
+                                    "createNsg":true
+                                },
+                                {
+                                    "subnetName":"jumpserversubnet",
+                                    "vNetName":"isys-aen-sharedservices-vnet",
+                                    "subnetAddress":"172.16.6.112/28",
+                                    "rgName":"isys-aen-network-rg",
+                                    "udr":"isys-aen-spoke-rt",
+                                    "udrRg":"isys-aen-network-rg",
+                                    "createNsg":true
+                                },
+                                {
+                                    "subnetName":"dcsubnet",
+                                    "vNetName":"isys-aen-identity-vnet",
+                                    "subnetAddress":"172.16.6.0/28",
                                     "rgName":"isys-aen-network-rg",
                                     "udr":"isys-aen-spoke-rt",
                                     "udrRg":"isys-aen-network-rg",
