@@ -463,7 +463,7 @@
                                     "rgName":"isys-aen-network-rg",
                                     "udr":"",
                                     "udrRg":"",
-                                    "createNsg":false
+                                    "createNsg":true
                                 },
                                 {
                                     "subnetName":"RouteServerSubnet",
@@ -481,7 +481,7 @@
                                     "rgName":"isys-aen-network-rg",
                                     "udr":"isys-aen-hub-appwaf-rt",
                                     "udrRg":"isys-aen-network-rg",
-                                    "createNsg":false
+                                    "createNsg":true
                                 },
                                 {
                                     "subnetName":"PrivateEndpointSubnet",
@@ -499,7 +499,7 @@
                                     "rgName":"isys-aen-network-rg",
                                     "udr":"isys-aen-hub-subnet-rt",
                                     "udrRg":"isys-aen-network-rg",
-                                    "createNsg":false
+                                    "createNsg":true
                                 },
                                 {
                                     "subnetName":"DnsResolverOutSubnet",
@@ -508,7 +508,7 @@
                                     "rgName":"isys-aen-network-rg",
                                     "udr":"isys-aen-hub-subnet-rt",
                                     "udrRg":"isys-aen-network-rg",
-                                    "createNsg":false
+                                    "createNsg":true
                                 },
                                 {
                                     "subnetName":"tier0subnet",
@@ -975,8 +975,8 @@
                                     "retention":30,
                                     "publicNetworkAccessForIngestion":"Enabled",
                                     "publicNetworkAccessForQuery":"Enabled",
-                                    "createAmaUserAssignedIdentity": false,
-                                    "amaUserAssignedIdentityName": ""
+                                    "createAmaUserAssignedIdentity": true,
+                                    "amaUserAssignedIdentityName": "isys-aen-monitor-ama-mi"
                                 }
                             ]
                         }

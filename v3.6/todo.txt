@@ -13,6 +13,8 @@ To DO
 - Add code in setup.ps1 to check for invalid characters in environment param file
 - Create identity resource group
 - Create identity subnets
+- Create Template Specs for adding new VNets with subnets and NSGs and UDRs and updating hub UDRs
+
 
 
 
