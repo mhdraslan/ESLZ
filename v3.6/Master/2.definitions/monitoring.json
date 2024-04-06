@@ -74,6 +74,7 @@
             "apiVersion":"2019-05-01",
             "Name":"[take(concat('AMA-UAI-ASSIGNMENT-',replace(parameters('logAnalyticsWorkspace').settings[copyIndex()].name,' ','')),64)]",
             "condition": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].createAmaUserAssignedIdentity]",
+            "location": "[deployment().location]",
             //"resourceGroup": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].rgName]",
             "copy": {
                 "name": "AmaUaiAssignmentCopy",
