@@ -297,6 +297,7 @@
                     }
                     */
 
+                    /*
                     // Platform Landing Zone
                     {
                         "build":true,
@@ -651,7 +652,9 @@
                                     "rgName": "isys-aen-monitor-rg",
                                     "retention":30,
                                     "publicNetworkAccessForIngestion":"Enabled",
-                                    "publicNetworkAccessForQuery":"Enabled"
+                                    "publicNetworkAccessForQuery":"Enabled",
+                                    "createAmaUserAssignedIdentity": true,
+                                    "amaUserAssignedIdentityName": "isys-aen-sec-laws-uai"
                                 },
                                 {
                                     "build": true,
@@ -659,12 +662,16 @@
                                     "rgName": "isys-aen-monitor-rg",
                                     "retention":30,
                                     "publicNetworkAccessForIngestion":"Enabled",
-                                    "publicNetworkAccessForQuery":"Enabled"
+                                    "publicNetworkAccessForQuery":"Enabled",
+                                    "createAmaUserAssignedIdentity": true,
+                                    "amaUserAssignedIdentityName": "isys-aen-sec-laws-uai"
                                 }
                             ]
                         }
                     },
+                    */
 
+                    /*
                     // Apps Landing Zone
                     {
                         "build":true,
@@ -734,7 +741,7 @@
                                     "sourcePeeringName": "", // Leave empty to use default naming
                                     "remotePeeringName": ""  // Leave empty to use default naming
                                 }
-                                */
+                                *//*/
                                 {
                                     "sourceVnetName":"isys-aen-avd-vnet",
                                     "sourceVnetSubscriptionId":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e",
@@ -864,7 +871,112 @@
                                     "rgName": "isys-aen-avd-rg",
                                     "retention":30,
                                     "publicNetworkAccessForIngestion":"Enabled",
-                                    "publicNetworkAccessForQuery":"Enabled"
+                                    "publicNetworkAccessForQuery":"Enabled",
+                                    "createAmaUserAssignedIdentity": false,
+                                    "amaUserAssignedIdentityName": ""
+                                }
+                            ]
+                        }
+                    }
+                    */
+
+                    // Test Landing Zone
+                    {
+                        "build":true,
+                        "lzName":"Landing Zones",
+                        "subscription":{
+                            "id":"5fe2c881-8871-4546-bc4e-07a2e40dbe9e"//,
+                            //"name":"Landing Zones"
+                        },
+                        "resourceGroups":{
+                            "settings":[]
+                        },
+                        "vnets":{
+                            "settings":[],
+                            "peeringSettings":[]
+                        },
+                        "routes":{
+                            "udrTables":[],
+                            "udrSettings":[]
+                        },
+                        "subnets":{
+                            "settings":[]
+                        },
+                        "windowsVMs":{
+                            "settings":[]
+                        },
+                        "linuxVMs":{
+                            "settings":[]
+                        },
+                        "azFirewall": {
+                            "build":false,
+                            "name":"",
+                            "vnetName":"AzureFirewallSubnet",
+                            "vnetResourceGroupName":"", //Az Firewall must be in same resource group as VNet
+                            "publicIpName":"",
+                            "tier":""
+                        },
+                        "azBastion": {
+                            "build":false,
+                            "name":"",
+                            "rgName":"",
+                            "vnetName":"",
+                            "vNetResourceGroup":"",
+                            "sku":"",
+                            "bastionPublicIpName":"",
+                            "disableCopyPaste":false,
+                            "enableFileCopy":true,
+                            "enableIpConnect":true,
+                            "enableShareableLink":true,
+                            "enableTunneling":false
+                        },
+                        "azVpnGateway": {
+                            "build":false,
+                            "name":"",
+                            "vpnType":"",
+                            "vnetName":"",
+                            "vnetResourceGroupName":"",
+                            "gatewaySku":"",
+                            "localGatewayName":"",
+                            "localGatewayIpAddress":"",
+                            "localAddressPrefix":[],
+                            "gatewayPublicIpName":""
+                        },
+                        "azAppGatewayV2": {
+                            "settings":[
+                                {
+                                    "build":false,
+                                    "name":"",
+                                    "rgName":"",
+                                    "gwTier":"",
+                                    "vnetName":"",
+                                    "vNetResourceGroup":"",
+                                    "subnetName":"",
+                                    "privateIp":"",
+                                    "publicIpName":"",
+                                    "publicIpSku":"",
+                                    "allocationMethod":"",
+                                    "capacity":1,
+                                    "autoScaleMaxCapacity":2
+                                }
+                            ]
+                        },
+                        "privateDnsZones": {
+                            "build":false,
+                            "rgName":"contoso-privatednszones-rg",
+                            "regions":[]
+                        },
+                        "logAnalyticsWorkspaces": {
+                            "settings":[
+                                {
+                                    "build": true,
+                                    "name":"isys-aen-avd-laws",
+                                    "rgName": "isys-aen-avd-rg",
+                                    "retention":30,
+                                    "publicNetworkAccessForIngestion":"Enabled",
+                                    "publicNetworkAccessForQuery":"Enabled",
+                                    "createAmaUserAssignedIdentity": false,
+                                    "amaUserAssignedIdentityName": ""
                                 }
                             ]
                         }

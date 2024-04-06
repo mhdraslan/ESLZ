@@ -11,6 +11,8 @@ To DO
 - Add Azure Firewall policy resource
 - Add managed identity resource for AMA deployment
 - Add code in setup.ps1 to check for invalid characters in environment param file
+- Create identity resource group
+- Create identity subnets
 
 
 

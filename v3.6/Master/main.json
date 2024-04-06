@@ -40,6 +40,8 @@
             "privatednszone"        : "[uri(deployment().properties.templateLink.uri, '3.templates/dns/privatednszone.json')]",
             "privatednszoneregional": "[uri(deployment().properties.templateLink.uri, '3.templates/dns/privatednszoneregional.json')]",
             "privatednsresolver"    : "[uri(deployment().properties.templateLink.uri, '3.templates/dns/privatednsresolver.json')]",
+            "userAssignedIdentity"  : "[uri(deployment().properties.templateLink.uri, '3.templates/identity/userassignedidentity.json')]",
+            "uaiRoleAssignment"     : "[uri(deployment().properties.templateLink.uri, '3.templates/identity/uairoleassignment.json')]",
 
             "defResourceGroupsUri"  : "[uri(deployment().properties.templateLink.uri, '2.definitions/resource-groups.json')]",
             "defMgSubsUri"          : "[uri(deployment().properties.templateLink.uri, '2.definitions/mgsub.json')]",

@@ -44,6 +44,58 @@
                     }
                 }
             }
+        },
+        // AMA USER ASSIGNED IDENTITY
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[take(concat('AMA-UAI-',replace(parameters('logAnalyticsWorkspace').settings[copyIndex()].name,' ','')),64)]",
+            "condition": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].createAmaUserAssignedIdentity]",
+            "resourceGroup": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].rgName]",
+            "copy": {
+                "name": "lawAmaUaiCopy",
+                "count": "[length(parameters('logAnalyticsWorkspace').settings)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').userAssignedIdentity]"
+                },
+                "parameters":{
+                    "name":{
+                        "value":"[parameters('logAnalyticsWorkspace').settings[copyIndex()].amaUserAssignedIdentityName]"
+                    }
+                }
+            }
+        },
+        // AMA USER ASSIGNED IDENTITY ROLE ASSIGNMENT
+        {
+            "type":"Microsoft.Resources/deployments",
+            "apiVersion":"2019-05-01",
+            "Name":"[take(concat('AMA-UAI-ASSIGNMENT-',replace(parameters('logAnalyticsWorkspace').settings[copyIndex()].name,' ','')),64)]",
+            "condition": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].createAmaUserAssignedIdentity]",
+            //"resourceGroup": "[parameters('logAnalyticsWorkspace').settings[copyIndex()].rgName]",
+            "copy": {
+                "name": "AmaUaiAssignmentCopy",
+                "count": "[length(parameters('logAnalyticsWorkspace').settings)]"
+            },
+            "properties":{
+                "mode":"Incremental",
+                "templatelink":{
+                    "uri":"[parameters('deploymentUris').logAnalytics]"
+                },
+                "parameters":{
+                    "managedIdentityName":{
+                        "value":"[parameters('logAnalyticsWorkspace').settings[copyIndex()].amaUserAssignedIdentityName]"
+                    },
+                    "roleAssignmentName":{
+                        "value":"AMA-User-Assigned-Identity-Assignment-To-Subscription"
+                    },
+                    "roleDefinitionId":{
+                        "value":"Log Analytics Contributor"
+                    }
+                }
+            }
         }
     ],
     "outputs": {}
