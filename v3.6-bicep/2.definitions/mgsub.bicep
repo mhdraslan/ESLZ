@@ -12,7 +12,7 @@ param managementGroups object = [
     }
 ]
 
-module managementGroup 'br/public:avm/res/management/management-group' = [for mg in managementGroups: {
+module managementGroup 'br/public:avm/res/management/management-group:0.1.2' = [for mg in managementGroups: {
   name: '${mg}.id'
   params: {
     // Required parameters
