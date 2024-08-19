@@ -1,5 +1,5 @@
 
-var managementGroups = [
+param managementGroups object = [
     {
         id:'mg-test1'
         name:'Test MG 1'
