@@ -12,6 +12,8 @@ param managementGroups object = [
     }
 ]
 
+targetScope = 'managementGroup'
+
 module managementGroup 'br/public:avm/res/management/management-group:0.1.2' = [for mg in managementGroups: {
   name: '${mg}.id'
   params: {
