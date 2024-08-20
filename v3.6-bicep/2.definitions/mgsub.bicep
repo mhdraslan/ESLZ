@@ -1,5 +1,5 @@
 
-param managementGroups object = [
+param managementGroups array = [
     {
         id:'mg-test1'
         name:'Test MG 1'
