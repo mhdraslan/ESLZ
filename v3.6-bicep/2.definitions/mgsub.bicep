@@ -14,8 +14,8 @@ param managementGroups array = [
 
 targetScope = 'managementGroup'
 
-module managementGroup 'br/public:avm/res/management/management-group:0.1.2' = [for mg in managementGroups: {
-  name: '${uniqueString(deployment().name)}'
+module managementGroup 'br/public:avm/res/management/management-group:0.1.2' = [for i in range(0,2): {
+  name: 'deployment${i}'
   params: {
     // Required parameters
     name: '${mg}.id'
