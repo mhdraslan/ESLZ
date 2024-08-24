@@ -1,4 +1,4 @@
-using '../2.lz-factory/lz.bicep'
+using './lz.bicep'
 
 param lzName = 'Connectivity'
 param subscriptionId = '67236ec4-f453-4086-b4d1-78a6a93fad71'
