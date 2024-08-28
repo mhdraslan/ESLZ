@@ -3,11 +3,24 @@ targetScope = 'subscription'
 param lzName string
 param subscriptionId string
 param resourceGroups array
+param routeTables array
+param networkSecurityGroups array
+param virtualNetworks array
 
-module createResourceGroups '../2.lz-factory/lz-framework.bicep' = {
-  name: 'Create-Resouce-Groups-${lzName}'
+
+module buildLzFramework '../2.lz-factory/lz-framework.bicep' = {
+  name: 'Landing-Zone-${lzName}-Resouce-Groups'
   scope: subscription(subscriptionId)
   params: {
     resourceGroups: resourceGroups
+  }
+}
+
+module buildLzNetworking '../2.lz-factory/networking.bicep' = {
+  name: 'Landing-Zone-${lzName}-Networking'
+  params: {
+    routeTables: routeTables
+    networkSecurityGroups: networkSecurityGroups
+    virtualNetworks: virtualNetworks
   }
 }
