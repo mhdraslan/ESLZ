@@ -2,15 +2,15 @@ using './lz.bicep'
 
 param lzName = 'Connectivity'
 
-param subscriptionId = '67236ec4-f453-4086-b4d1-78a6a93fad71'
+param subscriptionId = '5fe2c881-8871-4546-bc4e-07a2e40dbe9e'
 
 param resourceGroups = [
   {
     name: 'isys-aen-network-rg'
     location: 'uaenorth'
     lock: {
-      kind: 'CanNotDelete'
-      name: 'nodelete-lock'
+      kind: 'None'
+      name: ''
     }
   }
   {
@@ -97,13 +97,22 @@ param virtualNetworks = [
       {
         name: 'subnet-001'
         addressPrefix: '10.0.0.0/26'
-        networkSecurityGroupResourceId: 'isys-aen-sharedservices-01-nsg'
-        routeTableResourceId: 'isys-aen-connectivity-01-udr'
-      }      
+        networkSecurityGroupName: 'isys-aen-sharedservices-01-nsg'
+        networkSecurityGroupResourceGroupName: 'isys-aen-network-rg'
+        routeTableName: 'isys-aen-connectivity-01-udr'
+        routeTableResourceGroupName: 'isys-aen-network-rg'
+      }
+      {
+        name: 'subnet-002'
+        addressPrefix: '10.0.1.0/26'
+        networkSecurityGroupName: ''
+        networkSecurityGroupResourceGroupName: ''
+        routeTableName: ''
+        routeTableResourceGroupName: ''
+      }
     ]
     tags: {
       'cost center': '205020'
     }
   }
 ]
-

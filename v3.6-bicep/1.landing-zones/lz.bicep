@@ -18,9 +18,14 @@ module buildLzFramework '../2.lz-factory/lz-framework.bicep' = {
 
 module buildLzNetworking '../2.lz-factory/networking.bicep' = {
   name: 'Landing-Zone-${lzName}-Networking'
+  scope: subscription(subscriptionId)
+  dependsOn: [
+    buildLzFramework
+  ]
   params: {
     routeTables: routeTables
     networkSecurityGroups: networkSecurityGroups
     virtualNetworks: virtualNetworks
   }
 }
+
