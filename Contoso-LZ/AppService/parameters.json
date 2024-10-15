@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "value": "5731edc2-4c5d-4a45-a342-331636ebe081"
+        },
+        "resourceGroupName": {
+            "value": "AZ700RGlod44469157"
+        },
+        "name": {
+            "value": "cnt-aen-app01-appsrv"
+        },
+        "location": {
+            "value": "UAE North"
+        },
+        "hostingPlanName": {
+            "value": "cnt-aen-app01-asp"
+        },
+        "serverFarmResourceGroup": {
+            "value": "AZ700RGlod44469157"
+        },
+        "alwaysOn": {
+            "value": false
+        },
+        "ftpsState": {
+            "value": "FtpsOnly"
+        },
+        "sku": {
+            "value": "Free"
+        },
+        "skuCode": {
+            "value": "F1"
+        },
+        "numberOfWorkers": {
+            "value": "1"
+        },
+        "workerSize": {
+            "value": "0"
+        },
+        "workerSizeId": {
+            "value": "0"
+        },
+        "currentStack": {
+            "value": "dotnet"
+        },
+        "phpVersion": {
+            "value": "OFF"
+        },
+        "netFrameworkVersion": {
+            "value": "v2.0"
+        }
+    }
+}
