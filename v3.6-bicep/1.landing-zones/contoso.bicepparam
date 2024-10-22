@@ -2,11 +2,11 @@ using './lz.bicep'
 
 param lzName = 'Contoso'
 
-param subscriptionId = '5731edc2-4c5d-4a45-a342-331636ebe081'
+param subscriptionId = '5fe2c881-8871-4546-bc4e-07a2e40dbe9e'
 
 param resourceGroups = [
   {
-    name: 'cnt-aen-hub-rg'
+    name: 'isys-aen-hub-rg'
     location: 'uaenorth'
     lock: {
       kind: 'None'
@@ -14,7 +14,7 @@ param resourceGroups = [
     }
   }
   {
-    name: 'cnt-aen-monitor-rg'
+    name: 'isys-aen-monitor-rg'
     location: 'uaenorth'
     lock: {
       kind: 'None'
@@ -22,7 +22,7 @@ param resourceGroups = [
     }
   }
   {
-    name: 'cnt-aen-recovery-rg'
+    name: 'isys-aen-recovery-rg'
     location: 'uaenorth'
     lock: {
       kind: 'None'
@@ -30,7 +30,7 @@ param resourceGroups = [
     }
   }
   {
-    name: 'cnt-aen-security-rg'
+    name: 'isys-aen-security-rg'
     location: 'uaenorth'
     lock: {
       kind: 'None'
@@ -38,7 +38,7 @@ param resourceGroups = [
     }
   }
   {
-    name: 'cnt-aen-app01-rg'
+    name: 'isys-aen-app01-rg'
     location: 'uaenorth'
     lock: {
       kind: 'None'
@@ -49,8 +49,8 @@ param resourceGroups = [
 
 param routeTables = [
   {
-    name:'cnt-aen-spoke-udr'
-    resourceGroup: 'cnt-aen-hub-rg'
+    name:'isys-aen-spoke-udr'
+    resourceGroup: 'isys-aen-hub-rg'
     routes: [
       {
         name: 'default-route'
@@ -68,32 +68,32 @@ param routeTables = [
 
 param networkSecurityGroups = [
   {
-    name:'cnt-aen-hub-shared-nsg'
-    resourceGroup: 'cnt-aen-hub-rg'
+    name:'isys-aen-hub-shared-nsg'
+    resourceGroup: 'isys-aen-hub-rg'
     securityRules: []
     tags: {}
   }
   {
-    name:'cnt-aen-hub-appgw-nsg'
-    resourceGroup: 'cnt-aen-hub-rg'
+    name:'isys-aen-hub-appgw-nsg'
+    resourceGroup: 'isys-aen-hub-rg'
     securityRules: []
     tags: {}
   }
   {
-    name:'cnt-aen-hub-pe-nsg'
-    resourceGroup: 'cnt-aen-hub-rg'
+    name:'isys-aen-hub-pe-nsg'
+    resourceGroup: 'isys-aen-hub-rg'
     securityRules: []
     tags: {}
   }
   {
-    name:'cnt-aen-app01-web-nsg'
-    resourceGroup: 'cnt-aen-app01-rg'
+    name:'isys-aen-app01-web-nsg'
+    resourceGroup: 'isys-aen-app01-rg'
     securityRules: []
     tags: {}
   }
   {
-    name:'cnt-aen-app01-db-nsg'
-    resourceGroup: 'cnt-aen-app01-rg'
+    name:'isys-aen-app01-db-nsg'
+    resourceGroup: 'isys-aen-app01-rg'
     securityRules: []
     tags: {}
   }
@@ -101,8 +101,8 @@ param networkSecurityGroups = [
 
 param virtualNetworks = [
   {
-    name:'vnet-hub'
-    resourceGroup: 'cnt-aen-hub-rg'
+    name:'isys-aen-hub-vnet'
+    resourceGroup: 'isys-aen-hub-rg'
     addressPrefixes : ['10.0.0.0/24','10.0.1.0/24','10.0.2.0/24']
     dnsServers: []
     subnets: [
@@ -141,24 +141,24 @@ param virtualNetworks = [
       {
         name: 'AppGatewaySubnet'
         addressPrefix: '10.0.1.0/26'
-        networkSecurityGroupName: 'cnt-aen-hub-appgw-nsg'
-        networkSecurityGroupResourceGroupName: 'cnt-aen-hub-rg'
+        networkSecurityGroupName: 'isys-aen-hub-appgw-nsg'
+        networkSecurityGroupResourceGroupName: 'isys-aen-hub-rg'
         routeTableName: ''
         routeTableResourceGroupName: ''
       }
       {
         name: 'PrivateEndpointSubnet'
         addressPrefix: '10.0.1.64/26'
-        networkSecurityGroupName: 'cnt-aen-hub-pe-nsg'
-        networkSecurityGroupResourceGroupName: 'cnt-aen-hub-rg'
+        networkSecurityGroupName: 'isys-aen-hub-pe-nsg'
+        networkSecurityGroupResourceGroupName: 'isys-aen-hub-rg'
         routeTableName: ''
         routeTableResourceGroupName: ''
       }      
       {
-        name: 'SharedSubnet'
+        name: 'SharedServicesSubnet'
         addressPrefix: '10.0.1.128/26'
-        networkSecurityGroupName: 'cnt-aen-hub-shared-nsg'
-        networkSecurityGroupResourceGroupName: 'cnt-aen-hub-rg'
+        networkSecurityGroupName: 'isys-aen-hub-shared-nsg'
+        networkSecurityGroupResourceGroupName: 'isys-aen-hub-rg'
         routeTableName: ''
         routeTableResourceGroupName: ''
       }
@@ -174,26 +174,26 @@ param virtualNetworks = [
     tags: {}
   }
   {
-    name:'vnet-app01'
-    resourceGroup: 'cnt-aen-app01-rg'
+    name:'isys-aen-app01-vnet'
+    resourceGroup: 'isys-aen-app01-rg'
     addressPrefixes : ['10.0.4.0/24']
     dnsServers: []
     subnets: [
       {
         name: 'WebTierSubnet'
         addressPrefix: '10.0.4.0/26'
-        networkSecurityGroupName: 'cnt-aen-app01-web-nsg'
-        networkSecurityGroupResourceGroupName: 'cnt-aen-app01-rg'
-        routeTableName: 'cnt-aen-spoke-udr'
-        routeTableResourceGroupName: 'cnt-aen-hub-rg'
+        networkSecurityGroupName: 'isys-aen-app01-web-nsg'
+        networkSecurityGroupResourceGroupName: 'isys-aen-app01-rg'
+        routeTableName: 'isys-aen-spoke-udr'
+        routeTableResourceGroupName: 'isys-aen-hub-rg'
       }
       {
         name: 'DbTierSubnet'
         addressPrefix: '10.0.4.64/26'
-        networkSecurityGroupName: 'cnt-aen-app01-db-nsg'
-        networkSecurityGroupResourceGroupName: 'cnt-aen-app01-rg'
-        routeTableName: 'cnt-aen-spoke-udr'
-        routeTableResourceGroupName: 'cnt-aen-hub-rg'
+        networkSecurityGroupName: 'isys-aen-app01-db-nsg'
+        networkSecurityGroupResourceGroupName: 'isys-aen-app01-rg'
+        routeTableName: 'isys-aen-spoke-udr'
+        routeTableResourceGroupName: 'isys-aen-hub-rg'
       }
     ]
     tags: {}

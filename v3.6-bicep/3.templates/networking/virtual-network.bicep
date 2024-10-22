@@ -36,11 +36,11 @@ resource resVirtualNetwork 'Microsoft.Network/virtualNetworks@2024-01-01' = {
         name: subnet.name
         properties: {
           addressPrefix: subnet.addressPrefix
-          networkSecurityGroup:{
-            id: empty(subnet.networkSecurityGroupName) ? '' : resourceId(subnet.networkSecurityGroupResourceGroupName,'Microsoft.Network/networkSecurityGroups',subnet.networkSecurityGroupName)
+          networkSecurityGroup: empty(subnet.networkSecurityGroupName) ? null : {
+            id: resourceId(subnet.networkSecurityGroupResourceGroupName,'Microsoft.Network/networkSecurityGroups',subnet.networkSecurityGroupName)
           }
-          routeTable: {
-            id: empty(subnet.routeTableName) ? '' : resourceId(subnet.routeTableResourceGroupName,'Microsoft.Network/routeTables',subnet.routeTableName)
+          routeTable: empty(subnet.routeTableName) ? null : {
+            id: resourceId(subnet.routeTableResourceGroupName,'Microsoft.Network/routeTables',subnet.routeTableName)
           }
         }
       }

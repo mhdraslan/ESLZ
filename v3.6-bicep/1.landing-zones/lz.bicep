@@ -28,4 +28,4 @@ module buildLzNetworking '../2.lz-factory/networking.bicep' = {
     virtualNetworks: virtualNetworks
   }
 }
-
+// Start deployment using the following command: New-AzSubscriptionDeployment -Name BuildLz -Location uaenorth -TemplateFile .\lz.bicep -TemplateParameterFile .\<environment>.bicepparam -Verbose 
