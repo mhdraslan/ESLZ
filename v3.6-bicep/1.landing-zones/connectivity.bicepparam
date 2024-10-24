@@ -116,3 +116,5 @@ param virtualNetworks = [
     }
   }
 ]
+
+param logAnalyticsWorkspaces = []

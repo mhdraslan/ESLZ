@@ -199,3 +199,38 @@ param virtualNetworks = [
     tags: {}
   }
 ]
+
+param logAnalyticsWorkspaces = [
+  {
+    name: 'isys-aen-monitor-ops-logaws'
+    resourceGroup: 'isys-aen-monitor-rg'
+    defaultDataCollectionRuleResourceId: ''
+    publicNetworkAccessForIngestion: 'Enabled'
+    publicNetworkAccessForQuery: 'Enabled'
+    tags: {
+      'Cost Center': '1234'
+    }
+  }
+  {
+    name: 'isys-aen-monitor-sec-logaws'
+    resourceGroup: 'isys-aen-security-rg'
+    defaultDataCollectionRuleResourceId: ''
+    publicNetworkAccessForIngestion: 'Enabled'
+    publicNetworkAccessForQuery: 'Enabled'
+    tags: {
+      'Cost Center': '1234'
+    }
+  }  
+]
+
+param backupVaults = [
+  {
+    //
+  }
+]
+
+param recoveryServiceVaults = [
+  {
+    //
+  }
+]
