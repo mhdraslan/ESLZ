@@ -8,7 +8,7 @@ param networkSecurityGroups array
 param virtualNetworks array
 
 
-module createRouteTables '../3.templates/networking/udr.bicep' = [for udr in routeTables: {
+module createRouteTables '../3.templates/networking/udr.bicep' = [for udr in routeTables: if(udr.deploy) {
   name: udr.name
   scope: resourceGroup(udr.resourceGroup)
   params: {
@@ -16,7 +16,7 @@ module createRouteTables '../3.templates/networking/udr.bicep' = [for udr in rou
   }
 }]
 
-module createNetworkSecurityGroups '../3.templates/networking/nsg.bicep' = [for nsg in networkSecurityGroups: {
+module createNetworkSecurityGroups '../3.templates/networking/nsg.bicep' = [for nsg in networkSecurityGroups: if(nsg.deploy) {
   name: 'Create-NSG-${nsg.name}'
   scope: resourceGroup(nsg.resourceGroup)
   params: {
@@ -24,7 +24,7 @@ module createNetworkSecurityGroups '../3.templates/networking/nsg.bicep' = [for 
   }
 }]
 
-module createVirtualNetworks '../3.templates/networking/virtual-network.bicep'= [for vnet in virtualNetworks: {
+module createVirtualNetworks '../3.templates/networking/virtual-network.bicep'= [for vnet in virtualNetworks: if(vnet.deploy) {
   name: 'Create-Virtual-Networks-${vnet.name}'
   scope: resourceGroup(vnet.resourceGroup)
   dependsOn: [

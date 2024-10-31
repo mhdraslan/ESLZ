@@ -3,7 +3,7 @@ targetScope = 'resourceGroup'
 param rsVaultConfig object = {
   name: 'example-recovery-services-vault'
   resourceGroup: 'example-resource-group'
-  infrastructureEncryption: 'Enabled'
+  skuName: 'Standard' // Allowed values: Standard
   alertsForAllFailoverIssues: 'Enabled'
   alertsForAllJobFailures: 'Enabled'
   alertsForAllReplicationIssues: 'Enabled'
@@ -22,13 +22,13 @@ param rsVaultConfig object = {
   }
 }
 
-resource resBackupVault 'Microsoft.RecoveryServices/vaults@2024-04-01' = {
+resource resRecoveryServiceVault 'Microsoft.RecoveryServices/vaults@2024-04-01' = {
   name: rsVaultConfig.name
   location: resourceGroup().location
+  sku:{
+    name: rsVaultConfig.skuName
+  }
   properties:{
-    encryption:{
-      infrastructureEncryption: rsVaultConfig.infrastructureEncryption
-    }
     monitoringSettings:{
       azureMonitorAlertSettings:{
         alertsForAllFailoverIssues:rsVaultConfig.alertsForAllFailoverIssues
