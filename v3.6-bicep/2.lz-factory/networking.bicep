@@ -8,23 +8,27 @@ param networkSecurityGroups array
 param virtualNetworks array
 
 
-module createRouteTables '../3.templates/networking/udr.bicep' = [for udr in routeTables: if(udr.deploy) {
-  name: udr.name
+module createRouteTables 'br/public:avm/res/network/route-table:0.4.1' = [for udr in routeTables: if(udr.deploy) {
+  name: 'Create-UDR-${udr.name}'
   scope: resourceGroup(udr.resourceGroup)
   params: {
-    routeTableConfig: udr
+    name: udr.name
+    routes: udr.routes
+    tags: udr.tags
   }
 }]
 
-module createNetworkSecurityGroups '../3.templates/networking/nsg.bicep' = [for nsg in networkSecurityGroups: if(nsg.deploy) {
+module createNetworkSecurityGroups 'br/public:avm/res/network/network-security-group:0.5.1' = [for nsg in networkSecurityGroups: if(nsg.deploy) {
   name: 'Create-NSG-${nsg.name}'
   scope: resourceGroup(nsg.resourceGroup)
   params: {
-    networkSecurityGroupConfig: nsg
+    name: nsg.name
+    securityRules: nsg.securityRules
+    tags: nsg.tags
   }
 }]
 
-module createVirtualNetworks '../3.templates/networking/virtual-network.bicep'= [for vnet in virtualNetworks: if(vnet.deploy) {
+module createVirtualNetworks 'br/public:avm/res/network/virtual-network:0.7.0'= [for vnet in virtualNetworks: if(vnet.deploy) {
   name: 'Create-Virtual-Networks-${vnet.name}'
   scope: resourceGroup(vnet.resourceGroup)
   dependsOn: [
@@ -32,7 +36,11 @@ module createVirtualNetworks '../3.templates/networking/virtual-network.bicep'= 
     createNetworkSecurityGroups
   ]
   params: {
-    virtualNetworkConfig: vnet
+    name: vnet.name
+    addressPrefixes: vnet.addressPrefixes
+    subnets: vnet.subnets
+    dnsServers: vnet.dnsServers
+    tags: vnet.tags
   }
 }]
 
